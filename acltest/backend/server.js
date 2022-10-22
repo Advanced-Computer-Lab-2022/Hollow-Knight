@@ -3,6 +3,8 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const coursesroute = require('./routes/courses')
+const instructorsroute = require('./routes/instructors')
+const traineesroute = require('./routes/trainees')
 const mongoose = require('mongoose')
 
 //app.get('/', (req,res) => {
@@ -26,6 +28,8 @@ mongoose.connect(process.env.MONGO_URI)
 app.use(express.json())
 
 app.use('/api/courses', coursesroute)
+app.use('/api/instructors', instructorsroute)
+app.use('/api/trainees', traineesroute)
 
 app.use((req,res,ext) => {
     console.log(req.path, req.method)
