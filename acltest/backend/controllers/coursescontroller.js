@@ -7,6 +7,8 @@ const createCourse = async (req, res) => {
     try{
         
         const course = await Course.create({title, price, subject, author , rating})
+        res.json({mssg: 'posted new course'})
+
     }
     catch (error) {
             res.status(400).json({error: error.message})
@@ -19,6 +21,14 @@ const findCourses = async (req,res) => {
     const courses = await Course.find({})
     res.status(200).json(courses)
 }
+
+
+
+
+
+
+
+
 module.exports = {
     createCourse,
     findCourses,

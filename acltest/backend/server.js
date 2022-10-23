@@ -7,9 +7,7 @@ const instructorsroute = require('./routes/instructors')
 const traineesroute = require('./routes/trainees')
 const mongoose = require('mongoose')
 
-//app.get('/', (req,res) => {
-//    res.json('MAAAAAAAAAAAN')
-//})
+
 
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {

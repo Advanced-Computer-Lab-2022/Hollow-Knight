@@ -34,13 +34,14 @@ const CreateInstructor = () => {
             onChange={(e) => setName(e.target.value)}
             value={name}
             />
-
+           
             <label>password:</label>
             <input
             type="text"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
             />
+             
 
             <button>Add Instructor</button>
         </form>

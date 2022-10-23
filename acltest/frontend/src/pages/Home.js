@@ -12,7 +12,9 @@ const Home = () => {
         Create a user
         </Link>
 
-
+        <Link to="/create/createcourse">
+        Create a course
+        </Link>
         </div>
         </div>
     )
