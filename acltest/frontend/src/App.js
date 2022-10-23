@@ -22,7 +22,7 @@ function App() {
                 element={<SelectCountry />}
               />
               <Route
-                path="/filterpage"
+                path="/viewallcourses"
                 element={<ViewCourses />}
               />
             </Routes>

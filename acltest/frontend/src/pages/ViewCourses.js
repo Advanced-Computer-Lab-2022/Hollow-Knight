@@ -1,4 +1,5 @@
 import { useEffect,useState } from "react"
+import CoursesTable from "../components/ViewCoursesTable"
 const ViewCourses = () =>{
     const [courses,setCourses] = useState(null)
     useEffect(()=>{
@@ -9,7 +10,9 @@ const ViewCourses = () =>{
             const json = await response.json()
 
             if(response.ok){
+                
                 setCourses(json)
+                console.log("working")
             }
 
         }
@@ -19,8 +22,8 @@ const ViewCourses = () =>{
     },[])
     return(
         <div className="courses">
-            {courses && courses.map(()=>(
-                <p key = {courses._id}>{courses.title}</p>
+            {courses && courses.map((courses)=>(
+                <CoursesTable key={courses._id} courses = {courses}/>
             ))}
         </div>
     )
