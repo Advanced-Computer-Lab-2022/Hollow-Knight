@@ -1,38 +1,35 @@
+
+
 const { useState } = require("react")
 
 const SelectCountryForm = () =>{
     const [country,SetCountry] = useState('')
-    const [id,SetID] = useState('')
+    const [name,SetName] = useState('')
 
 
     const handleSelectCountry = async (e) => {
         e.preventDefault()
-        
-        const userInfo = {id,country}
+        const userInfo = {name,country}
 
-        const response = await fetch('/api/selectcourse',{
-            method: 'PATCH',
-            body: JSON.stringify({
-              userInfo
-            }),
+        const res = await fetch('/api/instructors', {
+            method:"PATCH",
             headers: {
-              'Content-type': 'application/json; charset=UTF-8',
-            },
-          })
-            .then((response) => response.json())
-            .then((json) => console.log(json));
-        
-
-
-    }
+                "Content-Type": "application/json"},    
+                body:JSON.stringify(userInfo)
+            })
+            console.log(res.status)
+            if(res.ok){console.log(res.status); 
+            return res.json()}
+                 
+             }  
     return (
-        <form className="selectCountry" onSubmit={handleSelectCountry} >
+        <form className="selectCountryForm" onSubmit={handleSelectCountry} >
             <h2> Select A Country:</h2>
-            <label>ID:</label>
+            <label>Name:</label>
             <input
             type="text"
-            onChange={(e) => SetID(e.target.value)}
-            value={id}
+            onChange={(e) => SetName(e.target.value)}
+            value={name}
             />
             <br></br>
             <label>Country:</label>

@@ -1,4 +1,4 @@
-import SelectCountryForm from "../components/SelectCountry"
+import SelectCountryForm from "../components/SelectCountryCo"
 const SelectCountry = () =>{
     return(
         <div className="country">

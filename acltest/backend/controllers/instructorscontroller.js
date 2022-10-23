@@ -13,19 +13,15 @@ const createInstructor = async (req, res) => {
     res.json({mssg: 'user added'})
     }
 const updateInstructorCountry = async (req,res) =>{
-    const {id} = req.params
 
-    if(!mongoose.Types.ObjectId.isValid(id)){
-        return res.status(404).json({error:'No such Instructor'})
-    }
 
-    const instructor = await Instructor.findOneAndUpdate({_id:id},{
-        ...req.body
+    const instructor = await Instructor.findOneAndUpdate({name:req.body.name},{
+        country:req.body.country
  
 
     })
     if(!instructor){
-        return res.status(400).json({error:'no instructor'})
+        return;
     }
     res.status(200).json(instructor)
 }

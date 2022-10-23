@@ -1,7 +1,8 @@
 import {BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Createuser from './pages/Createuser'
-import SelectCountry from './pages/SelectCountry';
+import SelectCountry from './pages/SelectCountryPage';
+import ViewCourses from './pages/ViewCourses'
 function App() {
   return (
     <div className="App">
@@ -19,6 +20,10 @@ function App() {
                 <Route
                 path="/selectcountry"
                 element={<SelectCountry />}
+              />
+              <Route
+                path="/filterpage"
+                element={<ViewCourses />}
               />
             </Routes>
           </div>

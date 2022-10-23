@@ -4,6 +4,6 @@ const Instructor = require('../models/Instructors')
 const {createInstructor,updateInstructorCountry} = require('../controllers/instructorscontroller')
 
 router.post('/' , createInstructor)
-router.patch('/:id', updateInstructorCountry)
+router.patch('/', updateInstructorCountry)
 
 module.exports = router
