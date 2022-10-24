@@ -5,6 +5,7 @@ const app = express()
 const coursesroute = require('./routes/courses')
 const instructorsroute = require('./routes/instructors')
 const traineesroute = require('./routes/trainees')
+const adminsroute = require('./routes/admins')
 const mongoose = require('mongoose')
 
 //app.get('/', (req,res) => {
@@ -30,6 +31,7 @@ app.use(express.json())
 app.use('/api/courses', coursesroute)
 app.use('/api/instructors', instructorsroute)
 app.use('/api/trainees', traineesroute)
+app.use('/api/admins', adminsroute)
 
 app.use((req,res,ext) => {
     console.log(req.path, req.method)
