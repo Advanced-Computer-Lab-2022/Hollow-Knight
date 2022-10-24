@@ -2,12 +2,20 @@ const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema
 
-const AdminSchema = new Schema({
-    title: {
+const adminSchema = new Schema({
+    name: {
         type: String,
         required: true
     },
-    price: {
-        type: Number,
+    password: {
+        type: String,
         required: true
     },
+    country: {
+        type: String,
+        required: false
+    },
+}, {timestaps : true} )
+
+
+module.exports = mongoose.model('Admin', adminSchema)
