@@ -1,5 +1,6 @@
 import CreateInstructor from '../components/CreateInstructor'
 import CreateTrainee from '../components/CreateTrainee'
+import CreateAdmin from '../components/CreateAdmin'
 
 const Createuser = () => {
     return(
@@ -10,6 +11,7 @@ const Createuser = () => {
         <div>
         <CreateInstructor />
         <CreateTrainee />
+        <CreateAdmin />
         </div>
         </div>
     )
