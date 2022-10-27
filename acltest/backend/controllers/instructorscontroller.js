@@ -23,28 +23,48 @@ const createInstructor = async (req, res) => {
 
 
     
-    // filter the courses given by Instructor based on a subject or price
-const filterCourse = async (req, res) => {
-    const {subject, price} = req.body
-    const instructor =req.body
+//get instructor by id
+const getInstructorById = async (req, res) => {
+    const {id} = req.params
     try{
-        const course = await Course.find({subject, price, instructor})
-        res.status(200).json(course)
+        const instructor = await Instructor.findById(id)
+        if (instructor) {
+            return res.json(instructor)
+        }
+        res.status(404).json({mssg: `instructor with id ${id} not found`})
     }
     catch (error) {
-        res.status(400).json({error: error.message})
+        res.status(500).json({error: error.message})
     }
+}
+
+//get instructor by name
+const getInstructorByName = async (req, res) => {
+    const {name} = req.params
+    try{
+        const instructor = await Instructor.find({name})
+        if (instructor) {
+            return res.json(instructor)
+        }
+
+        res.status(404).json({mssg: `instructor with name ${name} not found`})
+
     }
+    catch (error) {
+        res.status(500).json({error: error.message})
+    }
+}
+    
 
 
 
 
 
 
-// search for a course given by him/her based on course title or subject or instructor
+// search for a course given by him/her based on course title or subject or instructor or price
 const searchCourse = async (req, res) => {
     const {title,instructor} = req.body
-    const {subject} = req.body
+    const {subject,price} = req.body
 
     try{
         if (title){
@@ -56,9 +76,12 @@ const searchCourse = async (req, res) => {
             return res.status(200).json(course)
         }
      
-        else{
-           return res.status(400).json({error: error.message})
+        else
+        if(price){
+            const course = await Course.find({price:price,author:instructor})
+            return res.status(200).json(course)
         }
+
 
         throw new Error("Course not found")
     }
