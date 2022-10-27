@@ -2,6 +2,7 @@ import {BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Createuser from './pages/Createuser'
 import CreateCourse from './pages/createcourse';
+import instructor from './pages/instructor';
 function App() {
   return (
     <div className="App">
@@ -19,6 +20,10 @@ function App() {
                 <Route
                 path="/create/createcourse"
                 element={<CreateCourse />}
+              />
+              <Route
+                path="/instructor"
+                element={<instructor />}
               />
              
             </Routes>

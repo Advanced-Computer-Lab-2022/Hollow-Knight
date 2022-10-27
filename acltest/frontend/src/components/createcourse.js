@@ -10,11 +10,11 @@ const CreateCourse= () => {
     const makeCourse = async (e) => {
         e.preventDefault()
 
-        const instructor = {Title, Price, Subject, author, rating}
+        const courses = {Title, Price, Subject, author, rating}
 
         const response = await fetch('/api/courses/', {
             method: 'POST',
-            body: JSON.stringify(instructor),
+            body: JSON.stringify(courses),
             headers: {
                 'Content-Type' : 'application/json'
             }

@@ -11,10 +11,13 @@ const Home = () => {
         <Link to="/create">
         Create a user
         </Link>
-
+<br></br>
         <Link to="/create/createcourse">
         Create a course
         </Link>
+        <br></br>
+        <Link to="/instructors/search">
+Search        </Link>
         </div>
         </div>
     )
