@@ -1,5 +1,6 @@
 import { useEffect,useState } from "react"
-const ViewCourses = () =>{
+import CoursesTable from "../components/ViewCoursesTable"
+const ViewCoursesWithPrice = () =>{
     const [courses,setCourses] = useState(null)
     useEffect(()=>{
        
@@ -9,6 +10,7 @@ const ViewCourses = () =>{
             const json = await response.json()
 
             if(response.ok){
+                
                 setCourses(json)
             }
 
@@ -20,14 +22,9 @@ const ViewCourses = () =>{
     return(
         <div className="courses">
             {courses && courses.map((course)=>(
-                                       <div key={course._id}>
-                                       <p ><strong>Course Title:</strong>{course.title} &nbsp;&nbsp;
-                                       <strong>Total Hours:</strong>{course.hours} &nbsp;&nbsp;
-                                       <strong>Course:</strong>{course.rating}
-                                       </p>
-                                   </div>
+                 <CoursesTable key={course._id} courses = {course}/>
             ))}
         </div>
     )
 }
-export default ViewCourses
+export default ViewCoursesWithPrice
