@@ -54,7 +54,24 @@ const getInstructorByName = async (req, res) => {
         res.status(500).json({error: error.message})
     }
 }
-    
+
+// filter the courses given by him/her based on price
+const filterCourseInstructor = async (req, res) => {
+    const {id} = req.params
+    const {price} = req.body
+    try{
+        const instructor = await Instructor.findById(id)
+        if (instructor) {
+            const course = await Course.find({instructor: id, price: {$lte: price}})
+            return res.json(course)
+        }
+        res.status(404).json({mssg: `instructor with id ${id} not found`})
+    }
+    catch (error) {
+        res.status(500).json({error: error.message})
+    }
+}
+
 
 
 
@@ -94,12 +111,12 @@ const viewCourseInstructor = async (req, res) => {
     const {instructor} = req.body
     try{
         const course = await Course.find({author:instructor})
-        res.status(200).json(course)
+        return res.status(200).json(course)
         throw new Error("Course not exist")
 
     }   
     catch (error) {
-        res.status(500).json({error: error.message})
+       return res.status(500).json({error: error.message})
     }
 }
 
@@ -107,7 +124,7 @@ const viewCourseInstructor = async (req, res) => {
 
 module.exports = {
     createInstructor,searchCourse,
-    viewCourseInstructor,filterCourse
-    ,
+    viewCourseInstructor
+    
 
 }

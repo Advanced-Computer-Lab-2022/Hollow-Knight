@@ -8,8 +8,8 @@ const SearchInstructor = () => {
 
         const instructor = {name}
 
-        const response = await fetch('/api/instructors/search', {
-            method: 'Get',
+        const response = await fetch('/api/instructors/view', {
+            method: 'GET',
             body: JSON.stringify(instructor),
             headers: {
                 'Content-Type' : 'application/json'
@@ -24,6 +24,7 @@ const SearchInstructor = () => {
     }
 
     return (
+
         <form className="Search" onSubmit={search} >
             <h2> Search</h2>
 
@@ -33,6 +34,8 @@ const SearchInstructor = () => {
             onChange={(e) => setName(e.target.value)}
             value={name}
             />
+            
+            
             <button>Search</button>
         </form>
     )
