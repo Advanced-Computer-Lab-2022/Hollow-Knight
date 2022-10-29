@@ -3,6 +3,7 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const coursesroute = require('./routes/courses')
+const usersroute = require('./routes/users')
 const instructorsroute = require('./routes/instructors')
 const traineesroute = require('./routes/trainees')
 const mongoose = require('mongoose')
@@ -30,11 +31,9 @@ app.use(express.json())
 app.use('/api/courses', coursesroute)
 app.use('/api/instructors', instructorsroute)
 app.use('/api/trainees', traineesroute)
+app.use('/users', usersroute)
 
-app.use((req,res,ext) => {
-    console.log(req.path, req.method)
-    next()
-})
+
 
 
 
