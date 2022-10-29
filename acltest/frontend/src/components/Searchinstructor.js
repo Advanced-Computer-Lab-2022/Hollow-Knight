@@ -1,15 +1,17 @@
 import { useState } from "react"
+import CoursesDetails from "./Coursesdetails"
 
 const SearchInstructor = () => {
     const [name, setName] = useState('')
-
+    const [Courses, setCourses] = useState(null)
+   //fetch courses
     const search = async (e) => {
         e.preventDefault()
 
         const instructor = {name}
 
-        const response = await fetch('/api/instructors/view', {
-            method: 'GET',
+        const response = await fetch('/api/instructors/search', {
+            method: 'POST',
             body: JSON.stringify(instructor),
             headers: {
                 'Content-Type' : 'application/json'
@@ -18,15 +20,18 @@ const SearchInstructor = () => {
         })
         const man = await response.json()
         if (response.ok) {
-        console.log('instructor added', man)
+            setCourses(man)    
+           console.log(man)
         }
 
     }
+     
+    
 
     return (
 
         <form className="Search" onSubmit={search} >
-            <h2> Search</h2>
+            
 
             <label>Name:</label>
             <input
@@ -34,7 +39,12 @@ const SearchInstructor = () => {
             onChange={(e) => setName(e.target.value)}
             value={name}
             />
-            
+          
+          <div className="courses">
+           {Courses && Courses.map(Courses => (
+           <CoursesDetails Courses={Courses} key={Courses._id} />
+           ))}
+            </div>
             
             <button>Search</button>
         </form>

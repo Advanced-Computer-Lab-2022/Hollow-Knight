@@ -6,8 +6,8 @@ const {searchCourse}=require('../controllers/instructorscontroller');
 const {viewCourseInstructor}=require('../controllers/instructorscontroller');
 
 router.post('/' , createInstructor)
-router.get('/search' , searchCourse)
-router.get('/view' , viewCourseInstructor)
+router.post('/search' , searchCourse)
+
 
 
 module.exports = router

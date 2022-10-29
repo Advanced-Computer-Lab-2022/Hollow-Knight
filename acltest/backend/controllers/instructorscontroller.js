@@ -87,15 +87,19 @@ const searchCourse = async (req, res) => {
         if (title){
             const course = await Course.find({title:title,author:instructor})
             return res.status(200).json(course)
-        }else
+        }
          if (subject){ 
             const course = await Course.find({subject:subject,author:instructor})
             return res.status(200).json(course)
         }
      
-        else
+        
         if(price){
             const course = await Course.find({price:price,author:instructor})
+            return res.status(200).json(course)
+        }
+        if(instructor){
+            const course = await Course.find({author:instructor})
             return res.status(200).json(course)
         }
 
@@ -106,25 +110,12 @@ const searchCourse = async (req, res) => {
        return res.status(500).json({error: error.message})
     }
 }
-// view all the titles of the courses given by him/her
-const viewCourseInstructor = async (req, res) => {
-    const {instructor} = req.body
-    try{
-        const course = await Course.find({author:instructor})
-        return res.status(200).json(course)
-        throw new Error("Course not exist")
 
-    }   
-    catch (error) {
-       return res.status(500).json({error: error.message})
-    }
-}
 
 
 
 module.exports = {
-    createInstructor,searchCourse,
-    viewCourseInstructor
+    createInstructor,searchCourse
     
 
 }

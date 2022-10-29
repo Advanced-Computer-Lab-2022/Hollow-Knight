@@ -16,7 +16,7 @@ const Home = () => {
         Create a course
         </Link>
         <br></br>
-        <Link to="/instructors/search">
+        <Link to="/instructor">
 Search        </Link>
         </div>
         </div>
