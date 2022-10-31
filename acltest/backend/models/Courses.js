@@ -23,6 +23,10 @@ const courseSchema = new Schema({
         type: Number,
         required: true
     },
+    hours: {
+        type: Number,
+        required: true
+    }
 }, {timestaps : true} )
 
 
