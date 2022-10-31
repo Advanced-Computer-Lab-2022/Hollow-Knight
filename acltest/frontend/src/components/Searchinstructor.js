@@ -3,16 +3,20 @@ import CoursesDetails from "./Coursesdetails"
 
 const SearchInstructor = () => {
     const [name, setName] = useState('')
+    const [title, setTitle] = useState('')
     const [Courses, setCourses] = useState(null)
+    const [subject, setSubject] = useState('')
+    const [price, setPrice] = useState('')
+
    //fetch courses
     const search = async (e) => {
         e.preventDefault()
 
-        const instructor = {name}
+        const searching = {name,title,subject,price}
 
         const response = await fetch('/api/instructors/search', {
             method: 'POST',
-            body: JSON.stringify(instructor),
+            body: JSON.stringify(searching),
             headers: {
                 'Content-Type' : 'application/json'
             }
@@ -21,11 +25,10 @@ const SearchInstructor = () => {
         const man = await response.json()
         if (response.ok) {
             setCourses(man)    
-           console.log(man)
+            console.log('shobak', man)
         }
 
     }
-     
     
 
     return (
@@ -39,10 +42,28 @@ const SearchInstructor = () => {
             onChange={(e) => setName(e.target.value)}
             value={name}
             />
-          
+
+            <label>Title:</label>
+            <input
+            type="text"
+            onChange={(e) => setTitle(e.target.value)}
+            value={title}
+            />
+            <label>Subject:</label>
+            <input
+            type="text"
+            onChange={(e) => setSubject(e.target.value)}
+            value={subject}
+            />
+              <label>price:</label>
+            <input
+            type="text"
+            onChange={(e) => setPrice(e.target.value)}
+            value={price}
+            />
           <div className="courses">
            {Courses && Courses.map(Courses => (
-           <CoursesDetails Courses={Courses} key={Courses._id} />
+           <CoursesDetails key={Courses._id} Courses={Courses} />
            ))}
             </div>
             

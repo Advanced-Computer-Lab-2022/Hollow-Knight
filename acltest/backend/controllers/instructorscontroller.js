@@ -22,57 +22,7 @@ const createInstructor = async (req, res) => {
 
 
 
-    
-//get instructor by id
-const getInstructorById = async (req, res) => {
-    const {id} = req.params
-    try{
-        const instructor = await Instructor.findById(id)
-        if (instructor) {
-            return res.json(instructor)
-        }
-        res.status(404).json({mssg: `instructor with id ${id} not found`})
-    }
-    catch (error) {
-        res.status(500).json({error: error.message})
-    }
-}
-
-//get instructor by name
-const getInstructorByName = async (req, res) => {
-    const {name} = req.params
-    try{
-        const instructor = await Instructor.find({name})
-        if (instructor) {
-            return res.json(instructor)
-        }
-
-        res.status(404).json({mssg: `instructor with name ${name} not found`})
-
-    }
-    catch (error) {
-        res.status(500).json({error: error.message})
-    }
-}
-
-// filter the courses given by him/her based on price
-const filterCourseInstructor = async (req, res) => {
-    const {id} = req.params
-    const {price} = req.body
-    try{
-        const instructor = await Instructor.findById(id)
-        if (instructor) {
-            const course = await Course.find({instructor: id, price: {$lte: price}})
-            return res.json(course)
-        }
-        res.status(404).json({mssg: `instructor with id ${id} not found`})
-    }
-    catch (error) {
-        res.status(500).json({error: error.message})
-    }
-}
-
-
+ 
 
 
 
@@ -80,26 +30,31 @@ const filterCourseInstructor = async (req, res) => {
 
 // search for a course given by him/her based on course title or subject or instructor or price
 const searchCourse = async (req, res) => {
-    const {title,instructor} = req.body
+    const {name}=req.body;
+    const {title} = req.body
     const {subject,price} = req.body
 
+    
+
+
+   
     try{
         if (title){
-            const course = await Course.find({title:title,author:instructor})
+            const course = await Course.find({title:title,author:name})
             return res.status(200).json(course)
         }
          if (subject){ 
-            const course = await Course.find({subject:subject,author:instructor})
+            const course = await Course.find({subject:subject,author:name})
             return res.status(200).json(course)
         }
      
         
         if(price){
-            const course = await Course.find({price:price,author:instructor})
+            const course = await Course.find({price:price,author:name })
             return res.status(200).json(course)
         }
-        if(instructor){
-            const course = await Course.find({author:instructor})
+        if(name){
+            const course = await Course.find({author:name})
             return res.status(200).json(course)
         }
 
@@ -109,10 +64,10 @@ const searchCourse = async (req, res) => {
     catch (error) {
        return res.status(500).json({error: error.message})
     }
+
+
+
 }
-
-
-
 
 module.exports = {
     createInstructor,searchCourse
