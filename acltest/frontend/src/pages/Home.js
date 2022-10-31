@@ -11,6 +11,19 @@ const Home = () => {
         <Link to="/create">
         Create a user
         </Link>
+        <br></br>
+        <Link to="/viewallcourses">
+        View All Courses
+        </Link>
+        <br></br>
+        <Link to="/viewallcourseswithprices">
+        View All Courses With Prices
+        </Link>
+        <br></br>
+        <Link to="/selectcountry">
+        Select a Course
+        </Link>
+        <br></br>
 
 
         </div>

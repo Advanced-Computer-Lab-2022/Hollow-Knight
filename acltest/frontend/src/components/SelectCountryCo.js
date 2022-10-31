@@ -1,14 +1,14 @@
-import { useParams } from "react-router-dom";
+
 import {useState} from 'react';
 
 
 const SelectCountryForm = () =>{
-    const [country,SetCountry] = useState('')
-    const param = useParams();
+    const [country,setCountry] = useState('')
+    const [name,setName] = useState('')
     const handleSelectCountry = async (e) => {
         e.preventDefault()
-        const userInfo = {country}
-        const res = await fetch('/users/'+param.id, {
+        const userInfo = {name,country}
+        const res = await fetch('/users', {
             method:"PATCH",
             headers: {
                 "Content-Type": "application/json"},    
@@ -22,9 +22,16 @@ const SelectCountryForm = () =>{
         <form className="selectCountryForm" onSubmit={handleSelectCountry} >
             <h2> Select A Country:</h2>
             <br></br>
+            <label>Name:</label>
+            <input
+            type="text"
+            onChange={(e) => setName(e.target.value)}
+            value={name}
+            />
+            <br></br>
             <label>Country:</label>
             <select onChange={(e) =>{
-                    SetCountry(e.target.value)
+                    setCountry(e.target.value)
                 }}>
                     <option>Egypt</option>
                     <option>United States</option>
