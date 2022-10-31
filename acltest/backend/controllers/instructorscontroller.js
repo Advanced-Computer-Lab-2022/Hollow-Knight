@@ -52,7 +52,7 @@ const searchCourse = async (req, res) => {
    
     try{
         if (title){
-            const course = await Course.find({title:title,author:name})
+            const course = await Course.find({title:title})
             return res.status(200).json(course)
         }
          if (subject){ 
@@ -81,6 +81,18 @@ const searchCourse = async (req, res) => {
 
 }
 
+const CreateCourse =async (req,res) =>{
+
+    const {title,price,subject,subtitles,subtitles_hours,summary,excercises,total_hours} = req.body
+    
+       try{
+          const course = await Course.create({title,price,subject,subtitles,subtitles_hours,summary,excercises,total_hours})
+          res.status(200).json(course)
+       }
+       catch(error){
+             res.status(400).json({error :error.message})
+       }
+}
 module.exports = {
-    createInstructor,updateInstructorCountry,searchCourse
+    createInstructor,updateInstructorCountry,searchCourse,CreateCourse
     }

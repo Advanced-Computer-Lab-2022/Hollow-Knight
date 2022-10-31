@@ -21,13 +21,13 @@ const Home = () => {
         </Link>
         <br></br>
         <Link to="/selectcountry">
-        Select a Course
+        Select a Country
         </Link>
         <br></br>
 
 
 <br></br>
-        <Link to="/create/createcourse">
+        <Link to="/addcourse">
         Create a course
         </Link>
         <br></br>

@@ -1,4 +1,10 @@
+import React from 'react';
+import {Link,useNavigate} from "react-router-dom";
 const CoursesDetails = ({ Courses }) => {
+
+
+  const URL = "/instructor/coursedetails/"+Courses._id;
+console.log(URL)
 
   return (
     <div className="courses-details">
@@ -6,7 +12,12 @@ const CoursesDetails = ({ Courses }) => {
       <p><strong>Instructor </strong>{Courses.author}</p>
       <p><strong>rating: </strong>{Courses.rating}</p>
       <p>{Courses.subject}</p>
+
+      <a href={URL}>
+            <button><Link to= {URL} >View Details</Link></button>
+            </a> 
     </div>
+    
   )
 }
 

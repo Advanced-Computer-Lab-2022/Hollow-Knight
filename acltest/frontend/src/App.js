@@ -7,6 +7,9 @@ import ViewPrice from './pages/PricesPage';
 import ViewCoursesWithPrice from'./pages/ViewCoursesWithPrice'
 import CreateCourse from './pages/createcourse';
 import Instructor from '../src/pages/instructor';
+import Addcoursepage from './pages/addcoursepage';
+import Coursedetails from './pages/viewcoursedetails';
+
 function App() {
   return (
     <div className="App">
@@ -44,6 +47,14 @@ function App() {
                 path="/instructor"
                 element={<Instructor />}
               />
+                <Route 
+              path="/addcourse" 
+              element={<Addcoursepage />} 
+            />
+            <Route 
+              path="/instructor/coursedetails/:id" 
+              element={<Coursedetails />} 
+            />
              
             </Routes>
           </div>
