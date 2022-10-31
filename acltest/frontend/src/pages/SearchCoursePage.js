@@ -1,16 +1,17 @@
+import SearchCourse from "../components/SearchCourse";
 import SearchInstructor  from "../components/Searchinstructor";
 
-const Instructor = () => {
+const SearchCoursePage = () => {
     return(
         <div className="Instructor">
         <div>
-            <h2>Instructor Search</h2>
+            <h2>Search</h2>
         </div>
         <div>
-        <SearchInstructor/>
+        <SearchCourse/>
         </div>
         </div>
     )
 }
 
-export default Instructor
+export default SearchCoursePage

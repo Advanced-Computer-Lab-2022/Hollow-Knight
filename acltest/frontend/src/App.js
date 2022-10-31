@@ -9,6 +9,7 @@ import CreateCourse from './pages/createcourse';
 import Instructor from '../src/pages/instructor';
 import Addcoursepage from './pages/addcoursepage';
 import Coursedetails from './pages/viewcoursedetails';
+import SearchCoursePage from './pages/SearchCoursePage';
 
 function App() {
   return (
@@ -54,6 +55,10 @@ function App() {
             <Route 
               path="/instructor/coursedetails/:id" 
               element={<Coursedetails />} 
+            />
+             <Route 
+              path="/SearchCoursePage"
+              element={<SearchCoursePage />} 
             />
              
             </Routes>

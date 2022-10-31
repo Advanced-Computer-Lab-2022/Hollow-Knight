@@ -81,6 +81,48 @@ const searchCourse = async (req, res) => {
 
 }
 
+const searchCourse2 = async (req, res) => {
+    const {name}=req.body;
+    const {title} = req.body
+    const {subject,price} = req.body
+
+    
+
+
+   
+    try{
+        if (title){
+            const course = await Course.find({title:title})
+            return res.status(200).json(course)
+        }
+         if (subject){ 
+            const course = await Course.find({subject:subject})
+            return res.status(200).json(course)
+        }
+     
+        
+        if(price){
+            const course = await Course.find({price:price })
+            return res.status(200).json(course)
+        }
+        if(name){
+            const course = await Course.find({author:name})
+            return res.status(200).json(course)
+        }
+
+
+        throw new Error("Course not found")
+    }
+    catch (error) {
+       return res.status(500).json({error: error.message})
+    }
+
+
+
+}
+
+
+
 const CreateCourse =async (req,res) =>{
 
     const {title,price,subject,subtitles,subtitles_hours,summary,excercises,total_hours} = req.body
@@ -94,5 +136,5 @@ const CreateCourse =async (req,res) =>{
        }
 }
 module.exports = {
-    createInstructor,updateInstructorCountry,searchCourse,CreateCourse
+    createInstructor,updateInstructorCountry,searchCourse,CreateCourse,searchCourse2
     }

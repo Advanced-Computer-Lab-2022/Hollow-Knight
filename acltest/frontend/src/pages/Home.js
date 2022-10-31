@@ -1,5 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import SearchCourse from "../components/SearchCourse";
 
 const Home = () => {
     return(
@@ -32,7 +33,10 @@ const Home = () => {
         </Link>
         <br></br>
         <Link to="/instructor">
-Search        </Link>
+Search  Inst      </Link>
+<br></br>
+        <Link to="/SearchCoursePage">
+                    Search       </Link>
         </div>
         </div>
     )
