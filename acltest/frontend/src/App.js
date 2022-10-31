@@ -20,7 +20,7 @@ function App() {
                 element={<Createuser />}
               />
                 <Route
-                path="/selectcountry"
+                path="/selectcountry/:id"
                 element={<SelectCountry />}
               />
               <Route

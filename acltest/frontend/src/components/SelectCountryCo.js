@@ -1,43 +1,35 @@
+import { useParams } from "react-router-dom";
+import {useState} from 'react';
 
-
-const { useState } = require("react")
 
 const SelectCountryForm = () =>{
     const [country,SetCountry] = useState('')
-    const [name,SetName] = useState('')
-
-
+    const param = useParams();
     const handleSelectCountry = async (e) => {
         e.preventDefault()
-        const userInfo = {name,country}
-
-        const res = await fetch('/api/instructors', {
+        const userInfo = {country}
+        const res = await fetch('/users/'+param.id, {
             method:"PATCH",
             headers: {
                 "Content-Type": "application/json"},    
                 body:JSON.stringify(userInfo)
             })
             console.log(res.status)
-            if(res.ok){console.log(res.status); 
-            return res.json()}
+            if(res.ok){return res.json()}
                  
-             }  
+             }
     return (
         <form className="selectCountryForm" onSubmit={handleSelectCountry} >
             <h2> Select A Country:</h2>
-            <label>Name:</label>
-            <input
-            type="text"
-            onChange={(e) => SetName(e.target.value)}
-            value={name}
-            />
             <br></br>
             <label>Country:</label>
-            <input
-            type="text"
-            onChange={(e) => SetCountry(e.target.value)}
-            value={country}
-            />
+            <select onChange={(e) =>{
+                    SetCountry(e.target.value)
+                }}>
+                    <option>Egypt</option>
+                    <option>United States</option>
+                    <option>Syria</option>
+            </select>
             <br></br>
             <button>Update</button>
         </form>
