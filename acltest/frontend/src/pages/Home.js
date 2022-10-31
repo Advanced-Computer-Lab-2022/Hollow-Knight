@@ -26,6 +26,13 @@ const Home = () => {
         <br></br>
 
 
+<br></br>
+        <Link to="/create/createcourse">
+        Create a course
+        </Link>
+        <br></br>
+        <Link to="/instructor">
+Search        </Link>
         </div>
         </div>
     )

@@ -5,6 +5,8 @@ import SelectCountry from './pages/SelectCountryPage';
 import ViewCourses from './pages/ViewCourses'
 import ViewPrice from './pages/PricesPage';
 import ViewCoursesWithPrice from'./pages/ViewCoursesWithPrice'
+import CreateCourse from './pages/createcourse';
+import Instructor from '../src/pages/instructor';
 function App() {
   return (
     <div className="App">
@@ -35,6 +37,14 @@ function App() {
                 path="/price/:id"
                 element={<ViewPrice />}
               />
+                <Route path="/create/createcourse"
+                element={<CreateCourse />}
+              />
+              <Route
+                path="/instructor"
+                element={<Instructor />}
+              />
+             
             </Routes>
           </div>
         </BrowserRouter>

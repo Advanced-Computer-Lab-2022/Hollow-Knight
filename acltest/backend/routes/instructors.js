@@ -5,5 +5,11 @@ const {createInstructor,updateInstructorCountry} = require('../controllers/instr
 
 router.post('/' , createInstructor)
 router.patch('/', updateInstructorCountry)
+const {createInstructor} = require('../controllers/instructorscontroller')
+const {searchCourse}=require('../controllers/instructorscontroller');
+
+router.post('/search' , searchCourse)
+
+
 
 module.exports = router
