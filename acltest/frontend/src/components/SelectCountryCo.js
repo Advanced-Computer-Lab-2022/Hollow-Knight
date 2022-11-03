@@ -33,6 +33,7 @@ const SelectCountryForm = () =>{
             <select onChange={(e) =>{
                     setCountry(e.target.value)
                 }}>
+                    <option></option>
                     <option>Egypt</option>
                     <option>United States</option>
                     <option>Syria</option>

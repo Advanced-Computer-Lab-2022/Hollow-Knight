@@ -28,18 +28,6 @@ const updateInstructorCountry = async (req,res) =>{
 
 
 
-
-
-
-
-
-
- 
-
-
-
-
-
 // search for a course given by him/her based on course title or subject or instructor or price
 const searchCourse = async (req, res) => {
     const {name}=req.body;
@@ -48,11 +36,10 @@ const searchCourse = async (req, res) => {
 
     
 
-
    
     try{
         if (title){
-            const course = await Course.find({title:title})
+            const course = await Course.find({title:title,author:name})
             return res.status(200).json(course)
         }
          if (subject){ 
