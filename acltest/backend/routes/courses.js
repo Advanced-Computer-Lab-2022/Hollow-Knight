@@ -1,21 +1,15 @@
-const express = require('express')
-const router = express.Router()
-const Course = require('../models/Courses')
-const {createCourse, findCourses, getCourse} = require('../controllers/coursescontroller')
+const express = require("express");
+const router = express.Router();
+const Course = require("../models/Courses");
+const {
+  createCourse,
+  findCourses,
+} = require("../controllers/coursescontroller");
 
-router.get('/' , findCourses)
+router.get("/", findCourses);
 
-router.get('/:id', getCourse)
+//router.get('/:id', getCourse)
 
+router.post("/", createCourse);
 
-router.post('/' , createCourse)
-
-
-router.delete('/:id' , (req, res) => {
-    res.json({mssg: 'delete a course'})
-     })
-
-router.patch('/:id' , (req, res) => {
-    res.json({mssg: 'update a course'})
-    })
-module.exports = router
+module.exports = router;

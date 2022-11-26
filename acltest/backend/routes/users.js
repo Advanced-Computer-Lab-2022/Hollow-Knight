@@ -1,7 +1,7 @@
-const express = require('express')
-const router = express.Router()
-const {updateCountry} = require('../controllers/userController')
+const express = require("express");
+const router = express.Router();
+const { updateCountry, fetchUser } = require("../controllers/userController");
 
-router.patch('/:id' , updateCountry)
-
-module.exports = router
+router.patch("/", updateCountry);
+router.get("/:id", fetchUser);
+module.exports = router;

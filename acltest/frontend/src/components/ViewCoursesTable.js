@@ -1,6 +1,8 @@
 
 const CoursesTable = ({courses}) =>{
     const URL = "/price/"+courses._id;
+    const countryToCurrency = require("country-to-currency");
+    console.log(countryToCurrency[countryAbb]);
     return(
         <div className="coursesTable">
             <p><strong>Course Title:</strong>{courses.title} &nbsp;&nbsp;
