@@ -3,18 +3,11 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const instructorSchema = new Schema({
-    name: {
-        type: String,
+    userid: { 
+        type: mongoose.Types.ObjectId,
+        ref:'Users',
         required: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    country: {
-        type: String,
-        required: false
-    },
+    }
 }, {timestaps : true} )
 
 

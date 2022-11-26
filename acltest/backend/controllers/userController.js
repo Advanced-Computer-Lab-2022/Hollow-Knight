@@ -7,6 +7,7 @@ const updateCountry = async (req,res) =>{
     const trainee = await Trainee.findOneAndUpdate({name:req.body.name},{country:req.body.country})
     if(instructor!=null){
         return res.status(200).json(instructor)
+        
     }
     if (trainee!=null){
         return res.status(200).json(trainee)

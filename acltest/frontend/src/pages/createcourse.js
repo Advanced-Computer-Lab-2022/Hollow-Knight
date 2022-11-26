@@ -1,4 +1,4 @@
-import Createcourse from '../components/createcourse'
+import Createcourse from '../components/CreateCourse'
 
 
 const CreateCourse = () => {

@@ -18,8 +18,10 @@ const Courseform =()=>{
     e.preventDefault()
 
     const course = {title,price,subject,subtitles,subtitles_hours,summary,excercises,total_hours}
-    
-    const response = await fetch('/api/instructors/addcourse', {
+    const params = new URLSearchParams(window.location.search);
+    const userId = params.get('userId');
+    console.log(userId);
+    const response = await fetch(`/api/instructors/addcourse?userId=${userId}`, {
       method: 'POST',
       body: JSON.stringify(course),
       headers: {

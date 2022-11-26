@@ -37,6 +37,12 @@ Search  Inst      </Link>
 <br></br>
         <Link to="/SearchCoursePage">
                     Search       </Link>
+                    <br></br>
+
+      <Link to="/InstructorHome">
+        Instructor Home Page
+        </Link> 
+
         </div>
         </div>
     )

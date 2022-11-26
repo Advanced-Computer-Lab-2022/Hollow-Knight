@@ -1,10 +1,15 @@
 const Instructor = require('../models/Instructors')
 const Course = require('../models/Courses')
+const User = require('../models/Users')
 const createInstructor = async (req, res) => {
-    const {name, password} = req.body
+    const {username, password,country} = req.body
+    const type = "Instructor"
 
     try{
-        const instructor = await Instructor.create({name,password})
+        const instructor = await User.create({username,password,country,type})
+        console.log(instructor._id)
+        const userid=instructor._id
+        const user =await Instructor.create({userid})
     }
     catch (error) {
         res.status(400).json({error: error.message})
@@ -73,7 +78,6 @@ const searchCourse2 = async (req, res) => {
     const {title} = req.body
     const {subject,price} = req.body
 
-    
 
 
    
@@ -111,17 +115,36 @@ const searchCourse2 = async (req, res) => {
 
 
 const CreateCourse =async (req,res) =>{
-
+    const author = req.query.userId;
     const {title,price,subject,subtitles,subtitles_hours,summary,excercises,total_hours} = req.body
-    
+   
        try{
-          const course = await Course.create({title,price,subject,subtitles,subtitles_hours,summary,excercises,total_hours})
+          const course = await Course.create({title,price,subject,author,subtitles,subtitles_hours,summary,excercises,total_hours})
           res.status(200).json(course)
        }
        catch(error){
              res.status(400).json({error :error.message})
        }
+      
+      
 }
+
+
+const ViewReviews =async (req,res) =>{
+    const name = req.query.userId;
+   try
+    {
+        const course = await Course.find({author:name})
+        console.log(course)
+        return res.status(200).json(course)
+    }catch(error){
+        res.status(400).json({error :error.message})
+  }
+     
+}
+
+
+
 module.exports = {
-    createInstructor,updateInstructorCountry,searchCourse,CreateCourse,searchCourse2
+    createInstructor,updateInstructorCountry,searchCourse,CreateCourse,searchCourse2,ViewReviews
     }

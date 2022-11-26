@@ -1,13 +1,13 @@
 import { useState } from "react"
 
 const CreateTrainee = () => {
-    const [name, setName] = useState('')
+    const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-
+    const [country, setCountry] = useState('')
     const maketrainee = async (e) => {
         e.preventDefault()
 
-        const trainee = {name, password}
+        const trainee = {username, password,country}
 
         const response = await fetch('/api/trainees', {
             method: 'POST',
@@ -19,6 +19,9 @@ const CreateTrainee = () => {
         })
         const man = await response.json()
         if (response.ok) {
+            setCountry('')
+            setPassword('')
+            setUsername('')
         console.log('trainee added', man)
         }
 
@@ -31,8 +34,8 @@ const CreateTrainee = () => {
             <label>Name:</label>
             <input
             type="text"
-            onChange={(e) => setName(e.target.value)}
-            value={name}
+            onChange={(e) => setUsername(e.target.value)}
+            value={username}
             />
 
             <label>password:</label>
@@ -41,6 +44,13 @@ const CreateTrainee = () => {
             onChange={(e) => setPassword(e.target.value)}
             value={password}
             />
+             <label>Country:</label>
+            <input
+            type="text"
+            onChange={(e) => setCountry(e.target.value)}
+            value={country}
+            />
+
 
             <button>Add Trainee</button>
         </form>

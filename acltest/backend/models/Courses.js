@@ -15,12 +15,13 @@ const courseSchema = new Schema({
         type: String,
         required: false
     },
-    author: {
-        type: String,
+    author: { 
+        type: mongoose.Types.ObjectId,
+        ref:'Instructors',
         required: false
     },
     rating: {
-        type: Number,
+        type: Array,
         required: false
     },
         subtitles: {
@@ -44,7 +45,13 @@ const courseSchema = new Schema({
         type: Number,
         required: false
     }
-}, {timestaps : true} )
+    ,
+    reviews:{
+        type:Array,
+        required :false
+
+    }
+}, {timestamps : true} )
 
 
 module.exports = mongoose.model('Course', courseSchema)

@@ -42,9 +42,6 @@ const findCourses = async (req,res) => {
 
 
 
-
-
-
 module.exports = {
     CourseDetails,
     findCourses,

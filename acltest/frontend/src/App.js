@@ -10,6 +10,9 @@ import Instructor from '../src/pages/instructor';
 import Addcoursepage from './pages/addcoursepage';
 import Coursedetails from './pages/viewcoursedetails';
 import SearchCoursePage from './pages/SearchCoursePage';
+import GoInstructor from './pages/GoInstructor';
+import Apps from './pages/Apps';
+import ViewReview from './pages/ViewReview';
 
 function App() {
   return (
@@ -60,7 +63,18 @@ function App() {
               path="/SearchCoursePage"
               element={<SearchCoursePage />} 
             />
-             
+             <Route
+             path="/InstructorHome"
+             element={<GoInstructor/>}
+             />
+             <Route
+             path="/apps"
+             element={<Apps/>}
+             />
+              <Route
+             path="/ViewReviews"
+             element={<ViewReview/>}
+             />
             </Routes>
           </div>
         </BrowserRouter>
