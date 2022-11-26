@@ -19,6 +19,10 @@ const userschema = new Schema({
     type:{
         type: String,
         required: false
+    },
+    email: {
+        type: String,
+        required: false
     }
 
 }, {timestaps : true} )

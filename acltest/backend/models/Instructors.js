@@ -7,6 +7,11 @@ const instructorSchema = new Schema({
         type: mongoose.Types.ObjectId,
         ref:'Users',
         required: true
+    },
+
+    biography: {
+        type: String,
+        required: false
     }
 }, {timestaps : true} )
 

@@ -9,12 +9,11 @@ const createInstructor = async (req, res) => {
         const instructor = await User.create({username,password,country,type})
         console.log(instructor._id)
         const userid=instructor._id
-        const user =await Instructor.create({userid})
+        await Instructor.create({userid: userid})
     }
     catch (error) {
         res.status(400).json({error: error.message})
     }
-
     res.json({mssg: 'user added'})
     }
 const updateInstructorCountry = async (req,res) =>{
@@ -144,7 +143,33 @@ const ViewReviews =async (req,res) =>{
 }
 
 
+const updatemailbiogrpahy = async (req, res) => {
+  //  const {username, password, biography,mail} = req.body
+    const instruct = "Instructor"
+    try{
+   const instructor = await User.findOne({username: req.body.username, password: req.body.password, type: instruct})
+   if(!instructor){
+    res.status(404).json("not found")
+    return
+   }
+    if(req.body.mail) {
+    const updatemail = await User.findOneAndUpdate({username: req.body.username, password: req.body.password, type: instruct}, {email:req.body.mail})
+    }
+    var ObjectId = require('mongoose').Types.ObjectId;
+    var userid = instructor._id
+    if(req.body.biography){
+        const updatebiography = await Instructor.findOneAndUpdate({userid: userid}, {biography: req.body.biography})
+    }
+    res.status(200).json("success")
+    }
+    catch (error) {
+        res.status(400).json({error: error.message})
+    }
+    
+   return ;
+  
+    }
 
 module.exports = {
-    createInstructor,updateInstructorCountry,searchCourse,CreateCourse,searchCourse2,ViewReviews
+    createInstructor,updateInstructorCountry,searchCourse,CreateCourse,searchCourse2,ViewReviews,updatemailbiogrpahy
     }

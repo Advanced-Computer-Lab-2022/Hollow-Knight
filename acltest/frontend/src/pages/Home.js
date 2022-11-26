@@ -25,6 +25,9 @@ const Home = () => {
         Select a Country
         </Link>
         <br></br>
+        <Link to="/updateinfo">
+        Update Instructor's information
+        </Link>
 
 
 <br></br>

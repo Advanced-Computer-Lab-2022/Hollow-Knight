@@ -13,6 +13,8 @@ import SearchCoursePage from './pages/SearchCoursePage';
 import GoInstructor from './pages/GoInstructor';
 import Apps from './pages/Apps';
 import ViewReview from './pages/ViewReview';
+import UpdateInstructInfo from './pages/updateinstructorinfo';
+
 
 function App() {
   return (
@@ -74,6 +76,10 @@ function App() {
               <Route
              path="/ViewReviews"
              element={<ViewReview/>}
+             />
+              <Route
+             path="/updateinfo"
+             element={<UpdateInstructInfo/>}
              />
             </Routes>
           </div>
