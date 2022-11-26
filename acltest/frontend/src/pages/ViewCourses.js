@@ -22,8 +22,8 @@ const ViewCourses = () =>{
             {courses && courses.map((course)=>(
                                        <div key={course._id}>
                                        <p ><strong>Course Title:</strong>{course.title} &nbsp;&nbsp;
-                                       <strong>Total Hours:</strong>{course.hours} &nbsp;&nbsp;
-                                       <strong>Course:</strong>{course.rating}
+                                       <strong>Total Hours:</strong>{course.total_hours} &nbsp;&nbsp;
+                                       <strong>Course Rating:</strong>{course.rating}
                                        </p>
                                    </div>
             ))}

@@ -1,17 +1,17 @@
 import { useState } from "react"
 
-const CreateTrainee = () => {
+const CreateAdmin = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [country, setCountry] = useState('')
-    const maketrainee = async (e) => {
+    const makeadmin = async (e) => {
         e.preventDefault()
 
-        const trainee = {username, password,country}
+        const admin = {username, password,country}
 
-        const response = await fetch('/api/trainees', {
+        const response = await fetch('/api/admins', {
             method: 'POST',
-            body: JSON.stringify(trainee),
+            body: JSON.stringify(admin),
             headers: {
                 'Content-Type' : 'application/json'
             }
@@ -19,17 +19,18 @@ const CreateTrainee = () => {
         })
         const man = await response.json()
         if (response.ok) {
-            setCountry('')
-            setPassword('')
-            setUsername('')
-        console.log('trainee added', man)
+        setUsername('')
+        setPassword('')
+        setCountry('')
+        console.log('admin added', man)
+
         }
 
     }
 
     return (
-        <form className="createtrainee" onSubmit={maketrainee} >
-            <h2> Add trainee</h2>
+        <form className="createadmin" onSubmit={makeadmin} >
+            <h2> Add admin</h2>
 
             <label>Name:</label>
             <input
@@ -44,18 +45,17 @@ const CreateTrainee = () => {
             onChange={(e) => setPassword(e.target.value)}
             value={password}
             />
-             <label>Country:</label>
+            <label>Country :</label>
             <input
             type="text"
             onChange={(e) => setCountry(e.target.value)}
             value={country}
             />
 
-
-            <button>Add Trainee</button>
+            <button>Add admin</button>
         </form>
     )
 
 }
 
-export default CreateTrainee
+export default CreateAdmin

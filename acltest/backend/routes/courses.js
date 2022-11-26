@@ -7,9 +7,6 @@ const {
 } = require("../controllers/coursescontroller");
 
 router.get("/", findCourses);
-
-//router.get('/:id', getCourse)
-
 router.post("/", createCourse);
 
 module.exports = router;

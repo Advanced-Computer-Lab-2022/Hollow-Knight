@@ -2,26 +2,12 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const instructorSchema = new Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-    country: {
-      type: String,
-      required: false,
-    },
-    countryAbb: {
-      type: String,
-      required: false,
-    },
-  },
-  { timestaps: true }
-);
+const instructorSchema = new Schema({
+    userid: { 
+        type: mongoose.Types.ObjectId,
+        ref:'Users',
+        required: true
+    }
+}, {timestaps : true} )
 
 module.exports = mongoose.model("Instructors", instructorSchema);

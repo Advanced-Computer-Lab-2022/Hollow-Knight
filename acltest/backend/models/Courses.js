@@ -14,23 +14,45 @@ const courseSchema = new Schema(
       default: 0,
     },
     subject: {
-      type: String,
-      required: true,
+        type: String,
+        required: false
     },
-    author: {
-      type: String,
-      required: true,
+    author: { 
+        type: mongoose.Types.ObjectId,
+        ref:'Instructors',
+        required: false
     },
     rating: {
-      type: Number,
-      required: true,
+        type: Array,
+        required: false
     },
-    hours: {
-      type: Number,
-      required: true,
+        subtitles: {
+        type: String,
+        required: true
     },
-  },
-  { timestaps: true }
-);
+    subtitles_hours: {
+        type: Number,
+        required: false
+    },
+    summary: {
+        type: String,
+        required: true
+    },
+    excercises: {
+        type: String,
+        required: false
+    }
+    ,
+    total_hours: {
+        type: Number,
+        required: false
+    }
+    ,
+    reviews:{
+        type:Array,
+        required :false
+
+    }
+}, {timestamps : true} )
 
 module.exports = mongoose.model("Course", courseSchema);
