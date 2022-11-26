@@ -7,13 +7,10 @@ const traineeSchema = new Schema({
         type: String,
         required: true
     },
-    password: {
-        type: String,
+    userid: { 
+        type: mongoose.Types.ObjectId,
+        ref:'Users',
         required: true
-    },
-    country: {
-        type: String,
-        required: false,
     }
 }, {timestaps : true} )
 

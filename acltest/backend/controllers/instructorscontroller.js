@@ -29,17 +29,6 @@ const updateInstructorCountry = async (req,res) =>{
 
 
 
-
-
-
-
-
- 
-
-
-
-
-
 // search for a course given by him/her based on course title or subject or instructor or price
 const searchCourse = async (req, res) => {
     const {name}=req.body;
