@@ -13,6 +13,7 @@ import SearchCoursePage from './pages/SearchCoursePage';
 import Login from './pages/login';
 import Signup from './pages/Signup';
 import Navbar from './components/Navbar';
+import Passwordreset from './pages/Passwordreset';
 function App() {
   return (
     <div className="App">
@@ -71,6 +72,14 @@ function App() {
             <Route
               path="/signup"
               element={<Signup />}
+            />
+             <Route
+              path="/resetpassword"
+              element={<Passwordreset/>}
+            />
+             <Route
+              path="/resetpassword"
+              element={<Passwordreset/>}
             />
 
              
