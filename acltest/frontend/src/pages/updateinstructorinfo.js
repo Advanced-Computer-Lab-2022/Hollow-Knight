@@ -4,7 +4,7 @@ const updateinstructorinfo = () => {
     return(
         <div className="CreateUser">
         <div>
-            <h2>Create a user</h2>
+            <h2>Update Instructor Info</h2>
         </div>
         <div>
         <UpdateInstructInfo />

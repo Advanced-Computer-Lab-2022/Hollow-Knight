@@ -14,6 +14,7 @@ import GoInstructor from './pages/GoInstructor';
 import Apps from './pages/Apps';
 import ViewReview from './pages/ViewReview';
 import UpdateInstructInfo from './pages/updateinstructorinfo';
+import ReviewInstructor from './pages/ReviewInstructor';
 
 
 function App() {
@@ -80,6 +81,10 @@ function App() {
               <Route
              path="/updateinfo"
              element={<UpdateInstructInfo/>}
+             />
+              <Route
+             path="/reviewinstructor"
+             element={<ReviewInstructor/>}
              />
             </Routes>
           </div>

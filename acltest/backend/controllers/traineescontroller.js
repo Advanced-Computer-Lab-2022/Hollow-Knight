@@ -11,6 +11,10 @@ const createTrainee = async (req, res) => {
         console.log(trainee._id)
         const userid=trainee._id
         const user =await Trainee.create({userid})
+
+        const test = await User.findOne({username : username}).select({username : 1, _id:0})
+       
+        console.log(test.username)
     
     }
     catch (error) {

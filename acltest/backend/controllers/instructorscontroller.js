@@ -152,6 +152,7 @@ const updatemailbiogrpahy = async (req, res) => {
     res.status(404).json("not found")
     return
    }
+   
     if(req.body.mail) {
     const updatemail = await User.findOneAndUpdate({username: req.body.username, password: req.body.password, type: instruct}, {email:req.body.mail})
     }
@@ -170,6 +171,74 @@ const updatemailbiogrpahy = async (req, res) => {
   
     }
 
+    const rateinstructor = async (req, res) => {
+        //  const {username, password, biography,mail} = req.body
+          const instruct = "Instructor"
+          const trainer = "Trainee"
+          try{
+         const trainee = await User.findOne({username : req.body.traineeusername, type : trainer})
+        if(!trainee){
+            res.status(404).json("trainee not found")
+        }
+         const instructor = await User.findOne({username: req.body.instructorusername})
+         if(!instructor){
+          res.status(404).json("not found")
+          return
+         }
+       //  console.log(instructor)
+          const traineeid = trainee._id
+          console.log(traineeid)
+          const userid = instructor._id
+          const findinst= await Instructor.findOne({userid: userid})
+          console.log(findinst.rating)
+        
+          var check = false
+          for (const obj of findinst.rating) {
+            if (JSON.stringify(obj.traineeid) === JSON.stringify(traineeid)) {
+              check = true
+              break;
+            }
+          }
+          if(req.body.review){
+        if(check == false){
+        const updaterating = await Instructor.findOneAndUpdate({userid: userid}, {$push : {rating: { review : req.body.review, traineeid : traineeid} }})
+         res.status(200).json("added")
+         return
+        }
+        else{
+            console.log("in the else")
+            const newlist = findinst.rating
+            console.log("newlist: " + newlist)
+            for (const obj of newlist) {
+                if (JSON.stringify(obj.traineeid) === JSON.stringify(traineeid)) {
+                    obj.review = req.body.review
+        }
+    }
+        const updaterating = await Instructor.findOneAndUpdate({userid: userid}, {rating: newlist})
+        res.status(200).json("updated")
+        var sum = 0
+        for (const obj of newlist) {
+            if (JSON.stringify(obj.traineeid) === JSON.stringify(traineeid)) {
+                sum += obj.review
+          }
+          var newaverage = sum/newlist.length
+          const updatetotal = await Instructor.findOneAndUpdate({userid: userid}, {overallRating : newaverage})
+          console.log("updatetotal:" + updatetotal)
+        }
+
+    }
+          }
+        }
+          catch (error) {
+              res.status(400).json({error: error.message})
+          }
+          
+         return ;
+        
+          }
+
+
+
 module.exports = {
-    createInstructor,updateInstructorCountry,searchCourse,CreateCourse,searchCourse2,ViewReviews,updatemailbiogrpahy
+    createInstructor,updateInstructorCountry,searchCourse,CreateCourse,searchCourse2,ViewReviews,updatemailbiogrpahy,rateinstructor
     }
