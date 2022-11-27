@@ -1,5 +1,5 @@
 import SearchCourse from "../components/SearchCourse";
-// import SearchInstructor  from "../components/Searchinstructor";
+import SearchInstructor  from "../components/Searchinstructor";
 
 const SearchCoursePage = () => {
     return(

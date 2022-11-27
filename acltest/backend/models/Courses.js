@@ -43,10 +43,6 @@ const courseSchema = new Schema({
     total_hours: {
         type: Number,
         required: false
-    },
-    reviews:{
-        type:Array,
-        required:false
     }
 }, {timestaps : true} )
 

@@ -31,7 +31,7 @@ app.use('/api/courses', coursesroute)
 app.use('/api/instructors', instructorsroute)
 app.use('/api/trainees', traineesroute)
 app.use('/api/admins', adminsroute)
-app.use('/api/users', usersroute)
+app.use('/users', usersroute)
 
 
 

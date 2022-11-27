@@ -10,17 +10,13 @@ import Instructor from '../src/pages/instructor';
 import Addcoursepage from './pages/addcoursepage';
 import Coursedetails from './pages/viewcoursedetails';
 import SearchCoursePage from './pages/SearchCoursePage';
-import Login from './pages/login';
-import Signup from './pages/Signup';
-import Navbar from './components/Navbar';
+
 function App() {
   return (
     <div className="App">
         <BrowserRouter>
-        <Navbar/>
           <div className="pages">
             <Routes>
-            
               <Route
                 path="/"
                 element={<Home />}
@@ -64,15 +60,6 @@ function App() {
               path="/SearchCoursePage"
               element={<SearchCoursePage />} 
             />
-            <Route
-              path="/login"
-              element={<Login />}
-            />
-            <Route
-              path="/signup"
-              element={<Signup />}
-            />
-
              
             </Routes>
           </div>

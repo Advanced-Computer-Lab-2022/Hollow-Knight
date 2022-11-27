@@ -7,11 +7,14 @@ const instructorSchema = new Schema({
         type: String,
         required: true
     },
-    userid: { 
-        type: mongoose.Types.ObjectId,
-        ref:'Users',
+    password: {
+        type: String,
         required: true
-    }
+    },
+    country: {
+        type: String,
+        required: false
+    },
 }, {timestaps : true} )
 
 

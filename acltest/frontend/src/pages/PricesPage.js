@@ -1,11 +1,8 @@
 import ViewPriceCo from "../components/ViewPriceCo"
-
-
 const ViewPrice =() =>{
     return(
         <div>
             <ViewPriceCo/>
-           
         </div>
     )
 
