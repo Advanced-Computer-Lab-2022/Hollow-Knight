@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Forgotpassword = ({ workout }) => {
+const Forgotpassword = () => {
     const [email, setEmail] = useState('')
     
     const handleClick = async () => {
@@ -13,16 +13,17 @@ const Forgotpassword = ({ workout }) => {
             'Content-Type': 'application/json'
           }
         })
-      const json = await response.json()
+        console.log(response)
+      const json = await response.json() 
       if(response.ok){
-        console.log("sendemail",json)
-      }
+        console.log(email,json);
+          }
 
     }
     
   
     return (
-      <form className="createinstructor" onSubmit={handleClick} >
+      <form className="Forgot pass" onSubmit={handleClick} >
             <h2>forgotPassword</h2>
            
             <label>Email:</label>
@@ -33,7 +34,7 @@ const Forgotpassword = ({ workout }) => {
             />
              
 
-            <button>Add Instructor</button>
+            <button>FORGET PASS</button>
         </form>
     )
   }

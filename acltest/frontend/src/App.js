@@ -14,6 +14,8 @@ import Login from './pages/login';
 import Signup from './pages/Signup';
 import Navbar from './components/Navbar';
 import Passwordreset from './pages/Passwordreset';
+import Forgotpassword from './components/Forgotpassword';
+import Forgotpasswordtoken from './pages/Forgotpasswordtoken';
 function App() {
   return (
     <div className="App">
@@ -78,10 +80,13 @@ function App() {
               element={<Passwordreset/>}
             />
              <Route
-              path="/resetpassword"
-              element={<Passwordreset/>}
+              path="/forgotpassword"
+              element={<Forgotpassword/>}
             />
-
+             <Route
+              path="/forgotpassword/:id"
+              element={<Forgotpasswordtoken/>}
+            />
              
             </Routes>
           </div>

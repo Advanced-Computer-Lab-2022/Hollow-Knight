@@ -6,6 +6,9 @@ const validator = require('validator')
 const jwt = require('jsonwebtoken')
 const User = require('../models/userModel')
 
+const process = require('process');
+var nodeoutlook = require('nodejs-nodemailer-outlook')
+
 const createtoken = async (_id) => {
     return jwt.sign({ _id }, process.env.SECRET, { expiresIn: '3d' })
 }
@@ -21,11 +24,48 @@ const forgotPassword = async (req, res) => {
         const token = await createtoken(user._id)
 
         const url = `http://localhost:5000/api/users/changepassword/`+token
+        const url2=`http://localhost:3000/forgotpassword/`+token
+        nodeoutlook.sendEmail({
+
+            auth: {
+                user: process.env.EMAIL, // Your email must be same outlook email
+                pass: process.env.PASSWORD
+            },
+            from:process.env.EMAIL,
+            to: email,
+            subject: "Reset Password",
+            html: `<h1>DONOT FORGOT PASSWORD AGAIN</h1>
+            <p>Click on the link below to reset your password</p>
+            <a href=${url2}>${url2}</a>`,
+            onError: (e) => console.log(e),
+            onSuccess: (i) => console.log(i)
+        })
+
+
+
+
+
+
+
+
+
+
+
         res.status(200).json({ url })
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
 }
+
+
+
+
+
+
+
+
+
+
 //change password without old password
 const changePassword1 =async  (req,res)=>{
     const {password} = req.body
@@ -123,5 +163,40 @@ const signupUser = async (req, res) => {
 }
 
 
+//Q:send Email to the user by using gmail api
 
-module.exports = { updateCountry, loginUser, signupUser,forgotPassword,changePassword,changePassword1 }
+const sendEmail = async (req, res) => {
+    const { email, subject, message } = req.body
+    try {
+       
+        
+        nodeoutlook.sendEmail({
+        
+            auth: {
+                user: process.env.EMAIL, // Your email must be same outlook email
+                pass: process.env.PASSWORD
+            },
+            from:process.env.EMAIL,
+            to: email,
+            subject: subject,
+            html: message,
+            
+            
+            onError: (e) => console.log(e),
+            onSuccess: (i) => console.log(i)
+        });
+        res.status(200).json({ message: "Email sent successfully" })
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+}
+
+
+ 
+
+    
+    
+    
+
+
+module.exports = { updateCountry, loginUser, signupUser,forgotPassword,changePassword,changePassword1,sendEmail }

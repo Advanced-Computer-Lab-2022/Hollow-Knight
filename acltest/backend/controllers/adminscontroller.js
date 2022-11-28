@@ -19,4 +19,4 @@ const createAdmin = async (req, res) => {
 module.exports = {
     createAdmin,
     }
-    //comment
+    
