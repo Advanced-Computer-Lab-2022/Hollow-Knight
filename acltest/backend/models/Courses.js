@@ -22,21 +22,14 @@ const courseSchema = new Schema(
       ref: "Instructors",
       required: false,
     },
-    rating: [
+    review: [
       {
         rating: { type: Number, required: false },
         reviews: { type: String, required: false },
         traineeId: { type: mongoose.Types.ObjectId, required: false },
       },
     ],
-    subtitles: {
-      type: String,
-      required: true,
-    },
-    subtitles_hours: {
-      type: Number,
-      required: false,
-    },
+ 
     summary: {
       type: String,
       required: true,

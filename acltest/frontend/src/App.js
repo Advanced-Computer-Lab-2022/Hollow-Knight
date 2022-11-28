@@ -15,6 +15,8 @@ import Apps from './pages/Apps';
 import ViewReview from './pages/ViewReview';
 import UpdateInstructInfo from './pages/updateinstructorinfo';
 import ReviewInstructor from './pages/ReviewInstructor';
+import ViewMyCourses from './pages/ViewMyCourses';
+import Discount from './pages/Discount';
 
 
 function App() {
@@ -79,6 +81,10 @@ function App() {
              element={<ViewReview/>}
              />
               <Route
+             path="/ViewMyCourses"
+             element={<ViewMyCourses/>}
+             />
+              <Route
              path="/updateinfo"
              element={<UpdateInstructInfo/>}
              />
@@ -86,6 +92,10 @@ function App() {
              path="/reviewinstructor"
              element={<ReviewInstructor/>}
              />
+              <Route 
+              path="/applydiscount" 
+              element={<Discount/>} 
+            />
             </Routes>
           </div>
         </BrowserRouter>

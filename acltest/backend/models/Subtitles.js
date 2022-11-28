@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const subtitleSchema = new Schema(
   {
-    userid: {
+    courseid: {
       type: mongoose.Types.ObjectId,
       ref: "Courses",
       required: true,

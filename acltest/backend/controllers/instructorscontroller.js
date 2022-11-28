@@ -238,7 +238,46 @@ const updatemailbiogrpahy = async (req, res) => {
           }
 
 
+const viewmycourses = async (req, res) => {
+//  const {username, password, biography,mail} = req.body
+     const instruct = "Instructor"
+     const mostak = req.query.userId
+    try{
+    console.log(req.query.userId)
+    const courses = await Course.find({author: mostak})
+    res.status(200).json(courses)
+    console.log(courses)
+    }
+    catch (error) {
+        res.status(400).json({error: error.message})
+    }
+              
+             return ;
+            
+              }         
+
+const applydiscount = async (req, res) => {
+//  const {username, password, biography,mail} = req.body
+     const instruct = "Instructor"
+     const mostak = req.query.courseId
+    try{
+    const courses = await Course.findOne({_id: mostak})
+    var money = courses.price
+    console.log(money)
+    var newmoney = money - req.body.discount
+    const updating = await Course.findOneAndUpdate({_id: mostak}, {price: newmoney})
+    res.status(200).json("success!")
+    console.log(courses)
+    }
+    catch (error) {
+        res.status(400).json({error: error.message})
+    }
+              
+             return ;
+            
+              }     
+
 
 module.exports = {
-    createInstructor,updateInstructorCountry,searchCourse,CreateCourse,searchCourse2,ViewReviews,updatemailbiogrpahy,rateinstructor
+    createInstructor,updateInstructorCountry,searchCourse,CreateCourse,searchCourse2,ViewReviews,updatemailbiogrpahy,rateinstructor,viewmycourses,applydiscount
     }

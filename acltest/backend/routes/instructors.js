@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Instructor = require('../models/Instructors')
-const {createInstructor,updateInstructorCountry,CreateCourse, searchCourse2,ViewReviews, updatemailbiogrpahy, rateinstructor} = require('../controllers/instructorscontroller')
+const {createInstructor,updateInstructorCountry,CreateCourse, searchCourse2,ViewReviews, updatemailbiogrpahy, rateinstructor, viewmycourses, applydiscount} = require('../controllers/instructorscontroller')
 
 router.post('/' , createInstructor)
 router.patch('/', updateInstructorCountry)
@@ -12,5 +12,7 @@ router.post('/search2' , searchCourse2)
 router.post('/rate', rateinstructor)
 router.post('/addcourse' , CreateCourse)
 router.get('/viewreviews',ViewReviews)
+router.get('/viewmycourses', viewmycourses)
+router.post('/applydiscount', applydiscount)
 
 module.exports = router
