@@ -39,7 +39,7 @@ const ViewCoursesWithPrice = () => {
             <strong>Total Hours:</strong>
             {course.hours} &nbsp;&nbsp;
             <strong>Course:</strong>
-            {course.rating}
+            {course.overallRating}
             <strong>Price:</strong>
             <ViewPriceCo price={course.price} currencyName={currencyName} />
           </div>

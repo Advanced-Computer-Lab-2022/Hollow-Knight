@@ -1,5 +1,6 @@
 const Trainee = require("../models/Trainees");
 const Course = require("../models/Courses");
+const Subtitle = require("../models/Subtitles");
 const createTrainee = async (req, res) => {
   const { name, password } = req.body;
 
@@ -11,24 +12,83 @@ const createTrainee = async (req, res) => {
 
   res.json({ mssg: "user added" });
 };
-
 const updateCourseRating = async (req, res) => {
-  const { title, rating } = req.body;
-
-  try {
-    const courseRatingUpdate = await Course.findOneAndUpdate(
+  const { title, rating, id } = req.body;
+  const course = await Course.findOne({ title });
+  const updatedArray = course.rating;
+  const searchedRating = course.rating.find(
+    (element) => element.traineeId == id
+  );
+  if (searchedRating == null) {
+    course.rating.push({ rating: rating, traineeId: id });
+    const updated = await Course.findOneAndUpdate(
       { title },
-      { rating }
+      { rating: course.rating }
     );
-    return courseRatingUpdate;
-  } catch (error) {
-    res.status(400).json({ error: error.message });
+    return res.status(200).json(rating);
+  } else {
+    for (const obj of updatedArray) {
+      if (obj.traineeId == id) {
+        obj.rating = rating;
+        break;
+      }
+    }
+    const updated = await Course.findOneAndUpdate(
+      { title },
+      { rating: updatedArray }
+    );
+    return res.status(200).json(rating);
   }
+};
+const watchVideo = async (req, res) => {
+  const { title, subTitle } = req.body;
+  const course = await Course.findOne({ title: title });
+  if (!course) {
+    return res.status(404).json("No Such Course");
+  }
+  const subtitle = await Subtitle.findOne({
+    courseId: course.id,
+    title: subTitle,
+  });
+  if (!subtitle.video) {
+    return res.status(404).json("No Videos Found For This Course");
+  }
+  return res.status(200).json(subtitle.video);
+};
 
-  res.json({ mssg: "Rating Updated" });
+const getExerciseGrade = async (req, res) => {
+  const { subTitle, exerciseTitle } = req.body;
+  const subtitle = await Subtitle.findOne({
+    title: subTitle,
+  });
+  const exercise = subtitle.exercises.find(
+    (element) => element.title == exerciseTitle
+  );
+  if (!exercise || exercise == "") return res.status(404).json();
+  console.log(exercise);
+  res.status(200).json(exercise);
+};
+
+const addExercise = async (req, res) => {
+  const { subTitle, title, grade, maxGrade } = req.body;
+  const subtitle = await Subtitle.findOne({ title: subTitle });
+  const exercises = subtitle.exercises;
+  console.log(subtitle.exercises);
+  exercises.push({ title, grade, maxGrade });
+
+  const subtitleUpdated = await Subtitle.findOneAndUpdate(
+    { title: subTitle },
+    {
+      exercises: exercises,
+    }
+  );
+  res.status(200).json(subtitleUpdated);
 };
 
 module.exports = {
   createTrainee,
   updateCourseRating,
+  watchVideo,
+  getExerciseGrade,
+  addExercise,
 };
