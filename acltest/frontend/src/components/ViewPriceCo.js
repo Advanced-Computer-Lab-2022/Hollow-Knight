@@ -20,7 +20,7 @@ const ViewPriceCo = ({ price, currencyName }) => {
         .then((response) => response.json())
         .then((result) => setResult(result.result))
         .catch((error) => console.log("error", error));
-    } catch {
+    } catch (error) {
       setResult(price);
     }
   }, [price, currencyName]);
