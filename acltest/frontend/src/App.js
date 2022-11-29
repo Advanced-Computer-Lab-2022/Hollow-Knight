@@ -17,6 +17,7 @@ import UpdateInstructInfo from './pages/updateinstructorinfo';
 import ReviewInstructor from './pages/ReviewInstructor';
 import ViewMyCourses from './pages/ViewMyCourses';
 import Discount from './pages/Discount';
+import Subtitle from './pages/subtitlecreate';
 
 
 function App() {
@@ -95,6 +96,10 @@ function App() {
               <Route 
               path="/applydiscount" 
               element={<Discount/>} 
+            />
+              <Route 
+              path="/addsubtitle" 
+              element={<Subtitle/>} 
             />
             </Routes>
           </div>

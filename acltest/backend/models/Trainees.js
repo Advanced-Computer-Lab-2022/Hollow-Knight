@@ -9,6 +9,6 @@ const traineeSchema = new Schema({
         required: true
     }
    
-}, {timestaps : true} )
+}, {timestamps : true} )
 
 module.exports = mongoose.model("Trainee", traineeSchema);

@@ -26,7 +26,7 @@ const instructorSchema = new Schema(
       required: false,
     },
   },
-  { timestaps: true }
+  { timestamps: true }
 );
 
 module.exports = mongoose.model("Instructors", instructorSchema);

@@ -39,6 +39,12 @@ const ViewMyCourses = () => {
               padding="normal">
               Apply Discount
                       </button>
+                      <button variant="contained"
+            onClick={() => window.location.href=`/addsubtitle?courseId=${course._id}`} key={course._id}
+              margin="normal"
+              padding="normal">
+              Add Subtitle
+                      </button>
                                  </div>
           ))}
       </div>

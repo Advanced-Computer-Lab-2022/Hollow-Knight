@@ -22,7 +22,7 @@ const userschema = new Schema(
       required: false,
     },
   },
-  { timestaps: true }
+  { timestamps: true }
 );
 
 module.exports = mongoose.model("Users", userschema);

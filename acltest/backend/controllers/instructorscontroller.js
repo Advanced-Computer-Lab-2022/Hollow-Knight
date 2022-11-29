@@ -1,6 +1,7 @@
 const Instructor = require('../models/Instructors')
 const Course = require('../models/Courses')
 const User = require('../models/Users')
+const Subtitles = require('../models/Subtitles')
 const createInstructor = async (req, res) => {
     const {username, password,country} = req.body
     const type = "Instructor"
@@ -115,10 +116,10 @@ const searchCourse2 = async (req, res) => {
 
 const CreateCourse =async (req,res) =>{
     const author = req.query.userId;
-    const {title,price,subject,subtitles,subtitles_hours,summary,excercises,total_hours} = req.body
+    const {title,price,subject,summary,total_hours} = req.body
    
        try{
-          const course = await Course.create({title,price,subject,author,subtitles,subtitles_hours,summary,excercises,total_hours})
+          const course = await Course.create({title,price,subject,author,summary,total_hours})
           res.status(200).json(course)
        }
        catch(error){
@@ -275,9 +276,49 @@ const applydiscount = async (req, res) => {
               
              return ;
             
-              }     
+              }
+
+ 
+const CreateSchedule =async (req,res) =>{
+    const instruct = "Instructor"
+     const mostak = req.query.courseId
+    try{
+    const courses = await Course.findOne({_id: mostak})
+    const newsched = await Subtitles.create({Title:req.body.name, TotalHours: req.body.hour, courseid: mostak})
+    res.status(200).json("success!")
+    console.log(courses)
+    }
+    catch (error) {
+        res.status(400).json({error: error.message})
+    }
+              
+             return ;
+            
+                  
+            }
+            
+
+
+const uploadvideo = async (req, res) => {
+     const link = req.body.link
+    try{
+    const courses = await Course.findOne({_id: mostak})
+    var money = courses.price
+    console.log(money)
+    var newmoney = money - req.body.discount
+    const updating = await Course.findOneAndUpdate({_id: mostak}, {price: newmoney})
+    res.status(200).json("success!")
+    console.log(courses)
+    }
+    catch (error) {
+        res.status(400).json({error: error.message})
+    }
+              
+             return ;
+            
+              }
 
 
 module.exports = {
-    createInstructor,updateInstructorCountry,searchCourse,CreateCourse,searchCourse2,ViewReviews,updatemailbiogrpahy,rateinstructor,viewmycourses,applydiscount
+    createInstructor,updateInstructorCountry,searchCourse,CreateCourse,searchCourse2,ViewReviews,updatemailbiogrpahy,rateinstructor,viewmycourses,applydiscount,CreateSchedule
     }
