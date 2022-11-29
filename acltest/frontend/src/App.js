@@ -18,7 +18,8 @@ import ReviewInstructor from './pages/ReviewInstructor';
 import ViewMyCourses from './pages/ViewMyCourses';
 import Discount from './pages/Discount';
 import Subtitle from './pages/subtitlecreate';
-
+import ViewMySubtitles from './pages/ViewMySubtitles';
+import UploadVideo from './pages/uploadvideo';
 
 function App() {
   return (
@@ -100,6 +101,14 @@ function App() {
               <Route 
               path="/addsubtitle" 
               element={<Subtitle/>} 
+            />
+                          <Route 
+              path="/viewsubtitles" 
+              element={<ViewMySubtitles/>} 
+            />
+              <Route 
+              path="/uploadvideo" 
+              element={< UploadVideo/>} 
             />
             </Routes>
           </div>

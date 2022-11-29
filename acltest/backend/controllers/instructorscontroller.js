@@ -255,7 +255,24 @@ const viewmycourses = async (req, res) => {
               
              return ;
             
-              }         
+              }
+
+const viewmysubtitles = async (req, res) => {
+//  const {username, password, biography,mail} = req.body
+     const instruct = "Instructor"
+     const mostak = req.query.courseId
+    try{
+    const subtitles = await Subtitles.find({courseid: mostak})
+    res.status(200).json(subtitles)
+    console.log(subtitles)
+    }
+    catch (error) {
+        res.status(400).json({error: error.message})
+    }
+              
+             return ;
+            
+              }  
 
 const applydiscount = async (req, res) => {
 //  const {username, password, biography,mail} = req.body
@@ -301,14 +318,14 @@ const CreateSchedule =async (req,res) =>{
 
 const uploadvideo = async (req, res) => {
      const link = req.body.link
+     const desc = req.body.desc
     try{
-    const courses = await Course.findOne({_id: mostak})
-    var money = courses.price
-    console.log(money)
-    var newmoney = money - req.body.discount
-    const updating = await Course.findOneAndUpdate({_id: mostak}, {price: newmoney})
+    const myArray = link.split("=");
+    console.log(myArray)
+    console.log("hi")
+    const updating = await Subtitles.findOneAndUpdate({_id:req.query.subtitleId}, {$push : {video: { link : myArray[1], description : req.body.description} }})
     res.status(200).json("success!")
-    console.log(courses)
+    console.log(updating)
     }
     catch (error) {
         res.status(400).json({error: error.message})
@@ -320,5 +337,5 @@ const uploadvideo = async (req, res) => {
 
 
 module.exports = {
-    createInstructor,updateInstructorCountry,searchCourse,CreateCourse,searchCourse2,ViewReviews,updatemailbiogrpahy,rateinstructor,viewmycourses,applydiscount,CreateSchedule
+    createInstructor,updateInstructorCountry,searchCourse,CreateCourse,searchCourse2,ViewReviews,updatemailbiogrpahy,rateinstructor,viewmycourses,applydiscount,CreateSchedule,viewmysubtitles,uploadvideo
     }

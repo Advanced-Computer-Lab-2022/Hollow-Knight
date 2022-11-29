@@ -40,10 +40,11 @@ const ViewMyCourses = () => {
               Apply Discount
                       </button>
                       <button variant="contained"
-            onClick={() => window.location.href=`/addsubtitle?courseId=${course._id}`} key={course._id}
+            onClick={() => window.location.href=`/viewsubtitles?courseId=${course._id}`} key={course._id}
               margin="normal"
               padding="normal">
-              Add Subtitle
+              View Subtitles
+              
                       </button>
                                  </div>
           ))}
