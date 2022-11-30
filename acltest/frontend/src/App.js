@@ -17,6 +17,8 @@ import WatchVideo from "./pages/watchVideoPage";
 import GetGrade from "./components/GetGrade";
 import RateCoursePage from "./pages/RateCoursePage";
 import RateCourseCo from "./components/RateCourseCo";
+import GoTrainee from "./pages/GoTrainee";
+import TraineeHomePage from "./pages/TraineeHomePage";
 function App() {
   return (
     <div className="App">
@@ -41,9 +43,11 @@ function App() {
             />
             <Route path="/SearchCoursePage" element={<SearchCoursePage />} />
             <Route path="/InstructorHome" element={<GoInstructor />} />
+            <Route path="/TraineeHome" element={<GoTrainee />} />
+            <Route path="/TraineeHomePage" element={<TraineeHomePage />} />
             <Route path="/apps" element={<Apps />} />
             <Route path="/ViewReviews" element={<ViewReview />} />
-            <Route path="/ratecourse/:id" element={<RateCoursePage />} />
+            <Route path="/ratecourse" element={<RateCoursePage />} />
             <Route path="/rate/:id" element={<RateCourseCo />} />
             <Route path="/watchvideos" element={<WatchVideo />} />
             <Route path="/getgrade" element={<GetGrade />} />

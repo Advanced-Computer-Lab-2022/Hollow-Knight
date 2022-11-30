@@ -15,15 +15,16 @@ const createTrainee = async (req, res) => {
 const updateCourseRating = async (req, res) => {
   const { title, rating, id } = req.body;
   const course = await Course.findOne({ title });
-  const updatedArray = course.rating;
-  const searchedRating = course.rating.find(
+  const updatedArray = course.review;
+  console.log(course.review);
+  const searchedRating = updatedArray.find(
     (element) => element.traineeId == id
   );
   if (searchedRating == null) {
-    course.rating.push({ rating: rating, traineeId: id });
+    updatedArray.push({ rating: rating, traineeId: id });
     const updated = await Course.findOneAndUpdate(
       { title },
-      { rating: course.rating }
+      { review: updatedArray }
     );
     return res.status(200).json(rating);
   } else {
@@ -35,10 +36,17 @@ const updateCourseRating = async (req, res) => {
     }
     const updated = await Course.findOneAndUpdate(
       { title },
-      { rating: updatedArray }
+      { review: updatedArray }
     );
     return res.status(200).json(rating);
   }
+};
+
+const updateOverallCourseRating = async (req, res) => {
+  const { title } = req.body;
+  try {
+    const course = await Course.findOne({ title });
+  } catch (error) {}
 };
 const watchVideo = async (req, res) => {
   const { title, subTitle } = req.body;

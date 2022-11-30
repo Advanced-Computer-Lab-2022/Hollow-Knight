@@ -4,16 +4,17 @@ const RateCourse = () => {
   const [rating, setRating] = useState("");
   const [title, setTitle] = useState("");
   const [confirmation, setConfirmation] = useState("");
-  const param = useParams();
+  const params = new URLSearchParams(window.location.search);
+  const userId = params.get("userId");
   const rateHandler = async (e) => {
+    console.log(userId);
     e.preventDefault();
-    console.log(param.id);
     const response = await fetch("/api/trainees/ratecourse", {
       method: "PATCH",
       body: JSON.stringify({
         title: title,
         rating: parseInt(rating),
-        id: param.id,
+        id: userId,
       }),
       headers: {
         "Content-Type": "application/json",

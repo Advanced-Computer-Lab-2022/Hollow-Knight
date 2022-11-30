@@ -27,6 +27,8 @@ const Home = () => {
         <br></br>
 
         <Link to="/InstructorHome">Instructor Home Page</Link>
+        <br></br>
+        <Link to="/TraineeHome">Trainee Home Page</Link>
       </div>
     </div>
   );
