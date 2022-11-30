@@ -28,7 +28,7 @@ function App() {
             <Route path="/selectcountry" element={<SelectCountry />} />
             <Route path="/viewallcourses" element={<ViewCourses />} />
             <Route
-              path="/viewallcourseswithprices"
+              path="/viewallcourseswithprices/:id"
               element={<ViewCoursesWithPrice />}
             />
             <Route path="/price/:id" element={<ViewPrice />} />

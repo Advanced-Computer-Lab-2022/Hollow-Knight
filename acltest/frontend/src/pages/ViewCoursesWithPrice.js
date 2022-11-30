@@ -21,6 +21,7 @@ const ViewCoursesWithPrice = () => {
       if (response.ok) {
         setCourses(json);
       }
+      console.log(jsonUser)
       setCurrencyName(countryToCurrency[jsonUser.countryAbb]);
       console.log(countryToCurrency[jsonUser.countryAbb]);
       //setCountryAbb(jsonUser.countryAbb);
@@ -31,20 +32,30 @@ const ViewCoursesWithPrice = () => {
   }, [param]);
   return (
     <div className="App">
+      <table>
+      <thead>
+  <tr>
+    <th>Title</th>
+    <th>Total Hours</th>
+    <th>Rating</th>
+  </tr>
+  </thead>
+  <tbody>
       {courses &&
         courses.map((course) => (
           <div key={course._id}>
-            <strong>Course Title:</strong>
-            {course.title} &nbsp;&nbsp;
-            <strong>Total Hours:</strong>
-            {course.hours} &nbsp;&nbsp;
-            <strong>Course:</strong>
-            {course.overallRating}
-            <strong>Price:</strong>
-            <ViewPriceCo price={course.price} currencyName={currencyName} />
+  <tr>
+    <td>{course.title}</td>
+    <td>{course.hours}</td>
+    <td>{course.overallRating}</td>
+    <td><ViewPriceCo price={course.price} currencyName={currencyName} /></td>
+  </tr>
           </div>
         ))}
+             </tbody>
+        </table>
     </div>
   );
 };
+
 export default ViewCoursesWithPrice;

@@ -9,10 +9,9 @@ const instructorSchema = new Schema(
       ref: "Users",
       required: true,
     },
-    review: [
+    rating: [
       {
-        rating:{type:Number,require:false},
-        reviews: { type: String, required: false },
+        review: { type: Number, required: false },
         traineeid: { type: mongoose.Types.ObjectId, 
           ref:"Users", 
         required: true },

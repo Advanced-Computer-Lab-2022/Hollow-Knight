@@ -21,10 +21,6 @@ const userschema = new Schema(
       type: String,
       required: false,
     },
-    countryAbb:{
-      type: String,
-      required:false
-    }
   },
   { timestaps: true }
 );
