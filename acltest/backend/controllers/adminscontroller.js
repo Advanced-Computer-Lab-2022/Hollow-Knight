@@ -10,7 +10,6 @@ const createAdmin = async (req, res) => {
     }*/
     try{
     const admin = await User.create({username,password,country,type})
-    res.json({mssg: 'user added'})
     console.log(admin._id)
     const userid=admin._id
     const user =await Admin.create({userid})

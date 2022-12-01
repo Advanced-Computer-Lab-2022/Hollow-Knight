@@ -7,8 +7,26 @@ const instructorSchema = new Schema({
         type: mongoose.Types.ObjectId,
         ref:'Users',
         required: true
-    }
-}, {timestaps : true} )
+    },
+    review:[
+        {
+          rating: { type: Number, required: false },  
+          reviews: { type: String, required: false },
+          traineeid: { type: mongoose.Types.ObjectId, 
+            ref:"Users", 
+          required: true },
+        },
+      ],
+      overallRating: {
+        type: Number,
+        required: false,
+        default:0
+      },
+      biography: {
+        type: String,
+        required: false,
+      },
+}, {timestamps : true} )
 
 
 module.exports = mongoose.model('Instructors', instructorSchema)

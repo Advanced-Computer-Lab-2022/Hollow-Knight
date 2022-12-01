@@ -61,13 +61,14 @@ const SearchInstructor = () => {
             onChange={(e) => setPrice(e.target.value)}
             value={price}
             />
+              <button>Search</button>
           <div className="courses">
            {Courses && Courses.map(Courses => (
            <CoursesDetails key={Courses._id} Courses={Courses} />
            ))}
             </div>
             
-            <button>Search</button>
+          
         </form>
     )
 

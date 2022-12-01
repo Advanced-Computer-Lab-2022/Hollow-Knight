@@ -9,7 +9,8 @@ const courseSchema = new Schema({
     },
     price: {
         type: Number,
-        required: true
+        required: true,
+        default: 0
     },
     subject: {
         type: String,
@@ -20,37 +21,36 @@ const courseSchema = new Schema({
         ref:'Instructors',
         required: false
     },
-    rating: {
-        type: Array,
-        required: false
-    },
-        subtitles: {
-        type: String,
-        required: true
-    },
-    subtitles_hours: {
-        type: Number,
-        required: false
-    },
+    review: [
+        {
+          rating: { type: Number, required: false },
+          reviews: { type: String, required: false },
+          traineeId: { type: mongoose.Types.ObjectId, required: false },
+        },
+      ],
+ 
     summary: {
         type: String,
         required: true
     },
-    excercises: {
-        type: String,
-        required: false
-    }
-    ,
+   
+    
     total_hours: {
         type: Number,
         required: false
-    }
-    ,
-    reviews:{
-        type:Array,
-        required :false
+    },
+    overallRating: {
+        type: Number,
+        required: false,
+        default:0
+      },
+      contract:{
+        Status: { type: String, required: false,default:"pending"},
+        percent: { type: Number, required: false ,default:0},
 
-    }
+      }
+    
+    
 }, {timestamps : true} )
 
 

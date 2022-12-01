@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import SearchCourse from "../components/SearchCourse";
+//import SearchCourse from "../components/SearchCourse";
 
 const Home = () => {
     return(
@@ -28,9 +28,7 @@ const Home = () => {
 
 
 <br></br>
-        <Link to="/addcourse">
-        Create a course
-        </Link>
+   
         <br></br>
         <Link to="/instructor">
 Search  Inst      </Link>

@@ -8,7 +8,7 @@ const CreateInstructor = () => {
         e.preventDefault()
 
         const instructor = {username, password,country}
-
+       console.log("here")
         const response = await fetch('/api/instructors', {
             method: 'POST',
             body: JSON.stringify(instructor),

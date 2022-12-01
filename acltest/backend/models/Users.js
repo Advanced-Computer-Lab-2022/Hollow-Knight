@@ -7,6 +7,11 @@ const userschema = new Schema({
         type: String,
         required: true
     },
+    email: 
+    { 
+       type: String,
+        required: false 
+    },
     password: {
         type: String,
         required: true
@@ -14,14 +19,14 @@ const userschema = new Schema({
     country: {
         type: String,
         required: true
-    }
-    ,
+    },
     type:{
         type: String,
         required: false
-    }
+    },
+    
 
-}, {timestaps : true} )
+}, {timestamps : true} )
 
 
 module.exports = mongoose.model('Users',userschema )

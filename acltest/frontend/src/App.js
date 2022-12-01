@@ -13,6 +13,10 @@ import SearchCoursePage from './pages/SearchCoursePage';
 import GoInstructor from './pages/GoInstructor';
 import Apps from './pages/Apps';
 import ViewReview from './pages/ViewReview';
+import ViewInsReviews from './pages/ViewInsReviews';
+import ViewContract from './pages/ViewContract';
+import AddExercises from './components/AddExercises'; 
+import Question from './components/Question';
 
 function App() {
   return (
@@ -75,6 +79,20 @@ function App() {
              path="/ViewReviews"
              element={<ViewReview/>}
              />
+              <Route
+             path="/Reviews"
+             element={<ViewInsReviews/>}
+             />
+              <Route
+             path="/ViewContract"
+             element={<ViewContract/>}
+             />
+            <Route
+             path="/addexercise" element={<AddExercises/>} 
+              />
+            <Route path = "/addquestion" element={<Question/>}/>
+
+
             </Routes>
           </div>
         </BrowserRouter>
