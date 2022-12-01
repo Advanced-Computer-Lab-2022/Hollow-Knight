@@ -29,7 +29,7 @@ const courseSchema = new Schema(
         traineeId: { type: mongoose.Types.ObjectId, required: false },
       },
     ],
- 
+
     summary: {
       type: String,
       required: true,
@@ -41,6 +41,7 @@ const courseSchema = new Schema(
     overallRating: {
       type: Number,
       required: false,
+      default: 0,
     },
   },
   { timestamps: true }

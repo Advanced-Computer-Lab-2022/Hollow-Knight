@@ -22,11 +22,6 @@ const updateCourseRating = async (req, res) => {
   );
   if (searchedRating == null) {
     updatedArray.push({ rating: rating, traineeId: id });
-    const updated = await Course.findOneAndUpdate(
-      { title },
-      { review: updatedArray }
-    );
-    return res.status(200).json(rating);
   } else {
     for (const obj of updatedArray) {
       if (obj.traineeId == id) {
@@ -34,20 +29,25 @@ const updateCourseRating = async (req, res) => {
         break;
       }
     }
-    const updated = await Course.findOneAndUpdate(
-      { title },
-      { review: updatedArray }
-    );
-    return res.status(200).json(rating);
   }
+
+  var overallRating = 0;
+  var counter = 0;
+  for (const obj of updatedArray) {
+    overallRating += obj.rating;
+    counter++;
+  }
+  overallRating = Math.round((overallRating / counter) * 10) / 10;
+
+  const updated = await Course.findOneAndUpdate(
+    { title },
+    { review: updatedArray, overallRating: overallRating }
+  );
+  console.log(overallRating);
+  console.log(updated.overallRating);
+  return res.status(200).json(updated);
 };
 
-const updateOverallCourseRating = async (req, res) => {
-  const { title } = req.body;
-  try {
-    const course = await Course.findOne({ title });
-  } catch (error) {}
-};
 const watchVideo = async (req, res) => {
   const { title, subTitle } = req.body;
   const course = await Course.findOne({ title: title });
@@ -92,6 +92,29 @@ const addExercise = async (req, res) => {
   );
   res.status(200).json(subtitleUpdated);
 };
+const getTraineeCourses = async (req, res) => {
+  try {
+    const trainee = await Trainee.findOne({ id: req.body.id });
+    const traineeCourses = trainee.courses;
+    return res.status(200).json(traineeCourses);
+  } catch (error) {
+    return res.status(404).json(error);
+  }
+};
+const addCourseToTrainee = async (req, res) => {
+  try {
+    const trainee = await Trainee.findOne({ id: req.body.traineeId });
+    console.log(trainee);
+    trainee.courses.push(req.body.courseId);
+    const updatedTrainee = await Trainee.findOneAndUpdate(
+      { id: req.body.traineeId },
+      { courses: trainee.courses }
+    );
+    return res.status(200).json(updatedTrainee);
+  } catch (error) {
+    return res.status(404).json(error);
+  }
+};
 
 module.exports = {
   createTrainee,
@@ -99,4 +122,6 @@ module.exports = {
   watchVideo,
   getExerciseGrade,
   addExercise,
+  getTraineeCourses,
+  addCourseToTrainee,
 };

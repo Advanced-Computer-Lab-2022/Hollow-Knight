@@ -7,6 +7,8 @@ const {
   watchVideo,
   getExerciseGrade,
   addExercise,
+  getTraineeCourses,
+  addCourseToTrainee,
 } = require("../controllers/traineescontroller");
 
 router.post("/", createTrainee);
@@ -14,4 +16,6 @@ router.patch("/ratecourse", updateCourseRating);
 router.patch("/coursevideos", watchVideo);
 router.patch("/getgrade", getExerciseGrade);
 router.patch("/addexercise", addExercise);
+router.patch("/gettraineecourses", getTraineeCourses);
+router.patch("/addcoursetotrainee", addCourseToTrainee);
 module.exports = router;

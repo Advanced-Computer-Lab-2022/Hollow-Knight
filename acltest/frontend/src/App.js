@@ -19,6 +19,7 @@ import RateCoursePage from "./pages/RateCoursePage";
 import RateCourseCo from "./components/RateCourseCo";
 import GoTrainee from "./pages/GoTrainee";
 import TraineeHomePage from "./pages/TraineeHomePage";
+import AddExercises from "./components/AddExercises";
 function App() {
   return (
     <div className="App">
@@ -51,6 +52,7 @@ function App() {
             <Route path="/rate/:id" element={<RateCourseCo />} />
             <Route path="/watchvideos" element={<WatchVideo />} />
             <Route path="/getgrade" element={<GetGrade />} />
+            <Route path="/addexercise" element={<AddExercises />} />
           </Routes>
         </div>
       </BrowserRouter>

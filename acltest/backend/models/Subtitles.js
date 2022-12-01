@@ -14,6 +14,14 @@ const subtitleSchema = new Schema(
         title: { type: String, required: false },
         grade: { type: Number, required: false },
         maxGrade: { type: Number, required: false },
+        problems: [
+          {
+            questions: { type: String, required: false },
+            answers: [String],
+            solution: { type: String, required: false },
+          },
+        ],
+        default: [],
       },
     ],
     video: [
