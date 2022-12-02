@@ -32,6 +32,7 @@ import CourseContent from './pages/CourseContent';
 import ViewAnswers from './components/ViewAnswers';
 import ViewInsReviews from './pages/ViewInsReviews';
 import ViewContract from './pages/ViewContract';
+import GetMyCourses from './pages/GetMyCourses';
 function App() {
   return (
     <div className="App">
@@ -105,6 +106,7 @@ function App() {
               element={< UploadVideo/>} 
             />
             <Route path = "/addquestion" element={<Question/>}/>
+            <Route path = "/getmycourses" element={<GetMyCourses/>}/>
             </Routes>
           </div>
         </BrowserRouter>

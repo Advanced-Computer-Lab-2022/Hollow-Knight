@@ -4,6 +4,10 @@ const Schema = mongoose.Schema;
 
 const subtitleSchema = new Schema(
   {
+    Title: {
+      type: String,
+      required: true
+    },
     courseid: {
       type: mongoose.Types.ObjectId,
       ref: "Courses",
@@ -40,3 +44,4 @@ const subtitleSchema = new Schema(
 );
 
 module.exports = mongoose.model("Subtitle", subtitleSchema);
+

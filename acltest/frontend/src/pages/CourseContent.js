@@ -28,7 +28,7 @@ const CourseContent = () =>{
             
             {subtitles && subtitles.map((subtitle)=>(
                                        <div key={subtitle._id}>
-                                       <p> Subtitle : </p>
+                                       <p> Subtitle: {subtitle.Title} </p>
                                        <p> 
            { subtitle.exercises.map((exercises)=>(
                                         <div key={exercises._id}>

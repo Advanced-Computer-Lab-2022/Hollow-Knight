@@ -26,7 +26,7 @@ const createTrainee = async (req, res) => {
       const trainee = await User.create({ username, password, country, type });
       console.log(trainee._id);
       const userid = trainee._id;
-      const user = await Trainee.create({ userid });
+      const user = await Trainee.create({userid: userid});
     } catch (error) {
       res.status(400).json({ error: error.message });
     }

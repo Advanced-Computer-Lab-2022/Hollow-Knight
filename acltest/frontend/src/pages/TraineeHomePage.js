@@ -4,7 +4,7 @@ const TraineeHomePage = () => {
   const userId = params.get("userId");
   console.log(userId);
   const urlsearchcourse=`/SearchCoursePage?userId=${userId}`
-  const urlviewmycourses=`/viewmycourses?userId=${userId}`
+  const urlviewmycourses=`/getmycourses?userId=${userId}`
 
   return (
     <div className="Apps">
