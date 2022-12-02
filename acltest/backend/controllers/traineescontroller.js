@@ -115,6 +115,18 @@ const addCourseToTrainee = async (req, res) => {
     return res.status(404).json(error);
   }
 };
+const ViewCorrectAnswers = async (req, res) => {
+  try {
+    const subtitle = await Subtitle.findOne({ title: req.body.subTitle });
+    for (const obj of subtitle.exercises) {
+      if (obj.title == req.body.exerciseTitle) {
+        return res.status(200).json(obj.problems);
+      }
+    }
+  } catch (error) {
+    res.status(404).json(error);
+  }
+};
 
 module.exports = {
   createTrainee,
@@ -124,4 +136,5 @@ module.exports = {
   addExercise,
   getTraineeCourses,
   addCourseToTrainee,
+  ViewCorrectAnswers,
 };
