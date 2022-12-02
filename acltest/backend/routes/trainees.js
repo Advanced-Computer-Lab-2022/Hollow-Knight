@@ -10,6 +10,8 @@ const {
   getTraineeCourses,
   addCourseToTrainee,
   ViewCorrectAnswers,
+  FindCourses,
+  GetCourseSubtitles,
 } = require("../controllers/traineescontroller");
 
 router.post("/", createTrainee);
@@ -19,5 +21,7 @@ router.patch("/getgrade", getExerciseGrade);
 router.patch("/addexercise", addExercise);
 router.patch("/gettraineecourses", getTraineeCourses);
 router.patch("/addcoursetotrainee", addCourseToTrainee);
-router.patch("/getexerciseproblems", ViewCorrectAnswers);
+router.patch("/getanswers", ViewCorrectAnswers);
+router.get("/getmycourses", FindCourses);
+router.get("/getsubtitles", GetCourseSubtitles);
 module.exports = router;

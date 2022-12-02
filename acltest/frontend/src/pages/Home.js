@@ -26,12 +26,16 @@ const Home = () => {
         <Link to="/SearchCoursePage">Search </Link>
         <br></br>
 
-        <Link to="/InstructorHome">Instructor Home Page</Link>
+      <Link to="/InstructorHome">
+        Instructor Home Page
+        </Link> 
         <br></br>
-        <Link to="/TraineeHome">Trainee Home Page</Link>
-      </div>
-    </div>
-  );
-};
+        <Link to="/trainee">
+        Trainee Home Page
+        </Link> 
+        </div>
+        </div>
+    )
+}
 
-export default Home;
+export default Home

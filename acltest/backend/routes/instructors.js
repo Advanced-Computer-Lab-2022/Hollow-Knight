@@ -8,6 +8,11 @@ const {
   searchCourse2,
   ViewReviews,
   addExercise,
+  ViewMyReviews,
+  DeleteCourse,
+  UpdateCourse,
+  GetCourseById,
+  UpdateContract,
 } = require("../controllers/instructorscontroller");
 
 router.post("/", createInstructor);
@@ -18,7 +23,12 @@ router.post("/search", searchCourse);
 router.post("/search2", searchCourse2);
 
 router.post("/addcourse", CreateCourse);
-router.get("/viewreviews", ViewReviews);
 router.patch("/addexercise", addExercise);
+router.patch("/updatecontract", UpdateContract);
+router.delete("/deletecourse/:id", DeleteCourse);
+router.post("/viewreviews", ViewReviews);
+router.get("/reviews", ViewMyReviews);
+router.get("/getcoursebyid", GetCourseById);
+router.patch("/updatecourse/:id", UpdateCourse);
 
 module.exports = router;

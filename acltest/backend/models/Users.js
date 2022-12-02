@@ -21,12 +21,12 @@ const userschema = new Schema(
       type: String,
       required: false,
     },
-    countryAbb:{
+    countryAbb: {
       type: String,
-      required:false
-    }
+      required: false,
+    },
   },
-  { timestaps: true }
+  { timestamps: true }
 );
 
 module.exports = mongoose.model("Users", userschema);

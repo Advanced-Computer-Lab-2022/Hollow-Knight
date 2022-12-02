@@ -11,11 +11,13 @@ const instructorSchema = new Schema(
     },
     review: [
       {
-        rating:{type:Number,require:false},
+        rating: { type: Number, require: false },
         reviews: { type: String, required: false },
-        traineeid: { type: mongoose.Types.ObjectId, 
-          ref:"Users", 
-        required: true },
+        traineeid: {
+          type: mongoose.Types.ObjectId,
+          ref: "Users",
+          required: true,
+        },
       },
     ],
     overallRating: {
@@ -27,7 +29,7 @@ const instructorSchema = new Schema(
       required: false,
     },
   },
-  { timestaps: true }
+  { timestamps: true }
 );
 
 module.exports = mongoose.model("Instructors", instructorSchema);

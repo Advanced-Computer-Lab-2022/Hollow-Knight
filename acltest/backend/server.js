@@ -38,5 +38,3 @@ app.use('/users', usersroute)
 
 
 
-
-process.env

@@ -34,6 +34,7 @@ const courseSchema = new Schema(
       type: String,
       required: true,
     },
+
     total_hours: {
       type: Number,
       required: false,
@@ -42,6 +43,10 @@ const courseSchema = new Schema(
       type: Number,
       required: false,
       default: 0,
+    },
+    contract: {
+      Status: { type: String, required: false, default: "pending" },
+      percent: { type: Number, required: false, default: 0 },
     },
   },
   { timestamps: true }

@@ -9,17 +9,11 @@ const traineeSchema = new Schema(
       ref: "Users",
       required: true,
     },
-    //array of courses belongs to trainee
-    courses: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "Courses",
-        required: false,
-        default: [],
-      },
+    registeredcourses: [
+      { type: mongoose.Types.ObjectId, ref: "Courses", required: false },
     ],
   },
-  { timestaps: true }
+  { timestamps: true }
 );
 
 module.exports = mongoose.model("Trainee", traineeSchema);

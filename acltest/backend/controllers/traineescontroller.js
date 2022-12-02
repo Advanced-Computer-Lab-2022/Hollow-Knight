@@ -1,6 +1,22 @@
 const Trainee = require("../models/Trainees");
-const Course = require("../models/Courses");
+const User = require("../models/Users");
+const Courses = require("../models/Courses");
+const Instructors = require("../models/Instructors");
 const Subtitle = require("../models/Subtitles");
+
+const ViewCorrectAnswers = async (req, res) => {
+  try {
+    const subtitle = await Subtitle.findOne({ _id: req.body.subid });
+    for (const obj of subtitle.exercises) {
+      if (obj._id == req.body.id) {
+        return res.status(200).json(obj.problems);
+      }
+    }
+  } catch (error) {
+    res.status(404).json(error);
+  }
+};
+
 const createTrainee = async (req, res) => {
   const { name, password } = req.body;
 
@@ -115,16 +131,41 @@ const addCourseToTrainee = async (req, res) => {
     return res.status(404).json(error);
   }
 };
-const ViewCorrectAnswers = async (req, res) => {
+
+const FindCourses = async (req, res) => {
+  const userid = req.query.userId;
+  let allcourse = [];
+  //console.log(userid)
+
   try {
-    const subtitle = await Subtitle.findOne({ title: req.body.subTitle });
-    for (const obj of subtitle.exercises) {
-      if (obj.title == req.body.exerciseTitle) {
-        return res.status(200).json(obj.problems);
-      }
+    const courses = await Trainee.findOne({ userid: userid });
+
+    console.log(courses.registeredcourses);
+
+    while (courses.registeredcourses.length > 0) {
+      console.log(courses.registeredcourses);
+      let currentcourse = courses.registeredcourses.pop();
+      console.log(currentcourse);
+      let course = await Courses.findById(currentcourse);
+      allcourse.push(course);
     }
+
+    //console.log(allcourse)
   } catch (error) {
-    res.status(404).json(error);
+    return res.status(400).json({ error: error.message });
+  }
+
+  return res.status(200).json(allcourse);
+};
+
+const GetCourseSubtitles = async (req, res) => {
+  const courseId = req.query.courseid;
+  //console.log(courseId)
+  try {
+    const subtitles = await Subtitles.find({ courseid: courseId });
+    return res.status(200).json(subtitles);
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
   }
 };
 
@@ -137,4 +178,6 @@ module.exports = {
   getTraineeCourses,
   addCourseToTrainee,
   ViewCorrectAnswers,
+  GetCourseSubtitles,
+  FindCourses,
 };

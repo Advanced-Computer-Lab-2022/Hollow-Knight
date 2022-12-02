@@ -9,7 +9,7 @@ const adminSchema = new Schema({
             ref:'Users',
             required: true
         }
-}, {timestaps : true} )
+}, {timestamps : true} )
 
 
 module.exports = mongoose.model('Admin', adminSchema)
