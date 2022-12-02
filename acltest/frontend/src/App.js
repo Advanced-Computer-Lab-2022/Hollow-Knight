@@ -5,7 +5,6 @@ import SelectCountry from "./pages/SelectCountryPage";
 import ViewCourses from "./pages/ViewCourses";
 import ViewPrice from "./pages/PricesPage";
 import ViewCoursesWithPrice from "./pages/ViewCoursesWithPrice";
-import CreateCourse from "./pages/createcourse";
 import Instructor from "../src/pages/instructor";
 import Addcoursepage from "./pages/addcoursepage";
 import Coursedetails from "./pages/viewcoursedetails";
@@ -21,12 +20,12 @@ import GoTrainee from "./pages/GoTrainee";
 import TraineeHomePage from "./pages/TraineeHomePage";
 import AddExercises from "./components/AddExercises";
 import Question from './components/Question';
-import GoTrainee from './pages/GoTrainee';
+
 import TraineeApps from './pages/TraineeApps';
 import ViewMyCourses from './pages/ViewMyCourses';
 import CourseContent from './pages/CourseContent';
 import ViewAnswers from './components/ViewAnswers';
-import ViewReview from './pages/ViewReview';
+
 import ViewInsReviews from './pages/ViewInsReviews';
 import ViewContract from './pages/ViewContract';
 function App() {
@@ -44,7 +43,7 @@ function App() {
               element={<ViewCoursesWithPrice />}
             />
             <Route path="/price/:id" element={<ViewPrice />} />
-            <Route path="/create/createcourse" element={<CreateCourse />} />
+            
             <Route path="/instructor" element={<Instructor />} />
             <Route path="/addcourse" element={<Addcoursepage />} />
             <Route

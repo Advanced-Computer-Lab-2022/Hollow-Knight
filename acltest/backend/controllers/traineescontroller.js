@@ -1,9 +1,10 @@
 const Trainee = require("../models/Trainees");
 const User = require("../models/Users");
 const Courses = require("../models/Courses");
+const Course = require("../models/Courses");
 const Instructors = require("../models/Instructors");
 const Subtitle = require("../models/Subtitles");
-
+const Subtitles = require("../models/Subtitles");
 const ViewCorrectAnswers = async (req, res) => {
   try {
     const subtitle = await Subtitle.findOne({ _id: req.body.subid });
@@ -18,19 +19,24 @@ const ViewCorrectAnswers = async (req, res) => {
 };
 
 const createTrainee = async (req, res) => {
-  const { name, password } = req.body;
+    const { username, password, country } = req.body;
+    const type = "Trainee";
+  
+    try {
+      const trainee = await User.create({ username, password, country, type });
+      console.log(trainee._id);
+      const userid = trainee._id;
+      const user = await Trainee.create({ userid });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  
+    res.json({ mssg: "user added" });
+  };
 
-  try {
-    const trainee = await Trainee.create({ name, password });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-
-  res.json({ mssg: "user added" });
-};
 const updateCourseRating = async (req, res) => {
   const { title, rating, id } = req.body;
-  const course = await Course.findOne({ title });
+  const course = await Courses.findOne({ title });
   const updatedArray = course.review;
   console.log(course.review);
   const searchedRating = updatedArray.find(
@@ -55,7 +61,7 @@ const updateCourseRating = async (req, res) => {
   }
   overallRating = Math.round((overallRating / counter) * 10) / 10;
 
-  const updated = await Course.findOneAndUpdate(
+  const updated = await Courses.findOneAndUpdate(
     { title },
     { review: updatedArray, overallRating: overallRating }
   );

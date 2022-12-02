@@ -13,7 +13,7 @@ const createAdmin = async (req, res) => {
     console.log(admin._id)
     const userid=admin._id
     const user =await Admin.create({userid})
-
+     res.status(200).json(user)
     }
     catch (error) {
         res.status(400).json({error: error.message})

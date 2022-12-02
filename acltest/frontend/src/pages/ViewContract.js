@@ -8,7 +8,7 @@ const ViewContract= ()=>{
     useEffect(() =>{
     const getCourse = async ()=>{
        
-       
+      
         const params = new URLSearchParams(window.location.search);
         const courseId = params.get('courseId');
    

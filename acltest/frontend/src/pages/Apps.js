@@ -34,30 +34,6 @@ const Apps = () => {
     )
 }
 
-  return (
-    <div className="Apps">
-      <button
-        variant="contained"
-        onClick={() => (window.location.href = `/addcourse?userId=${userId}`)}
-        key={userId}
-        margin="normal"
-        padding="normal"
-      >
-        Create a course
-      </button>
-      <br></br>
 
-      <button
-        variant="contained"
-        onClick={() => (window.location.href = `/ViewReviews?userId=${userId}`)}
-        key={userId}
-        margin="normal"
-        padding="normal"
-      >
-        View Courses Ratings and Reviews
-      </button>
-    </div>
-  );
-};
 
 export default Apps;

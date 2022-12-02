@@ -5,10 +5,9 @@ const Courseform =()=>{
    const [title,setTitle]=useState('')
    const [price,setPrice]=useState('')
    const [subject,setSubject]=useState('')
-   const [subtitles,setSubtitles]=useState('')
-   const [subtitles_hours,setSubtitles_hours]=useState('')
+
    const [summary,setSummary]=useState('')
-   const [excercises,setExercises]=useState('')
+ 
    const [total_hours,setTotal_hours]=useState('')
 
    const [error,setError]=useState(null)
@@ -17,7 +16,7 @@ const Courseform =()=>{
    const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const course = {title,price,subject,subtitles,subtitles_hours,summary,excercises,total_hours}
+    const course = {title,price,subject,summary,total_hours}
     const params = new URLSearchParams(window.location.search);
     const userId = params.get('userId');
     console.log(userId);
@@ -39,9 +38,6 @@ const Courseform =()=>{
       setPrice('')
       setSubject('')
       setSummary('')
-      setSubtitles('')
-      setSubtitles_hours('')
-      setExercises('')
       setTotal_hours('')
       console.log('new course added:', json)
     }
@@ -72,20 +68,7 @@ const Courseform =()=>{
         value={subject}
         />
 
-         <label>Subtitles : (required)</label>
-        <input
-        type="text"
-        onChange={(e)=> setSubtitles(e.target.value)}
-        value={subtitles}
-        />
-
-        <label>Subtitles Hours : </label>
-        <input
-        type="Number"
-        onChange={(e)=> setSubtitles_hours(e.target.value)}
-        value={subtitles_hours}
-        />
-
+      
          <label>Summary : (required)</label>
         <input
         type="text"
@@ -93,12 +76,7 @@ const Courseform =()=>{
         value={summary}
         />
 
-      <label>Excercises : </label>
-        <input
-        type="text"
-        onChange={(e)=> setExercises(e.target.value)}
-        value={excercises}
-        />
+    
         <label>Total Hours : </label>
         <input
         type="Number"

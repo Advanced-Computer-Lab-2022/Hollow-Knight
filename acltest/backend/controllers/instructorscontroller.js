@@ -169,10 +169,7 @@ const UpdateCourse = async (req, res) => {
     title,
     price,
     subject,
-    subtitles,
-    subtitles_hours,
     summary,
-    excercises,
     total_hours,
   } = req.body;
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -240,11 +237,12 @@ const UpdateCourse = async (req, res) => {
 };
 
 const ViewReviews = async (req, res) => {
-  const name = req.query.Id;
+  const name = req.query.userId;
   const { title } = req.body;
   console.log(title, name);
   try {
     const course = await Course.find({ author: name, title: title });
+    console.log(course)
     return res.status(200).json(course);
   } catch (error) {
     return res.status(400).json({ error: error.message });
