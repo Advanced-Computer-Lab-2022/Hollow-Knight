@@ -7,7 +7,8 @@ const traineeSchema = new Schema({
         type: mongoose.Types.ObjectId,
         ref:'Users',
         required: true
-    }
+    },
+    registeredcourses:[{ type: mongoose.Types.ObjectId, ref: "Courses",required: false}]
    
 }, {timestamps : true} )
 

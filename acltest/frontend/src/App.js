@@ -17,6 +17,11 @@ import ViewInsReviews from './pages/ViewInsReviews';
 import ViewContract from './pages/ViewContract';
 import AddExercises from './components/AddExercises'; 
 import Question from './components/Question';
+import GoTrainee from './pages/GoTrainee';
+import TraineeApps from './pages/TraineeApps';
+import ViewMyCourses from './pages/ViewMyCourses';
+import CourseContent from './pages/CourseContent';
+import ViewAnswers from './components/ViewAnswers';
 
 function App() {
   return (
@@ -90,9 +95,14 @@ function App() {
             <Route
              path="/addexercise" element={<AddExercises/>} 
               />
+
             <Route path = "/addquestion" element={<Question/>}/>
-
-
+            <Route path = "/trainee" element={<GoTrainee/>}/>
+            <Route path = "/traineeapps" element={<TraineeApps/>}/>
+            <Route path = "/viewmycourses" element={<ViewMyCourses/>}/>
+            <Route path = "/coursecontent" element={<CourseContent/>}/>
+            <Route path = "/getanswers" element={<ViewAnswers/>}/>
+            
             </Routes>
           </div>
         </BrowserRouter>

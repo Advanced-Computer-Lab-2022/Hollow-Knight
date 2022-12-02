@@ -40,7 +40,10 @@ Search  Inst      </Link>
       <Link to="/InstructorHome">
         Instructor Home Page
         </Link> 
-
+        <br></br>
+        <Link to="/trainee">
+        Trainee Home Page
+        </Link> 
         </div>
         </div>
     )

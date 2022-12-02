@@ -1,7 +1,9 @@
 import { useState } from "react";
 import Question from"./Question"
 import DisplayQuestions from "./DisplayQuestions";
+
 export let problems=[]
+
 const AddExercises = () => {
   const [title, setTitle] = useState("");
   const [id, setId] = useState("");
@@ -63,7 +65,7 @@ const AddExercises = () => {
       <button onClick={handleSubmit}>Submit Exercise</button> <br></br>
      {<Question />}
     
-  
+
 
    
 

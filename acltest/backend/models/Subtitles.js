@@ -21,7 +21,7 @@ const subtitleSchema = new Schema(
             solution: { type: String, required: false },
           },
         ],
-        default: [],
+       
         }
       
     ],
