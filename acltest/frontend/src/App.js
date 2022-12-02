@@ -19,13 +19,17 @@ import RateCourseCo from "./components/RateCourseCo";
 import GoTrainee from "./pages/GoTrainee";
 import TraineeHomePage from "./pages/TraineeHomePage";
 import AddExercises from "./components/AddExercises";
-import Question from './components/Question';
-
-import TraineeApps from './pages/TraineeApps';
+import UploadVideo from './pages/uploadvideo';
+import ViewMySubtitles from './pages/ViewMySubtitles';
+import Subtitle from './pages/subtitlecreate';
+import Discount from './pages/Discount';
+import UpdateInstructInfo from './pages/updateinstructorinfo';
 import ViewMyCourses from './pages/ViewMyCourses';
+import ReviewInstructor from './pages/ReviewInstructor';
+import Question from './components/Question';
+import TraineeApps from './pages/TraineeApps';
 import CourseContent from './pages/CourseContent';
 import ViewAnswers from './components/ViewAnswers';
-
 import ViewInsReviews from './pages/ViewInsReviews';
 import ViewContract from './pages/ViewContract';
 function App() {
@@ -61,10 +65,6 @@ function App() {
             <Route path="/watchvideos" element={<WatchVideo />} />
             <Route path="/getgrade" element={<GetGrade />} />
             <Route path="/addexercise" element={<AddExercises />} />
-                          <Route
-             path="/ViewReviews"
-             element={<ViewReview/>}
-             />
               <Route
              path="/Reviews"
              element={<ViewInsReviews/>}
@@ -80,9 +80,34 @@ function App() {
             <Route path = "/viewmycourses" element={<ViewMyCourses/>}/>
             <Route path = "/coursecontent" element={<CourseContent/>}/>
             <Route path = "/getanswers" element={<ViewAnswers/>}/>
-          </Routes>
-        </div>
-      </BrowserRouter>
+              <Route
+             path="/updateinfo"
+             element={<UpdateInstructInfo/>}
+             />
+              <Route
+             path="/reviewinstructor"
+             element={<ReviewInstructor/>}
+             />
+              <Route 
+              path="/applydiscount" 
+              element={<Discount/>} 
+            />
+              <Route 
+              path="/addsubtitle" 
+              element={<Subtitle/>} 
+            />
+                          <Route 
+              path="/viewsubtitles" 
+              element={<ViewMySubtitles/>} 
+            />
+              <Route 
+              path="/uploadvideo" 
+              element={< UploadVideo/>} 
+            />
+            <Route path = "/addquestion" element={<Question/>}/>
+            </Routes>
+          </div>
+        </BrowserRouter>
     </div>
   );
 }

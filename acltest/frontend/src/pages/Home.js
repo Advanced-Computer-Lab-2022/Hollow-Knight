@@ -17,6 +17,9 @@ const Home = () => {
         <br></br>
         <Link to="/selectcountry">Select a Country</Link>
         <br></br>
+        <Link to="/updateinfo">
+        Update Instructor's information
+        </Link>
 
         <br></br>
         <Link to="/addcourse">Create a course</Link>

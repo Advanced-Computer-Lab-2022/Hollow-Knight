@@ -13,6 +13,13 @@ const {
   UpdateCourse,
   GetCourseById,
   UpdateContract,
+  updatemailbiogrpahy,
+  applydiscount,
+  viewmycourses,
+  rateinstructor,
+  CreateSchedule,
+  viewmysubtitles,
+  uploadvideo
 } = require("../controllers/instructorscontroller");
 
 router.post("/", createInstructor);
@@ -30,5 +37,13 @@ router.post("/viewreviews", ViewReviews);
 router.get("/reviews", ViewMyReviews);
 router.get("/getcoursebyid", GetCourseById);
 router.patch("/updatecourse/:id", UpdateCourse);
+router.post('/updateinfo', updatemailbiogrpahy)
+router.get('/viewmycourses', viewmycourses)
+router.post('/applydiscount', applydiscount)
+router.post('/rate', rateinstructor)
+router.post('/addsubtitle', CreateSchedule)
+router.get('/viewmysubtitles', viewmysubtitles)
+router.post('/uploadvideo', uploadvideo)
+
 
 module.exports = router;

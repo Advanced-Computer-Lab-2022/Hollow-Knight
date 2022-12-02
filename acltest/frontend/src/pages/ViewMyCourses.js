@@ -1,45 +1,57 @@
-import { useEffect,useState } from "react"
+import { useEffect } from "react"
+const { useState } = require("react");
 const ViewMyCourses = () => {
-  const [courses,setCourses] = useState(null)
-  const params = new URLSearchParams(window.location.search);
-  const userId = params.get('userId');
-  console.log(userId)
-  useEffect(()=>{
+
+    const [courses, setCourses] = useState(null)
+    useEffect(()=>{
+       
+
+        const viewCourses = async ()=>{
+          console.log("bitch")
+            const params = new URLSearchParams(window.location.search);
+            const userId = params.get('userId');
+            console.log(userId)
+            const response = await fetch(`/api/instructors/viewmycourses?userId=${userId}`);
+            const result = await response.json()
+            
+            if(response.ok){
+                setCourses(result)
+                console.log(result)
+                
+            }
+          
+
+        }
+        viewCourses()
+        
      
-
-      const fetchCourses = async ()=>{
-          const response = await fetch(`/api/trainees/getmycourses?userId=${userId}`)
-          const json = await response.json()
-          console.log(json)
-
-          if(response.ok){
-              setCourses(json)
+    },[])
+    return(
+      <div className="courses">
+          {courses && courses.map((course)=>(
+                                     <div key={course._id}>
+                                     <p ><strong>Course Title:</strong>{course.title} &nbsp;&nbsp;
+                                     <strong>Price:</strong>{course.price} &nbsp;&nbsp;
+                                     </p>
+                                     <button variant="contained"
+            onClick={() => window.location.href=`/applydiscount?courseId=${course._id}`} key={course._id}
+              margin="normal"
+              padding="normal">
+              Apply Discount
+                      </button>
+                      <button variant="contained"
+            onClick={() => window.location.href=`/viewsubtitles?courseId=${course._id}`} key={course._id}
+              margin="normal"
+              padding="normal">
+              View Subtitles
               
-          }
-
-      }
-
-      fetchCourses()
-      console.log('here')
-      console.log(courses)
-
-  },[])
+                      </button>
+                                 </div>
+          ))}
+      </div>
+  )
+}
+    
 
 
-  
-    return (
-      <div className="ViewMyCourses">
-      <h1>My Courses</h1>
-      {courses && courses.map((course)=>(
-        <div key={course._id}>
-        <p ><strong>Course Title:</strong>{course.title} &nbsp;&nbsp;
-        <button onClick={() => window.location.href=`coursecontent?courseId=${course._id}`}>Go to Course</button>
-        </p>
-    </div>
-      ))}
- </div>
-    )
-  }
-  
-  export default ViewMyCourses
-  
+export default ViewMyCourses

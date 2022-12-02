@@ -29,12 +29,11 @@ const courseSchema = new Schema(
         traineeId: { type: mongoose.Types.ObjectId, required: false },
       },
     ],
-
+ 
     summary: {
       type: String,
       required: true,
     },
-
     total_hours: {
       type: Number,
       required: false,

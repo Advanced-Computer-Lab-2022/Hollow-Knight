@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {problems} from "./AddExercises"
-
 const Question = ()=>{
     const [question, setQuestion] = useState("");
     const [answers, setAnswers] = useState([]);
@@ -9,10 +8,7 @@ const Question = ()=>{
     const [answer3, setAnswer3] = useState("");
     const [answer4, setAnswer4] = useState("");
     const [solution, setSolution] = useState("");
-    const[pressed1,setPressed1]=useState(null)
-    const[pressed2,setPressed2]=useState(null)
-    const[pressed3,setPressed3]=useState(null)
-    const[pressed4,setPressed4]=useState(null)
+    const [bobo,setbobo] = useState([]);
   
     
     const handleSubmit = async (e) => {
@@ -32,14 +28,8 @@ const Question = ()=>{
             answers: answers,
             solution: solution,
           });
+        setbobo(problems)
         console.log(problems)
-        console.log(pressed1)
-       if(!pressed1){
-        setPressed1("true")
-        console.log('hi')
-       }
-       console.log(pressed1)
-     
         setAnswer1("")
         setAnswer2("")
         setAnswer3("")
@@ -48,7 +38,7 @@ const Question = ()=>{
         setSolution("") 
         setAnswers([])
       
-        console.log(pressed1)
+    
     }
     return(
     <div>
@@ -89,18 +79,18 @@ const Question = ()=>{
     />
     <button onClick={handleSubmit}>Insert Question</button> <br></br></div>}
 
-    { pressed1&&<div>
-        <p>here</p>   
-    </div>}
-    {pressed2 && <div>
-        <p>there</p>
-    </div>
-        
-    }
-  </div>
+    <div className="DisplayQuestions">
+        <h1>Problems</h1>
+         { bobo.map((problems,index)=>(
+        <div key={index}>
+    <p>Q{index}:{problems.questions}</p>
+                                       
+                                        
+     </div>
+                                     ))}
   
-  )
-
-  
+        </div>
+    
+  </div>)
 }
 export default Question

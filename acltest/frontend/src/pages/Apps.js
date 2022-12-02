@@ -29,6 +29,17 @@ const Apps = () => {
       <br></br>
       <Link to ={urladdexercises} > Add exercise</Link>
  
+        
+      <br></br>
+      <button variant="contained"
+            onClick={() => window.location.href=`/viewmycourses?userId=${userId}`} key={userId}
+            margin="normal"
+            padding="normal">
+       View my courses
+      </button>
+
+    
+       
         </div>
 
     )
