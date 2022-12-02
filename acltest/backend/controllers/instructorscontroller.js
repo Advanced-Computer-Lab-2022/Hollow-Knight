@@ -335,7 +335,20 @@ const uploadvideo = async (req, res) => {
             
               }
 
+const addExercise = async (req, res) => {
+    const { title, maxGrade, problems } = req.body;
+    const subtitle = await Subtitles.findOne({ _id: req.query.subtitleId});
+    const exercisesArray = subtitle.exercises;
+    console.log(subtitle);
+    exercisesArray.push({ title, maxGrade, problems });
+    const updatedSubtitle = await Subtitles.findOneAndUpdate(
+      { _id: req.query.subtitleId },
+      { exercises: exercisesArray }
+    );
+    return res.status(200).json(updatedSubtitle);
+  };
+
 
 module.exports = {
-    createInstructor,updateInstructorCountry,searchCourse,CreateCourse,searchCourse2,ViewReviews,updatemailbiogrpahy,rateinstructor,viewmycourses,applydiscount,CreateSchedule,viewmysubtitles,uploadvideo
+    createInstructor,updateInstructorCountry,searchCourse,CreateCourse,searchCourse2,ViewReviews,updatemailbiogrpahy,rateinstructor,viewmycourses,applydiscount,CreateSchedule,viewmysubtitles,uploadvideo,addExercise
     }

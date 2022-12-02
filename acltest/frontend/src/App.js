@@ -20,6 +20,8 @@ import Discount from './pages/Discount';
 import Subtitle from './pages/subtitlecreate';
 import ViewMySubtitles from './pages/ViewMySubtitles';
 import UploadVideo from './pages/uploadvideo';
+import AddExercises from './components/AddExercises'; 
+import Question from './components/Question';
 
 function App() {
   return (
@@ -110,6 +112,11 @@ function App() {
               path="/uploadvideo" 
               element={< UploadVideo/>} 
             />
+            
+            <Route
+             path="/addexercise" element={<AddExercises/>} 
+              />
+            <Route path = "/addquestion" element={<Question/>}/>
             </Routes>
           </div>
         </BrowserRouter>

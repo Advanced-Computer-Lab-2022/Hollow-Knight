@@ -42,6 +42,12 @@ const ViewMySubtitles = () => {
               padding="normal">
               Upload Video
                       </button>
+                      <button variant="contained"
+            onClick={() => window.location.href=`/addexercise?subtitleId=${subtitle._id}`} key={subtitle._id}
+              margin="normal"
+              padding="normal">
+              Add Exercise
+                      </button>
                                  </div>
           ))}
           {

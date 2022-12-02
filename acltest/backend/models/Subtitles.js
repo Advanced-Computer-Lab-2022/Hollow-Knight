@@ -4,14 +4,6 @@ const Schema = mongoose.Schema;
 
 const subtitleSchema = new Schema(
   {
-    Title: {
-      type: String,
-      required: false,
-    },
-    TotalHours: {
-      type: Number,
-      required: false,
-    },
     courseid: {
       type: mongoose.Types.ObjectId,
       ref: "Courses",
@@ -22,6 +14,14 @@ const subtitleSchema = new Schema(
         title: { type: String, required: false },
         grade: { type: Number, required: false },
         maxGrade: { type: Number, required: false },
+        problems: [
+          {
+            questions: { type: String, required: false },
+            answers: [String],
+            solution: { type: String, required: false },
+          },
+        ],
+        default: [],
       },
     ],
     video: [
@@ -36,9 +36,8 @@ const subtitleSchema = new Schema(
         },
       },
     ],
-
   },
-  { timestamps: true }
+  { timestaps: true }
 );
 
 module.exports = mongoose.model("Subtitle", subtitleSchema);

@@ -28,6 +28,8 @@ const Apps = () => {
             padding="normal">
        View my courses
       </button>
+
+    
        
         </div>
     )
