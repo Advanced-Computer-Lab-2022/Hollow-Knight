@@ -3,7 +3,6 @@ const router = express.Router()
 const {updateCountry, changePassword, changePassword1, forgotPassword, sendEmail} = require('../controllers/userController')
 const {loginUser} = require('../controllers/userController')
 const {signupUser} = require('../controllers/userController')
-const { updateCountry, fetchUser } = require("../controllers/userController");
 
 router.patch('/' , updateCountry)
 
@@ -18,7 +17,3 @@ router.post('/changepassword/:token' , changePassword1)
 router.post('/sendmail' , sendEmail)
 
 module.exports = router
-
-router.patch("/", updateCountry);
-router.get("/:id", fetchUser);
-module.exports = router;

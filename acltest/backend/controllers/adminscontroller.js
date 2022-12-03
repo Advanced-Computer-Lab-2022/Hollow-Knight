@@ -1,26 +1,19 @@
 const Admin = require('../models/Admins')
-const User =require('../models/Users') 
 
 const createAdmin = async (req, res) => {
-    const {username, password,country} = req.body
-    const type= "Admin"
-    //const w = await User.findOne({username:name})
- /*   if(w){
+    const {name, password} = req.body
+    const w = await Admin.findOne({name:name})
+    if(w){
         return
-    }*/
+    }
     try{
-    const admin = await User.create({username,password,country,type})
-    console.log(admin._id)
-    const userid=admin._id
-    const user =await Admin.create({userid})
-     res.status(200).json(user)
+    const admin = await Admin.create({name,password})
     }
     catch (error) {
         res.status(400).json({error: error.message})
     }
-    
-   return ;
-  
+
+    res.json({mssg: 'user added'})
     }
 
 module.exports = {

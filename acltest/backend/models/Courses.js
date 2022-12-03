@@ -1,54 +1,54 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
-const Schema = mongoose.Schema;
+const Schema = mongoose.Schema
 
-const courseSchema = new Schema(
-  {
+const courseSchema = new Schema({
     title: {
-      type: String,
-      required: true,
+        type: String,
+        required: true
     },
     price: {
-      type: Number,
-      required: true,
-      default: 0,
+        type: Number,
+        required: true
     },
     subject: {
-      type: String,
-      required: false,
+        type: String,
+        required: false
     },
     author: {
-      type: mongoose.Types.ObjectId,
-      ref: "Instructors",
-      required: false,
+        type: String,
+        required: false
     },
-    review: [
-      {
-        rating: { type: Number, required: false },
-        reviews: { type: String, required: false },
-        traineeId: { type: mongoose.Types.ObjectId, required: false },
-      },
-    ],
- 
+    rating: {
+        type: Number,
+        required: false
+    },
+        subtitles: {
+        type: String,
+        required: true
+    },
+    subtitles_hours: {
+        type: Number,
+        required: false
+    },
     summary: {
-      type: String,
-      required: true,
+        type: String,
+        required: true
     },
+    excercises: {
+        type: String,
+        required: false
+    }
+    ,
     total_hours: {
-      type: Number,
-      required: false,
+        type: Number,
+        required: false
     },
-    overallRating: {
-      type: Number,
-      required: false,
-      default: 0,
-    },
-    contract: {
-      Status: { type: String, required: false, default: "pending" },
-      percent: { type: Number, required: false, default: 0 },
-    },
-  },
-  { timestamps: true }
-);
+    reviews:{
+        type:Array,
+        required:false
+    }
+}, {timestaps : true} )
 
-module.exports = mongoose.model("Course", courseSchema);
+
+module.exports = mongoose.model('Course', courseSchema)

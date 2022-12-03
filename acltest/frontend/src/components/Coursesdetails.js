@@ -14,7 +14,7 @@ console.log(URL)
       <p>{Courses.subject}</p>
 
       <a href={URL}>
-            <button  onClick={() => window.location.href=URL} >View Details</button>
+            <button><Link to= {URL} >View Details</Link></button>
             </a> 
     </div>
     
