@@ -1,13 +1,13 @@
 import { useState } from "react"
 
 const CreateAdmin = () => {
-    const [name, setName] = useState('')
+    const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-
+    const [country, setCountry] = useState('')
     const makeadmin = async (e) => {
         e.preventDefault()
 
-        const admin = {name, password}
+        const admin = {username, password,country}
 
         const response = await fetch('/api/admins', {
             method: 'POST',
@@ -19,7 +19,11 @@ const CreateAdmin = () => {
         })
         const man = await response.json()
         if (response.ok) {
+        setUsername('')
+        setPassword('')
+        setCountry('')
         console.log('admin added', man)
+
         }
 
     }
@@ -31,8 +35,8 @@ const CreateAdmin = () => {
             <label>Name:</label>
             <input
             type="text"
-            onChange={(e) => setName(e.target.value)}
-            value={name}
+            onChange={(e) => setUsername(e.target.value)}
+            value={username}
             />
 
             <label>password:</label>
@@ -40,6 +44,12 @@ const CreateAdmin = () => {
             type="text"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
+            />
+            <label>Country :</label>
+            <input
+            type="text"
+            onChange={(e) => setCountry(e.target.value)}
+            value={country}
             />
 
             <button>Add admin</button>
