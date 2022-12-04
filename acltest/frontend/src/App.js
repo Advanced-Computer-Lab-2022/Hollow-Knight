@@ -33,6 +33,7 @@ import ViewAnswers from './components/ViewAnswers';
 import ViewInsReviews from './pages/ViewInsReviews';
 import ViewContract from './pages/ViewContract';
 import GetMyCourses from './pages/GetMyCourses';
+import RateInstructor from './components/RateInstructor';
 function App() {
   return (
     <div className="App">
@@ -107,6 +108,7 @@ function App() {
             />
             <Route path = "/addquestion" element={<Question/>}/>
             <Route path = "/getmycourses" element={<GetMyCourses/>}/>
+            <Route path = "/rateinstructor" element={<RateInstructor/>}/>
             </Routes>
           </div>
         </BrowserRouter>

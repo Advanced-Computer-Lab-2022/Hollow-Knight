@@ -1,61 +1,40 @@
-import { useState } from "react"
-
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 const RateInstructor = () => {
-    const [traineeusername, settraineeusername] = useState('')
-    const [instructorusername, setinstructorusername] = useState('')
-    const [review, setreview] = useState('')
-    const rateinstructor = async (e) => {
-        e.preventDefault()
+  const [review, setReview] = useState("");
+  const [username, setUsername] = useState("");
+  const params = new URLSearchParams(window.location.search);
+  const courseId = params.get("courseId");
+  const rateHandler = async (e) => {
+    console.log(courseId);
+    e.preventDefault();
+    const input = {username, review}
+    const response = await fetch(`/api/instructors/rate?courseId=${courseId}`, {
+      method: "POST",
+      body: JSON.stringify(input),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.log(response);
+  };
 
-        const instructor = {traineeusername,instructorusername,review}
-
-        const response = await fetch('/api/instructors/rate', {
-            method: 'POST',
-            body: JSON.stringify(instructor),
-            headers: {
-                'Content-Type' : 'application/json'
-            }
-
-        })
-        const man = await response.json()
-        if (response.ok) {
-        settraineeusername('')
-        setinstructorusername('')
-        setreview('')
-        console.log('instructor changed', man)
-
-        }
-
-    }
-
-    return (
-        <form className="UpdateInstructor" onSubmit={rateinstructor} >
-            <h2> Update Your Info</h2>
-
-            <label>Your Name:</label>
-            <input
-            type="text"
-            onChange={(e) => settraineeusername(e.target.value)}
-            value={traineeusername}
-            />
-
-            <label>Instructor's name:</label>
-            <input
-            type="text"
-            onChange={(e) => setinstructorusername(e.target.value)}
-            value={instructorusername}
-            />
-            <label>Your rating:</label>
-            <input
-            type="text"
-            onChange={(e) => setreview(e.target.value)}
-            value={review}
-            />
-
-            <button>Submit Rating</button>
-        </form>
-    )
-
-}
-
-export default RateInstructor
+  return (
+    <form className="RateCourseForm" onSubmit={rateHandler}>
+      <h1>Confirm By entering Username:</h1>
+      <input
+        type="text"
+        onChange={(e) => setUsername(e.target.value)}
+        value={username}
+      ></input>
+      <h1>Rating:</h1>
+      <input
+        type="text"
+        onChange={(e) => setReview(e.target.value)}
+        value={review}
+      ></input>
+      <button>Rate</button>
+    </form>
+  );
+};
+export default RateInstructor;

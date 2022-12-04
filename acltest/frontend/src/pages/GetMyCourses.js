@@ -34,6 +34,7 @@ const ViewMyCourses = () => {
         <div key={course._id}>
         <p ><strong>Course Title:</strong>{course.title} &nbsp;&nbsp;
         <button onClick={() => window.location.href=`coursecontent?courseId=${course._id}`}>Go to Course</button>
+        <button onClick={() => window.location.href=`rateinstructor?courseId=${course._id}`}>Rate Instructor</button>
         </p>
     </div>
       ))}

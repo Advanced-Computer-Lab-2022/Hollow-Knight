@@ -242,7 +242,7 @@ const ViewMyReviews = async (req, res) => {
   const name = req.query.userId;
   console.log(name);
   try {
-    const course = await Instructor.find({ userid: name });
+    const course = await Instructor.find({ _id : name });
     return res.status(200).json(course);
   } catch (error) {
     return res.status(400).json({ error: error.message });
@@ -281,51 +281,68 @@ const updatemailbiogrpahy = async (req, res) => {
         //  const {username, password, biography,mail} = req.body
           const instruct = "Instructor"
           const trainer = "Trainee"
+          const courseid = req.query.courseId
+          console.log("hi")
+          console.log(req.body.username)
+          console.log(req.body.review)
           try{
-         const trainee = await User.findOne({username : req.body.traineeusername, type : trainer})
+         const trainee = await User.findOne({username : req.body.username, type : trainer})
+         console.log(trainee)
         if(!trainee){
             res.status(404).json("trainee not found")
+            return
         }
-         const instructor = await User.findOne({username: req.body.instructorusername})
-         if(!instructor){
-          res.status(404).json("not found")
+        const courseinq = await Course.findOne({_id : courseid})
+        console.log(courseinq)
+        const authorid = courseinq.author
+        const instructorinq = await Instructor.findOne({_id : authorid})
+        console.log("THE INSTRUCTOR")
+        console.log(instructorinq)
+         if(!instructorinq){
+          res.status(404).json("not found bobobo")
           return
          }
        //  console.log(instructor)
           const traineeid = trainee._id
           console.log(traineeid)
-          const userid = instructor._id
-          const findinst= await Instructor.findOne({userid: userid})
-          console.log(findinst.rating)
+          const userid = instructorinq.userid
+          console.log("this guys ratings")
+          console.log(instructorinq.review)
         
           var check = false
-          for (const obj of findinst.rating) {
+          for (const obj of instructorinq.review) {
             if (JSON.stringify(obj.traineeid) === JSON.stringify(traineeid)) {
+              console.log("he rated him")
               check = true
               break;
             }
+           if(!check){
+            console.log("he didnt rate him")
+           }
           }
           if(req.body.review){
         if(check == false){
-        const updaterating = await Instructor.findOneAndUpdate({userid: userid}, {$push : {rating: { review : req.body.review, traineeid : traineeid} }})
+        const updaterating = await Instructor.findOneAndUpdate({userid: userid}, {$push : {review: { review : req.body.rating, traineeid : traineeid} }})
+        console.log("-----THE UPDATED RATING-----:")
+        console.log(updaterating)
          res.status(200).json("added")
          return
         }
         else{
             console.log("in the else")
-            const newlist = findinst.rating
+            const newlist = instructorinq.review
             console.log("newlist: " + newlist)
             for (const obj of newlist) {
                 if (JSON.stringify(obj.traineeid) === JSON.stringify(traineeid)) {
-                    obj.review = req.body.review
+                    obj.rating = req.body.review
         }
     }
-        const updaterating = await Instructor.findOneAndUpdate({userid: userid}, {rating: newlist})
+        const updaterating = await Instructor.findOneAndUpdate({userid: userid}, {review: newlist})
         res.status(200).json("updated")
         var sum = 0
         for (const obj of newlist) {
             if (JSON.stringify(obj.traineeid) === JSON.stringify(traineeid)) {
-                sum += obj.review
+                sum += obj.rating
           }
           var newaverage = sum/newlist.length
           const updatetotal = await Instructor.findOneAndUpdate({userid: userid}, {overallRating : newaverage})
@@ -342,6 +359,8 @@ const updatemailbiogrpahy = async (req, res) => {
          return ;
         
           }
+
+
 
 
 const viewmycourses = async (req, res) => {
