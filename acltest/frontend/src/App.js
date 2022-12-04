@@ -34,38 +34,29 @@ import ViewInsReviews from './pages/ViewInsReviews';
 import ViewContract from './pages/ViewContract';
 import GetMyCourses from './pages/GetMyCourses';
 import RateInstructor from './components/RateInstructor';
+import Login from './pages/login';
+import Signup from './pages/Signup';
+import Navbar from './components/Navbar';
+import Passwordreset from './pages/Passwordreset';
+import Forgotpassword from './components/Forgotpassword';
+import Forgotpasswordtoken from './pages/Forgotpasswordtoken';
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <div className="pages">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/create" element={<Createuser />} />
-            <Route path="/selectcountry" element={<SelectCountry />} />
-            <Route path="/viewallcourses" element={<ViewCourses />} />
-            <Route
-              path="/viewallcourseswithprices/:id"
-              element={<ViewCoursesWithPrice />}
-            />
-            <Route path="/price/:id" element={<ViewPrice />} />
-            
-            <Route path="/instructor" element={<Instructor />} />
-            <Route path="/addcourse" element={<Addcoursepage />} />
-            <Route
-              path="/instructor/coursedetails/:id"
-              element={<Coursedetails />}
-            />
-            <Route path="/SearchCoursePage" element={<SearchCoursePage />} />
+        <BrowserRouter>
+        <Navbar/>
+          <div className="pages">
+            <Routes>
+
+
             <Route path="/InstructorHome" element={<GoInstructor />} />
-            <Route path="/TraineeHome" element={<GoTrainee />} />
-            <Route path="/TraineeHomePage" element={<TraineeHomePage />} />
             <Route path="/apps" element={<Apps />} />
             <Route path="/ViewReviews" element={<ViewReview />} />
-            <Route path="/ratecourse" element={<RateCoursePage />} />
-            <Route path="/rate/:id" element={<RateCourseCo />} />
             <Route path="/watchvideos" element={<WatchVideo />} />
             <Route path="/getgrade" element={<GetGrade />} />
+            <Route path="/ratecourse" element={<RateCoursePage />} />
+            <Route path="/rate/:id" element={<RateCourseCo />} />
+            <Route path="/TraineeHomePage" element={<TraineeHomePage />} />
             <Route path="/addexercise" element={<AddExercises />} />
               <Route
              path="/Reviews"
@@ -75,6 +66,70 @@ function App() {
              path="/ViewContract"
              element={<ViewContract/>}
              />
+            
+              <Route
+                path="/"
+                element={<Home />}
+              />
+                <Route
+                path="/create"
+                element={<Createuser />}
+              />
+                <Route
+                path="/selectcountry"
+                element={<SelectCountry />}
+              />
+              <Route
+                path="/viewallcourses"
+                element={<ViewCourses />}
+              />
+              <Route
+                path="/viewallcourseswithprices"
+                element={<ViewCoursesWithPrice />}
+              />
+              <Route
+                path="/price/:id"
+                element={<ViewPrice />}
+              />
+                <Route path="/create/createcourse"
+                element={<CreateCourse />}
+              />
+              <Route
+                path="/instructor"
+                element={<Instructor />}
+              />
+                <Route 
+              path="/addcourse" 
+              element={<Addcoursepage />} 
+            />
+            <Route 
+              path="/instructor/coursedetails/:id" 
+              element={<Coursedetails />} 
+            />
+             <Route 
+              path="/SearchCoursePage"
+              element={<SearchCoursePage />} 
+            />
+            <Route
+              path="/login"
+              element={<Login />}
+            />
+            <Route
+              path="/signup"
+              element={<Signup />}
+            />
+             <Route
+              path="/resetpassword"
+              element={<Passwordreset/>}
+            />
+             <Route
+              path="/forgotpassword"
+              element={<Forgotpassword/>}
+            />
+             <Route
+              path="/forgotpassword/:id"
+              element={<Forgotpasswordtoken/>}
+            />
              
             <Route path = "/addquestion" element={<Question/>}/>
             <Route path = "/trainee" element={<GoTrainee/>}/>
