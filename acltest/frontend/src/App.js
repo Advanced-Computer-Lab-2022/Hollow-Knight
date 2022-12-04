@@ -91,9 +91,7 @@ function App() {
                 path="/price/:id"
                 element={<ViewPrice />}
               />
-                <Route path="/create/createcourse"
-                element={<CreateCourse />}
-              />
+               
               <Route
                 path="/instructor"
                 element={<Instructor />}

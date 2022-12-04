@@ -33,6 +33,7 @@ const UpdateContract = async (req, res) => {
 
 const createInstructor = async (req, res) => {
   const { username, password, country } = req.body;
+ 
   const type = "Instructor";
 
   try {

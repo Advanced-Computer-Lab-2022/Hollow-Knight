@@ -20,18 +20,21 @@ const ViewCorrectAnswers = async (req, res) => {
 
 const createTrainee = async (req, res) => {
     const { username, password, country } = req.body;
+    console.log(req.body);
     const type = "Trainee";
   
     try {
+      console.log("here")
       const trainee = await User.create({ username, password, country, type });
       console.log(trainee._id);
       const userid = trainee._id;
       const user = await Trainee.create({userid: userid});
+      res.json({ mssg: "user added" });
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
   
-    res.json({ mssg: "user added" });
+    //res.json({ mssg: "user added" });
   };
 
 const updateCourseRating = async (req, res) => {

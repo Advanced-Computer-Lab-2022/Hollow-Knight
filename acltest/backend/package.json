@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "crypt0": "^1.0.4",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "googleapis": "^39.2.0",
