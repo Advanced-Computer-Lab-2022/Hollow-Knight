@@ -39,7 +39,7 @@ const CreateSubtitle =()=>{
         value={name}
         />
 
-        <label>duration (required)</label>
+        <label>Subtitle Hours: (required)</label>
         <input
         type="number"
         onChange={(e)=> setHour(e.target.value)}

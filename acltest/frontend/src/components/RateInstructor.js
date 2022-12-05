@@ -2,13 +2,14 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 const RateInstructor = () => {
   const [review, setReview] = useState("");
+  const [desc, setDesc] = useState("");
   const [username, setUsername] = useState("");
   const params = new URLSearchParams(window.location.search);
   const courseId = params.get("courseId");
   const rateHandler = async (e) => {
     console.log(courseId);
     e.preventDefault();
-    const input = {username, review}
+    const input = {username, review,desc}
     const response = await fetch(`/api/instructors/rate?courseId=${courseId}`, {
       method: "POST",
       body: JSON.stringify(input),
@@ -26,6 +27,12 @@ const RateInstructor = () => {
         type="text"
         onChange={(e) => setUsername(e.target.value)}
         value={username}
+      ></input>
+        <h1>Review:</h1>
+      <input
+        type="text"
+        onChange={(e) => setDesc(e.target.value)}
+        value={desc}
       ></input>
       <h1>Rating:</h1>
       <input

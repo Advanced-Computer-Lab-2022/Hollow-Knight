@@ -323,7 +323,7 @@ const updatemailbiogrpahy = async (req, res) => {
           }
           if(req.body.review){
         if(check == false){
-        const updaterating = await Instructor.findOneAndUpdate({userid: userid}, {$push : {review: { review : req.body.rating, traineeid : traineeid} }})
+        const updaterating = await Instructor.findOneAndUpdate({userid: userid}, {$push : {review: { rating : req.body.review, reviews : req.body.desc, traineeid : traineeid} }})
         console.log("-----THE UPDATED RATING-----:")
         console.log(updaterating)
          res.status(200).json("added")
@@ -336,6 +336,7 @@ const updatemailbiogrpahy = async (req, res) => {
             for (const obj of newlist) {
                 if (JSON.stringify(obj.traineeid) === JSON.stringify(traineeid)) {
                     obj.rating = req.body.review
+                    obj.reviews = req.body.desc
         }
     }
         const updaterating = await Instructor.findOneAndUpdate({userid: userid}, {review: newlist})
