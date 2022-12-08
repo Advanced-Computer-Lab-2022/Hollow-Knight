@@ -16,7 +16,7 @@ const ViewCoursesWithPrice = () => {
     const fetchCourses = async () => {
       const response = await fetch("/api/courses");
       const json = await response.json();
-      const fetchCountryResponse = fetch("/users/" + param.id);
+      const fetchCountryResponse = fetch("/api/users/" + param.id);
       const jsonUser = await (await fetchCountryResponse).json();
       if (response.ok) {
         setCourses(json);

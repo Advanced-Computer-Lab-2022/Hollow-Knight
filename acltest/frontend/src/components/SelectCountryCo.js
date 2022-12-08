@@ -16,7 +16,7 @@ const SelectCountryForm = () => {
     e.preventDefault();
     console.log(countryAbb);
     const userInfo = { name, country, countryAbb };
-    const res = await fetch("/users", {
+    const res = await fetch("api/users", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

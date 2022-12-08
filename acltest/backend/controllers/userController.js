@@ -13,6 +13,7 @@ const User = require('../models/userModel')
 const process = require('process');
 var nodeoutlook = require('nodejs-nodemailer-outlook')
 const updateCountry = async (req, res) => {
+  console.log("cdcd");
   const instructor = await Users.findOneAndUpdate(
     { username: req.body.name },
     { country: req.body.country, countryAbb: req.body.countryAbb }
