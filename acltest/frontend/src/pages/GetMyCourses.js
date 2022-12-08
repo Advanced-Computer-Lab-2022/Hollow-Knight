@@ -23,7 +23,7 @@ const ViewMyCourses = () => {
       console.log('here')
       console.log(courses)
 
-  },[])
+  },[userId,courses])
 
 
   
