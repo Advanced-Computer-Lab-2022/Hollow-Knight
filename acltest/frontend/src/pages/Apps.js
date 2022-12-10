@@ -9,7 +9,7 @@ const Apps = () => {
     const urladdcourse=`/addcourse?userId=${userId}`
     const urlsearchcourse=`/instructor?userId=${userId}`
     const urlviewcontract=`/ViewContract`
-    const urladdexercises=`/addexercise`
+    const urlallcourses=`/viewallcourses`
     return(
         <div className="Apps">
 
@@ -27,6 +27,7 @@ const Apps = () => {
       <Link to ={urlviewcontract} > Contract</Link>
 
       <br></br>
+      <Link to ={urlallcourses} > View All Available Courses </Link>
      
         
       <br></br>

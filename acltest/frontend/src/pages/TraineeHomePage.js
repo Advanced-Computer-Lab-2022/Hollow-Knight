@@ -5,6 +5,7 @@ const TraineeHomePage = () => {
   console.log(userId);
   const urlsearchcourse=`/SearchCoursePage?userId=${userId}`
   const urlviewmycourses=`/getmycourses?userId=${userId}`
+  const urlallcourses=`/viewallcourses`
 
   return (
     <div className="Apps">
@@ -25,6 +26,8 @@ const TraineeHomePage = () => {
 
       <Link  to= {urlviewmycourses}> View  My Courses</Link>
       <br></br>
+      <br></br>
+      <Link to ={urlallcourses} > View All Available Courses </Link>
     </div>
   );
 };
