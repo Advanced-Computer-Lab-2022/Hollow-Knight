@@ -1,13 +1,23 @@
 import { useState } from "react";
-
+import React, {  useMemo } from "react";
+import Select from "react-select";
+import countryList from "react-select-country-list";
 const CreateTrainee = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [country, setCountry] = useState("");
+  const [countryAbb, setCountryAbb] = useState("");
+  const [value, setValue] = useState("");
+  const options = useMemo(() => countryList().getData(), []);
+const changeHandler = (value) => {
+  setValue(value);
+  setCountry(value.label);
+  setCountryAbb(value.value);
+};
   const maketrainee = async (e) => {
     e.preventDefault();
 
-    const trainee = { username, password, country };
+    const trainee = { username, password, country ,countryAbb};
 
     const response = await fetch("/api/trainees", {
       method: "POST",
@@ -42,12 +52,11 @@ const CreateTrainee = () => {
         onChange={(e) => setPassword(e.target.value)}
         value={password}
       />
-      <label>Country:</label>
-      <input
-        type="text"
-        onChange={(e) => setCountry(e.target.value)}
-        value={country}
-      />
+             <br></br>
+             <label>Please Select A Country:</label>
+      <br></br>
+      <Select options={options} value={value} onChange={changeHandler} />
+      <br></br>
 
       <button>Add Trainee</button>
     </form>

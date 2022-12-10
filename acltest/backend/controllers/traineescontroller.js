@@ -19,13 +19,13 @@ const ViewCorrectAnswers = async (req, res) => {
 };
 
 const createTrainee = async (req, res) => {
-    const { username, password, country } = req.body;
+    const { username, password, country ,countryAbb} = req.body;
     console.log(req.body);
     const type = "Trainee";
   
     try {
       console.log("here")
-      const trainee = await User.create({ username, password, country, type });
+      const trainee = await User.create({ username, password, country, type ,countryAbb});
       console.log(trainee._id);
       const userid = trainee._id;
       const user = await Trainee.create({userid: userid});

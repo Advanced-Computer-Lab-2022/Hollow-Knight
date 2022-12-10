@@ -1,13 +1,23 @@
 import { useState } from "react"
-
+import React, {  useMemo } from "react";
+import Select from "react-select";
+import countryList from "react-select-country-list";
 const CreateAdmin = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [country, setCountry] = useState('')
+    const [countryAbb, setCountryAbb] = useState("");
+    const [value, setValue] = useState("");
+    const options = useMemo(() => countryList().getData(), []);
+  const changeHandler = (value) => {
+    setValue(value);
+    setCountry(value.label);
+    setCountryAbb(value.value);
+  };
     const makeadmin = async (e) => {
         e.preventDefault()
 
-        const admin = {username, password,country}
+        const admin = {username, password,country,countryAbb}
 
         const response = await fetch('/api/admins', {
             method: 'POST',
@@ -45,12 +55,11 @@ const CreateAdmin = () => {
             onChange={(e) => setPassword(e.target.value)}
             value={password}
             />
-            <label>Country :</label>
-            <input
-            type="text"
-            onChange={(e) => setCountry(e.target.value)}
-            value={country}
-            />
+             <br></br>
+             <label>Please Select A Country:</label>
+      <br></br>
+      <Select options={options} value={value} onChange={changeHandler} />
+      <br></br>
 
             <button>Add admin</button>
         </form>

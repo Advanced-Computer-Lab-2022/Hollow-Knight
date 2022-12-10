@@ -32,12 +32,12 @@ const UpdateContract = async (req, res) => {
 };
 
 const createInstructor = async (req, res) => {
-  const { username, password, country } = req.body;
+  const { username, password, country ,countryAbb} = req.body;
  
   const type = "Instructor";
 
   try {
-    const instructor = await User.create({ username, password, country, type });
+    const instructor = await User.create({ username, password, country, type ,countryAbb});
     console.log(instructor._id);
     const userid = instructor._id;
     const user = await Instructor.create({ userid });
