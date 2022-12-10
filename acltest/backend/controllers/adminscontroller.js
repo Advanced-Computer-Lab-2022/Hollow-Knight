@@ -1,15 +1,15 @@
 const Admin = require('../models/Admins')
-const User =require('../models/Users') 
+const User =require('../models/userModel') 
 
 const createAdmin = async (req, res) => {
-    const {username, password,country,countryAbb} = req.body
+    const {email, password,country,countryAbb} = req.body
     const type= "Admin"
     //const w = await User.findOne({username:name})
  /*   if(w){
         return
     }*/
     try{
-    const admin = await User.create({username,password,country,type,countryAbb})
+    const admin = await User.create({email,password,country,type,countryAbb})
     console.log(admin._id)
     const userid=admin._id
     const user =await Admin.create({userid})

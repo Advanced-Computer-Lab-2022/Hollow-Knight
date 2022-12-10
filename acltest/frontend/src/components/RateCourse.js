@@ -13,7 +13,7 @@ const RateCourse = () => {
       method: "PATCH",
       body: JSON.stringify({
         title: title,
-        rating: parseInt(rating),
+        rating: rating,
         id: userId,
       }),
       headers: {

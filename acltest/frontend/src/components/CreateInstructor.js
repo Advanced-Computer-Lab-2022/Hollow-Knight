@@ -3,7 +3,7 @@ import React, {  useMemo } from "react";
 import Select from "react-select";
 import countryList from "react-select-country-list";
 const CreateInstructor = () => {
-    const [username, setusername] = useState('')
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [country, setCountry] = useState("");
     const [countryAbb, setCountryAbb] = useState("");
@@ -17,7 +17,7 @@ const CreateInstructor = () => {
     const makeinstructor = async (e) => {
         e.preventDefault()
         
-        const instructor = {username, password,country,countryAbb}
+        const instructor = {email, password,country,countryAbb}
        console.log("here")
         const response = await fetch('/api/instructors', {
             method: 'POST',
@@ -29,9 +29,9 @@ const CreateInstructor = () => {
         })
         const man = await response.json()
         if (response.ok) {
-            setusername('')
+            setEmail('')
             setPassword('')
-            //setCountry('')
+            setCountry('')
         console.log('instructor added', man)
         }
 
@@ -41,11 +41,11 @@ const CreateInstructor = () => {
         <form className="createinstructor" onSubmit={makeinstructor} >
             <h2> Add instructor</h2>
 
-            <label>Name :</label>
+            <label>email :</label>
             <input
             type="text"
-            onChange={(e) => setusername(e.target.value)}
-            value={username}
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
             />
            
             <label>password :</label>

@@ -14,6 +14,16 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
+ first_name:{
+type:String,
+required:false
+
+  },
+  last_name:{
+    type:String,
+    required:false
+    
+      },
   country:{
     type:String,
     required:false,
@@ -22,6 +32,14 @@ const userSchema = new Schema({
   type:{
     type: String,
     required: false
+  },
+  countryAbb: {
+    type: String,
+    required: false,
+  },
+  gender:{
+    type:String,
+    required:false
   }
 })
 

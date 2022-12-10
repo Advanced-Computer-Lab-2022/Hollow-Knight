@@ -1,6 +1,6 @@
 
 
-const Users = require("../models/Users")
+const Users = require("../models/userModel")
 
 const Trainee = require('../models/Trainees')
 const Instructor = require('../models/Instructors')

@@ -3,7 +3,7 @@ import React, {  useMemo } from "react";
 import Select from "react-select";
 import countryList from "react-select-country-list";
 const CreateTrainee = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [country, setCountry] = useState("");
   const [countryAbb, setCountryAbb] = useState("");
@@ -17,7 +17,7 @@ const changeHandler = (value) => {
   const maketrainee = async (e) => {
     e.preventDefault();
 
-    const trainee = { username, password, country ,countryAbb};
+    const trainee = { email, password, country ,countryAbb};
 
     const response = await fetch("/api/trainees", {
       method: "POST",
@@ -30,7 +30,7 @@ const changeHandler = (value) => {
     if (response.ok) {
       setCountry("");
       setPassword("");
-      setUsername("");
+      setEmail("");
       console.log("trainee added", man);
     }
   };
@@ -42,8 +42,8 @@ const changeHandler = (value) => {
       <label>Name:</label>
       <input
         type="text"
-        onChange={(e) => setUsername(e.target.value)}
-        value={username}
+        onChange={(e) => setEmail(e.target.value)}
+        value={email}
       />
 
       <label>password:</label>

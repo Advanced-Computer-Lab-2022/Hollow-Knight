@@ -1,5 +1,5 @@
 const Trainee = require("../models/Trainees");
-const User = require("../models/Users");
+const User = require("../models/userModel");
 const Courses = require("../models/Courses");
 const Course = require("../models/Courses");
 const Instructors = require("../models/Instructors");
@@ -19,13 +19,13 @@ const ViewCorrectAnswers = async (req, res) => {
 };
 
 const createTrainee = async (req, res) => {
-    const { username, password, country ,countryAbb} = req.body;
+    const { email, password, country ,countryAbb} = req.body;
     console.log(req.body);
     const type = "Trainee";
   
     try {
       console.log("here")
-      const trainee = await User.create({ username, password, country, type ,countryAbb});
+      const trainee = await User.create({ email, password, country, type ,countryAbb});
       console.log(trainee._id);
       const userid = trainee._id;
       const user = await Trainee.create({userid: userid});

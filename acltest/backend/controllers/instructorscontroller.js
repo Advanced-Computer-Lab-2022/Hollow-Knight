@@ -1,6 +1,6 @@
 const Instructor = require("../models/Instructors");
 const Course = require("../models/Courses");
-const User = require("../models/Users");
+const User = require("../models/userModel");
 const Subtitle = require("../models/Subtitles");
 const Subtitles = require("../models/Subtitles");
 const { default: mongoose } = require("mongoose");
@@ -32,12 +32,12 @@ const UpdateContract = async (req, res) => {
 };
 
 const createInstructor = async (req, res) => {
-  const { username, password, country ,countryAbb} = req.body;
+  const { email, password, country ,countryAbb} = req.body;
  
   const type = "Instructor";
 
   try {
-    const instructor = await User.create({ username, password, country, type ,countryAbb});
+    const instructor = await User.create({ email, password, country, type ,countryAbb});
     console.log(instructor._id);
     const userid = instructor._id;
     const user = await Instructor.create({ userid });

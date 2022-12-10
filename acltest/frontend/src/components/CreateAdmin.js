@@ -3,7 +3,7 @@ import React, {  useMemo } from "react";
 import Select from "react-select";
 import countryList from "react-select-country-list";
 const CreateAdmin = () => {
-    const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [country, setCountry] = useState('')
     const [countryAbb, setCountryAbb] = useState("");
@@ -17,7 +17,7 @@ const CreateAdmin = () => {
     const makeadmin = async (e) => {
         e.preventDefault()
 
-        const admin = {username, password,country,countryAbb}
+        const admin = {email, password,country,countryAbb}
 
         const response = await fetch('/api/admins', {
             method: 'POST',
@@ -29,7 +29,7 @@ const CreateAdmin = () => {
         })
         const man = await response.json()
         if (response.ok) {
-        setUsername('')
+        setEmail('')
         setPassword('')
         setCountry('')
         console.log('admin added', man)
@@ -42,11 +42,11 @@ const CreateAdmin = () => {
         <form className="createadmin" onSubmit={makeadmin} >
             <h2> Add admin</h2>
 
-            <label>Name:</label>
+            <label>Email:</label>
             <input
             type="text"
-            onChange={(e) => setUsername(e.target.value)}
-            value={username}
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
             />
 
             <label>password:</label>
