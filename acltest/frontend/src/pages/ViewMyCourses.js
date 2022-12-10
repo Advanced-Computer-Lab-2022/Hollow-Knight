@@ -7,7 +7,7 @@ const ViewMyCourses = () => {
        
 
         const viewCourses = async ()=>{
-          console.log("bitch")
+          console.log("b")
             const params = new URLSearchParams(window.location.search);
             const userId = params.get('userId');
             console.log(userId)
@@ -32,6 +32,7 @@ const ViewMyCourses = () => {
                                      <div key={course._id}>
                                      <p ><strong>Course Title:</strong>{course.title} &nbsp;&nbsp;
                                      <strong>Price:</strong>{course.price} &nbsp;&nbsp;
+                                     <strong>Percent:</strong>{course.discount.percent} &nbsp;&nbsp;
                                      </p>
                                      <button variant="contained"
             onClick={() => window.location.href=`/applydiscount?courseId=${course._id}`} key={course._id}

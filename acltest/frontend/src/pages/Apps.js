@@ -27,8 +27,7 @@ const Apps = () => {
       <Link to ={urlviewcontract} > Contract</Link>
 
       <br></br>
-      <Link to ={urladdexercises} > Add exercise</Link>
- 
+     
         
       <br></br>
       <button variant="contained"

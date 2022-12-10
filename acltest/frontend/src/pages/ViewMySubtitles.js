@@ -8,7 +8,7 @@ const ViewMySubtitles = () => {
        
 
         const viewSubtitles = async ()=>{
-          console.log("bitch")
+          console.log("b")
             const params = new URLSearchParams(window.location.search);
             const courseId = params.get('courseId');
             console.log(courseId)

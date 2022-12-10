@@ -343,13 +343,15 @@ const updatemailbiogrpahy = async (req, res) => {
         res.status(200).json("updated")
         var sum = 0
         for (const obj of newlist) {
-            if (JSON.stringify(obj.traineeid) === JSON.stringify(traineeid)) {
+           
                 sum += obj.rating
-          }
-          var newaverage = sum/newlist.length
-          const updatetotal = await Instructor.findOneAndUpdate({userid: userid}, {overallRating : newaverage})
-          console.log("updatetotal:" + updatetotal)
+    
+         
         }
+        console.log("here    ----"+sum + " "+ newlist.length)
+        var newaverage = sum/newlist.length
+        const updatetotal = await Instructor.findOneAndUpdate({userid: userid}, {overallRating : newaverage})
+        console.log("updatetotal:" + updatetotal)
 
     }
           }
@@ -404,12 +406,15 @@ const applydiscount = async (req, res) => {
 //  const {username, password, biography,mail} = req.body
      const instruct = "Instructor"
      const mostak = req.query.courseId
+     const enddate = '13-1-2023'
     try{
     const courses = await Course.findOne({_id: mostak})
     var money = courses.price
+    var discounting = 100-req.body.discount
     console.log(money)
-    var newmoney = money - req.body.discount
+    var newmoney = (money*(discounting/100))
     const updating = await Course.findOneAndUpdate({_id: mostak}, {price: newmoney})
+    const updating2 = await Course.findOneAndUpdate({_id: mostak}, {discount: {percent : req.body.discount, duration : '11-11-2019'}})
     res.status(200).json("success!")
     console.log(courses)
     }

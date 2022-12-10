@@ -22,13 +22,14 @@ const Home = () => {
         </Link>
 
         <br></br>
-        <Link to="/addcourse">Create a course</Link>
-        <br></br>
         <Link to="/instructor">Search Inst </Link>
         <br></br>
         <Link to="/SearchCoursePage">Search </Link>
         <br></br>
-
+        <Link to="/resetpassword">
+        Reset Password
+        </Link> 
+        <br></br>
       <Link to="/InstructorHome">
         Instructor Home Page
         </Link> 

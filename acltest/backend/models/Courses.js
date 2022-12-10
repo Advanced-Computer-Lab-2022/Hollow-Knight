@@ -44,9 +44,13 @@ const courseSchema = new Schema(
       default: 0,
     },
     contract: {
-      Status: { type: String, required: false, default: "pending" },
+      Status: { type: String, required: false, default: "Pending" },
       percent: { type: Number, required: false, default: 0 },
     },
+    discount: {
+      percent: {type:Number, required : false, default : 0},
+      duration: {type:Date, required: false}
+    }
   },
   { timestamps: true }
 );

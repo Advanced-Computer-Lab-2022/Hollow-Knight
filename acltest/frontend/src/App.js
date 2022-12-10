@@ -84,7 +84,7 @@ function App() {
                 element={<ViewCourses />}
               />
               <Route
-                path="/viewallcourseswithprices"
+                path="/viewallcourseswithprices/:id"
                 element={<ViewCoursesWithPrice />}
               />
               <Route
