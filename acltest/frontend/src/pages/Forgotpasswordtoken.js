@@ -15,7 +15,8 @@ const Forgotpasswordtoken = () =>{
                 'Content-Type' : 'application/json'
             }
         })
-        const json = await response.json()
+        const json = await response.json();
+        console.log(json);
         if(response.ok){
             console.log("done",json)
         
