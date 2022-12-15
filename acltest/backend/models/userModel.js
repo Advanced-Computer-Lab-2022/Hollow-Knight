@@ -44,7 +44,7 @@ required:false
 })
 
 // static signup method
-userSchema.statics.signup = async function(email, password,type) {
+userSchema.statics.signup = async function(email, password,type,first_name,last_name,country,countryAbb,gender) {
 
     // validation
     if (!email || !password) {
@@ -69,7 +69,7 @@ userSchema.statics.signup = async function(email, password,type) {
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
   
-    const user = await this.create({ email, password: hash ,type})
+    const user = await this.create({ email, password: hash ,type,first_name,last_name,country,countryAbb,gender})
   
     return user
   }
