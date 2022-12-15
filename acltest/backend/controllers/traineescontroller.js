@@ -19,38 +19,45 @@ const ViewCorrectAnswers = async (req, res) => {
 };
 
 const createTrainee = async (req, res) => {
-    const { email, password, country ,countryAbb} = req.body;
-    console.log(req.body);
-    const type = "Trainee";
-  
-    try {
-      console.log("here")
-      const trainee = await User.create({ email, password, country, type ,countryAbb});
-      console.log(trainee._id);
-      const userid = trainee._id;
-      const user = await Trainee.create({userid: userid});
-      res.json({ mssg: "user added" });
-    } catch (error) {
-      res.status(400).json({ error: error.message });
-    }
-  
-    //res.json({ mssg: "user added" });
-  };
+  const { email, password, country, countryAbb } = req.body;
+  console.log(req.body);
+  const type = "Trainee";
+
+  try {
+    console.log("here");
+    const trainee = await User.create({
+      email,
+      password,
+      country,
+      type,
+      countryAbb,
+    });
+    console.log(trainee._id);
+    const userid = trainee._id;
+    const user = await Trainee.create({ userid: userid });
+    res.json({ mssg: "user added" });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+
+  //res.json({ mssg: "user added" });
+};
 
 const updateCourseRating = async (req, res) => {
-  const { title, rating, id } = req.body;
-  const course = await Courses.findOne({ title });
+  const { courseId, rating, id, review } = req.body;
+  const course = await Courses.findOne({ id: courseId });
   const updatedArray = course.review;
   console.log(course.review);
   const searchedRating = updatedArray.find(
     (element) => element.traineeId == id
   );
   if (searchedRating == null) {
-    updatedArray.push({ rating: rating, traineeId: id });
+    updatedArray.push({ rating: rating, traineeId: id, reviews: review });
   } else {
     for (const obj of updatedArray) {
       if (obj.traineeId == id) {
         obj.rating = rating;
+        obj.reviews = review;
         break;
       }
     }
@@ -70,6 +77,7 @@ const updateCourseRating = async (req, res) => {
   );
   console.log(overallRating);
   console.log(updated.overallRating);
+  console.log(updated);
   return res.status(200).json(updated);
 };
 
@@ -119,9 +127,9 @@ const addExercise = async (req, res) => {
 };
 const getTraineeCourses = async (req, res) => {
   try {
-    const trainee = await Trainee.findOne({ id: req.body.id });
-    const traineeCourses = trainee.courses;
-    return res.status(200).json(traineeCourses);
+    const trainee = await Trainee.findOne({ userid: req.body.id });
+    console.log(trainee.registeredcourses);
+    return res.status(200).json(trainee);
   } catch (error) {
     return res.status(404).json(error);
   }
@@ -158,13 +166,14 @@ const FindCourses = async (req, res) => {
       let course = await Courses.findById(currentcourse);
       allcourse.push(course);
     }
+    return res.status(200).json(allcourse);
 
     //console.log(allcourse)
   } catch (error) {
     return res.status(400).json({ error: error.message });
   }
 
-  return res.status(200).json(allcourse);
+  //return res.status(200).json(allcourse);
 };
 
 const GetCourseSubtitles = async (req, res) => {

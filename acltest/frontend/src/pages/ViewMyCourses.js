@@ -1,58 +1,64 @@
-import { useEffect } from "react"
+import { useEffect } from "react";
 const { useState } = require("react");
 const ViewMyCourses = () => {
+  const [courses, setCourses] = useState(null);
+  useEffect(() => {
+    const viewCourses = async () => {
+      console.log("b");
+      const params = new URLSearchParams(window.location.search);
+      const userId = params.get("userId");
+      console.log(userId);
+      const response = await fetch(
+        `/api/instructors/viewmycourses?userId=${userId}`
+      );
+      const result = await response.json();
 
-    const [courses, setCourses] = useState(null)
-    useEffect(()=>{
-       
-
-        const viewCourses = async ()=>{
-          console.log("b")
-            const params = new URLSearchParams(window.location.search);
-            const userId = params.get('userId');
-            console.log(userId)
-            const response = await fetch(`/api/instructors/viewmycourses?userId=${userId}`);
-            const result = await response.json()
-            
-            if(response.ok){
-                setCourses(result)
-                console.log(result)
-                
-            }
-          
-
-        }
-        viewCourses()
-        
-     
-    },[])
-    return(
-      <div className="courses">
-          {courses && courses.map((course)=>(
-                                     <div key={course._id}>
-                                     <p ><strong>Course Title:</strong>{course.title} &nbsp;&nbsp;
-                                     <strong>Price:</strong>{course.price} &nbsp;&nbsp;
-                                     <strong>Percent:</strong>{course.discount.percent} &nbsp;&nbsp;
-                                     </p>
-                                     <button variant="contained"
-            onClick={() => window.location.href=`/applydiscount?courseId=${course._id}`} key={course._id}
+      if (response.ok) {
+        setCourses(result);
+        console.log(result);
+      }
+    };
+    viewCourses();
+  }, []);
+  return (
+    <div className="courses">
+      {courses &&
+        courses.map((course) => (
+          <div key={course._id}>
+            <p>
+              <strong>Course Title:</strong>
+              {course.title} &nbsp;&nbsp;
+              <strong>Price:</strong>
+              {course.price} &nbsp;&nbsp;
+              <strong>Percent:</strong>
+              {course.discount.percent} &nbsp;&nbsp;
+            </p>
+            <button
+              variant="contained"
+              onClick={() =>
+                (window.location.href = `/applydiscount?courseId=${course._id}`)
+              }
+              key={course._id}
               margin="normal"
-              padding="normal">
+              padding="normal"
+            >
               Apply Discount
-                      </button>
-                      <button variant="contained"
-            onClick={() => window.location.href=`/viewsubtitles?courseId=${course._id}`} key={course._id}
+            </button>
+            <button
+              variant="contained"
+              onClick={() =>
+                (window.location.href = `/viewsubtitles?courseId=${course._id}`)
+              }
+              key={course._id}
               margin="normal"
-              padding="normal">
+              padding="normal"
+            >
               View Subtitles
-              
-                      </button>
-                                 </div>
-          ))}
-      </div>
-  )
-}
-    
+            </button>
+          </div>
+        ))}
+    </div>
+  );
+};
 
-
-export default ViewMyCourses
+export default ViewMyCourses;
