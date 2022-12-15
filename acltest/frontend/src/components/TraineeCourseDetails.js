@@ -1,9 +1,9 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-const CoursesDetails = ({ Courses }) => {
+const TraineeCoursesDetails = ({ Courses }) => {
 
 
-  const URL = "/instructor/coursedetails/"+Courses._id;
+  const URL = "/traineesearchcourse/"+Courses._id;
 console.log(URL)
 
   return (
@@ -21,4 +21,4 @@ console.log(URL)
   )
 }
 
-export default CoursesDetails
+export default TraineeCoursesDetails

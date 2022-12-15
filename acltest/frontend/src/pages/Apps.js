@@ -8,8 +8,9 @@ const Apps = () => {
     const urlcoursereview=`/ViewReviews?userId=${userId}`
     const urladdcourse=`/addcourse?userId=${userId}`
     const urlsearchcourse=`/instructor?userId=${userId}`
-    const urlviewcontract=`/ViewContract`
+   
     const urlallcourses=`/viewallcourses`
+    const urlviewmycourses=`/viewmycourses?userId=${userId}`
     return(
         <div className="Apps">
 
@@ -24,19 +25,15 @@ const Apps = () => {
       <br></br>
       <Link to ={urlsearchcourse} > Search  Instructor </Link>
       <br></br>
-      <Link to ={urlviewcontract} > Contract</Link>
-
-      <br></br>
+     
+   
       <Link to ={urlallcourses} > View All Available Courses </Link>
+      <br></br>
+      <Link to ={urlviewmycourses} > View My Courses </Link>
      
         
       <br></br>
-      <button variant="contained"
-            onClick={() => window.location.href=`/viewmycourses?userId=${userId}`} key={userId}
-            margin="normal"
-            padding="normal">
-       View my courses
-      </button>
+    
 
     
        

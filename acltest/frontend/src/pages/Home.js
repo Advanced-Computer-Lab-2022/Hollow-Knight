@@ -9,8 +9,9 @@ const Home = () => {
         <h2>Home</h2>
       </div>
       <div>
-        <Link to="/create">Create a user</Link>
-        <br></br>
+
+
+       <Link to="/adminhome">Admin Home</Link>
       
         <br></br>
         <Link to="/viewallcourseswithprices">View All Courses With Prices</Link>
@@ -22,10 +23,7 @@ const Home = () => {
         </Link>
 
         <br></br>
-        <Link to="/instructor">Search Inst </Link>
-        <br></br>
-        <Link to="/SearchCoursePage">Search </Link>
-        <br></br>
+        
         <Link to="/resetpassword">
         Reset Password
         </Link> 

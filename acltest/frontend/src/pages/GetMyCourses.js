@@ -4,7 +4,7 @@ const ViewMyCourses = () => {
   const params = new URLSearchParams(window.location.search);
   const userId = params.get('userId');
   console.log(userId)
-  useEffect(()=>{
+  useState(()=>{
      
 
       const fetchCourses = async ()=>{

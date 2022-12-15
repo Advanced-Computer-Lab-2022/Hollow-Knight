@@ -27,7 +27,7 @@ import UpdateInstructInfo from './pages/updateinstructorinfo';
 import ViewMyCourses from './pages/ViewMyCourses';
 import ReviewInstructor from './pages/ReviewInstructor';
 import Question from './components/Question';
-import TraineeApps from './pages/TraineeApps';
+
 import CourseContent from './pages/CourseContent';
 import ViewAnswers from './components/ViewAnswers';
 import ViewInsReviews from './pages/ViewInsReviews';
@@ -40,6 +40,9 @@ import Navbar from './components/Navbar';
 import Passwordreset from './pages/Passwordreset';
 import Forgotpassword from './components/Forgotpassword';
 import Forgotpasswordtoken from './pages/Forgotpasswordtoken';
+import AdminHomePage from "./pages/AdminHomePage";
+import AdminApps from "./pages/AdminApps";
+import ViewDetailsTrainee from "./pages/ViewDetailsTrainee";
 function App() {
   return (
     <div className="App">
@@ -131,7 +134,7 @@ function App() {
              
             <Route path = "/addquestion" element={<Question/>}/>
             <Route path = "/trainee" element={<GoTrainee/>}/>
-            <Route path = "/traineeapps" element={<TraineeApps/>}/>
+         
             <Route path = "/viewmycourses" element={<ViewMyCourses/>}/>
             <Route path = "/coursecontent" element={<CourseContent/>}/>
             <Route path = "/getanswers" element={<ViewAnswers/>}/>
@@ -160,8 +163,18 @@ function App() {
               element={< UploadVideo/>} 
             />
             <Route path = "/addquestion" element={<Question/>}/>
+
             <Route path = "/getmycourses" element={<GetMyCourses/>}/>
+
             <Route path = "/rateinstructor" element={<RateInstructor/>}/>
+
+             <Route path = "/adminhome" element={<AdminHomePage/>}/>
+
+             <Route path = "/adminapps" element={<AdminApps/>}/>
+             
+             
+             <Route path = "/traineesearchcourse/:id" element={<ViewDetailsTrainee/>}/>
+             
             </Routes>
           </div>
         </BrowserRouter>
