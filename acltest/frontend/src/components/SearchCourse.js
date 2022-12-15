@@ -1,5 +1,6 @@
 import { useState } from "react"
 import CoursesDetails from "./Coursesdetails"
+import TraineeCourseDetails from "./TraineeCourseDetails"
 
 const SearchCourse = () => {
     const [name, setName] = useState('')
@@ -63,7 +64,7 @@ const SearchCourse = () => {
             />
           <div className="courses">
            {Courses && Courses.map(Courses => (
-           <CoursesDetails key={Courses._id} Courses={Courses} />
+           <TraineeCourseDetails key={Courses._id} Courses={Courses} />
            ))}
             </div>
             

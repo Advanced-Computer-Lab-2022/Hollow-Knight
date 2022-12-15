@@ -125,7 +125,13 @@ const searchCourse2 = async (req, res) => {
 
 
 const CreateCourse =async (req,res) =>{
-    const author = req.query.userId;
+    const userid = req.query.userId;
+    
+    const instructor= await Instructor.findOne({userid:userid})
+    console.log(instructor._id)
+    const author=instructor._id
+ 
+  
     const {title,price,subject,summary,total_hours} = req.body
    
        try{
@@ -228,23 +234,40 @@ const UpdateCourse = async (req, res) => {
 };
 
 const ViewReviews = async (req, res) => {
-  const name = req.query.userId;
+  const userid = req.query.userId;
+  const instructor= await Instructor.findOne({userid:userid})
+  //console.log(instructor._id)
+  const insid=instructor._id
+
   const { title } = req.body;
-  console.log(title, name);
+  //console.log(title, userid);
   try {
-    const course = await Course.find({ author: name, title: title });
-    console.log(course)
+    const course = await Course.find({ title: title });
+    //console.log(JSON.stringify(course[0].author))
+   if(JSON.stringify(course[0].author)===JSON.stringify(insid)){
     return res.status(200).json(course);
+    }else{
+      return res.status(400).json({ error: "This is not your course to access" });
+    }
   } catch (error) {
-    return res.status(400).json({ error: error.message });
+    return res.status(400).json({ error: "course Doesn't exist" });
   }
 };
 const ViewMyReviews = async (req, res) => {
-  const name = req.query.userId;
-  console.log(name);
+  const userid = req.query.userId;
+  const instructor= await Instructor.findOne({userid:userid})
+ 
+  console.log(instructor._id)
+  const insid=instructor._id
+  console.log(insid);
   try {
-    const course = await Instructor.find({ _id : name });
-    return res.status(200).json(course);
+    //const course = await Instructor.findById( insid );
+   const course = await Instructor.find({ _id : insid });
+    if(course[0].review.length>0){
+    return res.status(200).json(course);}
+    else{
+      return res.status(400).json({error:"you don't have any reviews"})
+    }
   } catch (error) {
     return res.status(400).json({ error: error.message });
   }
@@ -370,10 +393,14 @@ const updatemailbiogrpahy = async (req, res) => {
 const viewmycourses = async (req, res) => {
 //  const {username, password, biography,mail} = req.body
      const instruct = "Instructor"
-     const mostak = req.query.userId
+     const userid = req.query.userId
+     const instructor= await Instructor.findOne({userid:userid})
+ 
+     console.log(instructor._id)
+     const insid=instructor._id
     try{
     console.log(req.query.userId)
-    const courses = await Course.find({author: mostak})
+    const courses = await Course.find({author: insid})
     res.status(200).json(courses)
     console.log(courses)
     }
