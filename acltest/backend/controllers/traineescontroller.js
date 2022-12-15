@@ -72,7 +72,7 @@ const updateCourseRating = async (req, res) => {
   overallRating = Math.round((overallRating / counter) * 10) / 10;
 
   const updated = await Courses.findOneAndUpdate(
-    { title },
+    { id: courseId },
     { review: updatedArray, overallRating: overallRating }
   );
   console.log(overallRating);
