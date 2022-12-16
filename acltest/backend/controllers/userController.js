@@ -98,6 +98,10 @@ const forgotPassword = async (req, res) => {
 
 
 
+function getUserIdFromToken(token) {
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  return decoded.id;
+}
 
 
 
@@ -109,6 +113,7 @@ const changePassword1 =async  (req,res)=>{
   try {
       const { _id } = jwt.verify(token, process.env.SECRET)
      console.log(_id)
+     console.log(getUserIdFromToken(token));
       const user = await User.findOne ({ _id })
       if (!user) {
           return res.status(404).json({ error: "User not found" })

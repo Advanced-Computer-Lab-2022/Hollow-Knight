@@ -6,7 +6,9 @@ const {
   CourseDetails,
   getCourse,
 } = require("../controllers/coursescontroller");
+const   requireAuth  = require("../middleware/requireAuth");
 
+router.use(requireAuth);//lock all routes in this file
 router.get("/", findCourses);
 router.get('/coursedetails/:id' , CourseDetails)
 

@@ -9,7 +9,7 @@ const AddExercises = () => {
   const[q1,setQ1]=useState(null)
   const[display,setDisplay] = useState(false)
 
-  
+ 
   const [submitMessage, setSubmitMessage] = useState("");
   var exercise;
   const handleSubmit = async (e) => {

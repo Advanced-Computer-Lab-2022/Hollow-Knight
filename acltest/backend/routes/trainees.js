@@ -14,6 +14,11 @@ const {
   GetCourseSubtitles,
 } = require("../controllers/traineescontroller");
 
+
+const   requireAuth  = require("../middleware/requireAuth");
+
+router.use(requireAuth);//lock all routes in this file
+
 router.post("/", createTrainee);
 router.patch("/ratecourse", updateCourseRating);
 router.patch("/coursevideos", watchVideo);

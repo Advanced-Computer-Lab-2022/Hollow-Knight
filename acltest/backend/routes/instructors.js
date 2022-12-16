@@ -21,13 +21,16 @@ const {
   viewmysubtitles,
   uploadvideo
 } = require("../controllers/instructorscontroller");
+const { searchCourseInstructor } = require("../controllers/instructorscontroller");
 
+const   requireAuth  = require("../middleware/requireAuth");
+
+router.post("/search2", searchCourse2); //this is a public route //because it is not locked by requireAuth middleware //youssef
+router.use(requireAuth);//lock all routes in  file 
 router.post("/", createInstructor);
 router.patch("/", updateInstructorCountry);
-const { searchCourse } = require("../controllers/instructorscontroller");
 
-router.post("/search", searchCourse);
-router.post("/search2", searchCourse2);
+router.post("/searchInstructor/:token", searchCourseInstructor);
 
 router.post("/addcourse", CreateCourse);
 router.patch("/addexercise", addExercise);

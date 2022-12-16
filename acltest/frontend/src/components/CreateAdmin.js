@@ -14,6 +14,7 @@ const CreateAdmin = () => {
     setCountry(value.label);
     setCountryAbb(value.value);
   };
+  //get the token from the local storage
     const makeadmin = async (e) => {
         e.preventDefault()
 

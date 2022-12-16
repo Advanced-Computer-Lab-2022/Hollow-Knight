@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 //import SearchCourse from "../components/SearchCourse";
-
+import { useAuthContext } from "../hooks/useAuthContext";
 const Home = () => {
   return (
     <div className="home">

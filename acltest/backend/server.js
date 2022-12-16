@@ -14,6 +14,7 @@ const mongoose = require('mongoose')
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
         app.listen(process.env.PORT, () => {
+       
             console.log(process.env.PORT)
         })
     
@@ -38,5 +39,3 @@ app.use('/api/users', usersroute)
 
 
 
-
-process.env

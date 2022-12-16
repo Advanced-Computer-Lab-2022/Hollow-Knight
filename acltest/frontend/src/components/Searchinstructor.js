@@ -13,8 +13,10 @@ const SearchInstructor = () => {
         e.preventDefault()
 
         const searching = {name,title,subject,price}
+        //get token from local storage from user
+        
 
-        const response = await fetch('/api/instructors/search', {
+        const response = await fetch('/api/instructors/searchInstructor/'+, {
             method: 'POST',
             body: JSON.stringify(searching),
             headers: {

@@ -1,9 +1,11 @@
 {
   "dependencies": {
-    "@google-cloud/local-auth": "^2.1.0",
     "bootstrap": "^5.2.2",
     "crypt0": "^1.0.4",
     "gmail-api": "^1.1.1",
     "googleapis": "^105.0.0"
+   
+  
+
   }
 }

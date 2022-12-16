@@ -26,6 +26,10 @@ const SearchCourse = () => {
         if (response.ok) {
             setCourses(man)    
             console.log('shobak', man)
+            //get token from local storage from user
+            const accessTokenObj = localStorage.getItem('accessToken')
+
+            console.log('token', accessTokenObj)
         }
 
     }

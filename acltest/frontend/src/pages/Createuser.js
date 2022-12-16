@@ -1,7 +1,7 @@
 import CreateInstructor from '../components/CreateInstructor'
 import CreateTrainee from '../components/CreateTrainee'
 import CreateAdmin from '../components/CreateAdmin'
-
+import { useAuthContext } from '../hooks/useAuthContext'
 const Createuser = () => {
     return(
         <div className="CreateUser">

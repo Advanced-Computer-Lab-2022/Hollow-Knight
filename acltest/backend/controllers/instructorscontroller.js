@@ -15,6 +15,11 @@ const GetCourseById = async (req, res) => {
   }
 };
 
+
+
+
+
+
 const UpdateContract = async (req, res) => {
   const CourseId = req.query.courseId;
   const Status = req.body.Status;
@@ -61,8 +66,16 @@ const updateInstructorCountry = async (req, res) => {
 };
 
 // search for a course given by him/her based on course title or subject or instructor or price
-const searchCourse = async (req, res) => {
-  const { name } = req.body;
+const searchCourseInstructor = async (req, res) => {
+  
+
+
+
+
+
+
+  const {name} = req.params.token;
+
   const { title } = req.body;
   const { subject, price } = req.body;
 
@@ -90,6 +103,32 @@ const searchCourse = async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 };
+
+//search in all courses with title or subject or price with any substring
+const search = async (req, res) => {
+  const { string} = req.body;
+  try {
+    if (string) {
+      const course = await Course.find({
+        $or: [
+          { title: { $regex: string, $options: "i" } },
+          { subject: { $regex: string, $options: "i" } },
+          { price: { $regex: string, $options: "i" } },
+        ],
+      });
+      return res.status(200).json(course);
+    }
+    throw new Error("Course not found");
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+
+//function to get user id from token
+
+
+
 
 const searchCourse2 = async (req, res) => {
   const { name } = req.body;
@@ -485,7 +524,7 @@ const addExercise = async (req, res) => {
     module.exports = {
       createInstructor,
       updateInstructorCountry,
-      searchCourse,
+      searchCourseInstructor,
       CreateCourse,
       searchCourse2,
       ViewReviews,
@@ -499,5 +538,8 @@ const addExercise = async (req, res) => {
       rateinstructor,
       viewmycourses,
       applydiscount,
-      CreateSchedule,viewmysubtitles,uploadvideo,
+      CreateSchedule,
+      viewmysubtitles,
+      uploadvideo,
+      search
     };
