@@ -139,11 +139,29 @@ const loginUser = async (req, res) => {
 };
 
 const signupUser = async (req, res) => {
-  const { email, password,type,first_name,last_name,country,countryAbb,gender } = req.body
+  const {
+    email,
+    password,
+    type,
+    first_name,
+    last_name,
+    country,
+    countryAbb,
+    gender,
+  } = req.body;
 
   try {
-      const user = await User.signup(email, password,type,first_name,last_name,country,countryAbb,gender)
-      const token = await createtoken(user._id)
+    const user = await User.signup(
+      email,
+      password,
+      type,
+      first_name,
+      last_name,
+      country,
+      countryAbb,
+      gender
+    );
+    const token = await createtoken(user._id);
 
     res.status(200).json({ email, token });
   } catch (error) {
