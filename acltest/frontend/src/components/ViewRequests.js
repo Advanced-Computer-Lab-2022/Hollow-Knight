@@ -32,10 +32,12 @@ const ViewRequests = () => {
       }})
       if(response.ok){
         console.log("success!")
+        window.location.reload()
       }
       }
 
       const reject = async (request) => {
+        window.location.reload()
         const response = await fetch(`/api/admins/rejectrequest?requestId=${request._id}`, {
             method: 'POST',
             headers: {
@@ -43,6 +45,7 @@ const ViewRequests = () => {
       }})
       if(response.ok){
         console.log("success!")
+        window.location.reload()
       }
       }
 

@@ -49,6 +49,7 @@ const acceptrequest = async (req, res) => {
 
     const rejectrequest = async (req, res) => {
         const poop = await Requests.findOneAndDelete({_id: req.query.requestId})
+        res.status(200).json("success")
         };
 
       
