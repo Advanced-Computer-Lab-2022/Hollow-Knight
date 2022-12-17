@@ -43,6 +43,7 @@ import Forgotpasswordtoken from './pages/Forgotpasswordtoken';
 import AdminHomePage from "./pages/AdminHomePage";
 import AdminApps from "./pages/AdminApps";
 import ViewDetailsTrainee from "./pages/ViewDetailsTrainee";
+
 function App() {
   return (
     <div className="App">
@@ -174,7 +175,10 @@ function App() {
              
              
              <Route path = "/traineesearchcourse/:id" element={<ViewDetailsTrainee/>}/>
+
+
              
+
             </Routes>
           </div>
         </BrowserRouter>

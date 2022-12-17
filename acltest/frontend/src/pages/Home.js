@@ -35,6 +35,8 @@ const Home = () => {
         <Link to="/trainee">
         Trainee Home Page
         </Link> 
+        <br></br>
+      
         </div>
         </div>
     )
