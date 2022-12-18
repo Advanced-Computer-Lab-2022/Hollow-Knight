@@ -34,6 +34,12 @@ const selectdiscounts = async (req,res) => {
   }
   res.status(200).json("success!")
 }
+
+const alldiscounts = async (req,res) => {
+  console.log(req.body.discount)
+  const shite = await Course.updateMany({}, {discount : {percent : req.body.discount}})
+  res.status(200).json("success!")
+}
 module.exports = {
-  findCourses,CourseDetails, selectdiscounts
+  findCourses,CourseDetails, selectdiscounts, alldiscounts
 };
