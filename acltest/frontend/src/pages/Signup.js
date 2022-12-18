@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import Select from "react-select";
+//import Select from "react-select";
 import countryList from "react-select-country-list";
 import { useSignup } from "../hooks/useSignup";
 import Input from "@mui/material/TextField";
@@ -17,14 +17,15 @@ const Signup = () => {
   const [countryAbb, setCountryAbb] = useState("");
   const options = useMemo(() => countryList().getData(), []);
   const [gender, setGender] = useState("");
-
+  const [value, setValue] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { signup, error, loading } = useSignup();
-  const changeHandler = (value) => {
-    setValue(value);
-    setCountry(value.label);
-    setCountryAbb(value.value);
+  const changeHandler = (event) => {
+    console.log(event.target.value);
+    setValue(event.target.value);
+    setCountry(event.target.value.label);
+    setCountryAbb(event.target.value.value);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -83,7 +84,13 @@ const Signup = () => {
       <br></br>
       <br></br>
       <label>Select Country</label>
-      <Select options={options} value={value} onChange={changeHandler} />
+      <Select value={value} onChange={changeHandler}>
+        {options.map((option) => (
+          <MenuItem key={option.value} value={option}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </Select>
       <br></br>
       <Input
         label="Email"

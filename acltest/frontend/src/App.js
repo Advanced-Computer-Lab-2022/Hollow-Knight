@@ -44,6 +44,7 @@ import AdminHomePage from "./pages/AdminHomePage";
 import AdminApps from "./pages/AdminApps";
 import ViewDetailsTrainee from "./pages/ViewDetailsTrainee";
 import CreditCardInfo from "./components/CreditCardInfo";
+import CourseCertificate from "./components/CourseCertificate";
 function App() {
   return (
     <div className="App">
@@ -116,6 +117,7 @@ function App() {
               element={<ViewDetailsTrainee />}
             />
             <Route path="/creditcardinfo" element={<CreditCardInfo />} />
+            <Route path="/coursecertificate" element={<CourseCertificate />} />
           </Routes>
         </div>
       </BrowserRouter>
