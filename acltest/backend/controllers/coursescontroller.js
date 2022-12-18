@@ -25,6 +25,15 @@ const CourseDetails = async (req,res) => {
 
   res.status(200).json(courses)
 }
+
+const selectdiscounts = async (req,res) => {
+  console.log(req.body.discount)
+  for (const courseid of req.body.checklist) {
+    console.log(courseid)
+    const shit = await Course.findOneAndUpdate({_id : courseid} , {discount : {percent : req.body.discount}})
+  }
+  res.status(200).json("success!")
+}
 module.exports = {
-  findCourses,CourseDetails
+  findCourses,CourseDetails, selectdiscounts
 };

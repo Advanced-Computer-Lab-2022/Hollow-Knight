@@ -43,6 +43,7 @@ import Forgotpasswordtoken from './pages/Forgotpasswordtoken';
 import AdminHomePage from "./pages/AdminHomePage";
 import AdminApps from "./pages/AdminApps";
 import ViewDetailsTrainee from "./pages/ViewDetailsTrainee";
+import AdminDiscounts from "./pages/AdminDiscounts";
 
 function App() {
   return (
@@ -177,6 +178,8 @@ function App() {
              <Route path = "/traineesearchcourse/:id" element={<ViewDetailsTrainee/>}/>
             
              <Route path = "/viewrequests" element={<RequestsView/>}/>
+
+             <Route path = "/selectdiscounts" element={<AdminDiscounts/>}/>
 
              
 

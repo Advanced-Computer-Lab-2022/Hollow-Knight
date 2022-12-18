@@ -55,10 +55,11 @@ const ViewRequests = () => {
 
 <h5> Available Requests </h5> 
     
-  
+
 {requests && requests.map((request)=>(
         
 <div  key={request._id}>
+<Box sx={{ maxWidth: 220 }}>
 <Card variant="outlined">                      
 <React.Fragment>
     <CardContent>
@@ -80,7 +81,8 @@ const ViewRequests = () => {
     <button onClick={() => accepted(request)}>Accept Request</button>    <button onClick={() => reject(request)}>Reject Request</button>
     </CardActions>
   </React.Fragment> 
-  </Card>                                
+  </Card>
+  </Box>                            
 </div>
 ))}
                  

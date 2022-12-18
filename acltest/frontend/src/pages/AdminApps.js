@@ -6,6 +6,7 @@ const AdminApps = () => {
     const userId = params.get('userId');
     const urladduser=`/create`
     const urlviewrequests = "/viewrequests"
+    const urlselectdiscounts = "/selectdiscounts"
     return(
         <div className="Apps">
 
@@ -13,9 +14,11 @@ const AdminApps = () => {
       <br></br>
       <Link to ={urladduser} > Add User </Link>
       <br></br>
-
       <br></br>
       <Link to ={urlviewrequests} > View Requests </Link>
+      <br></br>
+      <br></br>
+      <Link to ={urlselectdiscounts} > Create Discounts to courses </Link>
       <br></br>
        
         </div>
