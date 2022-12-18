@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 
 const PDFFile = () => {
   return (
-    <Document>
+    <Document filename="Certificate">
       <Page style={styles.body}>
         <Text style={styles.header} fixed></Text>
         <Text style={styles.text}>Congrats on Completing the Course!!!!!!</Text>

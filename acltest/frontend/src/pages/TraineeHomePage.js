@@ -1,11 +1,11 @@
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 const TraineeHomePage = () => {
   const params = new URLSearchParams(window.location.search);
   const userId = params.get("userId");
   console.log(userId);
-  const urlsearchcourse=`/SearchCoursePage?userId=${userId}`
-  const urlviewmycourses=`/getmycourses?userId=${userId}`
-  const urlallcourses=`/viewallcourses`
+  const urlsearchcourse = `/SearchCoursePage?userId=${userId}`;
+  const urlviewmycourses = `/getmycourses?userId=${userId}`;
+  const urlallcourses = `/viewallcoursesfortrainee?userId=${userId}`;
 
   return (
     <div className="Apps">
@@ -21,13 +21,13 @@ const TraineeHomePage = () => {
       <br></br>
 
       <br></br>
-      <Link  to= {urlsearchcourse}> Search Course</Link>
+      <Link to={urlsearchcourse}> Search Course</Link>
       <br></br>
 
-      <Link  to= {urlviewmycourses}> View  My Courses</Link>
+      <Link to={urlviewmycourses}> View My Courses</Link>
       <br></br>
       <br></br>
-      <Link to ={urlallcourses} > View All Available Courses </Link>
+      <Link to={urlallcourses}> View All Available Courses </Link>
     </div>
   );
 };

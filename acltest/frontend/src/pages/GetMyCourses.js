@@ -58,13 +58,6 @@ const ViewMyCourses = () => {
               </button>
               <button
                 onClick={() =>
-                  (window.location.href = `creditcardinfo?courseId=${course._id}&&userId=${userId}`)
-                }
-              >
-                Pay For Course
-              </button>
-              <button
-                onClick={() =>
                   (window.location.href = `coursecertificate?courseId=${course._id}&&userId=${userId}`)
                 }
               >

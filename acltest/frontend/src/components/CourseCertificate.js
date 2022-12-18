@@ -1,9 +1,9 @@
 import PDFFile from "./PDFFile";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-const CourseCertificate = () => {
+const CourseCertificate = (props) => {
   return (
     <div className="App">
-      <PDFDownloadLink document={<PDFFile />} filename="Certificate">
+      <PDFDownloadLink filename="Certificate" document={<PDFFile />}>
         {({ loading }) =>
           loading ? (
             <button>Loading Document...</button>

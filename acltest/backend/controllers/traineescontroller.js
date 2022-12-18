@@ -136,13 +136,20 @@ const getTraineeCourses = async (req, res) => {
 };
 const addCourseToTrainee = async (req, res) => {
   try {
-    const trainee = await Trainee.findOne({ id: req.body.traineeId });
-    console.log(trainee);
-    trainee.courses.push(req.body.courseId);
+    const trainee = await Trainee.findOne({ userid: req.body.userId });
+    //console.log(trainee.registeredcourses);
+    for (const obj of trainee.registeredcourses) {
+      console.log(JSON.stringify(obj) === JSON.stringify(req.body.courseId));
+      if (obj == req.body.courseId) {
+        return res.status(404).json({ error: "Course not found" });
+      }
+    }
+    trainee.registeredcourses.push(req.body.courseId);
     const updatedTrainee = await Trainee.findOneAndUpdate(
-      { id: req.body.traineeId },
-      { courses: trainee.courses }
+      { userid: req.body.userId },
+      { registeredcourses: trainee.registeredcourses }
     );
+    console.log(updatedTrainee);
     return res.status(200).json(updatedTrainee);
   } catch (error) {
     return res.status(404).json(error);
