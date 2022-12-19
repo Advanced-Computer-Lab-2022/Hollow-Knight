@@ -5,6 +5,7 @@ const Course = require("../models/Courses");
 const Instructors = require("../models/Instructors");
 const Subtitle = require("../models/Subtitles");
 const Subtitles = require("../models/Subtitles");
+const Report = require("../models/Reports");
 const ViewCorrectAnswers = async (req, res) => {
   try {
     const subtitle = await Subtitle.findOne({ _id: req.body.subid });
@@ -187,8 +188,15 @@ const GetCourseSubtitles = async (req, res) => {
   }
 };
 
+const makereport = async (req, res) => {
+  const status = "-"
+  const cq = await Report.create({courseid: req.body.courseid, traineeid: req.body.traineeid , coursetitle : req.body.coursetitle, traineemail: req.body.traineemail, reason: req.body.reason, status: status});
+  res.status(200).json(cq);
+  };
+
 module.exports = {
   createTrainee,
+  makereport,
   updateCourseRating,
   watchVideo,
   getExerciseGrade,

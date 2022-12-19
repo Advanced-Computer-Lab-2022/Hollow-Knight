@@ -44,6 +44,7 @@ import AdminHomePage from "./pages/AdminHomePage";
 import AdminApps from "./pages/AdminApps";
 import ViewDetailsTrainee from "./pages/ViewDetailsTrainee";
 import AdminDiscounts from "./pages/AdminDiscounts";
+import ReportsView from './pages/ReportsView';
 
 function App() {
   return (
@@ -178,6 +179,8 @@ function App() {
              <Route path = "/traineesearchcourse/:id" element={<ViewDetailsTrainee/>}/>
             
              <Route path = "/viewrequests" element={<RequestsView/>}/>
+
+             <Route path = "/viewreports" element={<ReportsView/>}/>
 
              <Route path = "/selectdiscounts" element={<AdminDiscounts/>}/>
 

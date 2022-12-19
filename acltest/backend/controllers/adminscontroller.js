@@ -2,6 +2,7 @@ const Admin = require('../models/Admins')
 const Requests = require('../models/CourseRequests')
 const User =require('../models/userModel') 
 const Trainee = require('../models/Trainees')
+const Reports = require('../models/Reports')
 
 const createAdmin = async (req, res) => {
     const {email, password,country,countryAbb} = req.body
@@ -52,6 +53,24 @@ const acceptrequest = async (req, res) => {
         res.status(200).json("success")
         };
 
+
+const viewreports = async (req, res) => {
+    const cq = await Reports.find({});
+    res.status(200).json(cq);
+     console.log(cq)
+        };
+        
+const resolvereport = async (req, res) => {
+    const resolve = "resolved"
+    const poop = await Reports.findOneAndUpdate({_id: req.query.reportId}, {status : resolve})
+    res.status(200).json("success")
+     };
+
+const pendreport = async (req, res) => {
+    const pend = "pending"
+    const poop = await Reports.findOneAndUpdate({_id: req.query.reportId}, {status : pend})
+    res.status(200).json("success")
+    };
       
 
 module.exports = {
@@ -59,5 +78,8 @@ module.exports = {
     viewrequests,
     makerequest,
     acceptrequest,
-    rejectrequest
+    rejectrequest,
+    viewreports,
+    resolvereport,
+    pendreport
     }

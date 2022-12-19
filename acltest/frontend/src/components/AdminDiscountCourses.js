@@ -8,6 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
 
 const AdminDiscountCourses = () => {
   const [checked, setChecked] = useState(false);
@@ -53,26 +54,44 @@ const AdminDiscountCourses = () => {
       });
       if(response.ok){
         console.log("success")
+        window.location.reload()
       }
     }
+
+    const alldiscount = async (e) => {
+      argum = {discount}
+      console.log(argum)
+      const response = await fetch("/api/courses/alldiscounts", {
+          method: "POST",
+          body: JSON.stringify(argum),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if(response.ok){
+          console.log("success")
+          window.location.reload()
+        }
+      }
   return (
     <div className="courses">
-
+    <Box sx = {{maxWidth:80}}>
     <label>Discount:</label>
             <input
             type="number"
             onChange={(e) => setDiscount(e.target.value)}
             value={discount}
             />
-    <button onClick={selectdiscount}>Apply Discount to selected courses</button>
+    </Box>
+    <button onClick={selectdiscount}>Apply Discount to selected courses</button>  <button onClick={alldiscount}>Apply to all courses</button>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Course Name</TableCell>
-            <TableCell align="right">Course Price</TableCell>
-            <TableCell align="right">Current Discount</TableCell>
-            <TableCell align="right">Select For Discount</TableCell>
+            <TableCell> Course Name </TableCell>
+            <TableCell align="right"> Course Price </TableCell>
+            <TableCell align="right">Current Discount </TableCell>
+            <TableCell align="center"> Select For Discount  </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

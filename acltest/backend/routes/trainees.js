@@ -12,6 +12,7 @@ const {
   ViewCorrectAnswers,
   FindCourses,
   GetCourseSubtitles,
+  makereport
 } = require("../controllers/traineescontroller");
 
 router.post("/", createTrainee);
@@ -24,4 +25,6 @@ router.patch("/addcoursetotrainee", addCourseToTrainee);
 router.patch("/getanswers", ViewCorrectAnswers);
 router.get("/getmycourses", FindCourses);
 router.get("/getsubtitles", GetCourseSubtitles);
+router.post("/makereport", makereport)
+
 module.exports = router;
