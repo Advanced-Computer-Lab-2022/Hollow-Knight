@@ -1,10 +1,13 @@
 import React from "react"
 import Contract from "../components/Contract"
+import { useAuthContext } from "../hooks/useAuthContext";
 const { useState ,useEffect} = require("react");
+
 const ViewContract= ()=>{
 
 
     const [courses, setCourses] = useState(null)
+    const { user } = useAuthContext();
     useEffect(() =>{
     const getCourse = async ()=>{
        
@@ -12,7 +15,13 @@ const ViewContract= ()=>{
         const params = new URLSearchParams(window.location.search);
         const courseId = params.get('courseId');
    
-        const response = await fetch(`/api/instructors/getcoursebyid?courseId=${courseId}`);
+        const response = await fetch(`/api/instructors/getcoursebyid?courseId=${courseId}`,{
+            headers: {
+    
+              'Authorization': `Bearer ${user.token}` 
+                
+            },
+          });
         const json = await response.json()
         if(!response.ok){
           console.log("error")

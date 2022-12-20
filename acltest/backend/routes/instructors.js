@@ -22,6 +22,9 @@ const {
   uploadvideo
 } = require("../controllers/instructorscontroller");
 
+const   requireAuth  = require("../middleware/requireAuth");
+
+router.post("/search2", searchCourse2); //this is a public route //because it is not locked by requireAuth middleware //youssef
 router.post("/", createInstructor);
 router.patch("/", updateInstructorCountry);
 const { searchCourse } = require("../controllers/instructorscontroller");

@@ -3,7 +3,8 @@ import React, { useEffect } from 'react';
 
 import { useParams } from "react-router-dom";
 import GetAllDetails from '../components/GetAllDetails'
-import UpdateCourse from '../components/UpdateCourse'
+import UpdateCourse from '../components/UpdateCourse';
+import { useAuthContext } from "../hooks/useAuthContext";
 const { useState } = require("react");
 const Viewcoursedetails = () => {
   
@@ -11,12 +12,18 @@ const Viewcoursedetails = () => {
   const [courses, setCourses] = useState("")
   const[update,setUpdate]=useState(null)
 
-
+  const { user } = useAuthContext();
 
   useEffect(() =>{
     const handler = async() => {
         //e.preventDefault()
-        const response = await fetch('/api/courses/coursedetails/'+param.id);
+        const response = await fetch('/api/courses/coursedetails/'+param.id,{
+          headers: {
+  
+            'Authorization': `Bearer ${user.token}` 
+              
+          },
+        });
         const json = await response.json()
         if(!response.ok){
 

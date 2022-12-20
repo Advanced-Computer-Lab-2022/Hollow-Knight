@@ -59,29 +59,52 @@ const updateInstructorCountry = async (req, res) => {
   }
   res.status(200).json(instructor);
 };
+function getUserIdFromToken(token) {
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  return decoded.id;
+}
 
-// search for a course given by him/her based on course title or subject or instructor or price
-const searchCourse = async (req, res) => {
-  const { name } = req.body;
+
+const searchCourseInstructor = async (req, res) => {
+  
+  //get the id from params
+  const {token} = req.params;
+  //get the id from the token
+  const  id = getUserIdFromToken(token);
+
+  const instructor= await Instructor.findOne({userid:id})
+  
+
+
+  const {instructorName} = req.body;
+
+
+  const {name} = req.body;
+
   const { title } = req.body;
   const { subject, price } = req.body;
 
   try {
     if (title) {
-      const course = await Course.find({ title: title, author: name });
+      //find using substring 
+      const course =  await Course.find({title: { $regex: title, $options: "i" },author: instructor.id});
       return res.status(200).json(course);
     }
     if (subject) {
-      const course = await Course.find({ subject: subject, author: name });
+      const course = await Course.find({ subject: {$regex:title,$options:"i"}, author: instructor.id });
       return res.status(200).json(course);
     }
 
     if (price) {
-      const course = await Course.find({ price: price, author: name });
+        //find using substring
+
+      const course = await Course.find({ price: {$regex:title,$options:"i"}, author: instructor.id });
       return res.status(200).json(course);
     }
     if (name) {
-      const course = await Course.find({ author: name });
+        //find using substring
+        const course  = await Course.find({name: {$regex:title,$options:"i"}, author: instructor.id });
+      
       return res.status(200).json(course);
     }
 
