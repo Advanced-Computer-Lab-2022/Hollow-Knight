@@ -81,7 +81,7 @@ const ViewReports = () => {
       Status: {report.status}
       </Typography>
       <Typography variant="body2">
-        Click the button below to accept request
+        Click the button below to change status
         <br />
       </Typography>
     </CardContent>

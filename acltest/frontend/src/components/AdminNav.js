@@ -6,8 +6,9 @@ import RestoreIcon from '@mui/icons-material/Restore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 
-export default function SimpleBottomNavigation() {
-  const [value, setValue] = React.useState();
+export default function AdminNav({state}) {
+  const [value, setValue] = React.useState(state);
+  console.log({state})
   const urladduser=`/create`
   const urlviewrequests = "/viewrequests"
   const urlviewreports = "/viewreports"

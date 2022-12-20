@@ -4,7 +4,7 @@ import AdminNav from '../components/AdminNav'
 const RequestsView = () => {
     return(
         <div className="ViewRequests">
-        <AdminNav/>
+        <AdminNav state={1}/>
         <div>
             <h2>Requests By Corporate Trainees</h2>
         </div>

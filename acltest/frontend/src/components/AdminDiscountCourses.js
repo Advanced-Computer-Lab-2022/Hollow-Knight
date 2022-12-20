@@ -88,8 +88,9 @@ const AdminDiscountCourses = () => {
     <br></br>
     <br></br>
     <br></br>
+    <Box sx={{ maxWidth: 700}}>
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table sx={{ maxWidth: 700 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell> Course Name </TableCell>
@@ -116,6 +117,7 @@ const AdminDiscountCourses = () => {
         </TableBody>
       </Table>
     </TableContainer>
+    </Box>
           </div>
         );
 };
