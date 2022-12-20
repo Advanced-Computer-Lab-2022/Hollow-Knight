@@ -51,14 +51,16 @@ const ViewReports = () => {
 
     
     return(
-        <div className="ViewRequests">
+        <div className="ViewReports">
 
-<h5> Available Requests </h5> 
-    
+<h5> Available Reports </h5> 
+<div className="ViewReports" style={{display: "flex"}}>
 
 {reports && reports.map((report)=>(
+
         
-<div  key={report._id}>
+<div  key={report._id}> 
+
 <Box sx={{ maxWidth: 220 }}>
 <Card variant="outlined">                      
 <React.Fragment>
@@ -93,7 +95,7 @@ const ViewReports = () => {
 ))}
                  
 
-
+</div>
                   
  </div>
     )

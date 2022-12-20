@@ -55,6 +55,7 @@ const ViewRequests = () => {
 
 <h5> Available Requests </h5> 
     
+<div className="ViewRequests" style={{display: "flex"}}>
 
 {requests && requests.map((request)=>(
         
@@ -78,7 +79,7 @@ const ViewRequests = () => {
       </Typography>
     </CardContent>
     <CardActions>
-    <button onClick={() => accepted(request)}>Accept Request</button>    <button onClick={() => reject(request)}>Reject Request</button>
+    <Button onClick={() => accepted(request)}>Accept Request</Button>    <Button onClick={() => reject(request)}>Reject Request</Button>
     </CardActions>
   </React.Fragment> 
   </Card>
@@ -87,7 +88,7 @@ const ViewRequests = () => {
 ))}
                  
 
-
+</div>
                   
  </div>
     )

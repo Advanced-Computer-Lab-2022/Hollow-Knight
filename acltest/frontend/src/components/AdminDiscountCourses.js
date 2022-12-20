@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Checkbox from '@mui/material/Checkbox';
-
+import Button from '@mui/material/Button';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -83,7 +83,11 @@ const AdminDiscountCourses = () => {
             value={discount}
             />
     </Box>
-    <button onClick={selectdiscount}>Apply Discount to selected courses</button>  <button onClick={alldiscount}>Apply to all courses</button>
+    <Button onClick={selectdiscount}>Apply Discount to selected courses</Button>  <Button onClick={alldiscount}>Apply to all courses</Button>
+    <br></br>
+    <br></br>
+    <br></br>
+    <br></br>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
