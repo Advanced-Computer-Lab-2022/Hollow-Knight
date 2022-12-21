@@ -6,18 +6,11 @@ const TraineeHomePage = () => {
   const urlsearchcourse=`/SearchCoursePage?userId=${userId}`
   const urlviewmycourses=`/getmycourses?userId=${userId}`
   const urlallcourses=`/viewallcourses`
+  const urlWallet=`/getwallet?userId=${userId}`
 
   return (
     <div className="Apps">
-      <button
-        variant="contained"
-        onClick={() => (window.location.href = `/ratecourse?userId=${userId}`)}
-        key={userId}
-        margin="normal"
-        padding="normal"
-      >
-        Rate Course
-      </button>
+    
       <br></br>
 
       <br></br>
@@ -26,6 +19,7 @@ const TraineeHomePage = () => {
 
       <Link  to= {urlviewmycourses}> View  My Courses</Link>
       <br></br>
+      <Link to ={urlWallet} > View My Wallet </Link>
       <br></br>
       <Link to ={urlallcourses} > View All Available Courses </Link>
     </div>

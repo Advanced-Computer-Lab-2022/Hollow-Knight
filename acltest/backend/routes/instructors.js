@@ -8,7 +8,7 @@ const {
   searchCourse2,
   ViewReviews,
   addExercise,
-  ViewMyReviews,
+  getmonthlypay,
   DeleteCourse,
   UpdateCourse,
   GetCourseById,
@@ -19,7 +19,7 @@ const {
   rateinstructor,
   CreateSchedule,
   viewmysubtitles,
-  uploadvideo
+  uploadvideo,getuserfrominsid,getinstructorfromuserid
 } = require("../controllers/instructorscontroller");
 
 router.post("/", createInstructor);
@@ -34,16 +34,19 @@ router.patch("/addexercise", addExercise);
 router.patch("/updatecontract", UpdateContract);
 router.delete("/deletecourse/:id", DeleteCourse);
 router.post("/viewreviews", ViewReviews);
-router.get("/reviews", ViewMyReviews);
+
 router.get("/getcoursebyid", GetCourseById);
 router.patch("/updatecourse/:id", UpdateCourse);
 router.post('/updateinfo', updatemailbiogrpahy)
 router.get('/viewmycourses', viewmycourses)
-router.post('/applydiscount', applydiscount)
+router.patch('/applydiscount', applydiscount)
 router.post('/rate', rateinstructor)
 router.post('/addsubtitle', CreateSchedule)
 router.get('/viewmysubtitles', viewmysubtitles)
+router.get('/getname', getuserfrominsid)
 router.post('/uploadvideo', uploadvideo)
+router.get('/getinst', getinstructorfromuserid)
+router.get('/getpay', getmonthlypay)
 
 
 module.exports = router;

@@ -11,7 +11,8 @@ const CourseContent = () =>{
         const getsubtitles  = async ()=>{
             const params = new URLSearchParams(window.location.search);
        const courseid = params.get('courseId');
-       console.log(courseid)
+       const userid = params.get('userId');
+       console.log(courseid,userid)
 
             const response = await fetch(`/api/trainees/getsubtitles?courseid=${courseid}`)
             const json = await response.json()

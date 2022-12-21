@@ -28,6 +28,10 @@ const instructorSchema = new Schema(
       type: String,
       required: false,
     },
+    contract: {
+      Status: { type: String, required: false, default: "Pending" },
+      percent: { type: Number, required: false, default: 70 },
+    },
   },
   { timestamps: true }
 );

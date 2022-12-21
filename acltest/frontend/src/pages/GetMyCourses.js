@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 const ViewMyCourses = () => {
   const [courses, setCourses] = useState(null);
@@ -22,6 +23,24 @@ const ViewMyCourses = () => {
     console.log(courses);
   }, [userId, courses]);
 
+const requestrefund =async(course)=>{
+
+  const searching={userId,course}
+  const response = await fetch('/api/trainees/requestrefund', {
+    method: 'POST',
+    body: JSON.stringify(searching),
+    headers: {
+        'Content-Type' : 'application/json'
+    }
+  })
+const res = await response.json()
+if (response.ok) {
+
+console.log('Request succesful')
+}
+
+}
+
   return (
     <div className="ViewMyCourses">
       <h1>My Courses</h1>
@@ -33,7 +52,7 @@ const ViewMyCourses = () => {
               {course.title} &nbsp;&nbsp;
               <button
                 onClick={() =>
-                  (window.location.href = `coursecontent?courseId=${course._id}`)
+                  (window.location.href = `coursecontent?courseId=${course._id}&&userId=${userId}`)
                 }
               >
                 Go to Course
@@ -56,6 +75,23 @@ const ViewMyCourses = () => {
               >
                 Rate Course
               </button>
+
+              <Button
+              variant="outlined"
+              onClick={()=>requestrefund(course)}
+              >
+                 Get A Refund
+              </Button>
+
+              <Button
+              variant="outlined"
+              onClick={() =>
+                (window.location.href = `/report?courseId=${course._id}&&userId=${userId}`)
+              }
+              >
+                 Report Course
+              </Button>
+
             </p>
           </div>
         ))}

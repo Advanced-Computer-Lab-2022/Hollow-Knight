@@ -43,7 +43,9 @@ import Forgotpasswordtoken from './pages/Forgotpasswordtoken';
 import AdminHomePage from "./pages/AdminHomePage";
 import AdminApps from "./pages/AdminApps";
 import ViewDetailsTrainee from "./pages/ViewDetailsTrainee";
-
+import Wallet from "./pages/Wallet";
+import Revenue from "./pages/Revenue";
+import Report from "./pages/Report";
 function App() {
   return (
     <div className="App">
@@ -176,6 +178,10 @@ function App() {
              
              <Route path = "/traineesearchcourse/:id" element={<ViewDetailsTrainee/>}/>
 
+             <Route path = "/getwallet" element={<Wallet/>}/>
+               <Route path = "/getpay" element={<Revenue/>}/>
+               <Route path = "/report" element={<Report/>}/>
+             
 
              
 

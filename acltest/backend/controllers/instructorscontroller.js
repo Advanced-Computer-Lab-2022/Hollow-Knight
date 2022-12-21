@@ -3,7 +3,9 @@ const Course = require("../models/Courses");
 const User = require("../models/userModel");
 const Subtitle = require("../models/Subtitles");
 const Subtitles = require("../models/Subtitles");
+const Payments =require("../models/Payments")
 const { default: mongoose } = require("mongoose");
+
 
 const GetCourseById = async (req, res) => {
   const CourseId = req.query.courseId;
@@ -14,15 +16,25 @@ const GetCourseById = async (req, res) => {
     return res.status(400).json({ error: error.message });
   }
 };
-
+///////////////
 const UpdateContract = async (req, res) => {
-  const CourseId = req.query.courseId;
+  const authorid = req.query.authorid;
   const Status = req.body.Status;
-  const percent = req.body.percent;
+  const percent =req.body.percent;
+  var instrcutor
+
+  console.log(req.body,authorid);
+try{
+instrcutor= await Instructor.findById(authorid)
+
+}catch(error){
+return res.status(400).json("couldn't find instructor")
+}
+
   console.log(req.body);
   try {
-    const course = await Course.findByIdAndUpdate(CourseId, {
-      contract: { Status: Status, percent: percent },
+    const course = await Instructor.findByIdAndUpdate(authorid, {
+      contract: { Status: Status,percent:percent},
     });
     //{Status:Status}
     return res.status(200).json(course);
@@ -113,8 +125,9 @@ const searchCourse2 = async (req, res) => {
     if (name) {
       const course = await Course.find({ author: name });
       return res.status(200).json(course);
+      
     }
-
+   
     throw new Error("Course not found");
   } catch (error) {
     return res.status(500).json({ error: error.message });
@@ -129,6 +142,9 @@ const CreateCourse =async (req,res) =>{
     
     const instructor= await Instructor.findOne({userid:userid})
     console.log(instructor._id)
+    if(instructor.contract.Status=="Pending" ||instructor.contract.Status=="Rejected" ){
+      return res.status(400).json({error:"You Can't create a course without accepting the contract "})
+    }
     const author=instructor._id
  
   
@@ -253,23 +269,17 @@ const ViewReviews = async (req, res) => {
     return res.status(400).json({ error: "course Doesn't exist" });
   }
 };
-const ViewMyReviews = async (req, res) => {
+
+const getinstructorfromuserid = async (req, res) => {
   const userid = req.query.userId;
-  const instructor= await Instructor.findOne({userid:userid})
- 
-  console.log(instructor._id)
-  const insid=instructor._id
-  console.log(insid);
+ console.log(userid)
+  
   try {
-    //const course = await Instructor.findById( insid );
-   const course = await Instructor.find({ _id : insid });
-    if(course[0].review.length>0){
-    return res.status(200).json(course);}
-    else{
-      return res.status(400).json({error:"you don't have any reviews"})
-    }
+    const instructor= await Instructor.findOne({userid:userid})
+    return res.status(200).json(instructor);
+   
   } catch (error) {
-    return res.status(400).json({ error: error.message });
+    return res.status(400).json({ error: "can't find instructor" });
   }
 };
 
@@ -430,20 +440,21 @@ const viewmysubtitles = async (req, res) => {
               }  
 
 const applydiscount = async (req, res) => {
-//  const {username, password, biography,mail} = req.body
+ var {percent,startm,startd,starty,endm,endd,endy} = req.body
      const instruct = "Instructor"
-     const mostak = req.query.courseId
-     const enddate = '13-1-2023'
+     const id = req.query.courseId
+    
+
+    const start_date=startm+"-"+startd+"-"+starty
+    const end_date=endm+"-"+endd+"-"+endy
+    console.log(start_date,end_date)
     try{
-    const courses = await Course.findOne({_id: mostak})
-    var money = courses.price
-    var discounting = 100-req.body.discount
-    console.log(money)
-    var newmoney = (money*(discounting/100))
-    const updating = await Course.findOneAndUpdate({_id: mostak}, {price: newmoney})
-    const updating2 = await Course.findOneAndUpdate({_id: mostak}, {discount: {percent : req.body.discount, duration : '11-11-2019'}})
+   
+    console.log(id)
+  
+    const updating2 = await Course.findByIdAndUpdate(id, {discount: {percent :percent, start_date : start_date,end_date:end_date}})
     res.status(200).json("success!")
-    console.log(courses)
+   
     }
     catch (error) {
         res.status(400).json({error: error.message})
@@ -506,7 +517,67 @@ const addExercise = async (req, res) => {
     return res.status(200).json(updatedSubtitle);
   };
 
+  const getuserfrominsid = async(req,res)=>{
+    const aid = req.query.authorid
+    console.log(aid)
+    var instructor
+    var user
+    try{
+      instructor  = await Instructor.findById(aid)
+         console.log("found instructor")
 
+    }catch(error){
+        return res.status(401).json({error:"couldn't find instructor "})
+    }
+    const userid =instructor.userid
+try{
+  
+   user= await User.findById(userid)
+   console.log("found user",user.first_name,user.last_name)
+   return res.status(200).json(user)
+}catch(error){
+  return res.status(401).json({error:"couldn't find user "})
+}
+
+  }
+const getmonthlypay = async (req,res)=>{
+  const userid = req.query.userId
+  console.log(userid)
+  var instrcutor
+  try{
+    instrcutor = await Instructor.findOne({userid:userid})
+   console.log(instrcutor) 
+  }catch(error)
+  {
+      return res.status(400).json({error:"couldn't find instructor"})
+  }
+
+  var instructorid= instrcutor._id
+  var pays
+  var totalamount=0
+  try{
+    pays = await Payments.find({instructorid:instructorid})
+  
+    console.log(pays)
+   
+  }catch(error){
+    return res.status(400).json({error:"couldn't find payments"})
+  }
+  var todaydate =new Date()
+    while(pays.length>0){
+      let current = pays.pop()
+      let currentamount=parseInt(current.payment)
+      console.log(todaydate.getMonth(),current.date.getMonth())
+      if(current.date.getMonth()==todaydate.getMonth() && current.date.getFullYear()==todaydate.getFullYear() )
+    {
+    totalamount=totalamount+currentamount
+    }
+    console.log(totalamount)
+
+    }
+    return res.status(200).json(totalamount)
+
+}
 
 
     module.exports = {
@@ -517,7 +588,7 @@ const addExercise = async (req, res) => {
       searchCourse2,
       ViewReviews,
       addExercise,
-      ViewMyReviews,
+    getmonthlypay,
       DeleteCourse,
       UpdateCourse,
       GetCourseById,
@@ -526,5 +597,9 @@ const addExercise = async (req, res) => {
       rateinstructor,
       viewmycourses,
       applydiscount,
-      CreateSchedule,viewmysubtitles,uploadvideo,
+      CreateSchedule,
+      viewmysubtitles,
+      uploadvideo,
+      getuserfrominsid,
+      getinstructorfromuserid,
     };

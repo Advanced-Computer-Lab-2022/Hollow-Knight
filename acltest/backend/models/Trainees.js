@@ -12,7 +12,15 @@ const traineeSchema = new Schema(
     registeredcourses: [
       { type: mongoose.Types.ObjectId, ref: "Courses", required: false },
     ],
+    wallet :{
+           type:Number,
+           required:false,
+           default:0
+
+    }
+
   },
+
   { timestamps: true }
 );
 
