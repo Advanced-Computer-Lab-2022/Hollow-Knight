@@ -1,9 +1,19 @@
 import { useEffect, useState } from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
 const ViewCourses = () => {
   const [courses, setCourses] = useState(null);
+  const { user } = useAuthContext();
   useEffect(() => {
     const fetchCourses = async () => {
-      const response = await fetch("/api/courses");
+      const response = await fetch("/api/courses",{
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`
+
+
+        }
+    });
       const json = await response.json();
 
       if (response.ok) {

@@ -535,7 +535,7 @@ const addExercise = async (req, res) => {
     module.exports = {
       createInstructor,
       updateInstructorCountry,
-      searchCourse,
+      searchCourseInstructor,
       CreateCourse,
       searchCourse2,
       ViewReviews,

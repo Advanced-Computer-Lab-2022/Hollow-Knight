@@ -27,7 +27,7 @@ import UpdateInstructInfo from './pages/updateinstructorinfo';
 import ViewMyCourses from './pages/ViewMyCourses';
 import ReviewInstructor from './pages/ReviewInstructor';
 import Question from './components/Question';
-
+import userAgreement from "./pages/viewuseragrement";
 import CourseContent from './pages/CourseContent';
 import ViewAnswers from './components/ViewAnswers';
 import ViewInsReviews from './pages/ViewInsReviews';
@@ -177,7 +177,7 @@ function App() {
              <Route path = "/traineesearchcourse/:id" element={<ViewDetailsTrainee/>}/>
 
 
-             
+              <Route path="/userAggrement" element={<userAgreement/>} />
 
             </Routes>
           </div>

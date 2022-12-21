@@ -1,5 +1,6 @@
 import { useState } from "react"
 import CoursesDetails from "./Coursesdetails"
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const SearchInstructor = () => {
     const [name, setName] = useState('')
@@ -7,18 +8,19 @@ const SearchInstructor = () => {
     const [Courses, setCourses] = useState(null)
     const [subject, setSubject] = useState('')
     const [price, setPrice] = useState('')
-
-   //fetch courses
+    const { user } = useAuthContext();
+    //fetch courses
     const search = async (e) => {
         e.preventDefault()
-
         const searching = {name,title,subject,price}
-
+        
         const response = await fetch('/api/instructors/search', {
             method: 'POST',
             body: JSON.stringify(searching),
             headers: {
-                'Content-Type' : 'application/json'
+                'Content-Type' : 'application/json',
+                'Authorization': `Bearer ${user.token}`
+
             }
 
         })
