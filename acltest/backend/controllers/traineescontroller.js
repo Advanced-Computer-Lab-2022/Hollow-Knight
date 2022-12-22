@@ -272,7 +272,7 @@ const registercorporate = async (req, res) => {
 const reportproblem = async(req,res)=>{
   const courseid = req.query.courseid;
   const userid=req.query.userid;
-  const {reason} = req.body;
+  const {reason,details} = req.body;
   var course
   var user
   console.log(userid,courseid)
@@ -292,7 +292,7 @@ const reportproblem = async(req,res)=>{
    var email= user.email
 
    try{
-   const reports = await Reports.create({coursetitle,email,userid,courseid,reason})
+   const reports = await Reports.create({coursetitle,email,userid,courseid,reason,details})
    return res.status(200).json(reports)
    }catch(error){
     return res.status(400).json({error:"couldn't add report"})
