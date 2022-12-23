@@ -1,9 +1,14 @@
+import InstructorBar from "../components/InstructorBar";
 import {Link} from "react-router-dom";
 const { useState ,useEffect} = require("react");
 
 const Apps = () => {
-    const params = new URLSearchParams(window.location.search);
+  
+  const params = new URLSearchParams(window.location.search);
     const userId = params.get('userId');
+    console.log(userId)
+/*
+
     const urlmyreview=`/Reviews?userId=${userId}`
     const urlcoursereview=`/ViewReviews?userId=${userId}`
     const urladdcourse=`/addcourse?userId=${userId}`
@@ -13,7 +18,7 @@ const Apps = () => {
     const urlviewmycourses=`/viewmycourses?userId=${userId}`
     const urlviewrevenue=`/getpay?userId=${userId}`
 
-
+*/
     
 
   const [instructors, setInstructors] = useState(null)
@@ -51,8 +56,9 @@ const Apps = () => {
     return(
         <div className="Apps">
 
-       
+       <InstructorBar x={0}/>
       <br></br>
+      {/*
       <Link  to= {urladdcourse}> Add Course</Link>
       <br></br>
 
@@ -72,7 +78,7 @@ const Apps = () => {
       <br></br>
     <Link to ={urlviewrevenue}>View Monthly Revenues</Link>
 
-    
+    */ }
        
         </div>
 

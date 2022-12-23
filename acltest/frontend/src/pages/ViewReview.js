@@ -1,4 +1,4 @@
-
+import InstructorBar from "../components/InstructorBar";
 import { Card, Grid, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import RatingCard from '../components/RatingCard';
@@ -43,6 +43,7 @@ const ViewReview = () => {
     
     return(
         <div >
+          <InstructorBar x={2}/>
           <h1> Course Reviews </h1> 
        
        <form className="view" onSubmit={getCourses} >

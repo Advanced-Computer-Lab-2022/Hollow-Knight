@@ -1,3 +1,4 @@
+import InstructorBar from "../components/InstructorBar";
 import { useEffect } from "react";
 const { useState } = require("react");
 const ViewMyCourses = () => {
@@ -22,6 +23,7 @@ const ViewMyCourses = () => {
   }, []);
   return (
     <div className="courses">
+      <InstructorBar x={1}/>
       {courses &&
         courses.map((course) => (
           <div key={course._id}>

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import {Typography } from '@mui/material';
 import Card from '@mui/material/Card';
+import InstructorBar from "../components/InstructorBar";
+
 
 const Revenue = () => {
 const [revenue,setRevenue] = useState(null) ; 
@@ -22,6 +24,7 @@ useEffect(() => {
 
     return (
     <div className="wallet">
+      <InstructorBar x={5}/>
        <Card
        sx={{height:580,marginTop:6}}>
    <Typography

@@ -1,3 +1,4 @@
+import InstructorBar from "../components/InstructorBar";
 import { Card, Grid, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import { useEffect, useState } from 'react';
@@ -32,11 +33,19 @@ const ViewInsReview = () => {
 
 
   return (
-<Container>
+    <div>
+      <InstructorBar x={3}/>
+<Container sx={{
+marginTop:4
+}}>
+
+
    { instructors && <div>
       <Grid container>
 
-        <Grid item xs={3} xl={3}>
+        <Grid 
+  
+        item xs={3} xl={3}>
           <Card
           
           >
@@ -68,6 +77,7 @@ const ViewInsReview = () => {
 
     </div>}
     </Container>
+    </div>
   )
 }
 
