@@ -140,6 +140,16 @@ const getTraineeCourses = async (req, res) => {
 const addCourseToTrainee = async (req, res) => {
   try {
     const trainee = await Trainee.findOne({ userid: req.body.userId });
+    var date = new Date();
+    const course = await Course.findOne({ id: req.body.courseId });
+
+    const pay = await Payments.create({
+      traineeid: trainee._id,
+      courseid: req.body.courseId,
+      instructorid: course.author,
+      date,
+      payment: course.price,
+    });
     //console.log(trainee.registeredcourses);
     for (const obj of trainee.registeredcourses) {
       if (obj == req.body.courseId) {
