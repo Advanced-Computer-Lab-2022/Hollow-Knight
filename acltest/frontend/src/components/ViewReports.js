@@ -69,7 +69,7 @@ const ViewReports = () => {
       Report Info
       </Typography>
       <Typography variant="h5" component="div">
-      submitted by {report.traineemail}
+      submitted by {report.email}
       </Typography>
       <Typography sx={{ mb: 1.5 }} color="text.secondary">
       Against course {report.coursetitle}
