@@ -5,7 +5,7 @@ const Subtitle = require("../models/Subtitles");
 const Subtitles = require("../models/Subtitles");
 const Payments = require("../models/Payments");
 const { default: mongoose } = require("mongoose");
-
+const jwt = require("jsonwebtoken");
 const getTokenFromHeader = (req) => {
   const authorization = req.get("authorization");
   if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
@@ -32,7 +32,9 @@ const GetCourseById = async (req, res) => {
 };
 ///////////////
 const UpdateContract = async (req, res) => {
-  const userid = req.query.userId;
+  var token =getTokenFromHeader(req);
+
+  const userid = getUserIdFromToken(token)
   const Status = req.body.Status;
   const percent = req.body.percent;
   var instrcutor;
@@ -154,7 +156,8 @@ const searchCourse2 = async (req, res) => {
 };
 
 const CreateCourse = async (req, res) => {
-  const userid = req.query.userId;
+  var token =getTokenFromHeader(req);
+  const userid = getUserIdFromToken(token)
 
   const instructor = await Instructor.findOne({ userid: userid });
   console.log(instructor._id);
@@ -274,10 +277,10 @@ const ViewReviews = async (req, res) => {
 };
 
 const getinstructorfromuserid = async (req, res) => {
-  const userid = req.query.userId;
-  //var id =getTokenFromHeader()
- // console.log("here",id)
-  console.log(userid);
+  
+  var token =getTokenFromHeader(req);
+
+  const userid = getUserIdFromToken(token)
 
   try {
     const instructor = await Instructor.findOne({ userid: userid });
@@ -546,10 +549,10 @@ const addExercise = async (req, res) => {
 
 const getuserfrominsid = async (req, res) => {
   const aid = req.query.authorid;
-  console.log(aid)
+  //console.log(aid)
   console.log("hello")
   var t =getTokenFromHeader();
-  console.log(t)
+  //console.log(t)
   var instructor;
   var user;
   try {

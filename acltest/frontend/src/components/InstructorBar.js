@@ -9,7 +9,7 @@ const InstructorBar = ({x}) => {
     const apps=`/apps?userId=${userId}`
     const urlmyreview=`/Reviews?userId=${userId}`
     const urlcoursereview=`/ViewReviews?userId=${userId}`
-    const urladdcourse=`/addcourse?userId=${userId}`
+    const urladdcourse=`/addcourse`
     const urlsearchcourse=`/instructor?userId=${userId}`
    
     const urlallcourses=`/viewallcourses`
