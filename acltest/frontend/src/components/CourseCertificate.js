@@ -3,6 +3,8 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 const CourseCertificate = (props) => {
   return (
     <div className="App">
+      <PDFFile />
+      <br></br>
       <PDFDownloadLink filename="Certificate" document={<PDFFile />}>
         {({ loading }) =>
           loading ? (
@@ -12,7 +14,6 @@ const CourseCertificate = (props) => {
           )
         }
       </PDFDownloadLink>
-      <br></br>
     </div>
   );
 };

@@ -31,16 +31,18 @@ const ViewMyCourses = () => {
             <p>
               <strong>Course Title:</strong>
               {course.title} &nbsp;&nbsp;
+              <strong>Progression:</strong>
+              {course.traineeProgression}% &nbsp;&nbsp;
               <button
                 onClick={() =>
-                  (window.location.href = `coursecontent?courseId=${course._id}`)
+                  (window.location.href = `coursecontent?courseId=${course._id}&&userId=${userId}`)
                 }
               >
                 Go to Course
               </button>
               <button
                 onClick={() =>
-                  (window.location.href = `rateinstructor?courseId=${course._id}`)
+                  (window.location.href = `rateinstructor?courseId=${course._id}&&userId=${userId}`)
                 }
               >
                 Rate Instructor

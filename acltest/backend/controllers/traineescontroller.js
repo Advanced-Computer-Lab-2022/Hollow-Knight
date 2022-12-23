@@ -139,17 +139,22 @@ const addCourseToTrainee = async (req, res) => {
     const trainee = await Trainee.findOne({ userid: req.body.userId });
     //console.log(trainee.registeredcourses);
     for (const obj of trainee.registeredcourses) {
-      console.log(JSON.stringify(obj) === JSON.stringify(req.body.courseId));
       if (obj == req.body.courseId) {
-        return res.status(404).json({ error: "Course not found" });
+        return res.status(404).json({ error: "Course already added" });
       }
     }
     trainee.registeredcourses.push(req.body.courseId);
+    trainee.courseProgression.push({ courseId: req.body.courseId });
     const updatedTrainee = await Trainee.findOneAndUpdate(
       { userid: req.body.userId },
-      { registeredcourses: trainee.registeredcourses }
+      {
+        registeredcourses: trainee.registeredcourses,
+        courseProgression: trainee.courseProgression,
+      }
     );
     console.log(updatedTrainee);
+
+    giveAllVideosToTrainee(req, res);
     return res.status(200).json(updatedTrainee);
   } catch (error) {
     return res.status(404).json(error);
@@ -170,9 +175,20 @@ const FindCourses = async (req, res) => {
       console.log(courses.registeredcourses);
       let currentcourse = courses.registeredcourses.pop();
       console.log(currentcourse);
-      let course = await Courses.findById(currentcourse);
+      var course = await Courses.findById(currentcourse);
+      for (const obj of courses.courseProgression) {
+        if (JSON.stringify(obj.courseId) == JSON.stringify(currentcourse)) {
+          course.traineeProgression = obj.progression;
+        }
+      }
+      course.traineeProgression =
+        (course.traineeProgression / course.maxProgress) * 100;
+      course.traineeProgression =
+        Math.round(course.traineeProgression * 10) / 10;
+      console.log(course);
       allcourse.push(course);
     }
+    //console.log(allcourse);
     return res.status(200).json(allcourse);
 
     //console.log(allcourse)
@@ -185,13 +201,71 @@ const FindCourses = async (req, res) => {
 
 const GetCourseSubtitles = async (req, res) => {
   const courseId = req.query.courseid;
-  //console.log(courseId)
   try {
-    const subtitles = await Subtitles.find({ courseid: courseId });
+    const subtitles = await Subtitles.find({ courseId: courseId });
     return res.status(200).json(subtitles);
   } catch (error) {
     return res.status(400).json({ error: error.message });
   }
+};
+
+const increaseTraineeProgression = async (req, res) => {
+  var progression;
+  try {
+    const trainee = await Trainee.findOne({ userid: req.body.userId });
+    console.log(trainee);
+    for (const obj of trainee.courseProgression) {
+      if (JSON.stringify(obj.courseId) == JSON.stringify(req.body.courseId)) {
+        progression = obj.progression;
+        for (const video of obj.videos) {
+          console.log(JSON.stringify(req.body.videoId));
+          if (
+            JSON.stringify(video.videoId) == JSON.stringify(req.body.videoId) &&
+            !video.finished
+          ) {
+            obj.progression += 1;
+            console.log(obj.progression);
+            progression = obj.progression;
+            video.finished = true;
+          }
+        }
+
+        break;
+      }
+    }
+    const updatedTrainee = await Trainee.findOneAndUpdate(
+      { userid: req.body.userId },
+      { courseProgression: trainee.courseProgression }
+    );
+    console.log(progression);
+    return res.status(200).json(progression);
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
+};
+const giveAllVideosToTrainee = async (req, res) => {
+  try {
+    const trainee = await Trainee.findOne({ userid: req.body.userId });
+    const subtitles = await Subtitle.find({ courseid: req.body.courseId });
+    var videoArray = [];
+    for (const subtitle of subtitles) {
+      for (const video of subtitle.video) {
+        console.log(video._id);
+        //videoArray.push({video._id});
+        for (const obj of trainee.courseProgression) {
+          if (obj.courseId == req.body.courseId)
+            obj.videos.push({ videoId: video._id });
+        }
+      }
+    }
+    console.log(videoArray);
+    //trainee.courseProgression.push({ videos: videoArray });
+    const updatedTrainee = await Trainee.findOneAndUpdate(
+      { userid: req.body.userId },
+      { courseProgression: trainee.courseProgression }
+    );
+    return res.status(200).json(updatedTrainee);
+  } catch (error) {}
 };
 
 module.exports = {
@@ -205,4 +279,6 @@ module.exports = {
   ViewCorrectAnswers,
   GetCourseSubtitles,
   FindCourses,
+  increaseTraineeProgression,
+  giveAllVideosToTrainee,
 };

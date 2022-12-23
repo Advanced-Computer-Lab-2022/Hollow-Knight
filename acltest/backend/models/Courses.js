@@ -29,7 +29,7 @@ const courseSchema = new Schema(
         traineeId: { type: mongoose.Types.ObjectId, required: false },
       },
     ],
- 
+
     summary: {
       type: String,
       required: true,
@@ -48,9 +48,19 @@ const courseSchema = new Schema(
       percent: { type: Number, required: false, default: 0 },
     },
     discount: {
-      percent: {type:Number, required : false, default : 0},
-      duration: {type:Date, required: false}
-    }
+      percent: { type: Number, required: false, default: 0 },
+      duration: { type: Date, required: false },
+    },
+    maxProgress: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
+    traineeProgression: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
   },
   { timestamps: true }
 );

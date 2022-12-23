@@ -24,6 +24,7 @@
     "react-scripts": "^5.0.1",
     "react-select": "^5.7.0",
     "react-select-country-list": "^2.2.3",
+    "react-youtube": "^10.1.0",
     "styled-components": "^5.3.6",
     "web-vitals": "^2.1.4"
   },
