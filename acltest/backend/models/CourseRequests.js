@@ -5,23 +5,23 @@ const Schema = mongoose.Schema
 const CourseRequestsSchema = new Schema({
     
     courseid: { 
-            type: mongoose.Types.ObjectId,
-            ref:'Courses',
-            required: true
-        },
-    traineeid: { 
         type: mongoose.Types.ObjectId,
-        ref:'Trainees',
-        required: true
-        },
-    coursetitle:{
-        type: String,
+        ref:'Courses',
         required: true
     },
-    traineemail:{
-        type: String,
-        required: true
+traineeid: { 
+    type: mongoose.Types.ObjectId,
+    ref:'Trainees',
+    required: true
     },
+coursetitle:{
+    type: String,
+    required: true
+},
+traineemail:{
+    type: String,
+    required: true
+},
 }, {timestamps : true} )
 
 

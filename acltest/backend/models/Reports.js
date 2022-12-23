@@ -9,7 +9,7 @@ const ReportsSchema = new Schema({
             ref:'Courses',
             required: true
         },
-    traineeid: { 
+    userid: { 
         type: mongoose.Types.ObjectId,
         ref:'Trainees',
         required: true
@@ -18,7 +18,7 @@ const ReportsSchema = new Schema({
         type: String,
         required: true
     },
-    traineemail:{
+    email:{
         type: String,
         required: true
     },
@@ -26,9 +26,14 @@ const ReportsSchema = new Schema({
         type: String,
         required: true
     },
+    details:{
+        type: String,
+        required: true
+    },
     status:{
         type: String,
-        required: false
+        required: false,
+        default:"unseen"
     },
 }, {timestamps : true} )
 
