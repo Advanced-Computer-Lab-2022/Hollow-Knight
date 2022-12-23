@@ -58,13 +58,15 @@ const ViewMyCourses = () => {
               >
                 Rate Course
               </button>
-              <button
-                onClick={() =>
-                  (window.location.href = `coursecertificate?courseId=${course._id}&&userId=${userId}`)
-                }
-              >
-                Get Certificate
-              </button>
+              {course.traineeProgression == 100 && (
+                <button
+                  onClick={() =>
+                    (window.location.href = `coursecertificate?courseId=${course._id}&&userId=${userId}`)
+                  }
+                >
+                  Get Certificate
+                </button>
+              )}
             </p>
           </div>
         ))}
