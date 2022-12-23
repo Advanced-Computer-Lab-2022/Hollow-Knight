@@ -11,7 +11,8 @@ export const useSignup = () => {
     last_name,
     country,
     countryAbb,
-    gender
+    gender,
+    type,
   ) => {
     setLoading(true);
     setError(null);
@@ -25,6 +26,7 @@ export const useSignup = () => {
         country,
         countryAbb,
         gender,
+        type,
       }),
       headers: {
         "Content-Type": "application/json",

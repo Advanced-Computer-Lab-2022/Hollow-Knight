@@ -61,10 +61,11 @@ userSchema.statics.signup = async function (
   if (!validator.isStrongPassword(password)) {
     throw Error("Password not strong enough");
   }
+  console.log(type,first_name,country)
   if (!type) {
-    type = "trainee";
+    type = "individual trainee";
   }
-
+console.log(type)
   const exists = await this.findOne({ email });
 
   if (exists) {

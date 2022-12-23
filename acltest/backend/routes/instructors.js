@@ -1,4 +1,5 @@
 const express = require("express");
+const  requireAuth  = require("../middleware/requireAuth");
 const router = express.Router();
 const Instructor = require("../models/Instructors");
 const {
@@ -21,7 +22,7 @@ const {
   viewmysubtitles,
   uploadvideo,getuserfrominsid,getinstructorfromuserid
 } = require("../controllers/instructorscontroller");
-
+router.use(requireAuth);
 router.post("/", createInstructor);
 router.patch("/", updateInstructorCountry);
 const { searchCourse } = require("../controllers/instructorscontroller");

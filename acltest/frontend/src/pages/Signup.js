@@ -29,14 +29,17 @@ const Signup = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const type ="individual trainee"
     await signup(
       email,
       password,
       first_name,
       last_name,
       country,
+      gender,
       countryAbb,
-      gender
+      type
+      
     );
   };
   return (

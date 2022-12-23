@@ -1,5 +1,6 @@
 import { useState } from "react";
 import React, {  useMemo } from "react";
+import { useSignup } from "../hooks/useSignup";
 import Select from "react-select";
 import countryList from "react-select-country-list";
 const CreateTrainee = () => {
@@ -8,6 +9,7 @@ const CreateTrainee = () => {
   const [country, setCountry] = useState("");
   const [countryAbb, setCountryAbb] = useState("");
   const [value, setValue] = useState("");
+  const { signup, error, loading } = useSignup();
   const options = useMemo(() => countryList().getData(), []);
 const changeHandler = (value) => {
   setValue(value);
@@ -16,7 +18,24 @@ const changeHandler = (value) => {
 };
   const maketrainee = async (e) => {
     e.preventDefault();
+    const type="corporate trainee"
+    const first_name=""
+    const last_name=""
+    const gender=""
+ 
+    await signup(
+     email,
+     password,    
+     first_name,
+     last_name, 
+     country,
+     countryAbb,
+     gender,
+     type
+       
+   );
 
+/*
     const trainee = { email, password, country ,countryAbb};
 
     const response = await fetch("/api/trainees", {
@@ -33,13 +52,14 @@ const changeHandler = (value) => {
       setEmail("");
       console.log("trainee added", man);
     }
+    */
   };
 
   return (
     <form className="createtrainee" onSubmit={maketrainee}>
       <h2> Add trainee</h2>
 
-      <label>Name:</label>
+      <label>email:</label>
       <input
         type="text"
         onChange={(e) => setEmail(e.target.value)}

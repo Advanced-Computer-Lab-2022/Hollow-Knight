@@ -6,8 +6,23 @@ const Subtitles = require("../models/Subtitles");
 const Payments = require("../models/Payments");
 const { default: mongoose } = require("mongoose");
 
+const getTokenFromHeader = (req) => {
+  const authorization = req.get("authorization");
+  if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
+    return authorization.substring(7);
+  }
+  return null;
+};
+
+function getUserIdFromToken(token) {
+  const decoded = jwt.verify(token, process.env.SECRET);
+  console.log(decoded);
+  return decoded._id;
+}
+
 const GetCourseById = async (req, res) => {
   const CourseId = req.query.courseId;
+  
   try {
     const course = await Course.findById(CourseId);
     return res.status(200).json(course);
@@ -212,19 +227,7 @@ const UpdateCourse = async (req, res) => {
     );
   }
 
-  if (req.body.subtitles_hours) {
-    const course = await Course.findOneAndUpdate(
-      { _id: id, author: userId },
-      { subtitles_hours: subtitles_hours }
-    );
-  }
 
-  if (req.body.subtitles) {
-    const course = await Course.findOneAndUpdate(
-      { _id: id, author: userId },
-      { subtitles: subtitles }
-    );
-  }
 
   if (req.body.summary) {
     const course = await Course.findOneAndUpdate(
@@ -232,12 +235,8 @@ const UpdateCourse = async (req, res) => {
       { summary: summary }
     );
   }
-  if (req.body.excercises) {
-    const course = await Course.findOneAndUpdate(
-      { _id: id, author: excercises },
-      { excercises: excercises }
-    );
-  }
+  
+  
   if (req.body.total_hours) {
     const course = await Course.findOneAndUpdate(
       { _id: id, author: userId },
@@ -276,6 +275,8 @@ const ViewReviews = async (req, res) => {
 
 const getinstructorfromuserid = async (req, res) => {
   const userid = req.query.userId;
+  //var id =getTokenFromHeader()
+ // console.log("here",id)
   console.log(userid);
 
   try {
@@ -545,7 +546,10 @@ const addExercise = async (req, res) => {
 
 const getuserfrominsid = async (req, res) => {
   const aid = req.query.authorid;
-  console.log(aid);
+  console.log(aid)
+  console.log("hello")
+  var t =getTokenFromHeader();
+  console.log(t)
   var instructor;
   var user;
   try {

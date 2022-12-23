@@ -6,8 +6,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import Slide from '@mui/material/Slide';
 import { Typography } from "@mui/material";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const C1=()=>{
      
@@ -16,14 +16,27 @@ const C1=()=>{
     const [open, setOpen] = useState(false);
     const [instructors, setInstructors] = useState(null)
     const [check, setCheck] = useState(false)
-
+    const { user } = useAuthContext();
+    console.log(user,"hi")
 
    useEffect(() => {
    
         const handle = async () => {
+          
         
+       
           //e.preventDefault()
-          const response = await fetch(`/api/instructors/getinst?userId=${userId}`);
+          const response = await fetch(`/api/instructors/getinst?userId=${userId}`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${user.token}`
+    
+    
+            }
+        });
+      
           const json = await response.json()
           //console.log(json)
           if (!response.ok) {
@@ -31,13 +44,13 @@ const C1=()=>{
 
           }
           setInstructors(json)
-         
         }
+        
         handle()
     
         
     }, [])
-    console.log(instructors,"hi")
+  
 
    
  

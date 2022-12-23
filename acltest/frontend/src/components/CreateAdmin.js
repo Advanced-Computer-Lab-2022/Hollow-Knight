@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useSignup } from "../hooks/useSignup";
 import React, {  useMemo } from "react";
 import Select from "react-select";
 import countryList from "react-select-country-list";
@@ -8,6 +9,7 @@ const CreateAdmin = () => {
     const [country, setCountry] = useState('')
     const [countryAbb, setCountryAbb] = useState("");
     const [value, setValue] = useState("");
+    const { signup, error, loading } = useSignup();
     const options = useMemo(() => countryList().getData(), []);
   const changeHandler = (value) => {
     setValue(value);
@@ -16,9 +18,26 @@ const CreateAdmin = () => {
   };
     const makeadmin = async (e) => {
         e.preventDefault()
+   const type="admin"
+   const first_name=""
+   const last_name=""
+   const gender=""
 
-        const admin = {email, password,country,countryAbb}
-
+   await signup(
+    email,
+    password,    
+    first_name,
+    last_name, 
+    country,
+    countryAbb,
+    gender,
+    type
+    
+ 
+   
+  );
+       // const admin = {email, password,country,countryAbb,type}
+/*
         const response = await fetch('/api/admins', {
             method: 'POST',
             body: JSON.stringify(admin),
@@ -35,7 +54,7 @@ const CreateAdmin = () => {
         console.log('admin added', man)
 
         }
-
+*/
     }
 
     return (

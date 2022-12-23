@@ -1,5 +1,6 @@
 import { useState } from "react"
 import React, {  useMemo } from "react";
+import { useSignup } from "../hooks/useSignup";
 import Select from "react-select";
 import countryList from "react-select-country-list";
 const CreateInstructor = () => {
@@ -8,6 +9,7 @@ const CreateInstructor = () => {
     const [country, setCountry] = useState("");
     const [countryAbb, setCountryAbb] = useState("");
     const [value, setValue] = useState("");
+    const { signup, error, loading } = useSignup();
     const options = useMemo(() => countryList().getData(), []);
   const changeHandler = (value) => {
     setValue(value);
@@ -16,7 +18,23 @@ const CreateInstructor = () => {
   };
     const makeinstructor = async (e) => {
         e.preventDefault()
-        
+        const type="instructor"
+   const first_name=""
+   const last_name=""
+   const gender=""
+
+   await signup(
+    email,
+    password,    
+    first_name,
+    last_name, 
+    country,
+    countryAbb,
+    gender,
+    type
+      
+  );
+        /*
         const instructor = {email, password,country,countryAbb}
        console.log("here")
         const response = await fetch('/api/instructors', {
@@ -34,6 +52,7 @@ const CreateInstructor = () => {
             setCountry('')
         console.log('instructor added', man)
         }
+        */
 
     }
 
