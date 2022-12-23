@@ -13,6 +13,9 @@ const {
   FindCourses,
   GetCourseSubtitles,
 } = require("../controllers/traineescontroller");
+const  requireAuth  = require("../middleware/requireAuth");
+router.use(requireAuth);
+
 
 router.post("/", createTrainee);
 router.patch("/ratecourse", updateCourseRating);

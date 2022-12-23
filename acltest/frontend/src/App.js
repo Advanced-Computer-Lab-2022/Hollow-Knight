@@ -44,7 +44,12 @@ import AdminHomePage from "./pages/AdminHomePage";
 import AdminApps from "./pages/AdminApps";
 import ViewDetailsTrainee from "./pages/ViewDetailsTrainee";
 
+import { useAuthContext } from './hooks/useAuthContext'
+import { Navigate } from "react-router-dom";
+
+
 function App() {
+const  {user} = useAuthContext();
   return (
     <div className="App">
         <BrowserRouter>
@@ -52,7 +57,7 @@ function App() {
           <div className="pages">
             <Routes>
 
-
+            
             <Route path="/InstructorHome" element={<GoInstructor />} />
             <Route path="/apps" element={<Apps />} />
             <Route path="/ViewReviews" element={<ViewReview />} />
@@ -64,7 +69,10 @@ function App() {
             <Route path="/addexercise" element={<AddExercises />} />
               <Route
              path="/Reviews"
-             element={<ViewInsReviews/>}
+            
+             //check if the user is an instructor
+
+             element={user ? <ViewInsReviews /> : <Navigate to="/login" />} 
              />
               <Route
              path="/ViewContract"

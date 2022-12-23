@@ -17,6 +17,7 @@ const Viewcoursedetails = () => {
   useEffect(() =>{
     const handler = async() => {
         //e.preventDefault()
+        
         const response = await fetch('/api/courses/coursedetails/'+param.id,{
           headers: {
   

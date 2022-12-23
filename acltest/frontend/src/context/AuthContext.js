@@ -15,7 +15,7 @@ export const authReducer = (state,action) => { //state is the current state and 
                 user: null
             }
         default:
-            return state
+            return   state  //return the current state if no action is performed    
 }
 }
 export const AuthContextProvider = ({children}) =>{ //children is the app component //wrap our entire app and provide a value from context

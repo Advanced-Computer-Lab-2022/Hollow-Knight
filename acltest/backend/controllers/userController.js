@@ -175,6 +175,37 @@ const sendEmail = async (req, res) => {
   }
 };
 
+const getTokenFromHeader = (req) => {
+  const authorization = req.get("authorization");
+  if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
+    return authorization.substring(7);
+  }
+  return null;
+};
+
+function getUserIdFromToken(token) {
+  const decoded = jwt.verify(token, process.env.SECRET);
+  console.log(decoded);
+  return decoded._id;
+}
+
+const getUserType = async (req, res) => {
+
+  const token = getTokenFromHeader(req);
+  const id = getUserIdFromToken(token);
+  
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "No such User" });
+  }
+  const user = await Users.findById(id);
+  console.log
+  if (user) {
+    return res.status(200).json(user.type);
+  }
+  return res.status(404).json("Not found");
+};
+
+
 module.exports = {
   updateCountry,
   fetchUser,
@@ -183,5 +214,6 @@ module.exports = {
   forgotPassword,
   changePassword,
   changePassword1,
+  getUserType,
   sendEmail,
 };
