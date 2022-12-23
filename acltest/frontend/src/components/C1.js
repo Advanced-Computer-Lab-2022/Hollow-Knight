@@ -24,7 +24,6 @@ const C1=()=>{
         const handle = async () => {
           
         
-       if(user){
           //e.preventDefault()
           const response = await fetch(`/api/instructors/getinst`,
           {
@@ -44,10 +43,10 @@ const C1=()=>{
 
           }
           setInstructors(json)
-        }}
-        
+        }
+        if(user){
         handle()
-    
+        }
         
     }, [user])
   
