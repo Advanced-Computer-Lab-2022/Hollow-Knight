@@ -18,19 +18,20 @@ const GetCourseById = async (req, res) => {
 };
 ///////////////
 const UpdateContract = async (req, res) => {
-  const authorid = req.query.authorid;
+  const userid = req.query.userId;
   const Status = req.body.Status;
   const percent =req.body.percent;
   var instrcutor
 
-  console.log(req.body,authorid);
+  console.log(userid)
 try{
-instrcutor= await Instructor.findById(authorid)
+instrcutor= await Instructor.findOne({userid:userid})
 
 }catch(error){
 return res.status(400).json("couldn't find instructor")
 }
 
+var authorid=instrcutor._id
   console.log(req.body);
   try {
     const course = await Instructor.findByIdAndUpdate(authorid, {

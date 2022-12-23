@@ -1,6 +1,8 @@
+import C1 from "../components/C1"
 import InstructorBar from "../components/InstructorBar";
 import {Link} from "react-router-dom";
 const { useState ,useEffect} = require("react");
+
 
 const Apps = () => {
   
@@ -20,7 +22,7 @@ const Apps = () => {
 
 */
     
-
+/*
   const [instructors, setInstructors] = useState(null)
   const [contract,setContract]=useState("false")
   
@@ -52,12 +54,13 @@ const Apps = () => {
     window.location.href = `/ViewContract?userId=${userId}`
    }
   }
-
+*/
     return(
         <div className="Apps">
 
        <InstructorBar x={0}/>
       <br></br>
+      <C1/>
       {/*
       <Link  to= {urladdcourse}> Add Course</Link>
       <br></br>

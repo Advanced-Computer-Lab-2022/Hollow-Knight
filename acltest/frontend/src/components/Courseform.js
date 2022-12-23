@@ -92,10 +92,11 @@ const Courseform =()=>{
               label ="Course Title"
               variant='outlined'
               color='primary'
-              type={String}
+              type="text"
               fullWidth
               required
               error={titleerror}
+              value={title}
               sx={{
                 '& > :not(style)': { marginBottom:3,marginTop:1,width:600},
               }}
@@ -110,10 +111,11 @@ const Courseform =()=>{
               label ="Price "
               variant='outlined'
               color='primary'
-              type={Number}
+              type="number"
               fullWidth
               required
               error={priceerror}
+              value={price}
               sx={{
                 '& > :not(style)': { marginBottom:3,marginTop:1,width:600},
               }}
@@ -126,9 +128,9 @@ const Courseform =()=>{
               label ="Subject "
               variant='outlined'
               color='primary'
-              type={String}
+              type="text"
               fullWidth
-           
+              value={subject}
               sx={{
                 '& > :not(style)': { marginBottom:3,marginTop:1,width:600},
               }}
@@ -142,10 +144,11 @@ const Courseform =()=>{
               label ="Summary"
               variant='outlined'
               color='primary'
-              type={Text}
+              type="text"
               fullWidth
               required              
               error={summaryerror}
+              value={summary}
               sx={{
                 '& > :not(style)': { marginBottom:3,marginTop:1,width:600},
               }}
@@ -159,9 +162,9 @@ const Courseform =()=>{
               label ="Total Hours"
               variant='outlined'
               color='primary'
-              type={Number}
+              type="number"
               fullWidth
-             
+              value={total_hours}
               sx={{
                 '& > :not(style)': { marginBottom:5,marginTop:1,width:600},
               }}
