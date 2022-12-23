@@ -14,6 +14,10 @@ const {
   GetCourseSubtitles,
   increaseTraineeProgression,
   giveAllVideosToTrainee,
+  getwallet,
+  registercorporate,
+  requestrefund,
+  reportproblem,
 } = require("../controllers/traineescontroller");
 
 router.post("/", createTrainee);
@@ -28,4 +32,8 @@ router.get("/getmycourses", FindCourses);
 router.get("/getsubtitles", GetCourseSubtitles);
 router.patch("/increasetraineeprog", increaseTraineeProgression);
 router.patch("/videos", giveAllVideosToTrainee);
+router.get("/getwallet", getwallet);
+router.post("/registercorporate", registercorporate);
+router.post("/requestrefund", requestrefund);
+router.post("/reportproblem", reportproblem);
 module.exports = router;

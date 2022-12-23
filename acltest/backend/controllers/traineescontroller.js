@@ -2,9 +2,12 @@ const Trainee = require("../models/Trainees");
 const User = require("../models/userModel");
 const Courses = require("../models/Courses");
 const Course = require("../models/Courses");
-const Instructors = require("../models/Instructors");
+const Payments = require("../models/Payments");
 const Subtitle = require("../models/Subtitles");
 const Subtitles = require("../models/Subtitles");
+const CourseRequests = require("../models/CourseRequests");
+const RefundRequests = require("../models/RefundRequests");
+const Reports = require("../models/Reports");
 const ViewCorrectAnswers = async (req, res) => {
   try {
     const subtitle = await Subtitle.findOne({ _id: req.body.subid });
@@ -267,8 +270,130 @@ const giveAllVideosToTrainee = async (req, res) => {
     return res.status(200).json(updatedTrainee);
   } catch (error) {}
 };
+const requestrefund = async (req, res) => {
+  const { course, userId } = req.body;
+  console.log(userId, course);
+  const courseid = course._id;
+  const coursetitle = course.title;
+  var trainee;
+  var user;
+
+  try {
+    trainee = await Trainee.findOne({ userid: userId });
+    user = await User.findById(userId);
+    console.log(user);
+  } catch (error) {
+    return res.status(401).json({ error: "you are not a trainee" });
+  }
+  console.log(user);
+  /*
+  Check progress
+  */
+
+  const traineeid = trainee._id;
+  const traineemail = user.email;
+  try {
+    const refund = await RefundRequests.create({
+      courseid,
+      coursetitle,
+      traineeid,
+      traineemail,
+    });
+    return res.status(200).json(refund);
+  } catch (error) {
+    return res.status(401).json({ error: "cannot request refund" });
+  }
+};
+
+const getwallet = async (req, res) => {
+  const userid = req.query.userId;
+  console.log(userid);
+  try {
+    const trainee = await Trainee.findOne({ userid: userid });
+    return res.status(200).json(trainee);
+  } catch (error) {
+    return res.status(401).json({ error: "you are not a trainee" });
+  }
+};
+
+const registercorporate = async (req, res) => {
+  const { courses, userId } = req.body;
+  const courseid = courses._id;
+  const coursetitle = courses.title;
+  var trainee;
+  var user;
+
+  try {
+    trainee = await Trainee.findOne({ userid: userId });
+    user = await User.findById(userId);
+    console.log(user);
+  } catch (error) {
+    return res.status(401).json({ error: "you are not a trainee" });
+  }
+  console.log(user);
+
+  const traineeid = trainee._id;
+  const traineemail = user.email;
+  //var instructorid =courses.author
+  //var payment = courses.price
+  //var date = new Date()
+
+  //console.log(instructorid,payment,date)
+  try {
+    const request = await CourseRequests.create({
+      courseid,
+      coursetitle,
+      traineeid,
+      traineemail,
+    });
+    // const pay = await Payments.create({traineeid,courseid,instructorid,date,payment})
+    return res.status(200).json(request);
+  } catch (error) {
+    return res.status(401).json({ error: "cannot request course" });
+  }
+};
+
+const reportproblem = async (req, res) => {
+  const courseid = req.query.courseid;
+  const userid = req.query.userid;
+  const { reason, details } = req.body;
+  var course;
+  var user;
+  console.log(userid, courseid);
+  try {
+    user = await User.findById(userid);
+  } catch (error) {
+    res.status(400).json({ error: "couldn't find user" });
+  }
+
+  try {
+    course = await Course.findById(courseid);
+  } catch (error) {
+    res.status(400).json({ error: "couldn't find user" });
+  }
+
+  var coursetitle = course.title;
+  var email = user.email;
+
+  try {
+    const reports = await Reports.create({
+      coursetitle,
+      email,
+      userid,
+      courseid,
+      reason,
+      details,
+    });
+    return res.status(200).json(reports);
+  } catch (error) {
+    return res.status(400).json({ error: "couldn't add report" });
+  }
+};
 
 module.exports = {
+  reportproblem,
+  registercorporate,
+  getwallet,
   createTrainee,
   updateCourseRating,
   watchVideo,
@@ -281,4 +406,5 @@ module.exports = {
   FindCourses,
   increaseTraineeProgression,
   giveAllVideosToTrainee,
+  requestrefund,
 };

@@ -1,4 +1,8 @@
-import { useEffect } from "react"
+import InstructorBar from "../components/InstructorBar";
+import { Card, Grid, Typography } from '@mui/material';
+import { Container } from '@mui/system';
+import RatingCard from '../components/RatingCard';
+import Rating from '@mui/material/Rating';
 const { useState } = require("react");
 const ViewReview = () => {
    
@@ -24,11 +28,13 @@ const ViewReview = () => {
     
             })
             const json = await response.json()
-            console.log(json)
+            console.log(json[0])
+         
            
 
             if(response.ok){
-                setCourses(json)
+                setCourses(json[0])
+               
              
             }
         }
@@ -36,7 +42,8 @@ const ViewReview = () => {
        
     
     return(
-        <div className="ViewReview">
+        <div >
+          <InstructorBar x={2}/>
           <h1> Course Reviews </h1> 
        
        <form className="view" onSubmit={getCourses} >
@@ -50,33 +57,42 @@ const ViewReview = () => {
             </form>
 <h5> Available Reviews </h5> 
     
-  
-{courses && courses.map((course)=>(
-        
-<div  key={course._id}>
-                                    
-<p ><strong>Course Title : </strong>{course.title}</p> 
-<p> <strong>Course Rating : </strong>{course.overallRating}</p>
-<h4>Reviews</h4>                                 
-<table id="creview">
-  <tr>
-    <th>Review</th>
-    <th>Rating</th>
-  </tr>
-{course.review.map((data)=>(
-<div key={data._id}>                                    
-  <tr>
-    <td>{data.reviews} </td>
-    <td> {data.rating}</td>
-   </tr>
- </div>
-                                        
-))}
-</table>
-                                       
-</div>
-))}
-                 
+<Container>
+   { courses&& <div>
+      <Grid container>
+
+        <Grid item xs={3} xl={3}>
+          <Card
+          
+          >
+            <Typography
+            sx={{  fontSize:20, marginLeft:4 , marginBottom:2,marginTop:3}}
+            >
+          Your Overall Rating : {courses.overallRating}
+            </Typography>
+            <Rating name="read-only" value={courses.overallRating} precision={0.5} readOnly 
+            sx={{ fontSize:34, marginLeft:7 ,marginBottom:4}}/>
+            </Card>
+
+        </Grid>
+
+     
+                                      
+        <Grid  xs={9} xl={9}>
+           {courses.review&&courses.review.map((data)=>(
+          <div item key={data._id}>
+            <RatingCard  data={data}/>
+           
+            
+          </div>
+ ))}
+        </Grid>
+
+
+      </Grid>
+
+    </div>}
+    </Container>
 
 
                   

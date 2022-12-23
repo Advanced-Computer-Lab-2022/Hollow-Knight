@@ -46,6 +46,9 @@ import ViewDetailsTrainee from "./pages/ViewDetailsTrainee";
 import CreditCardInfo from "./components/CreditCardInfo";
 import CourseCertificate from "./components/CourseCertificate";
 import ViewCoursesForTrainee from "./pages/ViewCoursesForTrainee";
+import Wallet from "./pages/Wallet";
+import Revenue from "./pages/Revenue";
+import Report from "./pages/Report";
 function App() {
   return (
     <div className="App">
@@ -123,6 +126,26 @@ function App() {
               path="/viewallcoursesfortrainee"
               element={<ViewCoursesForTrainee />}
             />
+            <Route path="/viewsubtitles" element={<ViewMySubtitles />} />
+            <Route path="/uploadvideo" element={<UploadVideo />} />
+            <Route path="/addquestion" element={<Question />} />
+
+            <Route path="/getmycourses" element={<GetMyCourses />} />
+
+            <Route path="/rateinstructor" element={<RateInstructor />} />
+
+            <Route path="/adminhome" element={<AdminHomePage />} />
+
+            <Route path="/adminapps" element={<AdminApps />} />
+
+            <Route
+              path="/traineesearchcourse/:id"
+              element={<ViewDetailsTrainee />}
+            />
+
+            <Route path="/getwallet" element={<Wallet />} />
+            <Route path="/getpay" element={<Revenue />} />
+            <Route path="/report" element={<Report />} />
           </Routes>
         </div>
       </BrowserRouter>

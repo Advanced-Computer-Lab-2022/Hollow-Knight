@@ -3,6 +3,7 @@ import YoutubeEmbed from "../components/YoutubeEmbed";
 import ViewVideo from "../components/ViewVideo";
 import { Typography } from "@mui/material";
 import ViewSubtitles from "../components/ViewSubtitles";
+``;
 const CourseContent = () => {
   const [subtitles, setSubtitles] = useState(null);
   const [maxProgress, setMaxProgress] = useState(null);
@@ -10,6 +11,7 @@ const CourseContent = () => {
     const getsubtitles = async () => {
       const params = new URLSearchParams(window.location.search);
       const courseid = params.get("courseId");
+      const userid = params.get("userId");
       //console.log(courseid);
 
       const response = await fetch(
