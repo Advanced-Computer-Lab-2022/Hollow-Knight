@@ -1,17 +1,10 @@
-import {Link} from "react-router-dom";
 
-
+import AdminNav from '../components/AdminNav'
 const AdminApps = () => {
     const params = new URLSearchParams(window.location.search);
-    const userId = params.get('userId');
-    const urladduser=`/create`
     return(
         <div className="Apps">
-
-
-      <br></br>
-      <Link to ={urladduser} > Add User </Link>
-      <br></br>
+          <AdminNav/>
        
         </div>
 

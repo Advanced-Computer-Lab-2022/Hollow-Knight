@@ -1,52 +1,84 @@
-import { useEffect,useState } from 'react';
+import InstructorBar from "../components/InstructorBar";
+import { Card, Grid, Typography } from '@mui/material';
+import { Container } from '@mui/system';
+import { useEffect, useState } from 'react';
+import RatingCard from '../components/RatingCard';
+import Rating from '@mui/material/Rating';
 
 
 const ViewInsReview = () => {
 
-  
-  
+
+
   const [instructors, setInstructors] = useState(null)
 
 
-  useEffect(() =>{
-    const handler = async() => {
-        const params = new URLSearchParams(window.location.search);
-        const userId = params.get('userId');
-        //e.preventDefault()
-        const response = await fetch(`/api/instructors/reviews?userId=${userId}`);
-        const json = await response.json()
-        console.log(json)
-        if(response.ok){
-            setInstructors(json)
-            return;
-        }
+  useEffect(() => {
+    const handler = async () => {
+      const params = new URLSearchParams(window.location.search);
+      const userId = params.get('userId');
+      //e.preventDefault()
+      const response = await fetch(`/api/instructors/getinst?userId=${userId}`);
+      const json = await response.json()
+      console.log(json)
+      if (response.ok) {
+        setInstructors(json)
         return;
+      }
+      return;
     }
     handler()
-},[])
+  }, [])
 
 
+
+  return (
+    <div>
+      <InstructorBar x={3}/>
+<Container sx={{
+marginTop:4
+}}>
+
+
+   { instructors && <div>
+      <Grid container>
+
+        <Grid 
   
-    return (
-      
-     <div>
-         {instructors && instructors.map((instructor)=>(
-                                       <div key={instructor._id}>
-                                         
-                                         <p><strong>Instructor Rating:</strong>{instructor.overallRating}</p>
-                                         <p> <strong> Reviews :</strong> </p>
-                                     {instructor.review.map((data)=>(
-                                        <div key={data._id}>
-                                       
-                                          <p> {data.reviews}  , {data.rating}</p>
-                                        
-                                        </div>
-                                     ))}
+        item xs={3} xl={3}>
+          <Card
+          
+          >
+            <Typography
+            sx={{  fontSize:20, marginLeft:4 , marginBottom:2,marginTop:3}}
+            >
+          Your Overall Rating : {instructors.overallRating}
+            </Typography>
+            <Rating name="read-only" value={instructors.overallRating} precision={0.5} readOnly 
+            sx={{ fontSize:34, marginLeft:7 ,marginBottom:4}}/>
+            </Card>
+
+        </Grid>
+
+     
                                       
-                                   </div>
-            ))}
-     </div>
-    )
-  }
-  
-  export default ViewInsReview
+        <Grid  xs={9} xl={9}>
+           {instructors.review&&instructors.review.map((data)=>(
+          <div item key={data._id}>
+            <RatingCard  data={data}/>
+           
+            
+          </div>
+ ))}
+        </Grid>
+
+
+      </Grid>
+
+    </div>}
+    </Container>
+    </div>
+  )
+}
+
+export default ViewInsReview

@@ -117,7 +117,7 @@ div.error {
   border-radius: 50%;
   color: #333;
 }
-
+/*
 .viewcoursedetails {
   background: #fff;
   border-radius: 30px;
@@ -136,6 +136,7 @@ div.error {
   font-size: 1.2em;
   color: #555;
 }
+*/
 /* navbar */
 nav {
   display: flex;

@@ -2,6 +2,7 @@ const Users = require("../models/userModel");
 
 const Trainee = require("../models/Trainees");
 const Instructor = require("../models/Instructors");
+
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
@@ -10,6 +11,7 @@ const User = require("../models/userModel");
 
 const process = require("process");
 var nodeoutlook = require("nodejs-nodemailer-outlook");
+const Admins = require("../models/Admins");
 const updateCountry = async (req, res) => {
   console.log("cdcd");
   const instructor = await Users.findOneAndUpdate(
@@ -139,11 +141,40 @@ const loginUser = async (req, res) => {
 };
 
 const signupUser = async (req, res) => {
-  const { email, password,type,first_name,last_name,country,countryAbb,gender } = req.body
+  const {
+    email,
+    password,
+    type,
+    first_name,
+    last_name,
+    country,
+    countryAbb,
+    gender,
+  } = req.body;
 
   try {
-      const user = await User.signup(email, password,type,first_name,last_name,country,countryAbb,gender)
-      const token = await createtoken(user._id)
+    const user = await User.signup(
+      email,
+      password,
+      type,
+      first_name,
+      last_name,
+      country,
+      countryAbb,
+      gender
+    );
+    const token = await createtoken(user._id);
+    const userid = user._id;
+    console.log(type)
+    if(type=="individual trainee"||type=="corporate trainee"){
+    const trainee = await Trainee.create({ userid: userid });
+    }
+    if(type=="admin"){
+      const admin = await Admins.create({ userid: userid });
+    }
+    if(type=="instructor"){
+      const instructor = await Instructor.create({ userid: userid });
+    }
 
     res.status(200).json({ email, token });
   } catch (error) {

@@ -19,45 +19,49 @@ import RateCourseCo from "./components/RateCourseCo";
 import GoTrainee from "./pages/GoTrainee";
 import TraineeHomePage from "./pages/TraineeHomePage";
 import AddExercises from "./components/AddExercises";
-import UploadVideo from './pages/uploadvideo';
-import ViewMySubtitles from './pages/ViewMySubtitles';
-import Subtitle from './pages/subtitlecreate';
-import Discount from './pages/Discount';
-import UpdateInstructInfo from './pages/updateinstructorinfo';
-import ViewMyCourses from './pages/ViewMyCourses';
-import ReviewInstructor from './pages/ReviewInstructor';
-import Question from './components/Question';
-import userAgreement from "./pages/viewuseragrement";
-import CourseContent from './pages/CourseContent';
-import ViewAnswers from './components/ViewAnswers';
-import ViewInsReviews from './pages/ViewInsReviews';
-import ViewContract from './pages/ViewContract';
-import GetMyCourses from './pages/GetMyCourses';
-import RateInstructor from './components/RateInstructor';
-import Login from './pages/login';
-import Signup from './pages/Signup';
-import Navbar from './components/Navbar';
-import Passwordreset from './pages/Passwordreset';
-import Forgotpassword from './components/Forgotpassword';
-import Forgotpasswordtoken from './pages/Forgotpasswordtoken';
+import UploadVideo from "./pages/uploadvideo";
+import ViewMySubtitles from "./pages/ViewMySubtitles";
+import Subtitle from "./pages/subtitlecreate";
+import Discount from "./pages/Discount";
+import UpdateInstructInfo from "./pages/updateinstructorinfo";
+import ViewMyCourses from "./pages/ViewMyCourses";
+import ReviewInstructor from "./pages/ReviewInstructor";
+import Question from "./components/Question";
+import RequestsView from './pages/RequestsView';
+import CourseContent from "./pages/CourseContent";
+import ViewAnswers from "./components/ViewAnswers";
+import ViewInsReviews from "./pages/ViewInsReviews";
+import ViewContract from "./pages/ViewContract";
+import GetMyCourses from "./pages/GetMyCourses";
+import RateInstructor from "./components/RateInstructor";
+import Login from "./pages/login";
+import Signup from "./pages/Signup";
+import Navbar from "./components/Navbar";
+import Passwordreset from "./pages/Passwordreset";
+import Forgotpassword from "./components/Forgotpassword";
+import Forgotpasswordtoken from "./pages/Forgotpasswordtoken";
 import AdminHomePage from "./pages/AdminHomePage";
 import AdminApps from "./pages/AdminApps";
 import ViewDetailsTrainee from "./pages/ViewDetailsTrainee";
-
+import CreditCardInfo from "./components/CreditCardInfo";
+import CourseCertificate from "./components/CourseCertificate";
+import ViewCoursesForTrainee from "./pages/ViewCoursesForTrainee";
+import Wallet from "./pages/Wallet";
+import Revenue from "./pages/Revenue";
+import Report from "./pages/Report";
+import ReportsView from './pages/ReportsView';
+import AdminDiscounts from "./pages/AdminDiscounts";
 import { useAuthContext } from './hooks/useAuthContext'
 import { Navigate } from "react-router-dom";
-
 
 function App() {
 const  {user} = useAuthContext();
   return (
     <div className="App">
-        <BrowserRouter>
-        <Navbar/>
-          <div className="pages">
-            <Routes>
-
-            
+      <BrowserRouter>
+        <Navbar />
+        <div className="pages">
+          <Routes>
             <Route path="/InstructorHome" element={<GoInstructor />} />
             <Route path="/apps" element={<Apps />} />
             <Route path="/ViewReviews" element={<ViewReview />} />
@@ -120,58 +124,83 @@ const  {user} = useAuthContext();
               path="/SearchCoursePage"
               element={<SearchCoursePage />} 
             />
+            <Route path="/Reviews" element={<ViewInsReviews />} />
+            <Route path="/ViewContract" element={<ViewContract />} />
+
+            <Route path="/" element={<Home />} />
+            <Route path="/create" element={<Createuser />} />
+            <Route path="/selectcountry" element={<SelectCountry />} />
+            <Route path="/viewallcourses" element={<ViewCourses />} />
             <Route
-              path="/login"
-              element={<Login />}
+              path="/viewallcourseswithprices/:id"
+              element={<ViewCoursesWithPrice />}
             />
+            <Route path="/price/:id" element={<ViewPrice />} />
+
+            <Route path="/instructor" element={<Instructor />} />
+            <Route path="/addcourse" element={<Addcoursepage />} />
             <Route
-              path="/signup"
-              element={<Signup />}
+              path="/instructor/coursedetails/:id"
+              element={<Coursedetails />}
             />
-             <Route
-              path="/resetpassword"
-              element={<Passwordreset/>}
-            />
-             <Route
-              path="/forgotpassword"
-              element={<Forgotpassword/>}
-            />
-             <Route
+            <Route path="/SearchCoursePage" element={<SearchCoursePage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/resetpassword" element={<Passwordreset />} />
+            <Route path="/forgotpassword" element={<Forgotpassword />} />
+            <Route
               path="/forgotpassword/:id"
-              element={<Forgotpasswordtoken/>}
+              element={<Forgotpasswordtoken />}
             />
-             
-            <Route path = "/addquestion" element={<Question/>}/>
-            <Route path = "/trainee" element={<GoTrainee/>}/>
-         
-            <Route path = "/viewmycourses" element={<ViewMyCourses/>}/>
-            <Route path = "/coursecontent" element={<CourseContent/>}/>
-            <Route path = "/getanswers" element={<ViewAnswers/>}/>
-              <Route
-             path="/updateinfo"
-             element={<UpdateInstructInfo/>}
-             />
-              <Route
-             path="/reviewinstructor"
-             element={<ReviewInstructor/>}
-             />
-              <Route 
-              path="/applydiscount" 
-              element={<Discount/>} 
+
+            <Route path="/addquestion" element={<Question />} />
+            <Route path="/trainee" element={<GoTrainee />} />
+
+            <Route path="/viewmycourses" element={<ViewMyCourses />} />
+            <Route path="/coursecontent" element={<CourseContent />} />
+            <Route path="/getanswers" element={<ViewAnswers />} />
+            <Route path="/updateinfo" element={<UpdateInstructInfo />} />
+            <Route path="/reviewinstructor" element={<ReviewInstructor />} />
+            <Route path="/applydiscount" element={<Discount />} />
+            <Route path="/addsubtitle" element={<Subtitle />} />
+            <Route path="/viewsubtitles" element={<ViewMySubtitles />} />
+            <Route path="/uploadvideo" element={<UploadVideo />} />
+            <Route path="/addquestion" element={<Question />} />
+
+            <Route path="/getmycourses" element={<GetMyCourses />} />
+
+            <Route path="/rateinstructor" element={<RateInstructor />} />
+
+            <Route path="/adminhome" element={<AdminHomePage />} />
+
+            <Route path="/adminapps" element={<AdminApps />} />
+
+            <Route
+              path="/traineesearchcourse/:id"
+              element={<ViewDetailsTrainee />}
             />
-              <Route 
-              path="/addsubtitle" 
-              element={<Subtitle/>} 
+            <Route path="/creditcardinfo" element={<CreditCardInfo />} />
+            <Route path="/coursecertificate" element={<CourseCertificate />} />
+            <Route
+              path="/viewallcoursesfortrainee"
+              element={<ViewCoursesForTrainee />}
             />
-                          <Route 
-              path="/viewsubtitles" 
-              element={<ViewMySubtitles/>} 
+            <Route path="/viewsubtitles" element={<ViewMySubtitles />} />
+            <Route path="/uploadvideo" element={<UploadVideo />} />
+            <Route path="/addquestion" element={<Question />} />
+
+            <Route path="/getmycourses" element={<GetMyCourses />} />
+
+            <Route path="/rateinstructor" element={<RateInstructor />} />
+
+            <Route path="/adminhome" element={<AdminHomePage />} />
+
+            <Route path="/adminapps" element={<AdminApps />} />
+
+            <Route
+              path="/traineesearchcourse/:id"
+              element={<ViewDetailsTrainee />}
             />
-              <Route 
-              path="/uploadvideo" 
-              element={< UploadVideo/>} 
-            />
-            <Route path = "/addquestion" element={<Question/>}/>
 
             <Route path = "/getmycourses" element={<GetMyCourses/>}/>
 
@@ -183,13 +212,21 @@ const  {user} = useAuthContext();
              
              
              <Route path = "/traineesearchcourse/:id" element={<ViewDetailsTrainee/>}/>
+            
+             <Route path = "/viewrequests" element={<RequestsView/>}/>
 
+             <Route path = "/viewreports" element={<ReportsView/>}/>
 
               <Route path="/userAggrement" element={<userAgreement/>} />
+             <Route path = "/selectdiscounts" element={<AdminDiscounts/>}/>
 
-            </Routes>
-          </div>
-        </BrowserRouter>
+             <Route path="/getwallet" element={<Wallet />} />
+            <Route path="/getpay" element={<Revenue />} />
+            <Route path="/report" element={<Report />} />
+
+          </Routes>
+        </div>
+      </BrowserRouter>
     </div>
   );
 }

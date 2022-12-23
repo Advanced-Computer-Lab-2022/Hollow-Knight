@@ -1,5 +1,5 @@
 import { useState } from "react"
-import CoursesDetails from "./Coursesdetails"
+
 import TraineeCourseDetails from "./TraineeCourseDetails"
 
 const SearchCourse = () => {

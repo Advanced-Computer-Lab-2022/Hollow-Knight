@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 const ViewMyCourses = () => {
   const [courses, setCourses] = useState(null);
@@ -22,6 +23,21 @@ const ViewMyCourses = () => {
     console.log(courses);
   }, [userId, courses]);
 
+  const requestrefund = async (course) => {
+    const searching = { userId, course };
+    const response = await fetch("/api/trainees/requestrefund", {
+      method: "POST",
+      body: JSON.stringify(searching),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const res = await response.json();
+    if (response.ok) {
+      console.log("Request succesful");
+    }
+  };
+
   return (
     <div className="ViewMyCourses">
       <h1>My Courses</h1>
@@ -31,16 +47,18 @@ const ViewMyCourses = () => {
             <p>
               <strong>Course Title:</strong>
               {course.title} &nbsp;&nbsp;
+              <strong>Progression:</strong>
+              {course.traineeProgression}% &nbsp;&nbsp;
               <button
                 onClick={() =>
-                  (window.location.href = `coursecontent?courseId=${course._id}`)
+                  (window.location.href = `coursecontent?courseId=${course._id}&&userId=${userId}`)
                 }
               >
                 Go to Course
               </button>
               <button
                 onClick={() =>
-                  (window.location.href = `rateinstructor?courseId=${course._id}`)
+                  (window.location.href = `rateinstructor?courseId=${course._id}&&userId=${userId}`)
                 }
               >
                 Rate Instructor
@@ -56,6 +74,26 @@ const ViewMyCourses = () => {
               >
                 Rate Course
               </button>
+              {course.traineeProgression == 100 && (
+                <button
+                  onClick={() =>
+                    (window.location.href = `coursecertificate?courseId=${course._id}&&userId=${userId}`)
+                  }
+                >
+                  Get Certificate
+                </button>
+              )}
+              <Button variant="outlined" onClick={() => requestrefund(course)}>
+                Get A Refund
+              </Button>
+              <Button
+                variant="outlined"
+                onClick={() =>
+                  (window.location.href = `/report?courseId=${course._id}&&userId=${userId}`)
+                }
+              >
+                Report Course
+              </Button>
             </p>
           </div>
         ))}

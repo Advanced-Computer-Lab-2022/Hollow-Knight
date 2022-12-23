@@ -6,45 +6,42 @@ const { useState ,useEffect} = require("react");
 const ViewContract= ()=>{
 
 
-    const [courses, setCourses] = useState(null)
-    const { user } = useAuthContext();
+    const [instructor, setInstructor] = useState(null)
     useEffect(() =>{
     const getCourse = async ()=>{
        
       
         const params = new URLSearchParams(window.location.search);
-        const courseId = params.get('courseId');
+        const userid = params.get('userId');
+     
    
-        const response = await fetch(`/api/instructors/getcoursebyid?courseId=${courseId}`,{
-            headers: {
-    
-              'Authorization': `Bearer ${user.token}` 
-                
-            },
-          });
+        const response = await fetch(`/api/instructors/getinst?userId=${userid}`);
         const json = await response.json()
+        //console.log(json)
         if(!response.ok){
           console.log("error")
         }
         if(response.ok){
-            setCourses(json)
+            setInstructor(json)
             console.log("Found Workout")
             
-            return ;
+         
         }
-        return;
+     
     }
     getCourse()
-    console.log(courses)
+  
 },[])
 
-
+console.log(instructor)
     return(
         <div className="viewcontract">
            
            
-       <div>{courses && <Contract courses={courses}/>}</div>
+       <div>{instructor && <Contract instructor={instructor}/>}
+       </div>
         </div>
     )
 }
+
 export default ViewContract
