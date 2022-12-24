@@ -4,17 +4,16 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 const { useState ,} = require("react");
 const InstructorBar = ({x}) => {
-    const params = new URLSearchParams(window.location.search);
-    const userId = params.get('userId');
-    const apps=`/apps?userId=${userId}`
-    const urlmyreview=`/Reviews?userId=${userId}`
-    const urlcoursereview=`/ViewReviews?userId=${userId}`
+    
+    const apps=`/apps`
+    const urlmyreview=`/Reviews`
+    const urlcoursereview=`/ViewReviews`
     const urladdcourse=`/addcourse`
-    const urlsearchcourse=`/instructor?userId=${userId}`
+    const urlsearchcourse=`/instructor`
    
     const urlallcourses=`/viewallcourses`
-    const urlviewmycourses=`/viewmycourses?userId=${userId}`
-    const urlviewrevenue=`/getpay?userId=${userId}`
+    const urlviewmycourses=`/viewmycourses`
+    const urlviewrevenue=`/getpay?userId`
 
 
 

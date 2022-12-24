@@ -1,26 +1,34 @@
 import { useEffect, useState } from "react";
 import {Typography } from '@mui/material';
+import { useAuthContext } from "../hooks/useAuthContext";
 import Card from '@mui/material/Card';
 import InstructorBar from "../components/InstructorBar";
 
 
 const Revenue = () => {
 const [revenue,setRevenue] = useState(null) ; 
+const { user } =  useAuthContext();
 useEffect(() => {
  const getmoney= async ()=>{
       
-    const params = new URLSearchParams(window.location.search);
-    const userId = params.get('userId');
-    console.log(userId)
-    const response = await fetch(`/api/instructors/getpay?userId=${userId}`);
+   if(user){
+    const response = await fetch(`/api/instructors/getpay`,{
+      method: 'GET',
+      headers: {
+          'Content-Type' : 'application/json',
+          'Authorization': `Bearer ${user.token}`
+      }
+
+  });
     const revenues = await response.json();
     console.log(revenues)
     setRevenue(revenues)
+}
 
  }
 
  getmoney()
-},[]);
+},[user]);
 
     return (
     <div className="wallet">

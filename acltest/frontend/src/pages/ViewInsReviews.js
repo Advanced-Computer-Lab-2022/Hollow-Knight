@@ -2,6 +2,7 @@ import InstructorBar from "../components/InstructorBar";
 import { Card, Grid, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import { useEffect, useState } from 'react';
+import { useAuthContext } from "../hooks/useAuthContext";
 import RatingCard from '../components/RatingCard';
 import Rating from '@mui/material/Rating';
 
@@ -9,26 +10,33 @@ import Rating from '@mui/material/Rating';
 const ViewInsReview = () => {
 
 
-
+  const { user } =  useAuthContext();
   const [instructors, setInstructors] = useState(null)
 
 
   useEffect(() => {
     const handler = async () => {
-      const params = new URLSearchParams(window.location.search);
-      const userId = params.get('userId');
+     if(user){
       //e.preventDefault()
-      const response = await fetch(`/api/instructors/getinst?userId=${userId}`);
+      const response = await fetch(`/api/instructors/getinst`,{
+        method: 'GET',
+        headers: {
+            'Content-Type' : 'application/json',
+            'Authorization': `Bearer ${user.token}`
+        }
+  
+    });
       const json = await response.json()
       console.log(json)
       if (response.ok) {
         setInstructors(json)
         return;
       }
+      }
       return;
     }
     handler()
-  }, [])
+  }, [user])
 
 
 

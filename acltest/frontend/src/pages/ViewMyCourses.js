@@ -1,16 +1,24 @@
+import { useAuthContext } from "../hooks/useAuthContext";
 import InstructorBar from "../components/InstructorBar";
 import { useEffect } from "react";
 const { useState } = require("react");
+
 const ViewMyCourses = () => {
   const [courses, setCourses] = useState(null);
+  const { user } =  useAuthContext();
   useEffect(() => {
     const viewCourses = async () => {
-      console.log("b");
-      const params = new URLSearchParams(window.location.search);
-      const userId = params.get("userId");
-      console.log(userId);
+ 
+      if(user){
       const response = await fetch(
-        `/api/instructors/viewmycourses?userId=${userId}`
+        `/api/instructors/viewmycourses`,{
+          method: 'GET',
+          headers: {
+              'Content-Type' : 'application/json',
+              'Authorization': `Bearer ${user.token}`
+          }
+
+      }
       );
       const result = await response.json();
 
@@ -18,9 +26,9 @@ const ViewMyCourses = () => {
         setCourses(result);
         console.log(result);
       }
-    };
+    };}
     viewCourses();
-  }, []);
+  }, [user]);
   return (
     <div className="courses">
       <InstructorBar x={1}/>

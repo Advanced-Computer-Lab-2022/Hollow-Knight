@@ -14,6 +14,7 @@ const getTokenFromHeader = (req) => {
   return null;
 };
 
+
 function getUserIdFromToken(token) {
   const decoded = jwt.verify(token, process.env.SECRET);
   console.log(decoded);
@@ -33,7 +34,6 @@ const GetCourseById = async (req, res) => {
 ///////////////
 const UpdateContract = async (req, res) => {
   var token =getTokenFromHeader(req);
-
   const userid = getUserIdFromToken(token)
   const Status = req.body.Status;
   const percent = req.body.percent;
@@ -190,7 +190,9 @@ const CreateCourse = async (req, res) => {
 
 const DeleteCourse = async (req, res) => {
   const { id } = req.params;
-  const userId = req.query.userId;
+  var token =getTokenFromHeader(req);
+  const userid = getUserIdFromToken(token)
+
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "Course Doesn't Exist" });
   }
@@ -203,7 +205,8 @@ const DeleteCourse = async (req, res) => {
 
 const UpdateCourse = async (req, res) => {
   const { id } = req.params;
-  const userId = req.query.userId;
+  var token =getTokenFromHeader(req);
+  const userid = getUserIdFromToken(token)
   const { title, price, subject, summary, total_hours } = req.body;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "Course Doesn't Exist" });
@@ -254,7 +257,8 @@ const UpdateCourse = async (req, res) => {
 };
 
 const ViewReviews = async (req, res) => {
-  const userid = req.query.userId;
+  var token =getTokenFromHeader(req);
+  const userid = getUserIdFromToken(token)
   const instructor = await Instructor.findOne({ userid: userid });
   //console.log(instructor._id)
   const insid = instructor._id;
@@ -432,13 +436,14 @@ const rateinstructor = async (req, res) => {
 const viewmycourses = async (req, res) => {
   //  const {username, password, biography,mail} = req.body
   const instruct = "Instructor";
-  const userid = req.query.userId;
+  var token =getTokenFromHeader(req);
+  const userid = getUserIdFromToken(token)
   const instructor = await Instructor.findOne({ userid: userid });
 
   console.log(instructor);
   const insid = instructor._id;
   try {
-    console.log(req.query.userId);
+    
     const courses = await Course.find({ author: insid });
     res.status(200).json(courses);
     console.log(courses);
@@ -571,7 +576,9 @@ const getuserfrominsid = async (req, res) => {
   }
 };
 const getmonthlypay = async (req, res) => {
-  const userid = req.query.userId;
+
+  var token =getTokenFromHeader(req);
+  const userid = getUserIdFromToken(token)
   console.log(userid);
   var instrcutor;
   try {

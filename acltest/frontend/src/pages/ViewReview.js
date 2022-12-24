@@ -3,27 +3,28 @@ import { Card, Grid, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import RatingCard from '../components/RatingCard';
 import Rating from '@mui/material/Rating';
+import { useAuthContext } from "../hooks/useAuthContext";
 const { useState } = require("react");
 const ViewReview = () => {
    
     const [title, setTitle] = useState('')
     const [courses, setCourses] = useState(null)
-   
+    const { user } =  useAuthContext();
     
     
        
         const getCourses = async (e)=>{
             e.preventDefault() 
            
-            const params = new URLSearchParams(window.location.search);
-            const userId = params.get('userId');
+          
           const searching={title}
             
-            const response = await fetch(`/api/instructors/viewreviews?userId=${userId}`,{
+            const response = await fetch(`/api/instructors/viewreviews`,{
                 method: 'POST',
                 body: JSON.stringify(searching),
                 headers: {
-                    'Content-Type' : 'application/json'
+                    'Content-Type' : 'application/json',
+                    'Authorization': `Bearer ${user.token}`
                 }
     
             })
