@@ -6,20 +6,35 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const {useState} = require("react");
 
 const ViewRefunds = () => {
     const [refunds, setRefunds] = useState(null);
+    const { user } =  useAuthContext();
     useEffect(() => {
-        const viewrefunds = async () => {
-          const response = await fetch("/api/admins/refunds");
-          const json = await response.json();
-    
-          if (response.ok) {
-            setRefunds(json);
+      const viewrefunds = async () => {
+        if(user){
+        const response = await fetch("/api/admins/refunds",
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${user.token}`
+  
+  
           }
-        };
+      })
+      const json = await response.json();
+  
+      if (response.ok) {
+        setRefunds(json);
+      }}
+      if(!user){
+        console.log("no user omg")
+      };
+      };
     
         viewrefunds();
       }, []);

@@ -6,23 +6,38 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const {useState} = require("react");
 
 const ViewReports = () => {
     const [reports, setReports] = useState(null);
+    const { user } =  useAuthContext();
     useEffect(() => {
-        const viewreports = async () => {
-          const response = await fetch("/api/admins/reports");
-          const json = await response.json();
-    
-          if (response.ok) {
-            setReports(json);
+      const viewreports = async () => {
+        if(user){
+        const response = await fetch("/api/admins/reports",
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${user.token}`
+  
+  
           }
-        };
+      })
+      const json = await response.json();
+  
+      if (response.ok) {
+        setReports(json);
+      }}
+      if(!user){
+        console.log("no user omg")
+      };
+      };
     
         viewreports();
-      }, []);
+      }, [user]);
     
       const resolved = async (report) => {
         const response = await fetch(`/api/admins/resolvereport?reportId=${report._id}`, {
@@ -69,7 +84,7 @@ const ViewReports = () => {
       Report Info
       </Typography>
       <Typography variant="h5" component="div">
-      submitted by {report.email}
+      submitted by {report.traineemail}
       </Typography>
       <Typography sx={{ mb: 1.5 }} color="text.secondary">
       Against course {report.coursetitle}
