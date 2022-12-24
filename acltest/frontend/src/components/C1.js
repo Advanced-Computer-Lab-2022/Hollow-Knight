@@ -11,8 +11,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 
 const C1=()=>{
      
-    const params = new URLSearchParams(window.location.search);
-   
+    const [open,setOpen]=useState(false)
     const [instructors, setInstructors] = useState(null)
     const [check, setCheck] = useState(false)
     const { user } =  useAuthContext();
