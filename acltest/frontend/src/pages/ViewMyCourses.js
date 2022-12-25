@@ -1,7 +1,8 @@
 import { useAuthContext } from "../hooks/useAuthContext";
 
 import { useEffect } from "react";
-import { Button } from "@mui/material";
+import { Button, Card, Typography } from "@mui/material";
+import { Container } from "@mui/system";
 const { useState } = require("react");
 
 const ViewMyCourses = () => {
@@ -33,40 +34,47 @@ const ViewMyCourses = () => {
   }, [user]);
   return (
     <div className="courses">
-     
+    
       {courses &&
         courses.map((course) => (
           <div key={course._id}>
-            <p>
+             <Card sx={{marginBottom:8,marginTop:4 ,borderRadius:8}}>
+              <Container  sx={{marginTop:5,marginBottom:5}}>
+            <Typography  sx={{fontSize:25,marginBottom:3}}>
               <strong>Course Title:</strong>
               {course.title} &nbsp;&nbsp;
+              </Typography>
+
+              <Typography  sx={{fontSize:25,marginBottom:3}} >
               <strong>Price:</strong>
               {course.price} &nbsp;&nbsp;
-              <strong>Percent:</strong>
-              {course.discount.percent} &nbsp;&nbsp;
-            </p>
-            <button
-              variant="contained"
+              </Typography>
+
+              <Typography   sx={{fontSize:25,marginBottom:5}} >
+              <strong>Available Discounts : </strong>
+              {course.discount.percent}  % &nbsp;&nbsp;
+            </Typography>
+            <Button
+            
+            sx={{marginRight:5}}
+              variant="outlined"
               onClick={() =>
                 (window.location.href = `/applydiscount?courseId=${course._id}`)
               }
-              key={course._id}
-              margin="normal"
-              padding="normal"
+            
             >
               Apply Discount
-            </button>
-            <button
-              variant="contained"
+            </Button>
+            <Button
+            sx={{marginRight:5}}
+              variant="outlined"
               onClick={() =>
                 (window.location.href = `/viewsubtitles?courseId=${course._id}`)
               }
-              key={course._id}
-              margin="normal"
-              padding="normal"
+           
             >
               View Subtitles
-            </button>
+            </Button>
 
             <Button variant="outlined"
               onClick={() =>
@@ -74,9 +82,11 @@ const ViewMyCourses = () => {
               }
             >
               Report
-            </Button>
+            </Button></Container>
+            </Card >
           </div>
         ))}
+            
     </div>
   );
 };

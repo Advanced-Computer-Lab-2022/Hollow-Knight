@@ -1,8 +1,9 @@
-import { useAuthContext } from "../hooks/useAuthContext";
+
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-const { useState ,} = require("react");
+const { useState, useEffect, } = require("react");
+export 
 const InstructorBar = () => {
     
 
@@ -23,22 +24,31 @@ const InstructorBar = () => {
 
 
    
-    const [value, setValue] = useState();
+    const [value, setValue] = useState(10);
 
-    const handleChange = (event, newValue) => {
-      setValue(newValue);
-    }
+
+
+  
+    const handleChange = (event,newValue) => {
+      console.log(newValue,"wdewde")
+     
+        //setValue(newValue);
+
+    } 
+  
+
+    
     return (
 
         
         <Box sx={{ bgcolor: 'background.paper' }}>
         
             <Tabs
-                
+                value={value}
                variant="fullWidth"            
                 textColor="secondary"
                 indicatorColor="secondary"
-                value={value}
+                
                 onChange={handleChange}
                 
                 scrollButtons
@@ -46,14 +56,14 @@ const InstructorBar = () => {
                 aria-label="scrollable force tabs example"
             >
                 
-                 <Tab label="Home" href={apps} />
-                <Tab  label="My Courses" href={urlviewmycourses} />
-                <Tab label="Course Reviews"href={urlcoursereview} />
-                <Tab label="My Reviews"href={urlmyreview} />
+                 <Tab value={0} label="Home" href={apps} />
+                <Tab  value={1} label="My Courses" href={urlviewmycourses} />
+                <Tab value={2} label="Course Reviews"href={urlcoursereview}  />
+                <Tab label="My Reviews"href={urlmyreview}   />
                 <Tab label="Add New Course"href={urladdcourse}/>
                 <Tab label="Revenues" href={urlviewrevenue}/>
                 <Tab label="Search" href={urlsearchcourse}/>
-                <Tab label="View all courses" href={urlallcourses}/>
+                <Tab label="View all courses" href={urlallcourses} />
             </Tabs>
 
 
