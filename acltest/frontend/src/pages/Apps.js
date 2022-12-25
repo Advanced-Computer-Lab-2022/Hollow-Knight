@@ -10,7 +10,7 @@ const Apps = () => {
     return(
         <div className="Apps">
 
-       <InstructorBar x={0}/>
+     
       <br></br>
       <C1/>
      

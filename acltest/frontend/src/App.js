@@ -52,11 +52,14 @@ import Report from "./pages/Report";
 import ReportsView from './pages/ReportsView';
 import AdminDiscounts from "./pages/AdminDiscounts";
 import CreateExam from "./pages/CreateExam";
+import MenuController from "./components/MenuController";
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Navbar />
+
+        <MenuController/>
         <div className="pages">
           <Routes>
             <Route path="/InstructorHome" element={<GoInstructor />} />
@@ -170,7 +173,9 @@ function App() {
 
 
           </Routes>
+        
         </div>
+       
       </BrowserRouter>
     </div>
   );

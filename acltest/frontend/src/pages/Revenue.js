@@ -32,7 +32,7 @@ useEffect(() => {
 
     return (
     <div className="wallet">
-      <InstructorBar x={5}/>
+    
        <Card
        sx={{height:580,marginTop:6}}>
    <Typography

@@ -1,5 +1,5 @@
 import { useAuthContext } from "../hooks/useAuthContext";
-import InstructorBar from "../components/InstructorBar";
+
 import { useEffect } from "react";
 import { Button } from "@mui/material";
 const { useState } = require("react");
@@ -33,7 +33,7 @@ const ViewMyCourses = () => {
   }, [user]);
   return (
     <div className="courses">
-      <InstructorBar x={1} />
+     
       {courses &&
         courses.map((course) => (
           <div key={course._id}>

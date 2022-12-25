@@ -1,4 +1,4 @@
-import InstructorBar from "../components/InstructorBar";
+
 import { Card, Grid, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import { useEffect, useState } from 'react';
@@ -42,7 +42,7 @@ const ViewInsReview = () => {
 
   return (
     <div>
-      <InstructorBar x={3}/>
+      
 <Container sx={{
 marginTop:4
 }}>

@@ -3,39 +3,12 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 const { useState ,} = require("react");
-const InstructorBar = ({x}) => {
+const InstructorBar = () => {
     
 
-    const { user } = useAuthContext();
-    const [type, setType] = useState(null);
-      
-    const gettype= async() =>{
-      console.log(user,"here")
-     if(user){
-      const response = await fetch("/api/courses/gettype", {
-          method: "GET",
-          headers: {
-          "Content-Type": "application/json",
-          'Authorization': `Bearer ${user.token}`
-          },
-      });
-      const json= await response.json();
-      
-      if (!response.ok) {
-         setType("not found")
-      }
-      if(response.ok){      //1.update the context with the new user 2. update the loading state 3. update login state the user is logged in
-          //save the user to local storage
-          setType(json)
-      }
-    }
-  }
   
   
-  
-  gettype()
-  
-  console.log(type)
+
 
     const apps=`/apps`
     const urlmyreview=`/Reviews`
@@ -49,8 +22,8 @@ const InstructorBar = ({x}) => {
 
 
 
-    var v=parseInt(x)
-    const [value, setValue] = useState(v);
+   
+    const [value, setValue] = useState();
 
     const handleChange = (event, newValue) => {
       setValue(newValue);
