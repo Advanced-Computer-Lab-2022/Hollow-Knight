@@ -51,6 +51,7 @@ import Revenue from "./pages/Revenue";
 import Report from "./pages/Report";
 import ReportsView from './pages/ReportsView';
 import AdminDiscounts from "./pages/AdminDiscounts";
+import ViewMyReports from "./pages/ViewMyReports";
 function App() {
   return (
     <div className="App">
@@ -165,6 +166,7 @@ function App() {
              <Route path="/getwallet" element={<Wallet />} />
             <Route path="/getpay" element={<Revenue />} />
             <Route path="/report" element={<Report />} />
+            <Route path="/viewmyreports" element={<ViewMyReports />} />
 
           </Routes>
         </div>

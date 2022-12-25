@@ -8,6 +8,22 @@ const Subtitles = require("../models/Subtitles");
 const CourseRequests = require("../models/CourseRequests");
 const RefundRequests = require("../models/RefundRequests");
 const Reports = require("../models/Reports");
+const jwt = require("jsonwebtoken");
+
+const getTokenFromHeader = (req) => {
+  const authorization = req.get("authorization");
+  if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
+    return authorization.substring(7);
+  }
+  return null;
+};
+
+function getUserIdFromToken(token) {
+  const decoded = jwt.verify(token, process.env.SECRET);
+  console.log(decoded);
+  return decoded._id;
+}
+
 const ViewCorrectAnswers = async (req, res) => {
   try {
     const subtitle = await Subtitle.findOne({ _id: req.body.subid });
@@ -139,6 +155,7 @@ const getTraineeCourses = async (req, res) => {
 };
 const addCourseToTrainee = async (req, res) => {
   try {
+    console.log(req.body.userId)
     const trainee = await Trainee.findOne({ userid: req.body.userId });
     var date = new Date();
     const course = await Course.findOne({ id: req.body.courseId });
@@ -400,7 +417,23 @@ const reportproblem = async (req, res) => {
   }
 };
 
+
+const viewmyreports = async (req, res) => {
+  var token =getTokenFromHeader(req);
+  const userid = getUserIdFromToken(token)
+  const myreps = await Reports.find({userid : userid})
+  return res.status(200).json(myreps);
+};
+
+const addcomment = async (req, res) => {
+  console.log(req.body.comment)
+  console.log(req.query.reportId)
+  const myreps = await Reports.findOneAndUpdate({_id : req.query.reportId}, {comments: req.body.comment})
+  return res.status(200).json(myreps);
+};
+
 module.exports = {
+  addcomment,
   reportproblem,
   registercorporate,
   getwallet,
@@ -417,4 +450,5 @@ module.exports = {
   increaseTraineeProgression,
   giveAllVideosToTrainee,
   requestrefund,
+  viewmyreports
 };

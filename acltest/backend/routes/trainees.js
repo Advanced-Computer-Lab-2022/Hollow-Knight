@@ -18,6 +18,8 @@ const {
   registercorporate,
   requestrefund,
   reportproblem,
+  viewmyreports,
+  addcomment
 } = require("../controllers/traineescontroller");
 
 router.post("/", createTrainee);
@@ -36,4 +38,6 @@ router.get("/getwallet", getwallet);
 router.post("/registercorporate", registercorporate);
 router.post("/requestrefund", requestrefund);
 router.post("/reportproblem", reportproblem);
+router.post("/addcomment", addcomment);
+router.get("/viewmyreports", viewmyreports);
 module.exports = router;

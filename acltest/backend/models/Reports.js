@@ -35,6 +35,11 @@ const ReportsSchema = new Schema({
         required: false,
         default:"unseen"
     },
+    comments:{
+        type: String,
+        required: false,
+        default:"none"
+    }
 }, {timestamps : true} )
 
 
