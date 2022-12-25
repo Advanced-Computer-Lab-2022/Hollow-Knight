@@ -1,13 +1,13 @@
 import { useState } from "react";
-import Question from"./Question"
+import ExamQuestion from"./ExamQuestion"
 import { useAuthContext } from "../hooks/useAuthContext";
 //import DisplayQuestions from "./DisplayQuestions";
-export let problems=[]
-const AddExercises = () => {
+export let Examproblems=[]
+const CreateExamComp = () => {
   const [title, setTitle] = useState("");
-  const [id, setId] = useState("");
+
   const [maxGrade, setMaxGrade] = useState(0);
-  const[q1,setQ1]=useState(null)
+
   const[display,setDisplay] = useState(false)
   const { user } =  useAuthContext();
 
@@ -20,17 +20,17 @@ const AddExercises = () => {
     // const params = new URLSearchParams(window.location.search);
     // const userId = params.get("subtitleId");
     // console.log(subtitleId);
-    console.log(problems);
+    console.log(Examproblems);
     exercise = {
       title: title,
       maxGrade: maxGrade,
-      problems: problems,
+      problems: Examproblems,
     };
     //console.log(exercise);
     //console.log(problems)
     const params = new URLSearchParams(window.location.search);
     const subtitleId = params.get('subtitleId');
-    const response = await fetch(`/api/instructors/addexercise?subtitleId=${subtitleId}`, {
+    const response = await fetch(`/api/instructors/addexam?subtitleId=${subtitleId}`, {
       method: "PATCH",
       body: JSON.stringify(exercise),
       headers: {
@@ -38,7 +38,7 @@ const AddExercises = () => {
         'Authorization': `Bearer ${user.token}`
       },
     });
-    problems=[]
+    Examproblems=[]
     // setAnswers(null);
     if(response.ok){
       setTitle("")
@@ -50,15 +50,12 @@ const AddExercises = () => {
     setSubmitMessage("Submitted");
   };
 
-  const viewquestions = async (e) => {
-    e.preventDefault();
-    setDisplay(true)
-  }
+  
  
 
   return (
     <form className="addExercise" >
-      <p>Exercise Title:</p>
+      <p>Exam Title:</p>
       <input
         type="text"
         onChange={(e) => setTitle(e.target.value)}
@@ -73,9 +70,9 @@ const AddExercises = () => {
       />
       <br></br>
      
-      <button onClick={handleSubmit}>Submit Exercise</button> <br></br>
-     {<Question/>}
-      <button onClick={viewquestions}>view</button>
+      <button onClick={handleSubmit}>Submit Exam</button> <br></br>
+     {<ExamQuestion/>}
+      
   
 
    
@@ -85,5 +82,5 @@ const AddExercises = () => {
   );
 };
 
-export default AddExercises;
+export default CreateExamComp;
 

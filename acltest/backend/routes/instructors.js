@@ -20,7 +20,10 @@ const {
   rateinstructor,
   CreateSchedule,
   viewmysubtitles,
-  uploadvideo,getuserfrominsid,getinstructorfromuserid
+  uploadvideo,
+  getuserfrominsid,
+  getinstructorfromuserid,
+  addExam,
 } = require("../controllers/instructorscontroller");
 router.use(requireAuth);
 router.post("/", createInstructor);
@@ -32,6 +35,7 @@ router.post("/search2", searchCourse2);
 
 router.post("/addcourse", CreateCourse);
 router.patch("/addexercise", addExercise);
+router.patch("/addexam", addExam);
 router.patch("/updatecontract", UpdateContract);
 router.delete("/deletecourse/:id", DeleteCourse);
 router.post("/viewreviews", ViewReviews);

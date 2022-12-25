@@ -79,7 +79,6 @@ const InstructorBar = ({x}) => {
                 <Tab label="My Reviews"href={urlmyreview} />
                 <Tab label="Add New Course"href={urladdcourse}/>
                 <Tab label="Revenues" href={urlviewrevenue}/>
-                <Tab label="Report A problem" href={urladdcourse}/>
                 <Tab label="Search" href={urlsearchcourse}/>
                 <Tab label="View all courses" href={urlallcourses}/>
             </Tabs>

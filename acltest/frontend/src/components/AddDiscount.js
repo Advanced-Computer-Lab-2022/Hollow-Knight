@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
+
 
 const AddDiscount =()=>{
 
@@ -9,7 +11,7 @@ const AddDiscount =()=>{
    const [endm,setEndm]=useState('')
    const [endd,setEndd]=useState('')
    const [endy,setEndy]=useState('')
-   
+   const { user } =  useAuthContext();
    
    const discountgive = async (e) => {
     e.preventDefault()
@@ -22,7 +24,8 @@ const AddDiscount =()=>{
       method: 'PATCH',
       body: JSON.stringify(disc),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${user.token}`
       }
     })
     const result = await response.json()

@@ -8,6 +8,24 @@ const Subtitles = require("../models/Subtitles");
 const CourseRequests = require("../models/CourseRequests");
 const RefundRequests = require("../models/RefundRequests");
 const Reports = require("../models/Reports");
+const jwt = require("jsonwebtoken");
+const getTokenFromHeader = (req) => {
+  console.log(req)
+  const authorization = req.get("authorization");
+  if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
+    return authorization.substring(7);
+  }
+  return null;
+};
+
+
+function getUserIdFromToken(token) {
+  const decoded = jwt.verify(token, process.env.SECRET);
+  console.log(decoded);
+  return decoded._id;
+}
+
+
 const ViewCorrectAnswers = async (req, res) => {
   try {
     const subtitle = await Subtitle.findOne({ _id: req.body.subid });
@@ -365,7 +383,9 @@ const registercorporate = async (req, res) => {
 
 const reportproblem = async (req, res) => {
   const courseid = req.query.courseid;
-  const userid = req.query.userid;
+  var token =getTokenFromHeader(req);
+  const userid = getUserIdFromToken(token)
+  //const userid = req.query.userid;
   const { reason, details } = req.body;
   var course;
   var user;

@@ -14,6 +14,8 @@ import AlertTitle from '@mui/material/AlertTitle';
 import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
+import { useAuthContext } from "../hooks/useAuthContext";
+
 const Report = () => {
   const params = new URLSearchParams(window.location.search);
   const courseid = params.get("courseId");
@@ -23,6 +25,7 @@ const Report = () => {
   const [reasonerror, setReasonerror] = useState(false)
   const [detailserror, setDetailserror] = useState(false)
   const [open, setOpen] = useState(false);
+  const { user } =  useAuthContext();
 
   const [state, setState] = useState({
     Financial: false,
@@ -69,6 +72,7 @@ const Report = () => {
         body: JSON.stringify(payload),
         headers: {
           "Content-Type": "application/json",
+              'Authorization': `Bearer ${user.token}`
         },
 
       });

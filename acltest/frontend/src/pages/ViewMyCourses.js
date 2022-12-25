@@ -1,37 +1,39 @@
 import { useAuthContext } from "../hooks/useAuthContext";
 import InstructorBar from "../components/InstructorBar";
 import { useEffect } from "react";
+import { Button } from "@mui/material";
 const { useState } = require("react");
 
 const ViewMyCourses = () => {
   const [courses, setCourses] = useState(null);
-  const { user } =  useAuthContext();
+  const { user } = useAuthContext();
   useEffect(() => {
     const viewCourses = async () => {
- 
-      if(user){
-      const response = await fetch(
-        `/api/instructors/viewmycourses`,{
+
+      if (user) {
+        const response = await fetch(
+          `/api/instructors/viewmycourses`, {
           method: 'GET',
           headers: {
-              'Content-Type' : 'application/json',
-              'Authorization': `Bearer ${user.token}`
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${user.token}`
           }
 
-      }
-      );
-      const result = await response.json();
+        }
+        );
+        const result = await response.json();
 
-      if (response.ok) {
-        setCourses(result);
-        console.log(result);
-      }
-    };}
+        if (response.ok) {
+          setCourses(result);
+          console.log(result);
+        }
+      };
+    }
     viewCourses();
   }, [user]);
   return (
     <div className="courses">
-      <InstructorBar x={1}/>
+      <InstructorBar x={1} />
       {courses &&
         courses.map((course) => (
           <div key={course._id}>
@@ -65,6 +67,14 @@ const ViewMyCourses = () => {
             >
               View Subtitles
             </button>
+
+            <Button variant="outlined"
+              onClick={() =>
+                (window.location.href = `/report?courseId=${course._id}`)
+              }
+            >
+              Report
+            </Button>
           </div>
         ))}
     </div>

@@ -7,6 +7,7 @@ const Payments = require("../models/Payments");
 const { default: mongoose } = require("mongoose");
 const jwt = require("jsonwebtoken");
 const getTokenFromHeader = (req) => {
+  console.log(req)
   const authorization = req.get("authorization");
   if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
     return authorization.substring(7);
@@ -552,6 +553,19 @@ const addExercise = async (req, res) => {
   return res.status(200).json(updatedSubtitle);
 };
 
+const addExam = async (req, res) => {
+  const { title, maxGrade, problems } = req.body;
+  const subtitle = await Subtitles.findOne({ _id: req.query.subtitleId });
+  const examArray = subtitle.exams;
+  examArray.push({ title, maxGrade, problems });
+  console.log(examArray);
+  const updatedSubtitle = await Subtitles.findOneAndUpdate(
+    { _id: req.query.subtitleId },
+    { exams: examArray }
+  );
+  return res.status(200).json(updatedSubtitle);
+};
+
 const getuserfrominsid = async (req, res) => {
   const aid = req.query.authorid;
   //console.log(aid)
@@ -636,4 +650,5 @@ module.exports = {
   uploadvideo,
   getuserfrominsid,
   getinstructorfromuserid,
+  addExam,
 };

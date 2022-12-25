@@ -1,8 +1,10 @@
 import { useState } from "react"
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const UploadVideo = () => {
     const [link, setLink] = useState('')
     const [description, setDescription] = useState('')
+    const { user } =  useAuthContext();
     const uploadvideo = async (e) => {
         e.preventDefault()
 
@@ -13,7 +15,8 @@ const UploadVideo = () => {
             method: 'POST',
             body: JSON.stringify(video),
             headers: {
-                'Content-Type' : 'application/json'
+                'Content-Type' : 'application/json',
+                'Authorization': `Bearer ${user.token}`
             }
 
         })

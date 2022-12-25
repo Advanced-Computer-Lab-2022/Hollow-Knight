@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const CreateSubtitle =()=>{
 
    const [name,setName]=useState('')
    const [hour,setHour]=useState('')
+   const { user } =  useAuthContext();
 
    
    const subtitlemake = async (e) => {
@@ -17,7 +19,8 @@ const CreateSubtitle =()=>{
       method: 'POST',
       body: JSON.stringify(sched),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${user.token}`
       }
     })
     const result = await response.json()

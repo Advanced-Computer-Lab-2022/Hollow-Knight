@@ -33,13 +33,13 @@ const CourseDetails = async (req, res) => {
     return res.status(404).json({ error: "invalid course id" });
   }
 
-  res.status(200).json(courses)
+  
 
 
 if (!courses) {
   return res.status(400).json({ error: "course does not exist" });
 }
-res.status(200).json(courses);
+return res.status(200).json(courses);
 };
 
 
