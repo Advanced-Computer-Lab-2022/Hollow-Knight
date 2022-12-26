@@ -113,7 +113,7 @@ const SearchInstructor = () => {
         <div>
         <form className="Search" onSubmit={search} >
 
-            <Box >
+            <Box maxWidth={900} marginLeft={20}>
                 <Search onChange={(e) => setSearchb(e.target.value)}>
                     <SearchIconWrapper>
                         <SearchIcon />
@@ -122,12 +122,14 @@ const SearchInstructor = () => {
                         placeholder="Search…"
                         inputProps={{ 'aria-label': 'search' }}
                     />
-                </Search>
+                </Search>      <Button sx={{marginLeft:113,marginTop:-11,fontSize:28}}  type="submit"  variant="contained">Search</Button>
+          
 
 
             </Box>
-            <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
+            </form>
+            <Box sx={{  }}>
+      <FormControl sx={{width:300,marginLeft:23}} >
         <InputLabel id="demo-simple-select-label">subject</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -142,7 +144,7 @@ const SearchInstructor = () => {
         </Select>
       </FormControl>
 
-      <FormControl fullWidth>
+      <FormControl sx={{width:300,marginLeft:20}}>
         <InputLabel id="demo-simple-select-label">Price</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -156,14 +158,12 @@ const SearchInstructor = () => {
           <MenuItem value="1000-3000">1000- 3000</MenuItem>
         </Select>
       </FormControl>
+      <Button sx={{marginLeft:10,fontSize:26}} variant="contained"
+        onClick={handler}
+        >Filter</Button>
     </Box>
 
-          
-            <Button type="submit"  variant="contained">Search</Button>
-
-            <Button variant="contained"
-        onClick={handler}
-        >click</Button>
+     
             <div className="courses">
                 {Courses && Courses.map(Courses => (
                     <CoursesDetails key={Courses._id} Courses={Courses} />
@@ -171,7 +171,7 @@ const SearchInstructor = () => {
             </div>
 
 
-        </form>
+  
        
        
         </div>

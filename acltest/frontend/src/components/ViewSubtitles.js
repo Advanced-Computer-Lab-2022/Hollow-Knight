@@ -1,4 +1,4 @@
-import { Icon } from "@mui/material";
+import { Container, Icon } from "@mui/material";
 import ViewVideo from "../components/ViewVideo";
 import { Button, Typography } from "@mui/material";
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
@@ -31,18 +31,40 @@ const ViewSubtitles = ({ subtitle }) => {
       {view == "true" && (
         <div>
           {subtitle.exercises.map((exercises) => (
-            <div key={exercises._id}>
-              <p>Exercise : {exercises.title}</p>
+            <Container key={exercises._id}>
+
+
+              <p> {exercises.title}</p>
               <p>Grade : {exercises.maxGrade}</p>
-              <button>Go to Exercise </button>
-              <button
+
+              <Button variant="contained"
                 onClick={() =>
                   (window.location.href = `/getanswers?subid=${subtitle._id}&id=${exercises._id}`)
                 }
               >
-                View Exercise Answers{" "}
-              </button>
-            </div>
+                Go to Exercise
+              </Button>
+            </Container>
+          ))}
+
+          {subtitle.exams.map((exam) => (
+
+            <Container key={exam._id}>
+
+
+              <p> {exam.title}</p>
+              <p>Grade : {exam.maxGrade}</p>
+
+              <Button variant="contained" sx={{marginBottom:4}}
+                onClick={() =>
+                  (window.location.href = `/gotoexam?subid=${subtitle._id}&id=${exam._id}`)
+                }
+              >
+                Take Exam
+              </Button>
+            </Container>
+
+
           ))}
 
           {subtitle.video.map((video) => (

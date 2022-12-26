@@ -53,6 +53,7 @@ import ReportsView from './pages/ReportsView';
 import AdminDiscounts from "./pages/AdminDiscounts";
 import CreateExam from "./pages/CreateExam";
 import MenuController from "./components/MenuController";
+import Exam from "./pages/Exam";
 function App() {
   return (
     <div className="App">
@@ -170,6 +171,7 @@ function App() {
             <Route path="/getpay" element={<Revenue />} />
             <Route path="/report" element={<Report />} />
             <Route path="/createexam" element={<CreateExam />} />
+            <Route path="/gotoexam" element={<Exam />} />
 
 
           </Routes>

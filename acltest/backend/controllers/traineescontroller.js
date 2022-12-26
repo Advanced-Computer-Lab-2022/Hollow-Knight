@@ -26,6 +26,19 @@ function getUserIdFromToken(token) {
 }
 
 
+const getexam = async (req, res) => {
+  try {
+    const subtitle = await Subtitle.findOne({ _id: req.body.subid });
+    for (const obj of subtitle.exams) {
+      if (obj._id == req.body.id) {
+        return res.status(200).json(obj.problems);
+      }
+    }
+  } catch (error) {
+    res.status(404).json(error);
+  }
+};
+
 const ViewCorrectAnswers = async (req, res) => {
   try {
     const subtitle = await Subtitle.findOne({ _id: req.body.subid });
@@ -437,4 +450,5 @@ module.exports = {
   increaseTraineeProgression,
   giveAllVideosToTrainee,
   requestrefund,
+ getexam,
 };
