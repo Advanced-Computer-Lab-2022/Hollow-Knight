@@ -7,7 +7,7 @@ const Payments = require("../models/Payments");
 const { default: mongoose } = require("mongoose");
 const jwt = require("jsonwebtoken");
 const getTokenFromHeader = (req) => {
-  console.log(req)
+
   const authorization = req.get("authorization");
   if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
     return authorization.substring(7);
@@ -18,7 +18,7 @@ const getTokenFromHeader = (req) => {
 
 function getUserIdFromToken(token) {
   const decoded = jwt.verify(token, process.env.SECRET);
-  console.log(decoded);
+
   return decoded._id;
 }
 
@@ -97,32 +97,31 @@ const updateInstructorCountry = async (req, res) => {
 
 // search for a course given by him/her based on course title or subject or instructor or price
 const searchCourse = async (req, res) => {
-  const { name } = req.body;
-  const { title } = req.body;
-  const { subject, price } = req.body;
+  var token =getTokenFromHeader(req);
+  const userid = getUserIdFromToken(token)
+  const  search  = req.body.searchb;
+var instructor
+  try{
+      instructor =await Instructor.findOne({userid:userid}) 
+  }catch(error){
+        return res.status(200).json({error:"couldn't find user "})
+  }
+  var insid=instructor._id
 
   try {
-    if (title) {
-      const course = await Course.find({ title: title, author: name });
-      return res.status(200).json(course);
-    }
-    if (subject) {
-      const course = await Course.find({ subject: subject, author: name });
-      return res.status(200).json(course);
-    }
-
-    if (price) {
-      const course = await Course.find({ price: price, author: name });
-      return res.status(200).json(course);
-    }
-    if (name) {
-      const course = await Course.find({ author: name });
-      return res.status(200).json(course);
-    }
-
-    throw new Error("Course not found");
+    
+      const course = await Course.find({ title: search, author: insid });
+      const course1 =await Course.find({subject: search, author: insid})
+      
+      const result= [...course,...course1]
+     
+      return res.status(200).json(result);
+      
+    
+    
+    
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: "Course not found" });
   }
 };
 
@@ -568,10 +567,7 @@ const addExam = async (req, res) => {
 
 const getuserfrominsid = async (req, res) => {
   const aid = req.query.authorid;
-  //console.log(aid)
-  console.log("hello")
-  var t =getTokenFromHeader();
-  //console.log(t)
+  
   var instructor;
   var user;
   try {

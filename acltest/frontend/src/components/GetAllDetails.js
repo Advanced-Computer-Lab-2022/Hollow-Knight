@@ -9,7 +9,7 @@ const GetAllDetails = ({ courses }) => {
   const [first,setFirst]=useState("")
   const [second,setSecond]=useState("")
   const { user } =  useAuthContext();
-  console.log(user)
+  //console.log(user.token)
   
 
     const getname = async () => {
