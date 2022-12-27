@@ -232,7 +232,7 @@ const FindCourses = async (req, res) => {
 const GetCourseSubtitles = async (req, res) => {
   const courseId = req.query.courseid;
   try {
-    const subtitles = await Subtitles.find({ courseId: courseId });
+    const subtitles = await Subtitles.find({ courseid: courseId });
     return res.status(200).json(subtitles);
   } catch (error) {
     return res.status(400).json({ error: error.message });

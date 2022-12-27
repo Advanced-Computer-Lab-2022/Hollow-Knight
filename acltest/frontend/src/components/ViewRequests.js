@@ -43,7 +43,8 @@ const ViewRequests = () => {
         const response = await fetch(`/api/admins/acceptrequest?requestId=${request._id}`, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${user.token}`
       }})
       if(response.ok){
         console.log("success!")
@@ -56,7 +57,8 @@ const ViewRequests = () => {
         const response = await fetch(`/api/admins/rejectrequest?requestId=${request._id}`, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${user.token}`
       }})
       if(response.ok){
         console.log("success!")

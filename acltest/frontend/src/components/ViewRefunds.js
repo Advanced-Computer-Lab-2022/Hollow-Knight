@@ -43,7 +43,8 @@ const ViewRefunds = () => {
         const response = await fetch(`/api/admins/addfunds?refundId=${refund._id}`, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${user.token}`
       }})
       if(response.ok){
         console.log("success!")
@@ -55,7 +56,8 @@ const ViewRefunds = () => {
         const response = await fetch(`/api/admins/denyfunds?refundId=${refund._id}`, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${user.token}`
       }})
       if(response.ok){
         console.log("success!")

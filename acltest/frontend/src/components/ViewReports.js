@@ -43,7 +43,8 @@ const ViewReports = () => {
         const response = await fetch(`/api/admins/resolvereport?reportId=${report._id}`, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${user.token}`
       }})
       if(response.ok){
         console.log("success!")
@@ -56,7 +57,8 @@ const ViewReports = () => {
         const response = await fetch(`/api/admins/pendreport?reportId=${report._id}`, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${user.token}`
       }})
       if(response.ok){
         console.log("success!")

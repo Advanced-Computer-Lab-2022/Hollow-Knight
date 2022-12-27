@@ -46,7 +46,8 @@ const ViewMyReports = () => {
         const response = await fetch(`/api/admins/resolvereport?reportId=${report._id}`, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${user.token}`
       }})
       if(response.ok){
         console.log("success!")
@@ -59,7 +60,8 @@ const ViewMyReports = () => {
         const response = await fetch(`/api/admins/pendreport?reportId=${selectedreportid}`, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${user.token}`
       }})
       if(response.ok){
         console.log("success!")
@@ -98,7 +100,7 @@ const ViewMyReports = () => {
     return(
         <div className="ViewReports">
 
-<h5> Available Reports </h5> 
+<h5> Your Reports </h5> 
 <div className="ViewReports" style={{display: "flex"}}>
 
 {reports && reports.map((report)=>(
@@ -141,7 +143,11 @@ const ViewMyReports = () => {
   </Box>                            
 </div>
 ))}
-  {buttoncheck && <form className="get grade" onSubmit={commentadder}>
+
+                 
+
+</div>
+{buttoncheck && <form className="get grade" onSubmit={commentadder}>
       <h3>Your comment:</h3>
       <input
         onChange={(e) => setComment(e.target.value)}
@@ -150,9 +156,6 @@ const ViewMyReports = () => {
         />
          <button>Modify Comment</button>
         </form>}
-                 
-
-</div>
                   
  </div>
     )
