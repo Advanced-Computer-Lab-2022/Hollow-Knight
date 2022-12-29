@@ -23,20 +23,18 @@ const ViewCourses = () => {
           <div key={course._id}>
             <p>
             <Card sx={{marginBottom:8,marginTop:4 ,borderRadius:8}}>
-            <Container  sx={{marginTop:5,marginBottom:5}}>
-            <Typography  sx={{fontSize:25,marginBottom:3}}>
-              <strong>Course Title:</strong>
-              {course.title} &nbsp;&nbsp;
+            <Container  sx={{marginTop:5,marginBottom:5,marginLeft:70}}>
+            <Typography  sx={{fontSize:32,marginBottom:3}}>
+              <strong>{course.title}</strong>
+               &nbsp;&nbsp;
               </Typography>
 
               <Typography  sx={{fontSize:25,marginBottom:3}}>
-              <strong>Total Hours:</strong>
-              {course.total_hours} &nbsp;&nbsp;
+              Total Hours : {course.total_hours} &nbsp;&nbsp;
               </Typography>
               
               <Typography  sx={{fontSize:25,marginBottom:3}}>
-              <strong>Course Rating:</strong>
-              {course.overallRating}
+              Rating : {course.overallRating}
               </Typography>
               </Container>
               </Card>

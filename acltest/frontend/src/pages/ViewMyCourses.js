@@ -33,31 +33,29 @@ const ViewMyCourses = () => {
     viewCourses();
   }, [user]);
   return (
-    <div className="courses">
-    
+    <Container className="courses">
+    <Typography variant="h3"align="center"sx={{marginBottom:12,marginTop:6}}>Your Courses</Typography>
       {courses &&
         courses.map((course) => (
           <div key={course._id}>
              <Card sx={{marginBottom:8,marginTop:4 ,borderRadius:8}}>
               <Container  sx={{marginTop:5,marginBottom:5}}>
-            <Typography  sx={{fontSize:25,marginBottom:3}}>
-              <strong>Course Title:</strong>
-              {course.title} &nbsp;&nbsp;
+            <Typography align="center"  sx={{fontSize:35,marginBottom:3}}>
+              <strong> {course.title} </strong>
+             &nbsp;&nbsp;
               </Typography>
 
-              <Typography  sx={{fontSize:25,marginBottom:3}} >
-              <strong>Price:</strong>
-              {course.price} &nbsp;&nbsp;
+              <Typography align="center" sx={{fontSize:25,marginBottom:3}} >
+              Price : {course.price} &nbsp;&nbsp;
               </Typography>
 
-              <Typography   sx={{fontSize:25,marginBottom:5}} >
-              <strong>Available Discounts : </strong>
-              {course.discount.percent}  % &nbsp;&nbsp;
+              <Typography align="center"  sx={{fontSize:25,marginBottom:8}} >
+              Existing  Discounts : {course.discount.percent}  % &nbsp;&nbsp;
             </Typography>
             <Button
             
-            sx={{marginRight:5}}
-              variant="outlined"
+            sx={{marginRight:5,marginLeft:35}}
+              variant="contained"
               onClick={() =>
                 (window.location.href = `/applydiscount?courseId=${course._id}`)
               }
@@ -67,7 +65,7 @@ const ViewMyCourses = () => {
             </Button>
             <Button
             sx={{marginRight:5}}
-              variant="outlined"
+              variant="contained"
               onClick={() =>
                 (window.location.href = `/viewsubtitles?courseId=${course._id}`)
               }
@@ -76,7 +74,7 @@ const ViewMyCourses = () => {
               View Subtitles
             </Button>
 
-            <Button variant="outlined"
+            <Button variant="contained"
               onClick={() =>
                 (window.location.href = `/report?courseId=${course._id}`)
               }
@@ -87,7 +85,7 @@ const ViewMyCourses = () => {
           </div>
         ))}
             
-    </div>
+    </Container>
   );
 };
 

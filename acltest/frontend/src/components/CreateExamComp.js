@@ -29,8 +29,8 @@ const CreateExamComp = () => {
     //console.log(exercise);
     //console.log(problems)
     const params = new URLSearchParams(window.location.search);
-    const subtitleId = params.get('subtitleId');
-    const response = await fetch(`/api/instructors/addexam?subtitleId=${subtitleId}`, {
+    const courseId = params.get('courseId');
+    const response = await fetch(`/api/instructors/addexam?courseId=${courseId}`, {
       method: "PATCH",
       body: JSON.stringify(exercise),
       headers: {

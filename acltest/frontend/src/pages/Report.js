@@ -188,7 +188,7 @@ const Report = () => {
           variant='outlined'
           onClick={submitreport}
           sx={{
-            marginBottom: 4, marginLeft: 10, fontSize: 20, marginTop:5
+            marginBottom: 6, marginLeft:135, fontSize: 20, marginTop:5
           }}
         >Submit Report</Button>
 

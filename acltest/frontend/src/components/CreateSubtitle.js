@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
+import TextField from '@mui/material/TextField';
+import { Button, Card, Typography } from "@mui/material";
+import { Box, Container } from "@mui/system";
 
 const CreateSubtitle =()=>{
 
@@ -31,26 +34,57 @@ const CreateSubtitle =()=>{
     }
    }
  return(
+
+  <Container
+  sx={{marginTop:7}}
+  >
+    <Card sx={{borderRadius:5}}>
     <form className="create" onSubmit={subtitlemake}>
-        <h1>
+ 
+        <Typography  variant="h3" align="center" sx={{marginBottom:4,marginTop:6}}>
             Create Subtitle
-        </h1>
-        <label>Title: (required)</label>
-        <input
-        type="text"
-        onChange={(e)=> setName(e.target.value)}
-        value={name}
-        />
+        </Typography>
+        <Box sx={{marginLeft:35,marginTop:8,marginBottom:6}}>
 
-        <label>Subtitle Hours: (required)</label>
-        <input
-        type="number"
-        onChange={(e)=> setHour(e.target.value)}
-        value={hour}
-        />
-        <button>Create Subtitle</button>
+        <Typography>Title: </Typography>
+     
+        
+        <TextField
+                onChange={(e)=> setName(e.target.value)}
+              label ="Title"
+              variant='outlined'
+              color='primary'
+              type="text"
+              fullWidth
+              required              
+             
+              value={name}
+              sx={{
+                '& > :not(style)': { marginBottom:3,marginTop:1,width:600},
+              }}
+              />
+       
 
+        <Typography sx={{marginTop:3}}>Subtitle Hours: </Typography>
+        <TextField
+              onChange={(e)=> setHour(e.target.value)}
+              label ="Subtitle Hours"
+              variant='outlined'
+              color='primary'
+              type="number"
+              fullWidth
+              required                
+              value={hour}
+              sx={{
+                '& > :not(style)': { marginBottom:3,marginTop:1,width:600},
+              }}
+              />
+        
+        <Button variant="contained" type="submit" sx={{marginLeft:55,marginTop:6}}>Create Subtitle</Button>
+        </Box>
     </form>
+    </Card>
+    </Container>
  )
 
 }

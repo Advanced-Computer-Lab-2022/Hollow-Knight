@@ -297,29 +297,35 @@ const getinstructorfromuserid = async (req, res) => {
 const updatemailbiogrpahy = async (req, res) => {
   //  const {username, password, biography,mail} = req.body
   const instruct = "Instructor";
-  try {
-    const instructor = await User.findOne({
-      username: req.body.username,
-      password: req.body.password,
-      type: instruct,
-    });
-    if (!instructor) {
-      res.status(404).json("not found");
-      return;
-    }
-
-    if (req.body.mail) {
-      const updatemail = await User.findOneAndUpdate(
-        {
-          username: req.body.username,
-          password: req.body.password,
-          type: instruct,
-        },
-        { email: req.body.mail }
+  var token =getTokenFromHeader(req);
+  const userid = getUserIdFromToken(token)
+ 
+try{
+    if (req.body.email) {
+      const updatemail = await User.findByIdAndUpdate(userid,
+        { email: req.body.email }
       );
+
     }
-    var ObjectId = require("mongoose").Types.ObjectId;
-    var userid = instructor._id;
+    if (req.body.first_name) {
+      const updatemail = await User.findByIdAndUpdate(userid,
+        { first_name: req.body.first_name }
+      );
+
+    }
+    if (req.body.last_name) {
+      const updatemail = await User.findByIdAndUpdate(userid,
+        { last_name: req.body.last_name }
+      );
+
+    }
+    if (req.body.country) {
+      const updatemail = await User.findByIdAndUpdate(userid,
+        { country: req.body.country, countryAbb: req.body.countryAbb }
+      );
+
+    }
+  
     if (req.body.biography) {
       const updatebiography = await Instructor.findOneAndUpdate(
         { userid: userid },
@@ -331,7 +337,7 @@ const updatemailbiogrpahy = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 
-  return;
+
 };
 
 const rateinstructor = async (req, res) => {
@@ -470,12 +476,10 @@ const viewmysubtitles = async (req, res) => {
 };
 
 const applydiscount = async (req, res) => {
-  var { percent, startm, startd, starty, endm, endd, endy } = req.body;
+  var { percent, start_date, end_date  } = req.body;
   const instruct = "Instructor";
   const id = req.query.courseId;
 
-  const start_date = startm + "-" + startd + "-" + starty;
-  const end_date = endm + "-" + endd + "-" + endy;
   console.log(start_date, end_date);
   try {
     console.log(id);
@@ -554,15 +558,21 @@ const addExercise = async (req, res) => {
 
 const addExam = async (req, res) => {
   const { title, maxGrade, problems } = req.body;
-  const subtitle = await Subtitles.findOne({ _id: req.query.subtitleId });
-  const examArray = subtitle.exams;
-  examArray.push({ title, maxGrade, problems });
-  console.log(examArray);
-  const updatedSubtitle = await Subtitles.findOneAndUpdate(
-    { _id: req.query.subtitleId },
-    { exams: examArray }
+ console.log(req.body)
+ console.log(req.query.courseId)
+  //examArray.push({ title, maxGrade, problems });
+  //console.log(examArray);
+  try{
+  const exam = await Course.findOneAndUpdate(
+    { _id: req.query.courseId },
+    { exam: {title:title ,maxGrade:maxGrade,problems:problems} }
   );
-  return res.status(200).json(updatedSubtitle);
+  return res.status(200).json(exam);
+  }
+  catch(error)
+  {
+    return res.status(400).json({error:"Could n't add exam"})
+  }
 };
 
 const getuserfrominsid = async (req, res) => {

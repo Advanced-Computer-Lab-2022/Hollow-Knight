@@ -47,7 +47,7 @@ const ViewInsReview = () => {
 marginTop:4
 }}>
 
-
+  <Typography variant='h3' align='center' sx={{marginBottom:10}}>Your Reviews</Typography>
    { instructors && <div>
       <Grid container>
 

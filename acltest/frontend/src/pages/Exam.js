@@ -6,24 +6,24 @@ import { Button } from "@mui/material";
 const { useState } = require("react");
 
 const Exam = () => {
-  const [problems, setProblems] = useState(null);
+  const [problem, setProblem] = useState(null);
   const [solution,setSolution] = useState("false");
-
+ 
 
   useEffect(() => {
 
 
 
     const params = new URLSearchParams(window.location.search);
-    const subid = params.get("subid");
-    const id = params.get("id");
-    console.log(subid, " , ", id);
+    
+    const courseid = params.get("courseid");
+   
 
 
     const getproblems = async () => {
       const response = await fetch("/api/trainees/getexam", {
         method: "PATCH",
-        body: JSON.stringify({ subid, id }),
+        body: JSON.stringify({ courseid }),
         headers: {
           "Content-Type": "application/json",
         },
@@ -32,7 +32,7 @@ const Exam = () => {
       console.log(json[0]);
 
       if (response.ok) {
-        setProblems(json);
+        setProblem(json);
       }
     };
 
@@ -46,15 +46,15 @@ const Exam = () => {
   
   return (
     <div className="viewanswers">
-      {problems &&
-        problems.map((problem) => (
+      {problem && problem.map((problem) => (
           <div  key={problem._id}>
-          
+   
+       
            <ExQuestion problem={problem}/>
         {  solution=="true" &&<p> Answer  : {problem.solution}</p>}
 
           </div>
-        ))}
+          ))}
         <Button onClick={handler}>submit</Button>
     </div>
   );

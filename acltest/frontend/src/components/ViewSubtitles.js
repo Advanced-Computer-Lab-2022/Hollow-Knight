@@ -2,10 +2,13 @@ import { Container, Icon } from "@mui/material";
 import ViewVideo from "../components/ViewVideo";
 import { Button, Typography } from "@mui/material";
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 
 const ViewSubtitles = ({ subtitle }) => {
   const [view, setView] = useState("false");
+  const params = new URLSearchParams(window.location.search);
+  const courseid = params.get("courseId");
+
 
   const viewclick = async () => {
     if (view == "false") {
@@ -47,25 +50,6 @@ const ViewSubtitles = ({ subtitle }) => {
             </Container>
           ))}
 
-          {subtitle.exams.map((exam) => (
-
-            <Container key={exam._id}>
-
-
-              <p> {exam.title}</p>
-              <p>Grade : {exam.maxGrade}</p>
-
-              <Button variant="contained" sx={{marginBottom:4}}
-                onClick={() =>
-                  (window.location.href = `/gotoexam?subid=${subtitle._id}&id=${exam._id}`)
-                }
-              >
-                Take Exam
-              </Button>
-            </Container>
-
-
-          ))}
 
           {subtitle.video.map((video) => (
             <div key={video._id}>
@@ -74,6 +58,8 @@ const ViewSubtitles = ({ subtitle }) => {
           ))}
         </div>
       )}
+
+    
     </div>
   );
 };

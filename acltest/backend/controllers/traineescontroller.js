@@ -28,13 +28,12 @@ function getUserIdFromToken(token) {
 
 const getexam = async (req, res) => {
   try {
-    const subtitle = await Subtitle.findOne({ _id: req.body.subid });
-    for (const obj of subtitle.exams) {
-      if (obj._id == req.body.id) {
-        return res.status(200).json(obj.problems);
-      }
+    const subtitle = await Course.findOne({ _id: req.body.courseid });
+  
+        return res.status(200).json(subtitle.exam.problems);
+      
     }
-  } catch (error) {
+   catch (error) {
     res.status(404).json(error);
   }
 };
@@ -74,7 +73,7 @@ const createTrainee = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 
-  //res.json({ mssg: "user added" });
+  
 };
 
 const updateCourseRating = async (req, res) => {
@@ -245,8 +244,9 @@ const FindCourses = async (req, res) => {
 
 const GetCourseSubtitles = async (req, res) => {
   const courseId = req.query.courseid;
+  
   try {
-    const subtitles = await Subtitles.find({ courseId: courseId });
+    const subtitles = await Subtitles.find({ courseid: courseId });
     return res.status(200).json(subtitles);
   } catch (error) {
     return res.status(400).json({ error: error.message });
