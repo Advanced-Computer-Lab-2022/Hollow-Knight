@@ -1,9 +1,11 @@
 import { useState } from "react";
 import YoutubeEmbed from "./YoutubeEmbed";
+import { useAuthContext } from "../hooks/useAuthContext";
 const WatchVideo = () => {
   const [title, setCourseTitle] = useState("");
   const [subTitle, setSubTitle] = useState("");
   const [videos, setVideos] = useState([]);
+  const { user } = useAuthContext();
   const handler = async (e) => {
     e.preventDefault();
 
@@ -11,6 +13,7 @@ const WatchVideo = () => {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
       },
       body: JSON.stringify({ title, subTitle }),
     })

@@ -1,12 +1,20 @@
 import { useEffect, useState } from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
 const ViewCoursesForTrainee = () => {
   const [courses, setCourses] = useState(null);
   const params = new URLSearchParams(window.location.search);
   const userId = params.get("userId");
+  const { user } = useAuthContext();
   console.log(userId);
   useEffect(() => {
     const fetchCourses = async () => {
-      const response = await fetch("/api/courses");
+      const response = await fetch("/api/courses", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
       const json = await response.json();
 
       if (response.ok) {

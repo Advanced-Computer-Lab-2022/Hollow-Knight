@@ -5,7 +5,7 @@ const TraineeHomePage = () => {
   console.log(userId);
   const urlsearchcourse = `/SearchCoursePage?userId=${userId}`;
   const urlviewmycourses = `/getmycourses?userId=${userId}`;
-  const urlallcourses = `/viewallcoursesfortrainee?userId=${userId}`;
+  const urlallcourses = `/viewallcoursesfortrainee`;
   const urlWallet = `/getwallet?userId=${userId}`;
 
   return (

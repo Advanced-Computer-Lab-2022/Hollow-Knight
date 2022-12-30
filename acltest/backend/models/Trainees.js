@@ -18,6 +18,7 @@ const traineeSchema = new Schema(
     ],
     courseProgression: [
       {
+        emailSent: { type: Boolean, default: false },
         courseId: {
           type: mongoose.Types.ObjectId,
           ref: "Courses",
@@ -36,13 +37,11 @@ const traineeSchema = new Schema(
         ],
       },
     ],
-    wallet :{
-           type:Number,
-           required:false,
-           default:0
-
-    }
-
+    wallet: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
   },
 
   { timestamps: true }
