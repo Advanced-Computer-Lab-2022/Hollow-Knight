@@ -64,8 +64,22 @@ const alldiscounts = async (req,res) => {
   res.status(200).json("success!")
 }
 
+//get the most course have the highest number of trainees'
+// ====================>>>>mostafa added this function
+const mostPopularCourse = async (req, res) => {
+  const courses = await Course.find({}).sort({ numberOfTrainees: -1 }); //sort in descending order
+  res.status(200).json(courses);
+};
+// ====================>>>>mostafa added this function
+
+
+
+
+
+
 module.exports = {
   findCourses,
   CourseDetails,
-  selectdiscounts, alldiscounts
+  selectdiscounts, alldiscounts,
+  mostPopularCourse,
 };

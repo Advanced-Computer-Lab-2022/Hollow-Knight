@@ -5,10 +5,12 @@ const {
   findCourses,
   CourseDetails,
   getCourse,
-  selectdiscounts,alldiscounts
+  selectdiscounts,alldiscounts, mostPopularCourse
 } = require("../controllers/coursescontroller");
 
 router.get("/", findCourses);
+router.get("/mostpopular", mostPopularCourse);
+
 router.get('/coursedetails/:id' , CourseDetails)
 router.post('/selectdiscounts', selectdiscounts)
 router.post('/alldiscounts', alldiscounts)

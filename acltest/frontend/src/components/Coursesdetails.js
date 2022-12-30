@@ -1,24 +1,52 @@
+import Typography from '@mui/material/Typography';
 import React from 'react';
-import {Link} from "react-router-dom";
-const CoursesDetails = ({ Courses }) => {
+import { makeStyles } from '@mui/styles';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';;
 
+const useStyles = makeStyles(() => ({
+  card: {
+    maxWidth: 345,
+    margin: 'auto',
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+  },
+  title: {
+    fontSize: 14,
+  },
+  author: {
+    marginTop: 'auto'
+  },
+  rating: {
+    marginTop: 'auto'
+}}));
 
-  const URL = "/instructor/coursedetails/"+Courses._id;
-console.log(URL)
+const CourseCard = ({course }) => {
+  const classes = useStyles();
 
   return (
-    <div className="courses-details">
-      <h4>{Courses.title}</h4>
-      <p><strong>Instructor </strong>{Courses.author}</p>
-      <p><strong>rating: </strong>{Courses.overallRating}</p>
-      <p>{Courses.subject}</p>
-
-      <a href={URL}>
-            <button  onClick={() => window.location.href=URL} >View Details</button>
-            </a> 
-    </div>
-    
-  )
+    <Card className={classes.card}>
+      <CardMedia
+        className={classes.media}
+       
+        title={course.title}
+      />
+      <CardContent>
+        <Typography variant="h5" component="h2" className={classes.title}>
+          {course.title}
+        </Typography>
+        <Typography variant="body2" component="p" className={classes.author}>
+          by {course.author}
+        </Typography>
+        <Typography variant="body2" component="p" className={classes.rating}>
+        subject: {course.rating}
+        </Typography>
+      </CardContent>
+    </Card>
+  );
 }
 
-export default CoursesDetails
+export default CourseCard;

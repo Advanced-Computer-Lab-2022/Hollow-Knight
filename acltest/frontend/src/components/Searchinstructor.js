@@ -14,7 +14,7 @@ const SearchInstructor = () => {
         e.preventDefault()
         const searching = {name,title,subject,price}
         
-        const response = await fetch('/api/instructors/search', {
+        const response = await fetch('/api/instructors/searchCourseInstructor', {
             method: 'POST',
             body: JSON.stringify(searching),
             headers: {
@@ -28,6 +28,9 @@ const SearchInstructor = () => {
         if (response.ok) {
             setCourses(man)    
             console.log('shobak', man)
+        }
+        else {
+            console.log('error')
         }
 
     }

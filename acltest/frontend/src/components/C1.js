@@ -45,11 +45,11 @@ const C1=()=>{
           }
           setInstructors(json)
         }
-        
+        if(user){
         handle()
-    
+        }
         
-    }, [])
+    }, [user])
   
 
    

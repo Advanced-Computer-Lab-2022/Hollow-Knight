@@ -9,6 +9,26 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import { makeStyles } from "@mui/styles";
+
+
+
+const useStyles = makeStyles(() => ({
+  root: {
+    textAlign: 'center',  
+       //make background color blue
+    backgroundColor: '#e6f2ff',
+
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    '& > *': {
+      margin: '1rem',
+  
+      width: '25ch',
+    },
+  },
+}));
 const Signup = () => {
   //first_name,last_name,country,countryAbb,gender
   const [first_name, setFirstName] = useState("");
@@ -28,7 +48,7 @@ const Signup = () => {
     setCountryAbb(event.target.value.value);
   };
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(this);
     const type ="individual trainee"
     await signup(
       email,
@@ -42,15 +62,14 @@ const Signup = () => {
       
     );
   };
+  const classes = useStyles();
   return (
     <Box
       component="form"
-      className="signup"
+      className={classes.root}
       onSubmit={handleSubmit}
       //centered
-      sx={{
-        "& .MuiTextField-root": { m: 1, width: "25ch" },
-      }}
+    
     >
       <h3>Sign up</h3>
       <Input
@@ -60,8 +79,7 @@ const Signup = () => {
         value={first_name}
         onChange={(e) => setFirstName(e.target.value)}
       />
-      <br></br>
-      <br></br>
+      
       <Input
         label="Last Name"
         type="text"
@@ -69,32 +87,31 @@ const Signup = () => {
         value={last_name}
         onChange={(e) => setLastName(e.target.value)}
       />
-      <br></br>
-      <br></br>
-
-      <InputLabel id="demo-simple-select-label">Gender</InputLabel>
+      
+<br></br>
       <Select
         value={gender}
         label="Gender"
+        
+        
         onChange={(e) => setGender(e.target.value)}
       >
-        <MenuItem value={""}>None</MenuItem>
+        <MenuItem value={"none"}>Gender Select</MenuItem>
         <MenuItem value={"male"}>Male</MenuItem>
 
         <MenuItem value={"female"}>Female</MenuItem>
       </Select>
 
-      <br></br>
-      <br></br>
-      <label>Select Country</label>
-      <Select value={value} onChange={changeHandler}>
+      
+      <Select value={value} 
+      label="Country"
+      onChange={changeHandler}>
         {options.map((option) => (
           <MenuItem key={option.value} value={option}>
             {option.label}
           </MenuItem>
         ))}
       </Select>
-      <br></br>
       <Input
         label="Email"
         type="email"
@@ -102,8 +119,7 @@ const Signup = () => {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <br></br>
-      <br></br>
+    
       <Input
         label="Password"
         type="password"
@@ -111,10 +127,7 @@ const Signup = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <br></br>
-      <br></br>
-
-      <br></br>
+     
       <Button disabled={loading} type="submit">
         Sign up
       </Button>

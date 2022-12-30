@@ -141,7 +141,20 @@ const addCourseToTrainee = async (req, res) => {
   try {
     const trainee = await Trainee.findOne({ userid: req.body.userId });
     var date = new Date();
+
+    //incrementing the number of trainees in the course
+    
+
+      // ===================== mostafa adding this code
     const course = await Course.findOne({ id: req.body.courseId });
+    course.numberOfTrainees++;
+    const updatedCourse = await Course.findOneAndUpdate(
+      { id
+      : req.body.courseId },
+      { numberOfTrainees: course.numberOfTrainees }
+    );
+    // =====================
+
 
     const pay = await Payments.create({
       traineeid: trainee._id,
@@ -158,6 +171,7 @@ const addCourseToTrainee = async (req, res) => {
     }
     trainee.registeredcourses.push(req.body.courseId);
     trainee.courseProgression.push({ courseId: req.body.courseId });
+    
     const updatedTrainee = await Trainee.findOneAndUpdate(
       { userid: req.body.userId },
       {

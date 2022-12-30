@@ -8,6 +8,12 @@ const courseSchema = new Schema(
       type: String,
       required: true,
     },
+    numberOfTrainees: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
+
     price: {
       type: Number,
       required: true,
@@ -58,6 +64,7 @@ const courseSchema = new Schema(
       required: false,
       default: 0,
     },
+
   },
   { timestamps: true }
 );
