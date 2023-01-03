@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { TextField, Typography } from "@mui/material";
+import { Card, TextField, Typography } from "@mui/material";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { Container } from "@mui/system";
 import Select from "react-select";
@@ -207,11 +207,22 @@ const C1 = () => {
 
   return (
     <Container>
-               <Typography align="center" variant="h3" marginBottom={8} >Profile</Typography>
-      {instructors && userinfo && <Container>
+     
+      
+               <Typography align="center" variant="h3" marginBottom={7} marginTop={4} >Profile</Typography>
+      {instructors && userinfo && <Container
+      sx={{marginBottom:4}}
+      >
+      
+        <Card
 
+      sx={{marginBottom:9,borderRadius:8}}
+      >
+        <Container
+        sx={{marginLeft:15}}
+        >
         <TextField
-          sx={{ marginBottom: 4 }}
+          sx={{ marginBottom: 4 ,marginTop:14,width:800}}
           label="First Name"
           variant="outlined"
           defaultValue={userinfo.first_name}
@@ -221,7 +232,7 @@ const C1 = () => {
         />
 
         <TextField
-          sx={{ marginBottom: 4 }}
+          sx={{ marginBottom: 4 ,width:800}}
           label="Last Name"
           value={last_name}
           variant="outlined"
@@ -232,7 +243,7 @@ const C1 = () => {
 
 
         <TextField
-          sx={{ marginBottom: 4 }}
+          sx={{ marginBottom: 4 ,width:800}}
           label="Email"
           variant="outlined"
           defaultValue={userinfo.email}
@@ -242,7 +253,7 @@ const C1 = () => {
         />
 
         <TextField
-          sx={{ marginBottom: 4 }}
+          sx={{ marginBottom: 4 ,width:800}}
           label="Biograpghy"
           multiline
           rows={5}
@@ -252,9 +263,9 @@ const C1 = () => {
           fullWidth
           onChange={(e) => setBiography(e.target.value)}
         />
-
-        <Select  options={options} value={value} onChange={changeHandler}    />
-
+<Container sx={{width:850,marginLeft:-3,marginTop:4,marginBottom:4}}>
+        <Select  options={options} value={value} onChange={changeHandler}   />
+        </Container>
 
 
         {instructors.contract.Status =="Rejected" &&<Container
@@ -279,7 +290,7 @@ const C1 = () => {
 
         <Container
         sx={{marginTop:6}}>
-        <Link
+        <Link sx={{fontSize:20}}
         href="/resetpassword">
         Reset Password
         </Link> 
@@ -288,11 +299,14 @@ const C1 = () => {
 
         <Button
           onClick={handleUpdate}
-          sx={{ marginLeft: 120 ,marginTop:4}}
+       
+          sx={{ marginLeft: 95 ,marginTop:4,fontSize:13,marginBottom:5}}
           variant="contained">Save Changes</Button>
-
+          </Container>
+   </Card>
       </Container>
-      }
+      
+   }
       {instructors && <Dialog
         open={open}
 
@@ -326,7 +340,10 @@ const C1 = () => {
           <Button onClick={handleAccept}>Agree</Button>
         </DialogActions>
       </Dialog>}
+     
+      
     </Container>
+
   )
 }
 export default C1;

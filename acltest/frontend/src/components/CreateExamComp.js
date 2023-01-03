@@ -1,6 +1,9 @@
 import { useState } from "react";
 import ExamQuestion from"./ExamQuestion"
 import { useAuthContext } from "../hooks/useAuthContext";
+import { Container } from "@mui/system";
+import TextField from '@mui/material/TextField';
+import { Card, Typography, Button } from '@mui/material';
 //import DisplayQuestions from "./DisplayQuestions";
 export let Examproblems=[]
 const CreateExamComp = () => {
@@ -54,31 +57,85 @@ const CreateExamComp = () => {
  
 
   return (
-    <form className="addExercise" >
-      <p>Exam Title:</p>
-      <input
-        type="text"
-        onChange={(e) => setTitle(e.target.value)}
-        value={title}
-      />
-      <br></br>
-      <p>Max Grade:</p>
-      <input
-        type="text"
-        onChange={(e) => setMaxGrade(e.target.value)}
-        value={maxGrade}
-      />
-      <br></br>
-     
-      <button onClick={handleSubmit}>Submit Exam</button> <br></br>
-     {<ExamQuestion/>}
-      
   
+    
+    
+    
 
-   
+<Container>
+<Typography variant='h3' align='center' sx={{ marginBottom: 10, marginTop: 4 }}>Exam </Typography>
+<form className="addExercise" >
 
-      <h1>{submitMessage}</h1>
-    </form>
+
+
+
+  <Card
+    sx={{ marginTop: 7, borderRadius: 8 }}>
+    <Container
+      sx={{ marginLeft: 16 }}
+    >
+
+      <TextField
+        onChange={(e) => setTitle(e.target.value)}
+        label="Title"
+        variant="outlined"
+        color="primary"
+        type="text"
+        value={title}
+        fullWidth
+
+        sx={{
+          "& > :not(style)": { marginBottom: 6, marginTop: 12, width: 600,marginLeft:16 },
+        }}
+      />
+
+
+      <TextField
+        onChange={(e) => setMaxGrade(e.target.value)}
+        label="Maximum Grade"
+        variant="outlined"
+        color="primary"
+        type="number"
+        value={maxGrade}
+        fullWidth
+
+        sx={{
+          "& > :not(style)": { marginBottom: 8, marginTop: 4, width: 600,marginLeft:16 },
+        }}
+      />
+
+
+
+
+
+    </Container>
+
+
+
+
+
+    {<ExamQuestion/>}
+
+
+
+
+
+  <Button
+        sx={{ marginBottom: 7, marginLeft: 60 ,marginTop:10}}
+        onClick={handleSubmit}
+        variant="contained"
+        type="submit"
+      >Submit Exam</Button>
+
+  </Card>
+
+
+  <h1>{submitMessage}</h1>
+
+
+</form>
+
+</Container>
   );
 };
 

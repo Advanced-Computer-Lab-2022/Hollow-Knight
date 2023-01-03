@@ -1,17 +1,21 @@
 import { useState } from "react";
-import Question from"./Question"
+import Question from "./Question"
 import { useAuthContext } from "../hooks/useAuthContext";
+import { Container } from "@mui/system";
+import TextField from '@mui/material/TextField';
+import { Card,  Typography, Button } from '@mui/material';
+
 //import DisplayQuestions from "./DisplayQuestions";
-export let problems=[]
+export let problems = []
 const AddExercises = () => {
   const [title, setTitle] = useState("");
   const [id, setId] = useState("");
   const [maxGrade, setMaxGrade] = useState(0);
-  const[q1,setQ1]=useState(null)
-  const[display,setDisplay] = useState(false)
-  const { user } =  useAuthContext();
+  const [q1, setQ1] = useState(null)
+  const [display, setDisplay] = useState(false)
+  const { user } = useAuthContext();
 
-  
+
   const [submitMessage, setSubmitMessage] = useState("");
   var exercise;
   const handleSubmit = async (e) => {
@@ -38,50 +42,96 @@ const AddExercises = () => {
         'Authorization': `Bearer ${user.token}`
       },
     });
-    problems=[]
+    problems = []
     // setAnswers(null);
-    if(response.ok){
+    if (response.ok) {
       setTitle("")
       setMaxGrade("")
-      
+
     }
 
-    
+
     setSubmitMessage("Submitted");
   };
 
-  const viewquestions = async (e) => {
-    e.preventDefault();
-    setDisplay(true)
-  }
- 
+
+
 
   return (
-    <form className="addExercise" >
-      <p>Exercise Title:</p>
-      <input
-        type="text"
-        onChange={(e) => setTitle(e.target.value)}
-        value={title}
-      />
-      <br></br>
-      <p>Max Grade:</p>
-      <input
-        type="text"
-        onChange={(e) => setMaxGrade(e.target.value)}
-        value={maxGrade}
-      />
-      <br></br>
-     
-      <button onClick={handleSubmit}>Submit Exercise</button> <br></br>
-     {<Question/>}
-      <button onClick={viewquestions}>view</button>
-  
+    <Container>
+      <Typography variant='h3' align='center' sx={{ marginBottom: 10, marginTop: 4 }}>Exercise</Typography>
+      <form className="addExercise" >
 
-   
 
-      <h1>{submitMessage}</h1>
-    </form>
+
+
+        <Card
+          sx={{ marginTop: 7, borderRadius: 8 }}>
+          <Container
+            sx={{ marginLeft: 16 }}
+          >
+
+            <TextField
+              onChange={(e) => setTitle(e.target.value)}
+              label="Title"
+              variant="outlined"
+              color="primary"
+              type="text"
+              value={title}
+              fullWidth
+
+              sx={{
+                "& > :not(style)": { marginBottom: 6, marginTop: 12, width: 600,marginLeft:16 },
+              }}
+            />
+
+
+            <TextField
+              onChange={(e) => setMaxGrade(e.target.value)}
+              label="Maximum Grade"
+              variant="outlined"
+              color="primary"
+              type="number"
+              value={maxGrade}
+              fullWidth
+
+              sx={{
+                "& > :not(style)": { marginBottom: 8, marginTop: 4, width: 600,marginLeft:16 },
+              }}
+            />
+
+
+
+
+
+          </Container>
+    
+
+
+
+
+        {<Question />}
+
+
+
+
+
+        <Button
+              sx={{ marginBottom: 7, marginLeft: 60 ,marginTop:10}}
+              onClick={handleSubmit}
+              variant="contained"
+              type="submit"
+            >Submit Exercise</Button>
+
+        </Card>
+
+
+        <h1>{submitMessage}</h1>
+
+
+      </form>
+
+    </Container>
   );
 };
 

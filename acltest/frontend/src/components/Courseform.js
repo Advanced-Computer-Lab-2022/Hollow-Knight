@@ -174,8 +174,8 @@ const Courseform =()=>{
 
         <Button
         type="submit"
-        variant="outlined"
-        sx={{marginBottom:5}}
+        variant="contained"
+        sx={{marginBottom:5,marginLeft:65}}
         >Add Course</Button>
        
       
