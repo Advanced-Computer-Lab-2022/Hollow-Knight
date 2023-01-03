@@ -78,8 +78,8 @@ const ViewReports = () => {
         
 <div  key={report._id}> 
 
-<Box sx={{ maxWidth: 220 }}>
-<Card variant="outlined">                      
+<Box sx={{ maxWidth: 220, marginLeft:5,marginTop:8,marginBottom:6 }}>
+<Card sx={{ marginTop: 7, borderRadius: 8, Width: 100, maxHeight:500 }} variant="outlined">                      
 <React.Fragment>
     <CardContent>
       <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>

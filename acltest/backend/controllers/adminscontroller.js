@@ -146,7 +146,7 @@ const viewrefunds = async (req, res) => {
         return
     }
     const cq = await Refunds.find({});
-    if(cq.length() == 0){
+    if(cq.length == 0){
         return;
     }
     const mbape = await Courses.findOne({_id : cq[0].courseid})
