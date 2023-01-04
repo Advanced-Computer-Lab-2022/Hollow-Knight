@@ -77,14 +77,14 @@ const ViewRefunds = () => {
 {refunds && refunds.map((refund)=>(
         
 <div  key={refund._id}>
-<Box sx={{ maxWidth: 300 }}>
+<Box sx={{maxWidth: 500, marginLeft:8,marginBottom:6 }}>
 <Card variant="outlined">                      
 <React.Fragment>
     <CardContent>
-      <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+      <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
       Course Request 
       </Typography>
-      <Typography variant="h5" component="div">
+      <Typography sx={{ mb: 1.5 }} component="div">
       submitted by {refund.traineemail}
       </Typography>
       <Typography sx={{ mb: 1.5 }} color="text.secondary">

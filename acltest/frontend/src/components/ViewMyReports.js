@@ -115,11 +115,8 @@ const ViewMyReports = () => {
       <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
       Report Info
       </Typography>
-      <Typography variant="h5" component="div">
-      submitted by {report.traineemail}
-      </Typography>
       <Typography sx={{ mb: 1.5 }} color="text.secondary">
-      Against course {report.coursetitle}
+      Submitted Against course {report.coursetitle}
       </Typography>
       <Typography sx={{ mb: 1.5 }} color="text.secondary">
       Reason: {report.reason}
@@ -131,7 +128,7 @@ const ViewMyReports = () => {
       comments: {report.comments}
       </Typography>
       <Typography variant="body2">
-        Click the button below to change status
+        Click the button below to add a comment
         <br />
       </Typography>
     </CardContent>

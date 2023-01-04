@@ -71,18 +71,18 @@ const ViewReports = () => {
         <div className="ViewReports">
 
 <h5> Available Reports </h5> 
-<div className="ViewReports" style={{display: "flex"}}>
+<div className="ViewReports">
 
 {reports && reports.map((report)=>(
 
         
 <div  key={report._id}> 
 
-<Box sx={{ maxWidth: 220, marginLeft:5,marginTop:8,marginBottom:6 }}>
-<Card sx={{ marginTop: 7, borderRadius: 8, Width: 100, maxHeight:500 }} variant="outlined">                      
+<Box sx={{ maxWidth: 500, marginLeft:50,marginTop:8,marginBottom:6 }}>
+<Card sx={{ marginTop: 7, borderRadius: 8, minWidth: 300, minHeight: 400 }} variant="outlined">                      
 <React.Fragment>
-    <CardContent>
-      <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+    <CardContent sx={{fontSize: 20, marginLeft: 5,marginBottom:5,marginTop:3}}>
+      <Typography sx={{ fontSize: 20 }}  color="text.secondary" gutterBottom>
       Report Info
       </Typography>
       <Typography variant="h5" component="div">
@@ -97,12 +97,15 @@ const ViewReports = () => {
       <Typography sx={{ mb: 1.5 }} color="text.secondary">
       Status: {report.status}
       </Typography>
+      <Typography sx={{ mb: 1.5 }} color="text.secondary">
+      comments: {report.comments}
+      </Typography>
       <Typography variant="body2">
         Click the button below to change status
         <br />
       </Typography>
     </CardContent>
-    <CardActions>
+    <CardActions sx={{marginLeft: 10}}>
     <Button onClick={() => pending(report)}>Mark as pending</Button>    <Button onClick={() => resolved(report)}>Mark as resolved</Button>
     </CardActions>
   </React.Fragment> 
