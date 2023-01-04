@@ -519,9 +519,10 @@ const CreateSchedule = async (req, res) => {
 const uploadvideo = async (req, res) => {
   const link = req.body.link;
   const desc = req.body.desc;
+  
   try {
     const myArray = link.split("=");
-    console.log(myArray);
+    console.log(myArray[1]);
     console.log("hi");
     const updating = await Subtitles.findOneAndUpdate(
       { _id: req.query.subtitleId },
