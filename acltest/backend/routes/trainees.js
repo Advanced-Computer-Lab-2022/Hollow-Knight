@@ -47,9 +47,10 @@ router.get("/config", (req, res) => {
 });
 router.post("/create-payment-intent", async (req, res) => {
   try {
+    console.log("backend")
     const paymentIntent = await stripe.paymentIntents.create({
-      currency: "EUR",
-      amount: 1999,
+      currency: "US",
+      amount: req.body.price,
       automatic_payment_methods: { enabled: true },
     });
 

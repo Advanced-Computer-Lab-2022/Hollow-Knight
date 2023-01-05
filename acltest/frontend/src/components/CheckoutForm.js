@@ -1,11 +1,14 @@
 import { PaymentElement } from "@stripe/react-stripe-js";
 import { useState } from "react";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
-
+import { useAuthContext } from "../hooks/useAuthContext";
 export default function CheckoutForm() {
+  const params = new URLSearchParams(window.location.search);
+  const courseId = params.get("courseId");
   const stripe = useStripe();
   const elements = useElements();
-
+  const[price,setPrice] = useState("");
+  const { user } = useAuthContext();
   const [message, setMessage] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
 
@@ -31,6 +34,22 @@ export default function CheckoutForm() {
     if (paymentIntent && paymentIntent.status === "succeeded") {
       setMessage("Payment " + paymentIntent.status);
       setIsProcessing(false);
+      fetch(`/api/trainees/addcoursetotrainee/`  ).then(async (r) => {
+        const courses = await r.json();
+        setPrice(courses.price);
+      });
+
+      fetch("/api/trainees/addcoursetotrainee", {
+        method: "POST",
+        body: JSON.stringify({courseId}),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      }).then(async (r) => {
+        var { added } = await r.json();
+        console.log(added);
+      });
     }
 
     if (error.type === "card_error" || error.type === "validation_error") {
