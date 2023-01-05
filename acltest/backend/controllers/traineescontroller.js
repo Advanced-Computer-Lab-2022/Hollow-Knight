@@ -175,6 +175,7 @@ const getTraineeCourses = async (req, res) => {
 };
 const addCourseToTrainee = async (req, res) => {
   const userid = getUserIdFromToken(getTokenFromHeader(req));
+  console.log( "CourseID"+req.body.courseId);
   try {
     const trainee = await Trainee.findOne({ userid: userid });
     var date = new Date();
@@ -196,7 +197,7 @@ const addCourseToTrainee = async (req, res) => {
     trainee.registeredcourses.push(req.body.courseId);
     trainee.courseProgression.push({ courseId: req.body.courseId });
     const updatedTrainee = await Trainee.findOneAndUpdate(
-      { userid: req.body.userId },
+      { userid: userid },
       {
         registeredcourses: trainee.registeredcourses,
         courseProgression: trainee.courseProgression,
@@ -387,7 +388,7 @@ const giveAllVideosToTrainee = async (req, res) => {
     var videoArray = [];
     for (const subtitle of subtitles) {
       for (const video of subtitle.video) {
-        console.log(video._id);
+        //console.log(video._id);
         //videoArray.push({video._id});
         for (const obj of trainee.courseProgression) {
           if (obj.courseId == req.body.courseId)
@@ -401,6 +402,7 @@ const giveAllVideosToTrainee = async (req, res) => {
       { userid: userid },
       { courseProgression: trainee.courseProgression }
     );
+    console.log(updatedTrainee)
     return res.status(200).json(updatedTrainee);
   } catch (error) {}
 };
