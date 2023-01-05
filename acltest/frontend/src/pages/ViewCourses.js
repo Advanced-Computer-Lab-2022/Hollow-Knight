@@ -19,6 +19,7 @@ const ViewCourses = () => {
         }
     });
       const json = await response.json();
+      console.log(json);
 
       if (response.ok) {
         setCourses(json);
@@ -36,7 +37,7 @@ const ViewCourses = () => {
         courses.map((course) => (
           <div key={course._id}>
             <p>
-            <CourseCard key={courses._id} Courses={course} />
+            <CourseCard key={courses._id} course={course} />
             </p>
           </div>
         ))}

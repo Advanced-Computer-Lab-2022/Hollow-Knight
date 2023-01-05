@@ -64,7 +64,11 @@ const courseSchema = new Schema(
       required: false,
       default: 0,
     },
+    video: {
+      type: String,
+      required: false,
 
+    }
   },
   { timestamps: true }
 );

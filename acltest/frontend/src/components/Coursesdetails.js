@@ -32,6 +32,8 @@ const CourseCard = ({course }) => {
       <CardMedia
         className={classes.media}
        
+        video={course.video}
+       
         title={course.title}
       />
       <CardContent>

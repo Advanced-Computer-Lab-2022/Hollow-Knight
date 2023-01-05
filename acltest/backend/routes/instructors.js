@@ -23,7 +23,6 @@ const {
   uploadvideo,getuserfrominsid,getinstructorfromuserid
 } = require("../controllers/instructorscontroller");
 
-const { searchCourseInstructor } = require("../controllers/instructorscontroller");
         
 
 
@@ -33,7 +32,6 @@ router.use(requireAuth);
 router.post("/", createInstructor);
 router.patch("/", updateInstructorCountry);
 
-router.post("/search", searchCourseInstructor);
 router.post("/search2", searchCourse2);
 
 router.post("/addcourse", CreateCourse);
