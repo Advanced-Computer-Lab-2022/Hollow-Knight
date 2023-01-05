@@ -9,8 +9,8 @@ const CourseRequests = require("../models/CourseRequests");
 const RefundRequests = require("../models/RefundRequests");
 const Reports = require("../models/Reports");
 const jwt = require("jsonwebtoken");
+var nodeoutlook = require("nodejs-nodemailer-outlook");
 const getTokenFromHeader = (req) => {
-  console.log(req)
   const authorization = req.get("authorization");
   if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
     return authorization.substring(7);
@@ -76,7 +76,9 @@ const createTrainee = async (req, res) => {
 };
 
 const updateCourseRating = async (req, res) => {
-  const { courseId, rating, id, review } = req.body;
+  const userid = getUserIdFromToken(getTokenFromHeader(req));
+  const trainee = await Trainee.findOne({ userid: userid });
+  const { courseId, rating, review } = req.body;
   const course = await Courses.findOne({ id: courseId });
   const updatedArray = course.review;
   console.log(course.review);
@@ -84,10 +86,14 @@ const updateCourseRating = async (req, res) => {
     (element) => element.traineeId == id
   );
   if (searchedRating == null) {
-    updatedArray.push({ rating: rating, traineeId: id, reviews: review });
+    updatedArray.push({
+      rating: rating,
+      traineeId: trainee.id,
+      reviews: review,
+    });
   } else {
     for (const obj of updatedArray) {
-      if (obj.traineeId == id) {
+      if (obj.traineeId == trainee.id) {
         obj.rating = rating;
         obj.reviews = review;
         break;
@@ -158,8 +164,9 @@ const addExercise = async (req, res) => {
   res.status(200).json(subtitleUpdated);
 };
 const getTraineeCourses = async (req, res) => {
+  const userid = getUserIdFromToken(getTokenFromHeader(req));
   try {
-    const trainee = await Trainee.findOne({ userid: req.body.id });
+    const trainee = await Trainee.findOne({ userid: userid });
     console.log(trainee.registeredcourses);
     return res.status(200).json(trainee);
   } catch (error) {
@@ -167,9 +174,9 @@ const getTraineeCourses = async (req, res) => {
   }
 };
 const addCourseToTrainee = async (req, res) => {
+  const userid = getUserIdFromToken(getTokenFromHeader(req));
   try {
-    console.log(req.body.userId)
-    const trainee = await Trainee.findOne({ userid: req.body.userId });
+    const trainee = await Trainee.findOne({ userid: userid });
     var date = new Date();
     const course = await Course.findOne({ id: req.body.courseId });
 
@@ -205,7 +212,8 @@ const addCourseToTrainee = async (req, res) => {
 };
 
 const FindCourses = async (req, res) => {
-  const userid = req.query.userId;
+  console.log(getTokenFromHeader(req));
+  const userid = getUserIdFromToken(getTokenFromHeader(req));
   let allcourse = [];
   //console.log(userid)
 
@@ -222,12 +230,61 @@ const FindCourses = async (req, res) => {
       for (const obj of courses.courseProgression) {
         if (JSON.stringify(obj.courseId) == JSON.stringify(currentcourse)) {
           course.traineeProgression = obj.progression;
+          course.traineeProgression =
+            (course.traineeProgression / course.maxProgress) * 100;
+          course.traineeProgression =
+            Math.round(course.traineeProgression * 10) / 10;
+          console.log(obj.emailSent);
+          if (course.traineeProgression == 100 && !obj.emailSent) {
+            const trainee = await Trainee.findOne({ userid: userid });
+            for (const traineeCourse of trainee.courseProgression) {
+              if (
+                JSON.stringify(traineeCourse.courseId) ==
+                JSON.stringify(obj.courseId)
+              ) {
+                traineeCourse.emailSent = true;
+              }
+            }
+            const updateTraineeCourseProgression =
+              await Trainee.findOneAndUpdate(
+                { userid: userid },
+                { courseProgression: trainee.courseProgression }
+              );
+
+            const user = await User.findOne({ _id: userid });
+            if (!user) {
+              return res.status(404).json({ error: "User not found" });
+            }
+            //const token = await createtoken(user._id);
+
+            //const url = `http://localhost:5000/api/users/changepassword/` + token;
+            const url2 =
+              `http://localhost:3000/coursecertificate?courseId=${obj.courseId}&&userId=${user._id}&&token=` +
+              getTokenFromHeader(req);
+
+            nodeoutlook.sendEmail({
+              auth: {
+                user: process.env.EMAIL, // Your email must be same outlook email
+                pass: process.env.PASSWORD,
+              },
+              from: process.env.EMAIL,
+              to: user.email,
+              subject: "Certificate",
+              html: `<h1>Certificate </h1>
+                    <p>Click on the link below to download your Certificate</p>
+                    <a href=${url2}>${url2}</a>`,
+              onError: (e) => console.log(e),
+              onSuccess: (i) => console.log(i),
+            });
+
+            console.log(user);
+          }
         }
       }
-      course.traineeProgression =
-        (course.traineeProgression / course.maxProgress) * 100;
-      course.traineeProgression =
-        Math.round(course.traineeProgression * 10) / 10;
+      // course.traineeProgression =
+      //   (course.traineeProgression / course.maxProgress) * 100;
+      // course.traineeProgression =
+      //   Math.round(course.traineeProgression * 10) / 10;
       console.log(course);
       allcourse.push(course);
     }
@@ -242,6 +299,40 @@ const FindCourses = async (req, res) => {
   //return res.status(200).json(allcourse);
 };
 
+const certificateMail = async (req, res) => {
+  const userid = getUserIdFromToken(getTokenFromHeader(req));
+  try {
+    const user = await User.findOne({ _id: userid });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    const token = await createtoken(user._id);
+
+    //const url = `http://localhost:5000/api/users/changepassword/` + token;
+    const url2 =
+      `http://localhost:3000/coursecertificate?courseId=${course._id}&&userId=${user._id}&&token=` +
+      token;
+    nodeoutlook.sendEmail({
+      auth: {
+        user: process.env.EMAIL, // Your email must be same outlook email
+        pass: process.env.PASSWORD,
+      },
+      from: process.env.EMAIL,
+      to: user.email,
+      subject: "Certificate",
+      html: `<h1>Certificate </h1>
+          <p>Click on the link below to download your Certificate</p>
+          <a href=${url2}>${url2}</a>`,
+      onError: (e) => console.log(e),
+      onSuccess: (i) => console.log(i),
+    });
+
+    res.status(200).json("Success");
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 const GetCourseSubtitles = async (req, res) => {
   const courseId = req.query.courseid;
   
@@ -254,9 +345,10 @@ const GetCourseSubtitles = async (req, res) => {
 };
 
 const increaseTraineeProgression = async (req, res) => {
+  const userid = getUserIdFromToken(getTokenFromHeader(req));
   var progression;
   try {
-    const trainee = await Trainee.findOne({ userid: req.body.userId });
+    const trainee = await Trainee.findOne({ userid: userid });
     console.log(trainee);
     for (const obj of trainee.courseProgression) {
       if (JSON.stringify(obj.courseId) == JSON.stringify(req.body.courseId)) {
@@ -278,7 +370,7 @@ const increaseTraineeProgression = async (req, res) => {
       }
     }
     const updatedTrainee = await Trainee.findOneAndUpdate(
-      { userid: req.body.userId },
+      { userid: userid },
       { courseProgression: trainee.courseProgression }
     );
     console.log(progression);
@@ -288,8 +380,9 @@ const increaseTraineeProgression = async (req, res) => {
   }
 };
 const giveAllVideosToTrainee = async (req, res) => {
+  const userid = getUserIdFromToken(getTokenFromHeader(req));
   try {
-    const trainee = await Trainee.findOne({ userid: req.body.userId });
+    const trainee = await Trainee.findOne({ userid: userid });
     const subtitles = await Subtitle.find({ courseid: req.body.courseId });
     var videoArray = [];
     for (const subtitle of subtitles) {
@@ -305,14 +398,16 @@ const giveAllVideosToTrainee = async (req, res) => {
     console.log(videoArray);
     //trainee.courseProgression.push({ videos: videoArray });
     const updatedTrainee = await Trainee.findOneAndUpdate(
-      { userid: req.body.userId },
+      { userid: userid },
       { courseProgression: trainee.courseProgression }
     );
     return res.status(200).json(updatedTrainee);
   } catch (error) {}
 };
 const requestrefund = async (req, res) => {
-  const { course, userId } = req.body;
+  const { course } = req.body;
+  const userId = getUserIdFromToken(getTokenFromHeader(req));
+
   console.log(userId, course);
   const courseid = course._id;
   const coursetitle = course.title;
@@ -347,7 +442,7 @@ const requestrefund = async (req, res) => {
 };
 
 const getwallet = async (req, res) => {
-  const userid = req.query.userId;
+  const userid = getUserIdFromToken(getTokenFromHeader(req));
   console.log(userid);
   try {
     const trainee = await Trainee.findOne({ userid: userid });
@@ -358,7 +453,8 @@ const getwallet = async (req, res) => {
 };
 
 const registercorporate = async (req, res) => {
-  const { courses, userId } = req.body;
+  const userId = getUserIdFromToken(getTokenFromHeader(req));
+  const { courses } = req.body;
   const courseid = courses._id;
   const coursetitle = courses.title;
   var trainee;
@@ -395,10 +491,8 @@ const registercorporate = async (req, res) => {
 };
 
 const reportproblem = async (req, res) => {
+  const userid = getUserIdFromToken(getTokenFromHeader(req));
   const courseid = req.query.courseid;
-  var token =getTokenFromHeader(req);
-  const userid = getUserIdFromToken(token)
-  //const userid = req.query.userid;
   const { reason, details } = req.body;
   var course;
   var user;

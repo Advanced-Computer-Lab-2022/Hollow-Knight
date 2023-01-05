@@ -8,7 +8,6 @@ const {
   GetUserType,
   selectdiscounts,alldiscounts
 } = require("../controllers/coursescontroller");
-
 router.get("/", findCourses);
 router.get('/coursedetails/:id' , CourseDetails)
 router.post('/selectdiscounts', selectdiscounts)

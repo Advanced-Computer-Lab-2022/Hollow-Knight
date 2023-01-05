@@ -1,41 +1,52 @@
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import { loadStripe } from "@stripe/stripe-js";
+import CheckoutForm from "./CheckoutForm";
+import { Elements } from "@stripe/react-stripe-js";
+import { useAuthContext } from "../hooks/useAuthContext";
 const CreditCardInfo = () => {
-  const [creditNumber, setNumber] = useState("");
-  const [expDate, setDate] = useState("");
-  const [securityCode, setCode] = useState("");
+  const [price, setPrice] = useState("");
   const params = new URLSearchParams(window.location.search);
   const courseId = params.get("courseId");
-  const userId = params.get("userId");
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const body = { creditNumber, expDate, securityCode, courseId, userId };
-    console.log(courseId);
-    const response = await fetch(`/api/trainees/addcoursetotrainee`, {
+  const [stripePromise, setStripePromise] = useState(null);
+  const [clientSecret, setClientSecret] = useState(null);
+  const { user } = useAuthContext();
+  useEffect(() => {
+    fetch(`/api/courses/coursedetails/` + courseId).then(async (r) => {
+      const courses = await r.json();
+      setPrice(courses.price);
+    });
+  }, []);
+  useEffect(() => {
+    fetch("/api/trainees/config").then(async (r) => {
+      const { publishableKey } = await r.json();
+      setStripePromise(loadStripe(publishableKey));
+      });
+  }, []);
+  useEffect(() => {
+    fetch("/api/trainees/create-payment-intent", {
       method: "POST",
-      body: JSON.stringify(body),
+      body: JSON.stringify({}),
       headers: {
         "Content-Type": "application/json",
-      },
-    });
-    const result = await response.json();
-    console.log(result);
-    if (response.ok) {
-      setNumber("");
-      setDate("");
-      setCode("");
-    }
-  };
+      },}).then(async (r) => {
+      console.log(r)
+      var { clientSecret } = await r.json();
+      setClientSecret(clientSecret);
+      console.log(clientSecret) 
+
+    });  
+  }, []);
+
+
   return (
-    <form>
-      <label>Credit Card Number</label>
-      <input value={creditNumber} onChange={(e) => setNumber(e.target.value)} />
-      <label>Security Code</label>
-      <input value={securityCode} onChange={(e) => setCode(e.target.value)} />
-      <label>Expiration Date</label>
-      <input value={expDate} onChange={(e) => setDate(e.target.value)} />
-      <button onClick={handleSubmit}>Pay For Course</button>
-    </form>
+    <>
+      <h>Price: {price}</h>
+      {stripePromise && clientSecret && (
+        <Elements stripe={stripePromise} options={{ clientSecret }}>
+          <CheckoutForm />
+        </Elements>
+      )}
+    </>
   );
 };
 

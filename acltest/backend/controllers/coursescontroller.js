@@ -19,14 +19,16 @@ function getUserIdFromToken(token) {
 
 const findCourses = async (req, res) => {
   const courses = await Course.find({});
-    
+
   res.status(200).json(courses);
 };
 
 const CourseDetails = async (req, res) => {
   //const titles = req.body
   //const key =titles._id
+
   const { id } = req.params;
+  console.log(id);
   const courses = await Course.findById(id);
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -42,17 +44,17 @@ if (!courses) {
 return res.status(200).json(courses);
 };
 
-
-
-
-const selectdiscounts = async (req,res) => {
-  console.log(req.body.discount)
+const selectdiscounts = async (req, res) => {
+  console.log(req.body.discount);
   for (const courseid of req.body.checklist) {
-    console.log(courseid)
-    const shit = await Course.findOneAndUpdate({_id : courseid} , {discount : {percent : req.body.discount}})
+    console.log(courseid);
+    const shit = await Course.findOneAndUpdate(
+      { _id: courseid },
+      { discount: { percent: req.body.discount } }
+    );
   }
-  res.status(200).json("success!")
-}
+  res.status(200).json("success!");
+};
 
 const alldiscounts = async (req,res) => {
   console.log(req.body.discount)
