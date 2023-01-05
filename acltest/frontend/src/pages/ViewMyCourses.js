@@ -38,7 +38,7 @@ const ViewMyCourses = () => {
       {courses &&
         courses.map((course) => (
           <div key={course._id}>
-             <Card sx={{marginBottom:8,marginTop:4 ,borderRadius:8}}>
+             <Card sx={{marginBottom:8,marginTop:4 ,borderRadius:8 }}>
               <Container  sx={{marginTop:5,marginBottom:5}}>
             <Typography align="center"  sx={{fontSize:35,marginBottom:3}}>
               <strong> {course.title} </strong>

@@ -136,7 +136,7 @@ const UploadVideo = () => {
                                     sx={{ mb: 2 }}
                                 >
                                     <AlertTitle fontSize={20}>Success</AlertTitle>
-                                    <strong > Discount has been Added   </strong>
+                                    <strong > Video Has been Added to the course content   </strong>
                                 </Alert>
                             </Collapse>
                         </Box>

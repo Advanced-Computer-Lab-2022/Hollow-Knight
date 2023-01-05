@@ -1,9 +1,14 @@
 import { useState } from "react";
 import Question from "./Question"
 import { useAuthContext } from "../hooks/useAuthContext";
-import { Container } from "@mui/system";
+import { Container,Box } from "@mui/system";
 import TextField from '@mui/material/TextField';
 import { Card,  Typography, Button } from '@mui/material';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import IconButton from '@mui/material/IconButton';
+import Collapse from '@mui/material/Collapse';
+import CloseIcon from '@mui/icons-material/Close';
 
 //import DisplayQuestions from "./DisplayQuestions";
 export let problems = []
@@ -13,10 +18,12 @@ const AddExercises = () => {
   const [maxGrade, setMaxGrade] = useState(0);
   const [q1, setQ1] = useState(null)
   const [display, setDisplay] = useState(false)
+  const [success, setSuccess] = useState(false)
+
   const { user } = useAuthContext();
 
 
-  const [submitMessage, setSubmitMessage] = useState("");
+
   var exercise;
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,11 +54,12 @@ const AddExercises = () => {
     if (response.ok) {
       setTitle("")
       setMaxGrade("")
+      setSuccess(true)
 
     }
 
 
-    setSubmitMessage("Submitted");
+   
   };
 
 
@@ -114,6 +122,35 @@ const AddExercises = () => {
 
 
 
+        <Box
+
+sx={{ width: 700 ,marginLeft:30}}>
+
+
+<Collapse in={success}>
+    <Alert
+        severity="success"
+        action={
+            <IconButton
+                aria-label="close"
+                color="inherit"
+                size="large"
+                onClick={() => {
+                    setSuccess(false);
+                }}
+            >
+
+                <CloseIcon fontSize="inherit" />
+            </IconButton>
+        }
+        sx={{ mb: 2 }}
+    >
+        <AlertTitle fontSize={20}>Success</AlertTitle>
+        <strong > Exercise Has been Added to the course content   </strong>
+    </Alert>
+</Collapse>
+</Box>
+
 
 
         <Button
@@ -126,8 +163,7 @@ const AddExercises = () => {
         </Card>
 
 
-        <h1>{submitMessage}</h1>
-
+   
 
       </form>
 

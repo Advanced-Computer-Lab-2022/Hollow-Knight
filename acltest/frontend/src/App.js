@@ -54,6 +54,7 @@ import AdminDiscounts from "./pages/AdminDiscounts";
 import CreateExam from "./pages/CreateExam";
 import MenuController from "./components/MenuController";
 import Exam from "./pages/Exam";
+
 function App() {
   return (
     <div className="App">
@@ -63,6 +64,7 @@ function App() {
         <MenuController/>
         <div className="pages">
           <Routes>
+            
             <Route path="/InstructorHome" element={<GoInstructor />} />
             <Route path="/apps" element={<Apps />} />
             <Route path="/ViewReviews" element={<ViewReview />} />
@@ -74,7 +76,7 @@ function App() {
             <Route path="/addexercise" element={<AddExercises />} />
             <Route path="/Reviews" element={<ViewInsReviews />} />
             <Route path="/ViewContract" element={<ViewContract />} />
-
+     
             <Route path="/" element={<Home />} />
             <Route path="/create" element={<Createuser />} />
             <Route path="/selectcountry" element={<SelectCountry />} />
