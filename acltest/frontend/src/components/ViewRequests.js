@@ -6,29 +6,45 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const {useState} = require("react");
 
 const ViewRequests = () => {
     const [requests, setRequests] = useState(null);
+    const { user } =  useAuthContext();
     useEffect(() => {
         const viewrequests = async () => {
-          const response = await fetch("/api/admins/requests");
-          const json = await response.json();
+          if(user){
+          const response = await fetch("/api/admins/requests",
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${user.token}`
     
-          if (response.ok) {
-            setRequests(json);
-          }
+    
+            }
+        })
+        const json = await response.json();
+    
+        if (response.ok) {
+          setRequests(json);
+        }}
+        if(!user){
+          console.log("no user omg")
+        };
         };
     
         viewrequests();
-      }, []);
+      }, [user]);
     
       const accepted = async (request) => {
         const response = await fetch(`/api/admins/acceptrequest?requestId=${request._id}`, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${user.token}`
       }})
       if(response.ok){
         console.log("success!")
@@ -41,7 +57,8 @@ const ViewRequests = () => {
         const response = await fetch(`/api/admins/rejectrequest?requestId=${request._id}`, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${user.token}`
       }})
       if(response.ok){
         console.log("success!")

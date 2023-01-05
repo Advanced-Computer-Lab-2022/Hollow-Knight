@@ -55,6 +55,7 @@ import CreateExam from "./pages/CreateExam";
 import MenuController from "./components/MenuController";
 import Exam from "./pages/Exam";
 
+import ViewMyReports from "./pages/ViewMyReports";
 function App() {
   return (
     <div className="App">
@@ -175,6 +176,7 @@ function App() {
             <Route path="/createexam" element={<CreateExam />} />
             <Route path="/gotoexam" element={<Exam />} />
 
+            <Route path="/viewmyreports" element={<ViewMyReports />} />
 
           </Routes>
         

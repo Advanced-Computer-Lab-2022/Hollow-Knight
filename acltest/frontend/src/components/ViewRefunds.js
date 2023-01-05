@@ -6,20 +6,35 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const {useState} = require("react");
 
 const ViewRefunds = () => {
     const [refunds, setRefunds] = useState(null);
+    const { user } =  useAuthContext();
     useEffect(() => {
-        const viewrefunds = async () => {
-          const response = await fetch("/api/admins/refunds");
-          const json = await response.json();
-    
-          if (response.ok) {
-            setRefunds(json);
+      const viewrefunds = async () => {
+        if(user){
+        const response = await fetch("/api/admins/refunds",
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${user.token}`
+  
+  
           }
-        };
+      })
+      const json = await response.json();
+  
+      if (response.ok) {
+        setRefunds(json);
+      }}
+      if(!user){
+        console.log("no user omg")
+      };
+      };
     
         viewrefunds();
       }, []);
@@ -28,7 +43,8 @@ const ViewRefunds = () => {
         const response = await fetch(`/api/admins/addfunds?refundId=${refund._id}`, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${user.token}`
       }})
       if(response.ok){
         console.log("success!")
@@ -40,7 +56,8 @@ const ViewRefunds = () => {
         const response = await fetch(`/api/admins/denyfunds?refundId=${refund._id}`, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${user.token}`
       }})
       if(response.ok){
         console.log("success!")
@@ -60,14 +77,14 @@ const ViewRefunds = () => {
 {refunds && refunds.map((refund)=>(
         
 <div  key={refund._id}>
-<Box sx={{ maxWidth: 300 }}>
+<Box sx={{maxWidth: 500, marginLeft:8,marginBottom:6 }}>
 <Card variant="outlined">                      
 <React.Fragment>
     <CardContent>
-      <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+      <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
       Course Request 
       </Typography>
-      <Typography variant="h5" component="div">
+      <Typography sx={{ mb: 1.5 }} component="div">
       submitted by {refund.traineemail}
       </Typography>
       <Typography sx={{ mb: 1.5 }} color="text.secondary">

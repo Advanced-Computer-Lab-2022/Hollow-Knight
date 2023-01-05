@@ -19,6 +19,8 @@ const {
   requestrefund,
   reportproblem,
   getexam,
+  viewmyreports,
+  addcomment
 } = require("../controllers/traineescontroller");
 
 router.post("/", createTrainee);
@@ -39,4 +41,6 @@ router.post("/requestrefund", requestrefund);
 router.post("/reportproblem", reportproblem);
 router.patch("/getexam", getexam);
 
+router.post("/addcomment", addcomment);
+router.get("/viewmyreports", viewmyreports);
 module.exports = router;
