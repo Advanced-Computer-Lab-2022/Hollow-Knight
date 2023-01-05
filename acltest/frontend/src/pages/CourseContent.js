@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react";
 import YoutubeEmbed from "../components/YoutubeEmbed";
 import ViewVideo from "../components/ViewVideo";
-import { Typography } from "@mui/material";
+import { Typography,Button } from "@mui/material";
 import ViewSubtitles from "../components/ViewSubtitles";
 
 const CourseContent = () => {
   const [subtitles, setSubtitles] = useState(null);
   const [maxProgress, setMaxProgress] = useState(null);
-  useEffect(() => {
-    const getsubtitles = async () => {
-      const params = new URLSearchParams(window.location.search);
-      const courseid = params.get("courseId");
-      const userid = params.get("userId");
-      //console.log(courseid);
+  const params = new URLSearchParams(window.location.search);
+  const courseid = params.get("courseId");
+ 
 
+    const getsubtitles = async () => {
+  
       const response = await fetch(
         `/api/trainees/getsubtitles?courseid=${courseid}`
       );
@@ -34,15 +33,26 @@ const CourseContent = () => {
       }
     };
     getsubtitles();
-  }, []);
+
   return (
     <div className="coursecontent">
+      
       {subtitles &&
         subtitles.map((subtitle) => (
           <div key={subtitle._id}>
             <ViewSubtitles subtitle={subtitle} />
           </div>
         ))}
+
+
+<Button variant="contained" sx={{ marginBottom: 4 }}
+        onClick={() =>
+          (window.location.href = `/gotoexam?courseid=${courseid}`)
+       }
+      >
+        Take Exam
+      </Button>
+
     </div>
   );
 };

@@ -2,53 +2,75 @@
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-const { useState ,} = require("react");
-const InstructorBar = ({x}) => {
-    const params = new URLSearchParams(window.location.search);
-    const userId = params.get('userId');
-    const apps=`/apps?userId=${userId}`
-    const urlmyreview=`/Reviews?userId=${userId}`
-    const urlcoursereview=`/ViewReviews?userId=${userId}`
-    const urladdcourse=`/addcourse?userId=${userId}`
-    const urlsearchcourse=`/instructor?userId=${userId}`
+import { Typography } from '@mui/material';
+const { useState, useEffect, } = require("react");
+export 
+const InstructorBar = () => {
+    
+
+  
+  
+
+
+    const apps=`/apps`
+    const urlmyreview=`/Reviews`
+    const urlcoursereview=`/ViewReviews`
+    const urladdcourse=`/addcourse`
+    const urlsearchcourse=`/instructor`
    
     const urlallcourses=`/viewallcourses`
-    const urlviewmycourses=`/viewmycourses?userId=${userId}`
-    const urlviewrevenue=`/getpay?userId=${userId}`
+    const urlviewmycourses=`/viewmycourses`
+    const urlviewrevenue=`/getpay?userId`
 
 
 
-    var v=parseInt(x)
-    const [value, setValue] = useState(v);
+   
+    const [value, setValue] = useState(10);
 
-    const handleChange = (event, newValue) => {
-      setValue(newValue);
-    }
+
+
+  
+    const handleChange = (event,newValue) => {
+      console.log(newValue,"wdewde")
+     
+        //setValue(newValue);
+
+    } 
+  
+
+    
     return (
+
+        
         <Box sx={{ bgcolor: 'background.paper' }}>
+        
             <Tabs
-                
+                value={value}
                variant="fullWidth"            
                 textColor="secondary"
                 indicatorColor="secondary"
-                value={value}
+                
                 onChange={handleChange}
                 
                 scrollButtons
                 allowScrollButtonsMobile
                 aria-label="scrollable force tabs example"
             >
-                 <Tab label="Home" href={apps} />
-                <Tab  label="My Courses" href={urlviewmycourses} />
-                <Tab label="Course Reviews"href={urlcoursereview} />
-                <Tab label="My Reviews"href={urlmyreview} />
-                <Tab label="Add New Course"href={urladdcourse}/>
-                <Tab label="Revenues" href={urlviewrevenue}/>
-                <Tab label="Report A problem" href={urladdcourse}/>
-                <Tab label="Search" href={urlsearchcourse}/>
-                <Tab label="View all courses" href={urlallcourses}/>
+                
+                 <Tab value={0} label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >Profile</Typography>} href={apps} />
+                <Tab  value={1}  label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >My Courses</Typography>} href={urlviewmycourses} />
+                <Tab value={2}  label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >Course Reviews</Typography>}  href={urlcoursereview}  />
+                <Tab  label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >My Reviews</Typography>} href={urlmyreview}   />
+                <Tab  label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >Add New Course</Typography>} href={urladdcourse}/>
+                <Tab  label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >Revenues</Typography>} href={urlviewrevenue}/>
+                <Tab  label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >Search</Typography>} href={urlsearchcourse}/>
+                <Tab  label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >View all courses</Typography>} href={urlallcourses} />
             </Tabs>
+
+
+
         </Box>
+ 
     )
 
 }

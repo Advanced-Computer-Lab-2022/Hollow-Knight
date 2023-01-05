@@ -5,8 +5,9 @@ const Subtitle = require("../models/Subtitles");
 const Subtitles = require("../models/Subtitles");
 const Payments = require("../models/Payments");
 const { default: mongoose } = require("mongoose");
-
+const jwt = require("jsonwebtoken");
 const getTokenFromHeader = (req) => {
+
   const authorization = req.get("authorization");
   if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
     return authorization.substring(7);
@@ -14,9 +15,10 @@ const getTokenFromHeader = (req) => {
   return null;
 };
 
+
 function getUserIdFromToken(token) {
   const decoded = jwt.verify(token, process.env.SECRET);
-  console.log(decoded);
+
   return decoded._id;
 }
 
@@ -32,7 +34,8 @@ const GetCourseById = async (req, res) => {
 };
 ///////////////
 const UpdateContract = async (req, res) => {
-  const userid = req.query.userId;
+  var token =getTokenFromHeader(req);
+  const userid = getUserIdFromToken(token)
   const Status = req.body.Status;
   const percent = req.body.percent;
   var instrcutor;
@@ -97,52 +100,30 @@ function getUserIdFromToken(token) {
 }
 
 
-const searchCourseInstructor = async (req, res) => {
-  
-  //get the id from params
-  const {token} = req.params;
-  //get the id from the token
-  const  id = getUserIdFromToken(token);
 
-  const instructor= await Instructor.findOne({userid:id})
-  
-
-
-  const {instructorName} = req.body;
-
-
-  const {name} = req.body;
-
-  const { title } = req.body;
-  const { subject, price } = req.body;
+// search for a course given by him/her based on course title or subject or instructor or price
+const searchCourse = async (req, res) => {
+  var token =getTokenFromHeader(req);
+  const userid = getUserIdFromToken(token)
+  const  search  = req.body.searchb;
+var instructor
+  try{
+      instructor =await Instructor.findOne({userid:userid}) 
+  }catch(error){
+        return res.status(200).json({error:"couldn't find user "})
+  }
+  var insid=instructor._id
 
   try {
-    if (title) {
-      //find using substring 
-      const course =  await Course.find({title: { $regex: title, $options: "i" },author: instructor.id});
-      return res.status(200).json(course);
-    }
-    if (subject) {
-      const course = await Course.find({ subject: {$regex:title,$options:"i"}, author: instructor.id });
-      return res.status(200).json(course);
-    }
-
-    if (price) {
-        //find using substring
-
-      const course = await Course.find({ price: {$regex:title,$options:"i"}, author: instructor.id });
-      return res.status(200).json(course);
-    }
-    if (name) {
-        //find using substring
-        const course  = await Course.find({name: {$regex:title,$options:"i"}, author: instructor.id });
+    
+      const course = await Course.find({ title: search, author: insid });
+      const course1 =await Course.find({subject: search, author: insid})
       
-      return res.status(200).json(course);
-    }
-
-    throw new Error("Course not found");
+      const result= [...course,...course1]
+     
+      return res.status(200).json(result);
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: "Course not found" });
   }
 };
 
@@ -177,7 +158,8 @@ const searchCourse2 = async (req, res) => {
 };
 
 const CreateCourse = async (req, res) => {
-  const userid = req.query.userId;
+  var token =getTokenFromHeader(req);
+  const userid = getUserIdFromToken(token)
 
   const instructor = await Instructor.findOne({ userid: userid });
   console.log(instructor._id);
@@ -210,7 +192,9 @@ const CreateCourse = async (req, res) => {
 
 const DeleteCourse = async (req, res) => {
   const { id } = req.params;
-  const userId = req.query.userId;
+  var token =getTokenFromHeader(req);
+  const userid = getUserIdFromToken(token)
+
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "Course Doesn't Exist" });
   }
@@ -223,7 +207,8 @@ const DeleteCourse = async (req, res) => {
 
 const UpdateCourse = async (req, res) => {
   const { id } = req.params;
-  const userId = req.query.userId;
+  var token =getTokenFromHeader(req);
+  const userid = getUserIdFromToken(token)
   const { title, price, subject, summary, total_hours } = req.body;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "Course Doesn't Exist" });
@@ -274,7 +259,8 @@ const UpdateCourse = async (req, res) => {
 };
 
 const ViewReviews = async (req, res) => {
-  const userid = req.query.userId;
+  var token =getTokenFromHeader(req);
+  const userid = getUserIdFromToken(token)
   const instructor = await Instructor.findOne({ userid: userid });
   //console.log(instructor._id)
   const insid = instructor._id;
@@ -297,10 +283,10 @@ const ViewReviews = async (req, res) => {
 };
 
 const getinstructorfromuserid = async (req, res) => {
-  const userid = req.query.userId;
-  //var id =getTokenFromHeader()
- // console.log("here",id)
-  console.log(userid);
+  
+  var token =getTokenFromHeader(req);
+
+  const userid = getUserIdFromToken(token)
 
   try {
     const instructor = await Instructor.findOne({ userid: userid });
@@ -313,29 +299,35 @@ const getinstructorfromuserid = async (req, res) => {
 const updatemailbiogrpahy = async (req, res) => {
   //  const {username, password, biography,mail} = req.body
   const instruct = "Instructor";
-  try {
-    const instructor = await User.findOne({
-      username: req.body.username,
-      password: req.body.password,
-      type: instruct,
-    });
-    if (!instructor) {
-      res.status(404).json("not found");
-      return;
-    }
-
-    if (req.body.mail) {
-      const updatemail = await User.findOneAndUpdate(
-        {
-          username: req.body.username,
-          password: req.body.password,
-          type: instruct,
-        },
-        { email: req.body.mail }
+  var token =getTokenFromHeader(req);
+  const userid = getUserIdFromToken(token)
+ 
+try{
+    if (req.body.email) {
+      const updatemail = await User.findByIdAndUpdate(userid,
+        { email: req.body.email }
       );
+
     }
-    var ObjectId = require("mongoose").Types.ObjectId;
-    var userid = instructor._id;
+    if (req.body.first_name) {
+      const updatemail = await User.findByIdAndUpdate(userid,
+        { first_name: req.body.first_name }
+      );
+
+    }
+    if (req.body.last_name) {
+      const updatemail = await User.findByIdAndUpdate(userid,
+        { last_name: req.body.last_name }
+      );
+
+    }
+    if (req.body.country) {
+      const updatemail = await User.findByIdAndUpdate(userid,
+        { country: req.body.country, countryAbb: req.body.countryAbb }
+      );
+
+    }
+  
     if (req.body.biography) {
       const updatebiography = await Instructor.findOneAndUpdate(
         { userid: userid },
@@ -347,7 +339,7 @@ const updatemailbiogrpahy = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 
-  return;
+
 };
 
 const rateinstructor = async (req, res) => {
@@ -452,13 +444,14 @@ const rateinstructor = async (req, res) => {
 const viewmycourses = async (req, res) => {
   //  const {username, password, biography,mail} = req.body
   const instruct = "Instructor";
-  const userid = req.query.userId;
+  var token =getTokenFromHeader(req);
+  const userid = getUserIdFromToken(token)
   const instructor = await Instructor.findOne({ userid: userid });
 
   console.log(instructor);
   const insid = instructor._id;
   try {
-    console.log(req.query.userId);
+    
     const courses = await Course.find({ author: insid });
     res.status(200).json(courses);
     console.log(courses);
@@ -485,12 +478,10 @@ const viewmysubtitles = async (req, res) => {
 };
 
 const applydiscount = async (req, res) => {
-  var { percent, startm, startd, starty, endm, endd, endy } = req.body;
+  var { percent, start_date, end_date  } = req.body;
   const instruct = "Instructor";
   const id = req.query.courseId;
 
-  const start_date = startm + "-" + startd + "-" + starty;
-  const end_date = endm + "-" + endd + "-" + endy;
   console.log(start_date, end_date);
   try {
     console.log(id);
@@ -530,9 +521,10 @@ const CreateSchedule = async (req, res) => {
 const uploadvideo = async (req, res) => {
   const link = req.body.link;
   const desc = req.body.desc;
+  
   try {
     const myArray = link.split("=");
-    console.log(myArray);
+    console.log(myArray[1]);
     console.log("hi");
     const updating = await Subtitles.findOneAndUpdate(
       { _id: req.query.subtitleId },
@@ -567,12 +559,28 @@ const addExercise = async (req, res) => {
   return res.status(200).json(updatedSubtitle);
 };
 
+const addExam = async (req, res) => {
+  const { title, maxGrade, problems } = req.body;
+ console.log(req.body)
+ console.log(req.query.courseId)
+  //examArray.push({ title, maxGrade, problems });
+  //console.log(examArray);
+  try{
+  const exam = await Course.findOneAndUpdate(
+    { _id: req.query.courseId },
+    { exam: {title:title ,maxGrade:maxGrade,problems:problems} }
+  );
+  return res.status(200).json(exam);
+  }
+  catch(error)
+  {
+    return res.status(400).json({error:"Could n't add exam"})
+  }
+};
+
 const getuserfrominsid = async (req, res) => {
   const aid = req.query.authorid;
-  console.log(aid)
-  console.log("hello")
-  var t =getTokenFromHeader();
-  console.log(t)
+  
   var instructor;
   var user;
   try {
@@ -591,7 +599,9 @@ const getuserfrominsid = async (req, res) => {
   }
 };
 const getmonthlypay = async (req, res) => {
-  const userid = req.query.userId;
+
+  var token =getTokenFromHeader(req);
+  const userid = getUserIdFromToken(token)
   console.log(userid);
   var instrcutor;
   try {
@@ -630,8 +640,8 @@ const getmonthlypay = async (req, res) => {
 module.exports = {
   createInstructor,
   updateInstructorCountry,
-  searchCourseInstructor,
   CreateCourse,
+  searchCourse,
   searchCourse2,
   ViewReviews,
   addExercise,
@@ -649,4 +659,5 @@ module.exports = {
   uploadvideo,
   getuserfrominsid,
   getinstructorfromuserid,
+  addExam,
 };

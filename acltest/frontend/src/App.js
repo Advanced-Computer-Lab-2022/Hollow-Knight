@@ -54,14 +54,22 @@ import AdminDiscounts from "./pages/AdminDiscounts";
 import { useAuthContext } from './hooks/useAuthContext'
 import { Navigate } from "react-router-dom";
 
+import CreateExam from "./pages/CreateExam";
+import MenuController from "./components/MenuController";
+import Exam from "./pages/Exam";
+
+import ViewMyReports from "./pages/ViewMyReports";
 function App() {
 const  {user} = useAuthContext();
   return (
     <div className="App">
       <BrowserRouter>
         <Navbar />
+
+        <MenuController/>
         <div className="pages">
           <Routes>
+            
             <Route path="/InstructorHome" element={<GoInstructor />} />
             <Route path="/apps" element={<Apps />} />
             <Route path="/ViewReviews" element={<ViewReview />} />
@@ -126,7 +134,7 @@ const  {user} = useAuthContext();
             />
             <Route path="/Reviews" element={<ViewInsReviews />} />
             <Route path="/ViewContract" element={<ViewContract />} />
-
+     
             <Route path="/" element={<Home />} />
             <Route path="/create" element={<Createuser />} />
             <Route path="/selectcountry" element={<SelectCountry />} />
@@ -223,9 +231,15 @@ const  {user} = useAuthContext();
              <Route path="/getwallet" element={<Wallet />} />
             <Route path="/getpay" element={<Revenue />} />
             <Route path="/report" element={<Report />} />
+            <Route path="/createexam" element={<CreateExam />} />
+            <Route path="/gotoexam" element={<Exam />} />
+
+            <Route path="/viewmyreports" element={<ViewMyReports />} />
 
           </Routes>
+        
         </div>
+       
       </BrowserRouter>
     </div>
   );

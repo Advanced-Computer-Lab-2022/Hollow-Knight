@@ -2,27 +2,36 @@ import { Typography } from '@mui/material';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const GetAllDetails = ({ courses }) => {
  
   const [first,setFirst]=useState("")
   const [second,setSecond]=useState("")
-  const params = new URLSearchParams(window.location.search);
-  const userId = params.get('userId');
-  //console.log("hi",userId)
+  const { user } =  useAuthContext();
+  //console.log(user.token)
+  
 
     const getname = async () => {
-   
-      if(courses.author){
-     // console.log(courses.author,"hi")
-      const response = await fetch(`/api/instructors/getname?authorid=${courses.author}`);
-      const json = await response.json();
-      setFirst(json.first_name)
-      setSecond(json.last_name)
-      console.log(first,second)
+   var authorid=courses.author
+      if(courses.author&&user){
+ 
+      const response1 = await fetch(`/api/instructors/getname?authorid=${authorid}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`
+        }
+    });
+      const res = await response1.json();
+      
 
-      if (response.ok) {
+      if (response1.ok) {
         console.log("found name")
+        setFirst(res.first_name)
+      setSecond(res.last_name)
+      console.log(first,second)
       }
     };
   }

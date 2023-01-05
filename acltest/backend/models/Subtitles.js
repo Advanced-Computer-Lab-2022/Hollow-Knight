@@ -39,6 +39,7 @@ const subtitleSchema = new Schema(
         },
       },
     ],
+    
   },
   { timestamps: true }
 );

@@ -1,11 +1,14 @@
-import { Icon } from "@mui/material";
+import { Container, Icon } from "@mui/material";
 import ViewVideo from "../components/ViewVideo";
 import { Button, Typography } from "@mui/material";
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 
 const ViewSubtitles = ({ subtitle }) => {
   const [view, setView] = useState("false");
+  const params = new URLSearchParams(window.location.search);
+  const courseid = params.get("courseId");
+
 
   const viewclick = async () => {
     if (view == "false") {
@@ -31,19 +34,22 @@ const ViewSubtitles = ({ subtitle }) => {
       {view == "true" && (
         <div>
           {subtitle.exercises.map((exercises) => (
-            <div key={exercises._id}>
-              <p>Exercise : {exercises.title}</p>
+            <Container key={exercises._id}>
+
+
+              <p> {exercises.title}</p>
               <p>Grade : {exercises.maxGrade}</p>
-              <button>Go to Exercise </button>
-              <button
+
+              <Button variant="contained"
                 onClick={() =>
                   (window.location.href = `/getanswers?subid=${subtitle._id}&id=${exercises._id}`)
                 }
               >
-                View Exercise Answers{" "}
-              </button>
-            </div>
+                Go to Exercise
+              </Button>
+            </Container>
           ))}
+
 
           {subtitle.video.map((video) => (
             <div key={video._id}>
@@ -52,6 +58,8 @@ const ViewSubtitles = ({ subtitle }) => {
           ))}
         </div>
       )}
+
+    
     </div>
   );
 };

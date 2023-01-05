@@ -52,7 +52,8 @@ const courseSchema = new Schema(
 
     discount: {
       percent: { type: Number, required: false, default: 0 },
-      duration: { type: Date, required: false },
+      start_date: { type: Date, required: false },
+      end_date:{type:Date ,required:false}
     },
     maxProgress: {
       type: Number,
@@ -67,7 +68,18 @@ const courseSchema = new Schema(
     video: {
       type: String,
       required: false,
-
+    },
+    exam : {
+      title: { type: String, required: false },
+      grade: { type: Number, required: false },
+      maxGrade: { type: Number, required: false },
+      problems: [
+        {
+          questions: { type: String, required: false },
+          answers: [String],
+          solution: { type: String, required: false },
+        },
+      ],
     }
   },
   { timestamps: true }

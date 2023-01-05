@@ -1,13 +1,10 @@
-import { Container } from "@mui/system";
 import { useState } from "react";
-import { problems } from "./AddExercises"
+import { Examproblems } from "./CreateExamComp"
 import { Card, Grid, Typography, Button } from '@mui/material';
 import Stack from '@mui/material/Stack';
-
+import { Container } from "@mui/system";
 import TextField from '@mui/material/TextField';
-
-
-const Question = () => {
+const ExamQuestion = () => {
   const [question, setQuestion] = useState("");
   const [answers, setAnswers] = useState([]);
   const [answer1, setAnswer1] = useState("");
@@ -21,7 +18,7 @@ const Question = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    //console.log(problems)
+    //console.log(Examproblems)
     setAnswers([])
     answers.push(answer1);
     answers.push(answer2);
@@ -30,13 +27,13 @@ const Question = () => {
     //console.log(answer1)
     //console.log(answers)
     //console.log("hi")
-    problems.push({
+    Examproblems.push({
       questions: question,
       answers: answers,
       solution: solution,
     });
-    setbobo(problems)
-    console.log(problems)
+    setbobo(Examproblems)
+    console.log(Examproblems)
     setAnswer1("")
     setAnswer2("")
     setAnswer3("")
@@ -49,6 +46,7 @@ const Question = () => {
   }
   return (
     <div>
+
       <Container>
         <Grid container>
           <Grid
@@ -158,7 +156,7 @@ const Question = () => {
                 type="submit"
                 variant="contained"
                 onClick={handleSubmit}
-                sx={{ marginTop: 3, marginBottom: 6, marginLeft: 35}}
+                sx={{ marginTop: 3, marginBottom: 6, marginLeft: 35 }}
               >Insert Question</Button> </Container>}
 
           </Grid>
@@ -172,14 +170,14 @@ const Question = () => {
               variant="h3"
               align="center"
             >Problems</Typography>
-            {bobo.map((problems, index) => (
+            {bobo.map((Examproblems, index) => (
               <Container key={index}>
                 <Card sx={{ marginBottom: 3, borderRadius: 5 }} variant="elevation" color="secondary"  >
                   <Container sx={{ marginBottom: 3 }}>
                     <Typography align="center"
                       variant="h5"
                       sx={{ marginBottom: 2, fontSize: 29, marginTop: 3 }}
-                    >Q{index} : {problems.questions}</Typography>
+                    >Q{index} : {Examproblems.questions}</Typography>
                     <Stack spacing={3}>
 
                       <Grid container>
@@ -188,14 +186,14 @@ const Question = () => {
                           <Typography
                             align="center"
                             sx={{ fontSize: 22 }}
-                          >A : {problems.answers[0]} </Typography>
+                          >A : {Examproblems.answers[0]} </Typography>
                         </Grid>
                         <Grid xs={6} xl={6}
                         >
                           <Typography
                             align="center"
                             sx={{ fontSize: 22 }}
-                          >B : {problems.answers[1]}</Typography>
+                          >B : {Examproblems.answers[1]}</Typography>
                         </Grid>
                       </Grid>
                       <Grid container>
@@ -205,21 +203,21 @@ const Question = () => {
                           <Typography
                             align="center"
                             sx={{ fontSize: 22 }}
-                          >C : {problems.answers[2]}</Typography>
+                          >C : {Examproblems.answers[2]}</Typography>
                         </Grid>
                         <Grid xs={6} xl={6}
                         >
                           <Typography
                             align="center"
                             sx={{ fontSize: 22 }}
-                          >D : {problems.answers[3]}</Typography>
+                          >D : {Examproblems.answers[3]}</Typography>
                         </Grid>
                       </Grid>
 
                       <Typography
                         align="center"
                         sx={{ fontSize: 22 }}
-                      >Solution : {problems.solution}</Typography>
+                      >Solution : {Examproblems.solution}</Typography>
                     </Stack>
                   </Container>
                 </Card>
@@ -233,4 +231,4 @@ const Question = () => {
 
     </div>)
 }
-export default Question
+export default ExamQuestion

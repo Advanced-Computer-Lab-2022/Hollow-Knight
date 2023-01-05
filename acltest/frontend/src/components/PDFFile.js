@@ -1,6 +1,6 @@
 import React from "react";
 import { Page, Text, Image, Document, StyleSheet } from "@react-pdf/renderer";
-
+import { Typography } from "@mui/material";
 const styles = StyleSheet.create({
   body: {
     paddingTop: 35,
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   },
   text: {
     margin: 12,
-    fontSize: 14,
+    fontSize: 30,
     textAlign: "justify",
     fontFamily: "Times-Roman",
   },
@@ -43,7 +43,16 @@ const PDFFile = () => {
     <Document filename="Certificate">
       <Page style={styles.body}>
         <Text style={styles.header} fixed></Text>
-        <Text style={styles.text}>Congrats on Completing the Course!!!!!!</Text>
+        <Typography sx={{ fontSize: 40, marginBottom: 2 ,marginLeft:35}}>
+          Course Certificate
+        </Typography>
+        <Typography sx={{ fontSize: 20, marginBottom: 2 ,marginLeft:3}}>
+          Congratulations on completing the course.
+        </Typography>
+        <Typography sx={{ fontSize: 20, marginBottom: 2 ,marginLeft:3}}>
+          This Certificate proves that you successfully finished 100% of the
+          course content
+        </Typography>
         <Text
           style={styles.pageNumber}
           render={({ pageNumber, totalPages }) =>

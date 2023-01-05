@@ -8,8 +8,10 @@ import AlertTitle from '@mui/material/AlertTitle';
 import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
-const Courseform =()=>{
+import { useAuthContext } from "../hooks/useAuthContext";
 
+const Courseform =()=>{
+  const { user } =  useAuthContext();
    const [title,setTitle]=useState('')
    const [price,setPrice]=useState('')
    const [subject,setSubject]=useState('')
@@ -32,9 +34,7 @@ const Courseform =()=>{
     setSummaryerror(false)
   
     const course = {title,price,subject,summary,total_hours}
-    const params = new URLSearchParams(window.location.search);
-    const userId = params.get('userId');
-    console.log(userId);
+   
     if(title=="")
     {
        setTitleerror(true)
@@ -48,11 +48,12 @@ const Courseform =()=>{
       setSummaryerror(true)
     }
     if(title&&price&&summary){
-    const response = await fetch(`/api/instructors/addcourse?userId=${userId}`, {
+    const response = await fetch(`/api/instructors/addcourse`, {
       method: 'POST',
       body: JSON.stringify(course),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${user.token}`
       }
     })
     const json = await response.json()
@@ -173,8 +174,8 @@ const Courseform =()=>{
 
         <Button
         type="submit"
-        variant="outlined"
-        sx={{marginBottom:5}}
+        variant="contained"
+        sx={{marginBottom:5,marginLeft:65}}
         >Add Course</Button>
        
       

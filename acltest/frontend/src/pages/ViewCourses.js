@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
-import CoursesDetails from "../components/Coursesdetails";
 import CourseCard from "../components/Coursesdetails";
 
 const ViewCourses = () => {

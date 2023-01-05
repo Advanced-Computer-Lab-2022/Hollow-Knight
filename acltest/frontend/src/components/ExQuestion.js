@@ -12,8 +12,9 @@ import { Card} from "@mui/material";
 const { useState } = require("react");
 
 const ExQuestion = (problem) => {
-    console.log(problem.problem)
+ 
     var problems =problem.problem
+    console.log(problems,"here")
  
   const [answer,setAnswer] = useState("");
 

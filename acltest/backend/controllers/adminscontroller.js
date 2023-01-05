@@ -5,6 +5,21 @@ const Trainee = require('../models/Trainees')
 const Reports = require('../models/Reports')
 const Refunds = require('../models/RefundRequests')
 const Courses = require('../models/Courses')
+const jwt = require("jsonwebtoken");
+
+const getTokenFromHeader = (req) => {
+    const authorization = req.get("authorization");
+    if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
+      return authorization.substring(7);
+    }
+    return null;
+  };
+  
+  function getUserIdFromToken(token) {
+    const decoded = jwt.verify(token, process.env.SECRET);
+    console.log(decoded);
+    return decoded._id;
+  }
 
 const createAdmin = async (req, res) => {
     const {email, password,country,countryAbb} = req.body
@@ -29,6 +44,14 @@ const createAdmin = async (req, res) => {
     }
 
 const viewrequests = async (req, res) => {
+    var token =getTokenFromHeader(req);
+    const userid = getUserIdFromToken(token)
+    const gettype = await User.findOne({_id: userid})
+    const type= "admin"
+    console.log(gettype.type)
+    if(gettype.type != type){
+        return
+    }
     const cq = await Requests.find({});
     res.status(200).json(cq);
     console.log(cq)
@@ -41,6 +64,14 @@ const viewrequests = async (req, res) => {
 
 
 const acceptrequest = async (req, res) => {
+    var token =getTokenFromHeader(req);
+    const userid = getUserIdFromToken(token)
+    const gettype = await User.findOne({_id: userid})
+    const type= "admin"
+    console.log(gettype.type)
+    if(gettype.type != type){
+        return
+    }
     const rq = await Requests.findOne({_id : req.query.requestId})
     console.log(rq)
     const trainid = rq.traineeid
@@ -51,30 +82,73 @@ const acceptrequest = async (req, res) => {
     };
 
     const rejectrequest = async (req, res) => {
+        var token =getTokenFromHeader(req);
+    const userid = getUserIdFromToken(token)
+    const gettype = await User.findOne({_id: userid})
+    const type= "admin"
+    console.log(gettype.type)
+    if(gettype.type != type){
+        return
+    }
         const poop = await Requests.findOneAndDelete({_id: req.query.requestId})
         res.status(200).json("success")
         };
 
 
 const viewreports = async (req, res) => {
+    var token =getTokenFromHeader(req);
+    const userid = getUserIdFromToken(token)
+    const gettype = await User.findOne({_id: userid})
+    const type= "admin"
+    console.log(gettype.type)
+    if(gettype.type != type){
+        return
+    }
     const cq = await Reports.find({});
      res.status(200).json(cq);
         };
         
 const resolvereport = async (req, res) => {
+    var token =getTokenFromHeader(req);
+    const userid = getUserIdFromToken(token)
+    const gettype = await User.findOne({_id: userid})
+    const type= "admin"
+    console.log(gettype.type)
+    if(gettype.type != type){
+        return
+    }
     const resolve = "resolved"
     const poop = await Reports.findOneAndUpdate({_id: req.query.reportId}, {status : resolve})
     res.status(200).json("success")
      };
 
 const pendreport = async (req, res) => {
+    var token =getTokenFromHeader(req);
+    const userid = getUserIdFromToken(token)
+    const gettype = await User.findOne({_id: userid})
+    const type= "admin"
+    console.log(gettype.type)
+    if(gettype.type != type){
+        return
+    }
     const pend = "pending"
     const poop = await Reports.findOneAndUpdate({_id: req.query.reportId}, {status : pend})
     res.status(200).json("success")
     };
     
 const viewrefunds = async (req, res) => {
+    var token =getTokenFromHeader(req);
+    const userid = getUserIdFromToken(token)
+    const gettype = await User.findOne({_id: userid})
+    const type= "admin"
+    console.log(gettype.type)
+    if(gettype.type != type){
+        return
+    }
     const cq = await Refunds.find({});
+    if(cq.length == 0){
+        return;
+    }
     const mbape = await Courses.findOne({_id : cq[0].courseid})
     const prices = [mbape.price]
     for (var i = 1;i<cq.length;i++){
@@ -89,6 +163,14 @@ const viewrefunds = async (req, res) => {
     };
 
 const addfunds = async (req, res) => {
+    var token =getTokenFromHeader(req);
+    const userid = getUserIdFromToken(token)
+    const gettype = await User.findOne({_id: userid})
+    const type= "admin"
+    console.log(gettype.type)
+    if(gettype.type != type){
+        return
+    }
     const cq = await Refunds.findOne({_id : req.query.refundId});
     const courseinq = await Courses.findOne({_id : cq.courseid})
     const refunding = courseinq.price
@@ -100,6 +182,14 @@ const addfunds = async (req, res) => {
 }
 
 const denyfunds = async (req, res) => {
+    var token =getTokenFromHeader(req);
+    const userid = getUserIdFromToken(token)
+    const gettype = await User.findOne({_id: userid})
+    const type= "admin"
+    console.log(gettype.type)
+    if(gettype.type != type){
+        return
+    }
     const cq = await Refunds.findOneAndDelete({_id : req.query.refundId});
     res.status(200).json("success!");
 

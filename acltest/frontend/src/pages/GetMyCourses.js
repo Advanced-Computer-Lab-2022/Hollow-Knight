@@ -1,15 +1,21 @@
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
 const ViewMyCourses = () => {
   const [courses, setCourses] = useState(null);
   const params = new URLSearchParams(window.location.search);
   const userId = params.get("userId");
+  const { user } = useAuthContext();
   console.log(userId);
   useState(() => {
     const fetchCourses = async () => {
-      const response = await fetch(
-        `/api/trainees/getmycourses?userId=${userId}`
-      );
+      const response = await fetch(`/api/trainees/getmycourses`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
       const json = await response.json();
       console.log(json);
 
