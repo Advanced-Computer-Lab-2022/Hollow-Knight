@@ -89,19 +89,18 @@ const ViewMySubtitles = () => {
       
         
       <Box  sx={{ width: '30%',marginLeft:45,marginBottom:10 }}>
-          <Stack spacing={12}>
+          <Stack spacing={4}>
 
           <Button variant="contained"
            startIcon={<AddCircleOutlineOutlinedIcon />}
             onClick={() => window.location.href = `/addsubtitle?courseId=${course}`} key={course}
             margin="normal"
-            padding="normal"
-            
+            padding="normal" 
             sx={{marginTop:2}}>
             Add Subtitle
-
           </Button>
         
+
 
           <Button
            sx={{}}
@@ -111,6 +110,15 @@ const ViewMySubtitles = () => {
            Add Exam
           </Button>
       
+          <Button
+           sx={{}}
+           startIcon={<AddCircleOutlineOutlinedIcon />}
+           onClick={() => window.location.href = `/addpreviewvideo?courseId=${courseId}`} key={courseId}
+          variant="contained">
+           Add Preview Video
+          </Button>
+      
+
           </Stack>
           </Box>
         

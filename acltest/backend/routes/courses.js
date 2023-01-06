@@ -4,7 +4,7 @@ const Course = require("../models/Courses");
 const {
   findCourses,
   CourseDetails,
-  getCourse,
+
   selectdiscounts,alldiscounts, mostPopularCourse,
   GetUserType,
 

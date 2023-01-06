@@ -19,10 +19,7 @@ console.log("here1")
 
 
 function getUserIdFromToken(token) {
-  console.log("here2")
-  const decoded = jwt.verify(token, process.env.SECRET);
-  console.log("here3")
-
+  const decoded = jwt.verify(token, process.env.SECRET);  
   console.log(decoded);
   return decoded._id;
 }
@@ -287,9 +284,9 @@ const ViewReviews = async (req, res) => {
 const getinstructorfromuserid = async (req, res) => {
   
   var token = await getTokenFromHeader(req);
-console.log(token,"here4")
+
   const userid =  getUserIdFromToken(token)
-console.log("here")
+
   try {
     const instructor = await Instructor.findOne({ userid: userid });
     return res.status(200).json(instructor);
@@ -521,6 +518,22 @@ const CreateSchedule = async (req, res) => {
   }
 };
 
+const uploadpreviewvideo = async (req, res) => {
+  const link = req.body.link;
+  const courseid = req.query.courseId;
+  try {
+    const myArray = link.split("=");
+    console.log(myArray[1]);
+    console.log("hilli");
+    const updating = await Course.findByIdAndUpdate(courseid
+ ,{ video: myArray[1] }  );
+    
+    res.status(200).json(updating);
+    console.log("updated Course");
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
+};
 const uploadvideo = async (req, res) => {
   const link = req.body.link;
   const desc = req.body.desc;
@@ -580,6 +593,25 @@ const addExam = async (req, res) => {
     return res.status(400).json({error:"Could n't add exam"})
   }
 };
+
+const getuserfromuserid = async (req, res) => {
+  var token =getTokenFromHeader(req);
+  const userid = getUserIdFromToken(token)
+
+
+  var user ;
+  try{
+
+    user= await User.findById(userid)
+    console.log(user)
+    return res.status(200).json(user)
+  }catch(error)
+  {
+     return res.status(404).json({error:"Could n't get user  "})
+  }
+
+
+}
 
 const getuserfrominsid = async (req, res) => {
   const aid = req.query.authorid;
@@ -663,4 +695,6 @@ module.exports = {
   getuserfrominsid,
   getinstructorfromuserid,
   addExam,
+  getuserfromuserid,
+  uploadpreviewvideo
 };

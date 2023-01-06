@@ -59,6 +59,7 @@ import MenuController from "./components/MenuController";
 import Exam from "./pages/Exam";
 
 import ViewMyReports from "./pages/ViewMyReports";
+import PreviewVideo from "./pages/PreviewVideo";
 function App() {
 const  {user} = useAuthContext();
   return (
@@ -231,6 +232,8 @@ const  {user} = useAuthContext();
             <Route path="/gotoexam" element={<Exam />} />
 
             <Route path="/viewmyreports" element={<ViewMyReports />} />
+            <Route path="/addpreviewvideo" element={<PreviewVideo />} />
+
 
           </Routes>
         
