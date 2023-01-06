@@ -36,14 +36,15 @@ const CourseCard = ({course }) => {
   return (
     <Card className={classes.card}>
       <CardMedia
-          component="iframe"
+        component="iframe"
         image={course.video} 
-        onClick={() => window.location.href=URL}
         title={course.title}
+        onClick={() => window.location.href=URL}
         
       />
       <CardContent>
-        <Typography variant="h5" component="h2" className={classes.title}>
+        <Typography variant="h5" component="h2"         onClick={() => window.location.href=URL}
+className={classes.title}>
           {course.title}
         </Typography>
         <Typography variant="body2" component="p" className={classes.author}>
