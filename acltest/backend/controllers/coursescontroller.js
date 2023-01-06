@@ -1,6 +1,7 @@
 const { default: mongoose } = require("mongoose");
 const Course = require("../models/Courses");
 const Users = require("../models/userModel");
+const Instructor = require("../models/Instructors");
 const jwt = require("jsonwebtoken");
 const getTokenFromHeader = (req) => {
   const authorization = req.get("authorization");
@@ -27,6 +28,30 @@ const findCourses = async (req, res) => {
 
   res.status(200).json(courses);
 };
+
+
+const findallcourses = async (req, res) => {
+  const token = getTokenFromHeader(req);
+  console.log(token); 
+  const userid=getUserIdFromToken(token);
+  console.log(userid);
+
+  const courses = await Course.find({});
+  for(var i =0;i<courses.length;i++){
+    var authorid=courses[i].author;
+
+    var author=await Instructor.findById(authorid);
+    var user =await Users.findById(author.userid);
+    //override author  by name of the author
+    courses[i]={
+        ...courses[i]._doc,    
+        author: user.first_name +' '+user.last_name
+      
+};}
+
+  res.status(200).json(courses);
+};
+
 
 const CourseDetails = async (req, res) => {
   //const titles = req.body
@@ -96,5 +121,5 @@ const mostPopularCourse = async (req, res) => {
 module.exports = {
   findCourses,
   CourseDetails,
-  selectdiscounts, alldiscounts,GetUserType ,mostPopularCourse,
+  selectdiscounts, alldiscounts,GetUserType ,mostPopularCourse,findallcourses
 };

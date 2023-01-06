@@ -161,6 +161,9 @@ const CreateCourse = async (req, res) => {
   const userid = getUserIdFromToken(token)
 
   const instructor = await Instructor.findOne({ userid: userid });
+  const user = await User.findById(userid)
+  var name =user.first_name+""+user.last_name
+  console.log(name)
   console.log(instructor._id);
   if (
     instructor.contract.Status == "Pending" ||
@@ -180,6 +183,7 @@ const CreateCourse = async (req, res) => {
       price,
       subject,
       author,
+      name,
       summary,
       total_hours,
     });

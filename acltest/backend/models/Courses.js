@@ -28,6 +28,10 @@ const courseSchema = new Schema(
       ref: "Instructors",
       required: false,
     },
+    name:{
+      type:String,
+      required: false,
+    },
     review: [
       {
         rating: { type: Number, required: false },

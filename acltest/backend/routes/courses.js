@@ -4,7 +4,7 @@ const Course = require("../models/Courses");
 const {
   findCourses,
   CourseDetails,
-
+  findallcourses,
   selectdiscounts,alldiscounts, mostPopularCourse,
   GetUserType,
 
@@ -16,4 +16,5 @@ router.get('/coursedetails/:id' , CourseDetails)
 router.post('/selectdiscounts', selectdiscounts)
 router.post('/alldiscounts', alldiscounts)
 router.get('/gettype', GetUserType);
+router.get('/getallcourses', findallcourses);
 module.exports = router;

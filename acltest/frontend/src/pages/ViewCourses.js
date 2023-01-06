@@ -6,6 +6,7 @@ import Embed2 from "../components/Embed2"
 import YoutubeEmbed from "../components/YoutubeEmbed";
 import Stack from '@mui/material/Stack';
 
+
 import ViewPriceCo from "../components/ViewPriceCo";
 const countryToCurrency = require("country-to-currency");
 const ViewCourses = () => {
@@ -77,7 +78,12 @@ useEffect(() => {
 
   return (
     <div className="courses">
+
+
+
       <Container>
+
+        
       <Grid container>
       {courses &&
         courses.map((course) => (
@@ -87,7 +93,7 @@ useEffect(() => {
               
             <Card 
             
-            sx={{marginBottom:2,marginTop:4 ,borderRadius:3, width:550,height:560}}>
+            sx={{marginBottom:2,marginTop:4 ,borderRadius:3, width:550,height:660}}>
             <Container  sx={{marginTop:5,marginBottom:5}}>
             <Typography
             align="center"  
@@ -107,6 +113,14 @@ useEffect(() => {
               sx={{fontSize:25,marginBottom:0}}>
               Rating : {course.overallRating}
               </Typography>
+
+               
+              <Typography  
+              align="center" 
+              sx={{fontSize:25,marginBottom:0}}>
+              Instructor : {course.name}
+              </Typography>
+
               <Stack direction="row" spacing={2} sx={{marginLeft:24,marginTop:1}}>
               <Typography  
               align="center" 
