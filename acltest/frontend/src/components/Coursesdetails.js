@@ -25,6 +25,7 @@ const useStyles = makeStyles(() => ({
 }}));
 
 const CourseCard = ({course }) => {
+  const URL = "/instructor/coursedetails/"+course._id;
   const classes = useStyles();
 
   return (
@@ -32,8 +33,7 @@ const CourseCard = ({course }) => {
       <CardMedia
         className={classes.media}
        
-        video={course.video}
-       
+        onClick={() => window.location.href=URL}
         title={course.title}
       />
       <CardContent>

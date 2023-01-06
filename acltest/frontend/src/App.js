@@ -53,10 +53,10 @@ import ReportsView from './pages/ReportsView';
 import AdminDiscounts from "./pages/AdminDiscounts";
 import { useAuthContext } from './hooks/useAuthContext'
 import { Navigate } from "react-router-dom";
-
 import CreateExam from "./pages/CreateExam";
 import MenuController from "./components/MenuController";
 import Exam from "./pages/Exam";
+import UserAgreement from "./pages/viewuseragrement";
 
 import ViewMyReports from "./pages/ViewMyReports";
 function App() {
@@ -84,7 +84,7 @@ const  {user} = useAuthContext();
             
              //check if the user is an instructor
 
-             element={user ? <ViewInsReviews /> : <Navigate to="/login" />} 
+             element={<ViewInsReviews />} 
              />
               <Route
              path="/ViewContract"
@@ -225,7 +225,7 @@ const  {user} = useAuthContext();
 
              <Route path = "/viewreports" element={<ReportsView/>}/>
 
-              <Route path="/userAggrement" element={<userAgreement/>} />
+              <Route path="/userAggrement" element={<UserAgreement/>} />
              <Route path = "/selectdiscounts" element={<AdminDiscounts/>}/>
 
              <Route path="/getwallet" element={<Wallet />} />

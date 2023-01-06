@@ -94,12 +94,6 @@ const updateInstructorCountry = async (req, res) => {
   }
   res.status(200).json(instructor);
 };
-function getUserIdFromToken(token) {
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
-  return decoded.id;
-}
-
-
 
 // search for a course given by him/her based on course title or subject or instructor or price
 const searchCourse = async (req, res) => {
@@ -112,14 +106,34 @@ var instructor
   }catch(error){
         return res.status(200).json({error:"couldn't find user "})
   }
+// get the
+
   var insid=instructor._id
 
   try {
+    // search using any substring of the title or subject
+    // const course = await Course.find({ title: { $regex: search, $options: "i" } }); 
     
-      const course = await Course.find({ title: search, author: insid });
-      const course1 =await Course.find({subject: search, author: insid})
+      const course = await Course.find({title:{ $regex: search, $options: "i" } , author: insid });
+      const course1 =await Course.find({subject: { $regex: search, $options: "i" }, author: insid})
       
-      const result= [...course,...course1]
+      const result= [...course,...course1]  
+      // merge the two arrays     ...course1   // spread operator  
+      //for each course in the result array get the author 
+      //for each author get the name and add it to the course object
+
+
+      for(var i =0;i<result.length;i++){
+        var authorid=result[i].author;
+
+        var author=await Instructor.findById(authorid);
+        var user =await User.findById(author.userid);
+        //override author  by name of the author
+          result[i].author=user.first_name +' '+user.last_name;
+
+
+      }
+      console.log(    result)
      
       return res.status(200).json(result);
   } catch (error) {
@@ -128,32 +142,24 @@ var instructor
 };
 
 const searchCourse2 = async (req, res) => {
-  const { name } = req.body;
-  const { title } = req.body;
-  const { subject, price } = req.body;
+  var token =getTokenFromHeader(req);
+  const userid = getUserIdFromToken(token)
+  const  search  = req.body.searchb;
 
   try {
-    if (title) {
-      const course = await Course.find({ title: title });
-      return res.status(200).json(course);
-    }
-    if (subject) {
-      const course = await Course.find({ subject: subject });
-      return res.status(200).json(course);
-    }
-
-    if (price) {
-      const course = await Course.find({ price: price });
-      return res.status(200).json(course);
-    }
-    if (name) {
-      const course = await Course.find({ author: name });
-      return res.status(200).json(course);
-    }
-
-    throw new Error("Course not found");
+ 
+    
+      const course = await Course.find({title:{ $regex: search, $options: "i" }  });
+      const course1 =await Course.find({subject: { $regex: search, $options: "i" }})
+      //add course arrat to course1 array
+      course.push(...course1)
+      
+      const result= [...course,...course1]  // merge the two arrays     ...course1   // spread operator  
+      console.log(   "coder"+ result)
+     
+      return res.status(200).json(result);
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: "Course not found" });
   }
 };
 
@@ -284,7 +290,7 @@ const ViewReviews = async (req, res) => {
 
 const getinstructorfromuserid = async (req, res) => {
   
-  var token =getTokenFromHeader(req);
+  var token = getTokenFromHeader(req);
 
   const userid = getUserIdFromToken(token)
 
@@ -565,7 +571,7 @@ const addExam = async (req, res) => {
  console.log(req.query.courseId)
   //examArray.push({ title, maxGrade, problems });
   //console.log(examArray);
-  try{
+  try{ 
   const exam = await Course.findOneAndUpdate(
     { _id: req.query.courseId },
     { exam: {title:title ,maxGrade:maxGrade,problems:problems} }

@@ -10,8 +10,8 @@ const getTokenFromHeader = (req) => {
   return null;
 };
 
-
-function getUserIdFromToken(token) {
+ 
+ function getUserIdFromToken(token) {
   const decoded = jwt.verify(token, process.env.SECRET);
   console.log(decoded);
   return decoded._id;
@@ -68,7 +68,7 @@ const alldiscounts = async (req,res) => {
 }
 const GetUserType = async(req,res)=>{
   var token =getTokenFromHeader(req);
-  const userid = getUserIdFromToken(token)
+  const userid =  getUserIdFromToken(token)
   try{
    const user=await Users.findById(userid)
    console.log(user)
@@ -76,8 +76,8 @@ const GetUserType = async(req,res)=>{
   }catch(error)
   {
     console.log("couldn't  user")
-  }
-  return
+  } 
+  return res.status(400).json("error")
 }
 
 //get the most course have the highest number of trainees'

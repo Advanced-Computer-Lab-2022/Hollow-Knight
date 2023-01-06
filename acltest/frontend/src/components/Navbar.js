@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
+import SearchAppBar from "./test";
 
 const Navbar = () => {
   const { logout } = useLogout();
@@ -12,8 +13,14 @@ const Navbar = () => {
     <header>
       <div className="container">
         <Link to="/">
-          <h1>ACL</h1>
+          <h1>CANDA</h1>
         </Link>
+        
+         <SearchAppBar></SearchAppBar>
+
+
+
+        
         <nav>
           {user &&(<div>
            <span>{user.email}</span>

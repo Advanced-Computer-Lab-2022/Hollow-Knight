@@ -7,7 +7,7 @@ const {
   getCourse,
   selectdiscounts,alldiscounts, mostPopularCourse,
   GetUserType,
-  selectdiscounts,alldiscounts
+  
 } = require("../controllers/coursescontroller");
 router.get("/", findCourses);
 router.get("/mostpopular", mostPopularCourse);

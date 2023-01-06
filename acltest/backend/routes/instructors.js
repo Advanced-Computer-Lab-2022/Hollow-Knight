@@ -29,7 +29,8 @@ const {
         
 
 
-
+const { searchCourse } = require("../controllers/instructorscontroller");
+router.post("/search", searchCourse);
 router.post("/search2", searchCourse2); //this is a public route //because it is not locked by requireAuth middleware //youssef
 router.use(requireAuth);
 router.post("/", createInstructor);

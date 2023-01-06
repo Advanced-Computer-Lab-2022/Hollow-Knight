@@ -1,44 +1,62 @@
 import { useState } from "react"
-import{useLogin} from '../hooks/useLogin'
-import {Link} from "react-router-dom";
+import { useLogin } from '../hooks/useLogin'
+import { Link } from "react-router-dom";
+import { makeStyles } from '@mui/styles';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+const useStyles = makeStyles(() => ({
+  root: {
+    '& .MuiTextField-root': {
+      margin: '8px',
+      width: '25ch',
+    },
+  },
+}));
 
-const Login=()=>{
-    const [email,setEmail] = useState('')
-    const [password,setPassword] = useState('')
-const {login,error,loading} = useLogin()
-const handleSubmit =async (e)=>{
+const Login = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const { login, error, loading } = useLogin()
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    await login(email,password)
+    await login(email, password)
 
-}
+  }
+  const classes = useStyles();
 
-    return(
-        <form className="login" onSubmit={handleSubmit}>
-        <h3>Log In</h3>
-        
-        <label>Email address:</label>
-        <input 
-          type="email" 
-          onChange={(e) => setEmail(e.target.value)} 
-          value={email} 
-        />
-        <label>Password:</label>
-        <input 
-          type="password" 
-          onChange={(e) => setPassword(e.target.value)} 
-          value={password} 
-        />
+  return (
+    <form className={classes.root} onSubmit={handleSubmit}>
+      <h3>Log In</h3>
 
-  
-        <button disabled={loading}>Log in</button>
-        
-        <br></br>
 
-        <Link to="/forgotpassword">Forgot Password</Link>
-        
+      <TextField
+        required
+        id="username"
+        label="Username"
+        variant="outlined"
+        onChange={(e) => setEmail(e.target.value)}
 
-        {error && <div className="error">{error}</div>}
-      </form>
-    )    
+      />
+
+      <TextField
+        required
+        id="password"
+        label="Password"
+        type="password"
+        onChange={(e) => setPassword(e.target.value)}
+
+        variant="outlined"
+      />
+      <Button variant="contained" color="primary" onClick={handleSubmit}>
+        Login
+      </Button>
+      <br></br>
+
+      <Link to="/forgotpassword">Forgot Password</Link>
+
+
+      {error && <div className="error">{error}</div>}
+    </form>
+  )
 }
 export default Login

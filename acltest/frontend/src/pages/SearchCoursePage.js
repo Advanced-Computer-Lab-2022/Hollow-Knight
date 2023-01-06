@@ -1,4 +1,5 @@
 import SearchCourse from "../components/SearchCourse";
+import SearchAppBar from "../components/test";
 //import SearchInstructor  from "../components/Searchinstructor";
 
 const SearchCoursePage = () => {
@@ -8,7 +9,7 @@ const SearchCoursePage = () => {
         <h2>Search</h2>
       </div>
       <div>
-        <SearchCourse />
+        <SearchAppBar/>
       </div>
     </div>
   );

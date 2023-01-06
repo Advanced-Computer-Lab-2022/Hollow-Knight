@@ -10,6 +10,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import CourseCard from "./Coursesdetails";
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -59,40 +60,37 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const SearchInstructor = () => {
-    const [name, setName] = useState('')
-    const [title, setTitle] = useState('')
-    const [Courses, setCourses] = useState(null)
-    const [subject, setSubject] = useState('')
-    const [price, setPrice] = useState('')
-    const [subjectf,setSubjectf]=useState("")
-    const [pricef,setPricef]=useState("")
-    const [searchb, setSearchb] = useState('')
-    const { user } = useAuthContext();
-    //fetch courses
-    const search = async (e) => {
-        e.preventDefault()
+        const [name, setName] = useState('')
+        const [title, setTitle] = useState('')
+        const [Courses, setCourses] = useState(null)
+        const [subject, setSubject] = useState('')
+        const [price, setPrice] = useState('')
+        const [subjectf,setSubjectf]=useState("")
+        const [pricef,setPricef]=useState("")
+        const [searchb, setSearchb] = useState('')
+        const { user } = useAuthContext();
+        //fetch courses
+        const search = async (e) => {
+            e.preventDefault()
 
-        const searching = { searchb}
-        console.log(searchb)
-        const response = await fetch('/api/instructors/search', {
-            method: 'POST',
-            body: JSON.stringify(searching),
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${user.token}`
+            const searching = { searchb}
+            console.log(searchb)
+            const response = await fetch('/api/instructors/search', {
+                method: 'POST',
+                body: JSON.stringify(searching),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
+                }
+
+            })
+            const man = await response.json()
+            if (response.ok) {
+                setCourses(man)
+                console.log('shobak', man)
             }
 
-        })
-        const man = await response.json()
-        if (response.ok) {
-            setCourses(man)
-            console.log('shobak', man)
         }
-        else {
-            console.log('error')
-        }
-
-    }
 
     const handler=()=>{
         var newcourses
@@ -101,7 +99,7 @@ const SearchInstructor = () => {
         console.log(p[0],p[1])
         if(pricef)
         {
-            newcourses= Courses.filter(course => course.price<p[1]&&course.price>p[0])
+            newcourses= Courses.filter(course => course.price<p[1]&&course.price>p[0]) //
         }
         if(subjectf){
             newcourses= Courses.filter(course => course.subject==subjectf)
@@ -119,7 +117,7 @@ const SearchInstructor = () => {
             <Box maxWidth={900} marginLeft={20}>
                 <Search onChange={(e) => setSearchb(e.target.value)}>
                     <SearchIconWrapper>
-                        <SearchIcon />
+                        <SearchIcon  />
                     </SearchIconWrapper>
                     <StyledInputBase
                         placeholder="Search…"
@@ -165,18 +163,11 @@ const SearchInstructor = () => {
         onClick={handler}
         >Filter</Button>
     </Box>
-
-     
             <div className="courses">
-                {Courses && Courses.map(Courses => (
-                    <CoursesDetails key={Courses._id} Courses={Courses} />
-                ))}
+                    {Courses && Courses.map(course => (  
+                        <CourseCard key={course._id} course={course} />
+                    ))}
             </div>
-
-
-  
-       
-       
         </div>
     )
 
