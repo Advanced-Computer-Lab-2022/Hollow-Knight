@@ -12,7 +12,6 @@ const ViewCourses = () => {
   const [courses, setCourses] = useState(null);
   const [userinfo, setUserinfo] = useState(null);
   const [done, setDone] = useState(false);
-
   const { user } = useAuthContext();
   const [currencyName, setCurrencyName] = useState("");
 
@@ -74,6 +73,8 @@ const ViewCourses = () => {
 useEffect(() => {
       
 }, [userinfo]);
+
+
   return (
     <div className="courses">
       <Container>

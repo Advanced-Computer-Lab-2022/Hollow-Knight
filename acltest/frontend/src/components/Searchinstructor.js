@@ -4,12 +4,14 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
-import { Button, TextField } from "@mui/material";
+import { Button } from "@mui/material";
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
+
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -68,6 +70,8 @@ const SearchInstructor = () => {
     const [pricef,setPricef]=useState("")
     const [searchb, setSearchb] = useState('')
     const { user } = useAuthContext();
+    const [other,setOther]=useState(false)
+    const [othervalue,setOthervalue]=useState("Insert a value")
     //fetch courses
     const search = async (e) => {
         e.preventDefault()
@@ -134,6 +138,7 @@ const SearchInstructor = () => {
             <Box sx={{  }}>
       <FormControl sx={{width:300,marginLeft:23}} >
         <InputLabel id="demo-simple-select-label">subject</InputLabel>
+      
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
@@ -141,6 +146,7 @@ const SearchInstructor = () => {
           label="subject"
           onChange={(e)=>(setSubjectf(e.target.value))}
         >
+         
           <MenuItem value="Physics">Physics</MenuItem>
           <MenuItem value="Mathematics">Mathematics</MenuItem>
           <MenuItem value="Computer Science">Computer Science</MenuItem>
@@ -156,10 +162,16 @@ const SearchInstructor = () => {
           label="Price"
           onChange={(e)=>(setPricef(e.target.value))}
         >
-          <MenuItem value="100-500"> 100 - 500 </MenuItem>
-          <MenuItem value="600-1000">600 - 1000</MenuItem>
-          <MenuItem value="1000-3000">1000- 3000</MenuItem>
+          <MenuItem onClick={(e)=>{(setOther(false));setOthervalue("insert A value")}} value="100-500"> 100 - 500 </MenuItem>
+          <MenuItem onClick={(e)=>{(setOther(false));setOthervalue("insert A value")}} value="600-1000">600 - 1000</MenuItem>
+          <MenuItem onClick={(e)=>{(setOther(false));setOthervalue("insert A value")}} value="1000-3000">1000- 3000</MenuItem>
+          <MenuItem onClick={(e)=>(setOther(true))} value={othervalue}>{othervalue}</MenuItem>
         </Select>
+        {other &&
+        <TextField
+        type="text"
+        onChange={(e) =>{ setOthervalue(e.target.value) ; setPricef(e.target.value)}}
+        />}
       </FormControl>
       <Button sx={{marginLeft:10,fontSize:26}} variant="contained"
         onClick={handler}
