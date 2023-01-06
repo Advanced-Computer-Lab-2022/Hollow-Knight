@@ -117,7 +117,7 @@ var instructor
       const course = await Course.find({title:{ $regex: search, $options: "i" } , author: insid });
       const course1 =await Course.find({subject: { $regex: search, $options: "i" }, author: insid})
       
-      const result= [...course,...course1]  
+      var result= [...course,...course1]  
       // merge the two arrays     ...course1   // spread operator  
       //for each course in the result array get the author 
       //for each author get the name and add it to the course object
@@ -129,8 +129,11 @@ var instructor
         var author=await Instructor.findById(authorid);
         var user =await User.findById(author.userid);
         //override author  by name of the author
-          result[i].author=user.first_name +' '+user.last_name;
-
+          result[i]={
+            ...result[i]._doc,    
+            author: user.first_name +' '+user.last_name
+          
+          };
 
       }
       console.log(    result)
@@ -153,8 +156,20 @@ const searchCourse2 = async (req, res) => {
       const course1 =await Course.find({subject: { $regex: search, $options: "i" }})
       //add course arrat to course1 array
       course.push(...course1)
-      
-      const result= [...course,...course1]  // merge the two arrays     ...course1   // spread operator  
+      var result= [...course,...course1]  // merge the two arrays     ...course1   // spread operator  
+      for(var i =0;i<result.length;i++){
+        var authorid=result[i].author;
+
+        var author=await Instructor.findById(authorid);
+        var user =await User.findById(author.userid);
+        //override author  by name of the author
+          result[i]={
+            ...result[i]._doc,    
+            author: user.first_name +' '+user.last_name
+          
+};
+
+      }
       console.log(   "coder"+ result)
      
       return res.status(200).json(result);

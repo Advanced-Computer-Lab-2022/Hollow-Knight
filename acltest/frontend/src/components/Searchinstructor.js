@@ -164,8 +164,10 @@ const SearchInstructor = () => {
         >Filter</Button>
     </Box>
             <div className="courses">
-                    {Courses && Courses.map(course => (  
+                    {Courses && Courses.map(course => ( 
+                         
                         <CourseCard key={course._id} course={course} />
+                        
                     ))}
             </div>
         </div>
