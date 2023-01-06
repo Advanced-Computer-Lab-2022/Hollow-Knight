@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
-
+import CourseCard from "../components/Coursesdetails";
 
 
 const MostPopular = () => {
@@ -30,18 +30,14 @@ fetchMostPopular();
 }, [user]);
 return (
 <div className="courses">
+<h1>Most Popular Courses</h1>
+
+
+
 {mostPopular &&
 mostPopular.map((course) => (
-<div key={course._id}>
-<p>
-<strong>Course Title:</strong>
-{course.title} &nbsp;&nbsp;
-<strong>Total Hours:</strong>
-{course.total_hours} &nbsp;&nbsp;
-<strong>Course Rating:</strong>
-{course.overallRating}
-</p>
-</div>
+
+<CourseCard key={course._id} course={course} />
 ))}
 </div>
 );

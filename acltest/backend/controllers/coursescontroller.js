@@ -1,6 +1,8 @@
 const { default: mongoose } = require("mongoose");
 const Course = require("../models/Courses");
-const Users = require("../models/userModel");
+const Users= require("../models/userModel");
+const Instructor = require("../models/Instructors");
+
 const jwt = require("jsonwebtoken");
 const getTokenFromHeader = (req) => {
   const authorization = req.get("authorization");
@@ -83,8 +85,20 @@ const GetUserType = async(req,res)=>{
 //get the most course have the highest number of trainees'
 // ====================>>>>mostafa added this function
 const mostPopularCourse = async (req, res) => {
-  const courses = await Course.find({}).sort({ numberOfTrainees: -1 }); //sort in descending order
-  res.status(200).json(courses);
+  var result = await Course.find({}).sort({ numberOfTrainees: -1 }); //sort in descending order
+  for(var i =0;i<result.length;i++){
+    var authorid=result[i].author;
+
+    var author=await Instructor.findById(authorid);
+    var user =await Users.findById(author.userid);
+    //override author  by name of the author
+      result[i]={
+        ...result[i]._doc,
+        author: user.first_name +' '+user.last_name};
+
+  }
+  console.log(result);
+  res.status(200).json(result);
 };
 // ====================>>>>mostafa added this function
 

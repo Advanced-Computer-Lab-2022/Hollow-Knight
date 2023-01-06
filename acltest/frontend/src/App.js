@@ -59,6 +59,7 @@ import Exam from "./pages/Exam";
 import UserAgreement from "./pages/viewuseragrement";
 
 import ViewMyReports from "./pages/ViewMyReports";
+import MostPopular from "./pages/mostpopular";
 function App() {
 const  {user} = useAuthContext();
   return (
@@ -235,6 +236,7 @@ const  {user} = useAuthContext();
             <Route path="/gotoexam" element={<Exam />} />
 
             <Route path="/viewmyreports" element={<ViewMyReports />} />
+            <Route path="/Pop" element={<MostPopular />} />
 
           </Routes>
         
