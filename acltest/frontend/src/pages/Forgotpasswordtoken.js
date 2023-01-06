@@ -5,7 +5,8 @@ const { useState } = require("react");
 const Forgotpasswordtoken = () =>{
     const param = useParams();
     const [password,setPassword] = useState('')
-   
+    const [error, setError] = useState(null);
+
     const handleSubmit =async (e)=>{
         e.preventDefault()
         const response = await fetch('/api/users/changepassword/'+param.id,{
@@ -19,8 +20,13 @@ const Forgotpasswordtoken = () =>{
         console.log(json);
         if(response.ok){
             console.log("done",json)
-        
+            setError("Password Changed")
         }
+        if(!response.ok){
+            setError(json.error)
+        }
+
+        
         
     }
 
@@ -38,7 +44,9 @@ const Forgotpasswordtoken = () =>{
                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
                 <button >Change Password</button>
             </form>
+            {error && <div className="error">{error}</div>}
         </div>
+
 
     )
 }
