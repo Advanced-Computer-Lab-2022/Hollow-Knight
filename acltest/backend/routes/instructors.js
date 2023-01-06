@@ -24,6 +24,7 @@ const {
   getuserfrominsid,
   getinstructorfromuserid,
   addExam,
+  searchCourse
 } = require("../controllers/instructorscontroller");
 
         
@@ -35,7 +36,7 @@ router.use(requireAuth);
 router.post("/", createInstructor);
 router.patch("/", updateInstructorCountry);
 
-router.post("/search2", searchCourse2);
+router.post("/search", searchCourse);
 
 router.post("/addcourse", CreateCourse);
 router.patch("/addexercise", addExercise);
