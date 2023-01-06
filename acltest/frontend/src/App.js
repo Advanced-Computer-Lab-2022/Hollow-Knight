@@ -56,6 +56,7 @@ import MenuController from "./components/MenuController";
 import Exam from "./pages/Exam";
 
 import ViewMyReports from "./pages/ViewMyReports";
+import DownloadCertificate from "./components/DownloadCertificate";
 function App() {
   return (
     <div className="App">
@@ -177,7 +178,7 @@ function App() {
             <Route path="/gotoexam" element={<Exam />} />
 
             <Route path="/viewmyreports" element={<ViewMyReports />} />
-
+            <Route path="/downloadcertificate" element={<DownloadCertificate/>}/>
           </Routes>
         
         </div>

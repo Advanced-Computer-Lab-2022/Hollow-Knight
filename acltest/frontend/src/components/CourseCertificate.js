@@ -1,11 +1,12 @@
 import PDFFile from "./PDFFile";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import { Button,Card } from "@mui/material";
+import { Button,Card ,Typography} from "@mui/material";
+import DownloadIcon from '@mui/icons-material/Download';
 
 const CourseCertificate = (props) => {
   const onButtonClick = () => {
     // using Java Script method to get PDF file
-    fetch('Sample.pdf').then(response => {
+    fetch('Certificate.pdf').then(response => {
         response.blob().then(blob => {
             // Creating new object of PDF file
             const fileURL = window.URL.createObjectURL(blob);
@@ -19,15 +20,21 @@ const CourseCertificate = (props) => {
 }
   return (
     <div className="App">
-      <Card sx={{ height: 580, marginTop: 6 }}>
+      <Card sx={{ height: 650, marginTop: 6,marginLeft:25,width:1000 }}>
       <PDFFile />
+      <Button
+        variant="contained"
+        fullWidth
+        endIcon={<DownloadIcon sx={{width:40,height:40}} />}
+        onClick={onButtonClick}
+      >
+        <Typography variant="h5" align="left" gutterBottom>
+          Download
+        </Typography>
+      </Button>
+      </Card >
+      
       <br></br>
-      <h3>Click on below button to download PDF file</h3>
-                <button onClick={onButtonClick}>
-                    Download PDF
-                </button>
-
-      </Card>
     </div>
   );
 };

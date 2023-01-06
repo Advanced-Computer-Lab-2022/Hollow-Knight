@@ -1,6 +1,7 @@
 import React from "react";
 import { Page, Text, Image, Document, StyleSheet } from "@react-pdf/renderer";
 import { Typography } from "@mui/material";
+import certificate from "./Certificate.png";
 const styles = StyleSheet.create({
   body: {
     paddingTop: 35,
@@ -18,8 +19,9 @@ const styles = StyleSheet.create({
     fontFamily: "Times-Roman",
   },
   image: {
-    marginVertical: 15,
-    marginHorizontal: 100,
+    width: 1000,
+    height: 600,
+
   },
   header: {
     fontSize: 12,
@@ -40,27 +42,9 @@ const styles = StyleSheet.create({
 
 const PDFFile = () => {
   return (
-    <Document filename="Certificate">
-      <Page style={styles.body}>
-        <Text style={styles.header} fixed></Text>
-        <Typography sx={{ fontSize: 40, marginBottom: 2 ,marginLeft:35}}>
-          Course Certificate
-        </Typography>
-        <Typography sx={{ fontSize: 20, marginBottom: 2 ,marginLeft:3}}>
-          Congratulations on completing the course.
-        </Typography>
-        <Typography sx={{ fontSize: 20, marginBottom: 2 ,marginLeft:3}}>
-          This Certificate proves that you successfully finished 100% of the
-          course content
-        </Typography>
-        <Text
-          style={styles.pageNumber}
-          render={({ pageNumber, totalPages }) =>
-            `${pageNumber} / ${totalPages}`
-          }
-        />
-      </Page>
-    </Document>
+<div>
+<img  src={certificate} style={styles.image} />
+</div>
   );
 };
 

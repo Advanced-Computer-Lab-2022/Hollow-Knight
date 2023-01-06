@@ -260,8 +260,7 @@ const FindCourses = async (req, res) => {
 
             //const url = `http://localhost:5000/api/users/changepassword/` + token;
             const url2 =
-              `http://localhost:3000/coursecertificate?courseId=${obj.courseId}&&userId=${user._id}&&token=` +
-              getTokenFromHeader(req);
+              `http://localhost:3000//downloadcertificate?course=${obj.title}`
 
             nodeoutlook.sendEmail({
               auth: {
