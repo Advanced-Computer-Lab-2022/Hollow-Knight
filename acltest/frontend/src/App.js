@@ -80,11 +80,7 @@ const  {user} = useAuthContext();
             <Route path="/TraineeHomePage" element={<TraineeHomePage />} />
             <Route path="/addexercise" element={<AddExercises />} />
               <Route
-             path="/Reviews"
-            
-             //check if the user is an instructor
-
-             element={user ? <ViewInsReviews /> : <Navigate to="/login" />} 
+             path="/Reviews" element={<ViewInsReviews />  } 
              />
               <Route
              path="/ViewContract"

@@ -6,8 +6,10 @@ const Subtitles = require("../models/Subtitles");
 const Payments = require("../models/Payments");
 const { default: mongoose } = require("mongoose");
 const jwt = require("jsonwebtoken");
-const getTokenFromHeader = (req) => {
 
+
+const getTokenFromHeader = (req) => {
+console.log("here1")
   const authorization = req.get("authorization");
   if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
     return authorization.substring(7);
@@ -17,8 +19,11 @@ const getTokenFromHeader = (req) => {
 
 
 function getUserIdFromToken(token) {
+  console.log("here2")
   const decoded = jwt.verify(token, process.env.SECRET);
+  console.log("here3")
 
+  console.log(decoded);
   return decoded._id;
 }
 
@@ -94,10 +99,7 @@ const updateInstructorCountry = async (req, res) => {
   }
   res.status(200).json(instructor);
 };
-function getUserIdFromToken(token) {
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
-  return decoded.id;
-}
+
 
 
 
@@ -284,16 +286,17 @@ const ViewReviews = async (req, res) => {
 
 const getinstructorfromuserid = async (req, res) => {
   
-  var token =getTokenFromHeader(req);
-
-  const userid = getUserIdFromToken(token)
-
+  var token = await getTokenFromHeader(req);
+console.log(token,"here4")
+  const userid =  getUserIdFromToken(token)
+console.log("here")
   try {
     const instructor = await Instructor.findOne({ userid: userid });
     return res.status(200).json(instructor);
   } catch (error) {
     return res.status(400).json({ error: "can't find instructor" });
   }
+  
 };
 
 const updatemailbiogrpahy = async (req, res) => {
