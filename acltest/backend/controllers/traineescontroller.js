@@ -486,11 +486,7 @@ const registercorporate = async (req, res) => {
 
   const traineeid = trainee._id;
   const traineemail = user.email;
-  //var instructorid =courses.author
-  //var payment = courses.price
-  //var date = new Date()
 
-  //console.log(instructorid,payment,date)
   try {
     const request = await CourseRequests.create({
       courseid,

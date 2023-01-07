@@ -185,6 +185,19 @@ const searchCourse2 = async (req, res) => {
   }
 };
 
+
+const DeleteSub = async (req, res) => {
+  const { id } = req.params;
+
+
+ 
+  const sub = await Subtitle.findByIdAndDelete( id);
+  if (!sub) {
+    return res.status(400).json({ error: "You Don't have such a Course" });
+  }
+  res.status(200).json(sub);
+};
+
 const CreateCourse = async (req, res) => {
   var token =getTokenFromHeader(req);
   const userid = getUserIdFromToken(token)
@@ -724,5 +737,6 @@ module.exports = {
   getuserfromuserid,
   uploadpreviewvideo,
   publishcourse,
-  closecourse
+  closecourse,
+  DeleteSub
 };
