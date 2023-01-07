@@ -1,5 +1,6 @@
 import React from "react"
 import Contract from "../components/Contract"
+import { useAuthContext } from "../hooks/useAuthContext";
 const { useState ,useEffect} = require("react");
 
 const ViewContract= ()=>{

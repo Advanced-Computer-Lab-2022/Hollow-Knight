@@ -6,8 +6,10 @@ const Subtitles = require("../models/Subtitles");
 const Payments = require("../models/Payments");
 const { default: mongoose } = require("mongoose");
 const jwt = require("jsonwebtoken");
-const getTokenFromHeader = (req) => {
 
+
+const getTokenFromHeader = (req) => {
+console.log("here1")
   const authorization = req.get("authorization");
   if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
     return authorization.substring(7);
@@ -17,8 +19,8 @@ const getTokenFromHeader = (req) => {
 
 
 function getUserIdFromToken(token) {
-  const decoded = jwt.verify(token, process.env.SECRET);
-
+  const decoded = jwt.verify(token, process.env.SECRET);  
+  console.log(decoded);
   return decoded._id;
 }
 
@@ -33,6 +35,35 @@ const GetCourseById = async (req, res) => {
   }
 };
 ///////////////
+
+const publishcourse=async(req,res)=>{
+
+const courseid =req.body.courseId;
+console.log(courseid)
+try{
+  const course = await Course.findByIdAndUpdate(courseid,{published :"true"})
+  return res.status(200).json(course);
+}catch(error)
+{
+  return res.status(400).json("couldn't publish Course");
+}
+
+}
+
+const closecourse=async(req,res)=>{
+
+  const courseid =req.body.courseId;
+  console.log(courseid)
+  try{
+    const course = await Course.findByIdAndUpdate(courseid,{published :"closed"})
+    return res.status(200).json(course);
+  }catch(error)
+  {
+    return res.status(400).json("couldn't close Course");
+  }
+  
+  }
+
 const UpdateContract = async (req, res) => {
   var token =getTokenFromHeader(req);
   const userid = getUserIdFromToken(token)
@@ -95,6 +126,9 @@ const updateInstructorCountry = async (req, res) => {
   res.status(200).json(instructor);
 };
 
+
+
+
 // search for a course given by him/her based on course title or subject or instructor or price
 const searchCourse = async (req, res) => {
   var token =getTokenFromHeader(req);
@@ -116,10 +150,6 @@ var instructor
       const result= [...course,...course1]
      
       return res.status(200).json(result);
-      
-    
-    
-    
   } catch (error) {
     return res.status(500).json({ error: "Course not found" });
   }
@@ -160,6 +190,9 @@ const CreateCourse = async (req, res) => {
   const userid = getUserIdFromToken(token)
 
   const instructor = await Instructor.findOne({ userid: userid });
+  const user = await User.findById(userid)
+  var name =user.first_name+""+user.last_name
+  console.log(name)
   console.log(instructor._id);
   if (
     instructor.contract.Status == "Pending" ||
@@ -179,6 +212,7 @@ const CreateCourse = async (req, res) => {
       price,
       subject,
       author,
+      name,
       summary,
       total_hours,
     });
@@ -190,13 +224,12 @@ const CreateCourse = async (req, res) => {
 
 const DeleteCourse = async (req, res) => {
   const { id } = req.params;
-  var token =getTokenFromHeader(req);
-  const userid = getUserIdFromToken(token)
+
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "Course Doesn't Exist" });
   }
-  const course = await Course.findOneAndDelete({ _id: id, author: userId });
+  const course = await Course.findByIdAndDelete( id);
   if (!course) {
     return res.status(400).json({ error: "You Don't have such a Course" });
   }
@@ -205,30 +238,26 @@ const DeleteCourse = async (req, res) => {
 
 const UpdateCourse = async (req, res) => {
   const { id } = req.params;
-  var token =getTokenFromHeader(req);
-  const userid = getUserIdFromToken(token)
+
   const { title, price, subject, summary, total_hours } = req.body;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "Course Doesn't Exist" });
   }
 
   if (req.body.title) {
-    const course = await Course.findOneAndUpdate(
-      { _id: id, author: userId },
+    const course = await Course.findByIdAndUpdate(id,
       { title: title }
     );
   }
 
   if (req.body.price) {
-    const course = await Course.findOneAndUpdate(
-      { _id: id, author: userId },
+    const course = await Course.findByIdAndUpdate( id,
       { price: price }
     );
   }
 
   if (req.body.subject) {
-    const course = await Course.findOneAndUpdate(
-      { _id: id, author: userId },
+    const course = await Course.findByIdAndUpdate(id,
       { subject: subject }
     );
   }
@@ -236,16 +265,14 @@ const UpdateCourse = async (req, res) => {
 
 
   if (req.body.summary) {
-    const course = await Course.findOneAndUpdate(
-      { _id: id, author: userId },
+    const course = await Course.findByIdAndUpdate(id,
       { summary: summary }
     );
   }
   
   
   if (req.body.total_hours) {
-    const course = await Course.findOneAndUpdate(
-      { _id: id, author: userId },
+    const course = await Course.findByIdAndUpdate( id,
       { total_hours: total_hours }
     );
   }
@@ -282,9 +309,9 @@ const ViewReviews = async (req, res) => {
 
 const getinstructorfromuserid = async (req, res) => {
   
-  var token =getTokenFromHeader(req);
+  var token = await getTokenFromHeader(req);
 
-  const userid = getUserIdFromToken(token)
+  const userid =  getUserIdFromToken(token)
 
   try {
     const instructor = await Instructor.findOne({ userid: userid });
@@ -292,6 +319,7 @@ const getinstructorfromuserid = async (req, res) => {
   } catch (error) {
     return res.status(400).json({ error: "can't find instructor" });
   }
+  
 };
 
 const updatemailbiogrpahy = async (req, res) => {
@@ -516,6 +544,22 @@ const CreateSchedule = async (req, res) => {
   }
 };
 
+const uploadpreviewvideo = async (req, res) => {
+  const link = req.body.link;
+  const courseid = req.query.courseId;
+  try {
+    const myArray = link.split("=");
+    console.log(myArray[1]);
+    console.log("hilli");
+    const updating = await Course.findByIdAndUpdate(courseid
+ ,{ video: myArray[1] }  );
+    
+    res.status(200).json(updating);
+    console.log("updated Course");
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
+};
 const uploadvideo = async (req, res) => {
   const link = req.body.link;
   const desc = req.body.desc;
@@ -575,6 +619,25 @@ const addExam = async (req, res) => {
     return res.status(400).json({error:"Could n't add exam"})
   }
 };
+
+const getuserfromuserid = async (req, res) => {
+  var token =getTokenFromHeader(req);
+  const userid = getUserIdFromToken(token)
+
+
+  var user ;
+  try{
+
+    user= await User.findById(userid)
+    console.log(user)
+    return res.status(200).json(user)
+  }catch(error)
+  {
+     return res.status(404).json({error:"Could n't get user  "})
+  }
+
+
+}
 
 const getuserfrominsid = async (req, res) => {
   const aid = req.query.authorid;
@@ -638,8 +701,8 @@ const getmonthlypay = async (req, res) => {
 module.exports = {
   createInstructor,
   updateInstructorCountry,
-  searchCourse,
   CreateCourse,
+  searchCourse,
   searchCourse2,
   ViewReviews,
   addExercise,
@@ -658,4 +721,8 @@ module.exports = {
   getuserfrominsid,
   getinstructorfromuserid,
   addExam,
+  getuserfromuserid,
+  uploadpreviewvideo,
+  publishcourse,
+  closecourse
 };

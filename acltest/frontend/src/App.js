@@ -51,6 +51,9 @@ import Revenue from "./pages/Revenue";
 import Report from "./pages/Report";
 import ReportsView from './pages/ReportsView';
 import AdminDiscounts from "./pages/AdminDiscounts";
+import { useAuthContext } from './hooks/useAuthContext'
+import { Navigate } from "react-router-dom";
+
 import CreateExam from "./pages/CreateExam";
 import MenuController from "./components/MenuController";
 import Exam from "./pages/Exam";
@@ -59,7 +62,9 @@ import ViewMyReports from "./pages/ViewMyReports";
 import DownloadCertificate from "./components/DownloadCertificate";
 import TraineeProfile from "./components/TraineeProfile";
 import GetType from "./components/GetType";
+import PreviewVideo from "./pages/PreviewVideo";
 function App() {
+const  {user} = useAuthContext();
   return (
     <div className="App">
       <BrowserRouter>
@@ -78,6 +83,55 @@ function App() {
             <Route path="/rate/:id" element={<RateCourseCo />} />
             <Route path="/TraineeHomePage" element={<TraineeHomePage />} />
             <Route path="/addexercise" element={<AddExercises />} />
+              <Route
+             path="/Reviews" element={<ViewInsReviews />  } 
+             />
+              <Route
+             path="/ViewContract"
+             element={<ViewContract/>}
+             />
+            
+              <Route
+                path="/"
+                element={<Home />}
+              />
+                <Route
+                path="/create"
+                element={<Createuser />}
+              />
+                <Route
+                path="/selectcountry"
+                element={<SelectCountry />}
+              />
+              <Route
+                path="/viewallcourses"
+                element={<ViewCourses />}
+              />
+              <Route
+                path="/viewallcourseswithprices/:id"
+                element={<ViewCoursesWithPrice />}
+              />
+              <Route
+                path="/price/:id"
+                element={<ViewPrice />}
+              />
+               
+              <Route
+                path="/instructor"
+                element={<Instructor />}
+              />
+                <Route 
+              path="/addcourse" 
+              element={<Addcoursepage />} 
+            />
+            <Route 
+              path="/instructor/coursedetails/:id" 
+              element={<Coursedetails />} 
+            />
+             <Route 
+              path="/SearchCoursePage"
+              element={<SearchCoursePage />} 
+            />
             <Route path="/Reviews" element={<ViewInsReviews />} />
             <Route path="/ViewContract" element={<ViewContract />} />
      
@@ -171,6 +225,7 @@ function App() {
 
              <Route path = "/viewreports" element={<ReportsView/>}/>
 
+              <Route path="/userAggrement" element={<userAgreement/>} />
              <Route path = "/selectdiscounts" element={<AdminDiscounts/>}/>
 
              <Route path="/getwallet" element={<Wallet />} />
@@ -184,6 +239,9 @@ function App() {
             <Route path="/traineeprofile" element={<TraineeProfile/>}/>
             <Route path="/gettype" element={<GetType/>}/>
             
+            <Route path="/addpreviewvideo" element={<PreviewVideo />} />
+
+
           </Routes>
         
         </div>

@@ -1,7 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const Admin = require('../models/Admins')
+const requireAuth = require("../middleware/requireAuth");
 const {createAdmin,viewrequests,makerequest,acceptrequest, rejectrequest,viewreports,resolvereport,pendreport,viewrefunds,addfunds,denyfunds,makerefund} = require('../controllers/adminscontroller.js')
+
+router.use(requireAuth);  
 router.get('/requests', viewrequests)
 router.post('/' , createAdmin)
 router.post('/makerequest', makerequest)

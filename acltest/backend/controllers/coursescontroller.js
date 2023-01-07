@@ -1,6 +1,7 @@
 const { default: mongoose } = require("mongoose");
 const Course = require("../models/Courses");
 const Users = require("../models/userModel");
+const Instructor = require("../models/Instructors");
 const jwt = require("jsonwebtoken");
 const Trainee = require("../models/Trainees")
 const getTokenFromHeader = (req) => {
@@ -19,7 +20,12 @@ function getUserIdFromToken(token) {
 }
 
 const findCourses = async (req, res) => {
-  const courses = await Course.find({});
+  const token = getTokenFromHeader(req);
+  console.log(token); 
+  const userid=getUserIdFromToken(token);
+  console.log(userid);
+
+  const courses = await Course.find({published:"true"});
 
   res.status(200).json(courses);
 };
@@ -40,6 +46,30 @@ const findCoursesForTrainee = async (req, res) => {
 
   res.status(200).json(courses);
 };
+
+
+const findallcourses = async (req, res) => {
+  const token = getTokenFromHeader(req);
+  console.log(token); 
+  const userid=getUserIdFromToken(token);
+  console.log(userid);
+
+  const courses = await Course.find({});
+  for(var i =0;i<courses.length;i++){
+    var authorid=courses[i].author;
+
+    var author=await Instructor.findById(authorid);
+    var user =await Users.findById(author.userid);
+    //override author  by name of the author
+    courses[i]={
+        ...courses[i]._doc,    
+        author: user.first_name +' '+user.last_name
+      
+};}
+
+  res.status(200).json(courses);
+};
+
 
 const CourseDetails = async (req, res) => {
   //const titles = req.body
@@ -93,8 +123,21 @@ const GetUserType = async(req,res)=>{
   return
 }
 
+//get the most course have the highest number of trainees'
+// ====================>>>>mostafa added this function
+const mostPopularCourse = async (req, res) => {
+  const courses = await Course.find({}).sort({ numberOfTrainees: -1 }); //sort in descending order
+  res.status(200).json(courses);
+};
+// ====================>>>>mostafa added this function
+
+
+
+
+
+
 module.exports = {
   findCourses,
   CourseDetails,
-  selectdiscounts, alldiscounts,GetUserType,findCoursesForTrainee
+  selectdiscounts, alldiscounts,GetUserType,findCoursesForTrainee,mostPopularCourse,findallcourses
 };

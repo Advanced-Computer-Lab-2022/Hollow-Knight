@@ -21,7 +21,7 @@ const ViewMySubtitles = () => {
 
 
     const viewSubtitles = async () => {
-      console.log("b")
+ 
      
       if(user){
       const response = await fetch(`/api/instructors/viewmysubtitles?courseId=${courseId}`,
@@ -51,8 +51,11 @@ const ViewMySubtitles = () => {
 
 
   }, [user])
+
+  
+
   return (
-    <Container className="courses">
+    <Container >
 
       <Typography variant="h2"  align="center" marginRight={20} marginTop={3} >Subtitles</Typography>
       {subtitles && subtitles.map((subtitle) => (
@@ -89,28 +92,39 @@ const ViewMySubtitles = () => {
       
         
       <Box  sx={{ width: '30%',marginLeft:45,marginBottom:10 }}>
-          <Stack spacing={12}>
+          <Stack spacing={4}>
+
+
+      
+          <Button
+          variant="contained"
+           startIcon={<AddCircleOutlineOutlinedIcon />}
+           onClick={() => window.location.href = `/createexam?courseId=${courseId}`} key={courseId}
+         >
+           Add Exam
+          </Button>
 
           <Button variant="contained"
            startIcon={<AddCircleOutlineOutlinedIcon />}
             onClick={() => window.location.href = `/addsubtitle?courseId=${course}`} key={course}
-            margin="normal"
-            padding="normal"
-            
-            sx={{marginTop:2}}>
+            >
             Add Subtitle
-
           </Button>
         
+      
 
           <Button
-           sx={{}}
+          variant="contained"
            startIcon={<AddCircleOutlineOutlinedIcon />}
-           onClick={() => window.location.href = `/createexam?courseId=${courseId}`} key={courseId}
-          variant="contained">
-           Add Exam
+           onClick={() => window.location.href = `/addpreviewvideo?courseId=${courseId}`} key={courseId}
+         >
+         Course Preview Video
           </Button>
       
+      
+     
+
+
           </Stack>
           </Box>
         

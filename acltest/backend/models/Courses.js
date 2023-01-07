@@ -8,6 +8,12 @@ const courseSchema = new Schema(
       type: String,
       required: true,
     },
+    numberOfTrainees: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
+
     price: {
       type: Number,
       required: true,
@@ -22,6 +28,10 @@ const courseSchema = new Schema(
       ref: "Instructors",
       required: false,
     },
+    name:{
+      type:String,
+      required: false,
+    },
     review: [
       {
         rating: { type: Number, required: false },
@@ -33,6 +43,10 @@ const courseSchema = new Schema(
     summary: {
       type: String,
       required: true,
+    },
+    published:{
+      type: String,
+      default:false
     },
     total_hours: {
       type: Number,
@@ -61,7 +75,10 @@ const courseSchema = new Schema(
     },
     registered: {
       type: Boolean,
-      default: false,
+      default: false,},
+    video: {
+      type: String,
+      required: false,
     },
     exam : {
       title: { type: String, required: false },

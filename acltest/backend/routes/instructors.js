@@ -24,14 +24,23 @@ const {
   getuserfrominsid,
   getinstructorfromuserid,
   addExam,
+  searchCourse,
+  getuserfromuserid,
+  uploadpreviewvideo,
+  publishcourse,
+  closecourse
 } = require("../controllers/instructorscontroller");
+
+        
+
+
+
+router.post("/search2", searchCourse2); //this is a public route //because it is not locked by requireAuth middleware //youssef
 router.use(requireAuth);
 router.post("/", createInstructor);
 router.patch("/", updateInstructorCountry);
-const { searchCourse } = require("../controllers/instructorscontroller");
 
 router.post("/search", searchCourse);
-router.post("/search2", searchCourse2);
 
 router.post("/addcourse", CreateCourse);
 router.patch("/addexercise", addExercise);
@@ -52,6 +61,8 @@ router.get('/getname', getuserfrominsid)
 router.post('/uploadvideo', uploadvideo)
 router.get('/getinst', getinstructorfromuserid)
 router.get('/getpay', getmonthlypay)
-
-
+router.get('/getuser', getuserfromuserid)
+router.post('/addpreviewvideo', uploadpreviewvideo)
+router.patch("/publishcourse", publishcourse);
+router.patch("/closecourse", closecourse);
 module.exports = router;

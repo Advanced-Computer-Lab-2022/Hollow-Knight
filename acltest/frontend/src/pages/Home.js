@@ -35,6 +35,9 @@ const Home = () => {
         <Link to="/trainee">
         Trainee Home Page
         </Link> 
+        <Link to="/userAggrement">
+        View All Courses
+        </Link>
         <br></br>
       
         </div>

@@ -5,7 +5,9 @@ import  Button from  '@mui/material/Button';
 
 import { useParams } from "react-router-dom";
 import GetAllDetails from '../components/GetAllDetails'
-import UpdateCourse from '../components/UpdateCourse'
+import UpdateCourse from '../components/UpdateCourse';
+import { useAuthContext } from "../hooks/useAuthContext";
+import { Container } from '@mui/material';
 const { useState } = require("react");
 const Viewcoursedetails = () => {
 
@@ -13,14 +15,21 @@ const Viewcoursedetails = () => {
   const [courses, setCourses] = useState("")
   const [update, setUpdate] = useState("false")
 
+  const { user } = useAuthContext();
 
-
-  useEffect(() => {
-    const handler = async () => {
-      //e.preventDefault()
-      const response = await fetch('/api/courses/coursedetails/' + param.id);
-      const json = await response.json()
-      if (!response.ok) {
+  useEffect(() =>{
+    const handler = async() => {
+        //e.preventDefault()
+        
+        const response = await fetch('/api/courses/coursedetails/'+param.id,{
+          headers: {
+  
+            'Authorization': `Bearer ${user.token}` 
+              
+          },
+        });
+        const json = await response.json()
+        if(!response.ok){
 
       }
       if (response.ok) {
@@ -36,14 +45,18 @@ const Viewcoursedetails = () => {
 
 
   const handleClick = async () => {
-    const response1 = await fetch(`/api/instructors/deletecourse/` + courses._id + `?userId=${courses.author}`, {
-      method: 'DELETE'
+    const response1 = await fetch(`/api/instructors/deletecourse/` + courses._id , {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${user.token}`
+      }
     })
     const json = await response1.json()
     if (response1.ok) {
       console.log("Course has been Deleted ")
       console.log(json)
-      window.location.href = `/instructor?userId=${courses.author}`
+      window.location.href = `/viewmycourses`
 
     }
   }
@@ -61,32 +74,41 @@ const Viewcoursedetails = () => {
 
   return (
 
-    <div className="viewcoursedetails">
+    <Container className="viewcoursedetails">
       <Card
 
-        sx={{ width: 1400, height: 670,marginBottom:4 }}>
+        sx={{marginBottom:4 ,borderRadius:4}}>
         <GetAllDetails courses={courses} />
+       
+       
+        {courses.published =="false" &&
+
+        
+        <Container
+        sx={{marginLeft:20,marginTop:6}}
+        classname="update button">
+
         <Button
           variant='contained'
-          sx={{marginTop:3,marginLeft:14,fontSize:22}}
+          sx={{marginLeft:19,fontSize:18,marginBottom:5}}
          onClick={handleClick}
          >Delete Course
          </Button>
     
-        { 
-        <div classname="update button">
+      
+        
           <Button
             variant='contained'
-            sx={{marginTop:-9,marginLeft:60,fontSize:23}}
+            sx={{marginLeft:5,fontSize:18,marginBottom:5}}
            onClick={updateClick}>
             Update 
             </Button>
-            </div>}
+            </Container>}
         
       </Card>
       <Card>
         {update=="true" && <UpdateCourse courses={courses} />}</Card>
-    </div>
+    </Container>
   )
 }
 
