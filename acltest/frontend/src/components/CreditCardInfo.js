@@ -20,7 +20,8 @@ const CreditCardInfo = () => {
   }, []);
 
   useEffect(() => {
-    fetch("/api/trainees/config").then(async (r) => {
+    fetch("/api/trainees/config",{
+    }).then(async (r) => {
       const { publishableKey } = await r.json();
       setStripePromise(loadStripe(publishableKey));
       });

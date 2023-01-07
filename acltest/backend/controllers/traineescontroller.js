@@ -469,9 +469,9 @@ const getwallet = async (req, res) => {
 
 const registercorporate = async (req, res) => {
   const userId = getUserIdFromToken(getTokenFromHeader(req));
-  const { courses } = req.body;
-  const courseid = courses._id;
-  const coursetitle = courses.title;
+  const courseid = req.body.courseId;
+  const course = await Course.findOne({_id:courseid})
+  const coursetitle = course.title;
   var trainee;
   var user;
 
@@ -595,6 +595,25 @@ try{
 
 
 };
+const isRegistered = async(req,res)=>{
+  console.log(false)
+try{
+  const courseId = req.body.courseId;
+  var token =getTokenFromHeader(req);
+  const userid = getUserIdFromToken(token)
+  const trainee = await Trainee.findOne({userid:userid});
+  console.log(false)
+  for(const obj of trainee.registeredcourses){
+    console.log(JSON.stringify(obj) === JSON.stringify(courseId))
+    if(JSON.stringify(obj) === JSON.stringify(courseId))
+      return res.status(200).json(true);
+  }
+  return res.status(200).json(false);
+}catch(error){
+  return res.status(400).json(error);
+}
+
+}
 
 module.exports = {
   addcomment,
@@ -616,5 +635,6 @@ module.exports = {
   requestrefund,
  getexam,
   viewmyreports,
-  updateTraineeInfo
+  updateTraineeInfo,
+  isRegistered
 };

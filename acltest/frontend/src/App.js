@@ -184,7 +184,7 @@ const  {user} = useAuthContext();
             <Route path="/adminapps" element={<AdminApps />} />
 
             <Route
-              path="/traineesearchcourse/:id"
+              path="/traineesearchcourse"
               element={<ViewDetailsTrainee />}
             />
             <Route path="/creditcardinfo" element={<CreditCardInfo />} />

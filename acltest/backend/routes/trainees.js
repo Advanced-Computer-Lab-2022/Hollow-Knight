@@ -21,7 +21,8 @@ const {
   getexam,
   viewmyreports,
   addcomment,
-  updateTraineeInfo
+  updateTraineeInfo,
+  isRegistered
 } = require("../controllers/traineescontroller");
 const  requireAuth  = require("../middleware/requireAuth");
 router.use(requireAuth);
@@ -48,6 +49,8 @@ router.patch("/getexam", getexam);
 router.post("/addcomment", addcomment);
 router.get("/viewmyreports", viewmyreports);
 router.post("/updateinfo", updateTraineeInfo);
+router.patch("/isregistered", isRegistered);
+
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2022-08-01",
 });

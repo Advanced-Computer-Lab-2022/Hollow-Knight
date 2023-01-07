@@ -10,7 +10,7 @@ const ViewCoursesForTrainee = () => {
   const navigate = useNavigate();
   const [courses, setCourses] = useState(null);
   const params = new URLSearchParams(window.location.search);
-  const userId = params.get("userId");
+  const courseId = params.get("courseId");
   const { user } = useAuthContext();
   const [type, setType] = useState(null);
   console.log(user);
@@ -18,6 +18,7 @@ const ViewCoursesForTrainee = () => {
     const fetchCourses = async () => {
       const response = await fetch("/api/courses/findcoursesfortrainee", {
         method: "GET",
+        body:JSON.stringify({courseId}),
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${user.token}`,
@@ -95,7 +96,7 @@ const ViewCoursesForTrainee = () => {
               {type == "trainee"&&!course.registered&&<Button sx={{marginRight:0,marginLeft:85}}
               variant="contained"
                 onClick={() =>
-                  (window.location.href = `creditcardinfo?courseId=${course._id}&&userId=${userId}`)
+                  (window.location.href = `creditcardinfo?courseId=${course._id}`)
                 }
               >
                 Pay For Course
