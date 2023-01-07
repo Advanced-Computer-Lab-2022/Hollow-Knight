@@ -4,6 +4,7 @@ import ViewVideo from "../components/ViewVideo";
 import { Typography,Button } from "@mui/material";
 import ViewSubtitles from "../components/ViewSubtitles";
 
+
 const CourseContent = () => {
   const [subtitles, setSubtitles] = useState(null);
   const [maxProgress, setMaxProgress] = useState(null);

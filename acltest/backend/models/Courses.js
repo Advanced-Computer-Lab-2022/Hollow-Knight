@@ -59,6 +59,10 @@ const courseSchema = new Schema(
       required: false,
       default: 0,
     },
+    registered: {
+      type: Boolean,
+      default: false,
+    },
     exam : {
       title: { type: String, required: false },
       grade: { type: Number, required: false },

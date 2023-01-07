@@ -1,13 +1,17 @@
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
+import Card from "@mui/material/Card";
+import { Typography } from "@mui/material";
+import { Container } from "@mui/system";
 const ViewMyCourses = () => {
   const [courses, setCourses] = useState(null);
   const params = new URLSearchParams(window.location.search);
   const userId = params.get("userId");
   const { user } = useAuthContext();
-  console.log(userId);
-  useState(() => {
+
+  console.log(user);
+  useEffect(() => {
     const fetchCourses = async () => {
       const response = await fetch(`/api/trainees/getmycourses`, {
         method: "GET",
@@ -27,7 +31,7 @@ const ViewMyCourses = () => {
     fetchCourses();
     console.log("here");
     console.log(courses);
-  }, [userId, courses]);
+  }, [user]);
 
   const requestrefund = async (course) => {
     const searching = { userId, course };
@@ -50,27 +54,40 @@ const ViewMyCourses = () => {
       {courses &&
         courses.map((course) => (
           <div key={course._id}>
-            <p>
-              <strong>Course Title:</strong>
-              {course.title} &nbsp;&nbsp;
-              <strong>Progression:</strong>
-              {course.traineeProgression}% &nbsp;&nbsp;
-              <button
+            <Card sx={{marginBottom:8,marginTop:4 ,borderRadius:8 }}>
+            <Container  sx={{marginTop:5,marginBottom:5}}>
+            <Typography align="center"  sx={{fontSize:35,marginBottom:3}}>
+              <strong> {course.title} </strong>
+             &nbsp;&nbsp;
+              </Typography>
+
+              <Typography align="center" sx={{fontSize:25,marginBottom:3}} >
+              Price : {course.price} &nbsp;&nbsp;
+              </Typography>
+
+              <Typography align="center"  sx={{fontSize:25,marginBottom:8}} >
+              Progression: {course.traineeProgression}  % &nbsp;&nbsp;
+            </Typography>
+               &nbsp;&nbsp;
+              <br></br>
+              <Button sx={{marginRight:5,marginLeft:15,marginBottom:5}}
+              variant="contained"
                 onClick={() =>
                   (window.location.href = `coursecontent?courseId=${course._id}&&userId=${userId}`)
                 }
               >
                 Go to Course
-              </button>
-              <button
+              </Button>
+              <Button sx={{marginRight:5,marginLeft:5,marginBottom:5}}
+              variant="contained"
                 onClick={() =>
                   (window.location.href = `rateinstructor?courseId=${course._id}&&userId=${userId}`)
                 }
               >
                 Rate Instructor
-              </button>
-              <button
-                variant="contained"
+              </Button>
+              <Button sx={{marginRight:5,marginLeft:5,marginBottom:5}}
+              variant="contained"
                 onClick={() =>
                   (window.location.href = `/ratecourse?courseId=${course._id}&&userId=${userId}`)
                 }
@@ -79,28 +96,31 @@ const ViewMyCourses = () => {
                 padding="normal"
               >
                 Rate Course
-              </button>
+              </Button>
               {course.traineeProgression == 100 && (
-                <button
+                <Button sx={{marginRight:5,marginLeft:5}}
+                variant="contained"
                   onClick={() =>
                     (window.location.href = `coursecertificate?courseId=${course._id}&&userId=${userId}`)
                   }
                 >
                   Get Certificate
-                </button>
+                </Button>
               )}
-              <Button variant="outlined" onClick={() => requestrefund(course)}>
+              <Button sx={{marginRight:5,marginLeft:5}}
+                variant="contained" onClick={() => requestrefund(course)}>
                 Get A Refund
               </Button>
-              <Button
-                variant="outlined"
+              <Button sx={{marginRight:5,marginLeft:5}}
+              variant="contained"
                 onClick={() =>
                   (window.location.href = `/report?courseId=${course._id}&&userId=${userId}`)
                 }
               >
                 Report Course
               </Button>
-            </p>
+              </Container>
+            </Card>
           </div>
         ))}
     </div>

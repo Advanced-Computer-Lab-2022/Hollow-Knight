@@ -2,6 +2,7 @@ const { default: mongoose } = require("mongoose");
 const Course = require("../models/Courses");
 const Users = require("../models/userModel");
 const jwt = require("jsonwebtoken");
+const Trainee = require("../models/Trainees")
 const getTokenFromHeader = (req) => {
   const authorization = req.get("authorization");
   if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
@@ -19,6 +20,23 @@ function getUserIdFromToken(token) {
 
 const findCourses = async (req, res) => {
   const courses = await Course.find({});
+
+  res.status(200).json(courses);
+};
+const findCoursesForTrainee = async (req, res) => {
+  var token =getTokenFromHeader(req);
+  const userid = getUserIdFromToken(token)
+  const courses = await Course.find({});
+  const trainee = await Trainee.findOne({userid:userid});
+  for (const course of courses) {
+    for(const registeredCourse of trainee.registeredcourses){
+      if(JSON.stringify(course.id)===JSON.stringify(registeredCourse))
+        course.registered = true;
+    }
+    console.log(course.registered)
+
+  }
+   console.log(courses)
 
   res.status(200).json(courses);
 };
@@ -78,5 +96,5 @@ const GetUserType = async(req,res)=>{
 module.exports = {
   findCourses,
   CourseDetails,
-  selectdiscounts, alldiscounts,GetUserType
+  selectdiscounts, alldiscounts,GetUserType,findCoursesForTrainee
 };

@@ -6,9 +6,10 @@ const {
   CourseDetails,
   getCourse,
   GetUserType,
-  selectdiscounts,alldiscounts
+  selectdiscounts,alldiscounts,findCoursesForTrainee
 } = require("../controllers/coursescontroller");
 router.get("/", findCourses);
+router.get("/findcoursesfortrainee",findCoursesForTrainee);
 router.get('/coursedetails/:id' , CourseDetails)
 router.post('/selectdiscounts', selectdiscounts)
 router.post('/alldiscounts', alldiscounts)

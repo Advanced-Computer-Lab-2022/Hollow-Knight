@@ -9,7 +9,9 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import { useNavigate } from "react-router-dom";
 const Signup = () => {
+  const navigate = useNavigate();
   //first_name,last_name,country,countryAbb,gender
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
@@ -29,7 +31,7 @@ const Signup = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const type ="individual trainee"
+    const type ="trainee"
     await signup(
       email,
       password,
@@ -41,6 +43,7 @@ const Signup = () => {
       type
       
     );
+    navigate("/gettype");
   };
   return (
     <Box

@@ -2,6 +2,8 @@ import AdminNav from "./AdminNav"
 import InstructorBar from "./InstructorBar";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { Container } from "@mui/material";
+import TraineeNav from "./TraineeNav";
+import CorprateTraineeNav from "./CorprateTraineeNav";
 
 const MenuController=()=>{
     const { useState ,} = require("react");
@@ -25,6 +27,7 @@ const MenuController=()=>{
       }
       if(response.ok){      //1.update the context with the new user 2. update the loading state 3. update login state the user is logged in
           //save the user to local storage
+          console.log(json)
           setType(json)
       }
     }
@@ -43,6 +46,8 @@ return(
 {
     type=="admin"&&<AdminNav/>
 }
+{ type == "trainee" && <TraineeNav/>}
+{ type == "corporate trainee" && <CorprateTraineeNav/>}
 
 
 

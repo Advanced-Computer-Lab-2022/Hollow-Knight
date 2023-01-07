@@ -7,6 +7,8 @@ import AddIcon from "@mui/icons-material/Add";
 import TextField from "@mui/material/TextField";
 import SouthOutlinedIcon from "@mui/icons-material/SouthOutlined";
 import Box from "@mui/material/Box";
+import { useAuthContext } from "../hooks/useAuthContext";
+
 const { useState } = require("react");
 
 const ViewVideo = ({ video }) => {
@@ -15,7 +17,7 @@ const ViewVideo = ({ video }) => {
   const [body, setBody] = useState("");
   const params = new URLSearchParams(window.location.search);
   const courseId = params.get("courseId");
-  const userId = params.get("userId");
+  const { user } = useAuthContext();
   var endVideoFlag = false;
   const handleEnd = async () => {
     //e.preventDefault();
@@ -26,10 +28,10 @@ const ViewVideo = ({ video }) => {
       body: JSON.stringify({
         courseId: courseId,
         videoId: video._id,
-        userId: userId,
       }),
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
       },
     });
     const json = await response.json();

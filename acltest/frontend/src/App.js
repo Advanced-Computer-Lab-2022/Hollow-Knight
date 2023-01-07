@@ -57,6 +57,8 @@ import Exam from "./pages/Exam";
 
 import ViewMyReports from "./pages/ViewMyReports";
 import DownloadCertificate from "./components/DownloadCertificate";
+import TraineeProfile from "./components/TraineeProfile";
+import GetType from "./components/GetType";
 function App() {
   return (
     <div className="App">
@@ -179,6 +181,9 @@ function App() {
 
             <Route path="/viewmyreports" element={<ViewMyReports />} />
             <Route path="/downloadcertificate" element={<DownloadCertificate/>}/>
+            <Route path="/traineeprofile" element={<TraineeProfile/>}/>
+            <Route path="/gettype" element={<GetType/>}/>
+            
           </Routes>
         
         </div>

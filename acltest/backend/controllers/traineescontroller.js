@@ -542,6 +542,45 @@ const addcomment = async (req, res) => {
   const myreps = await Reports.findOneAndUpdate({_id : req.query.reportId}, {comments: req.body.comment})
   return res.status(200).json(myreps);
 };
+const updateTraineeInfo= async (req, res) => {
+  //  const {username, password, biography,mail} = req.body
+  const instruct = "Instructor";
+  var token =getTokenFromHeader(req);
+  const userid = getUserIdFromToken(token)
+ 
+try{
+    if (req.body.email) {
+      const updatemail = await User.findByIdAndUpdate(userid,
+        { email: req.body.email }
+      );
+
+    }
+    if (req.body.first_name) {
+      const updatemail = await User.findByIdAndUpdate(userid,
+        { first_name: req.body.first_name }
+      );
+
+    }
+    if (req.body.last_name) {
+      const updatemail = await User.findByIdAndUpdate(userid,
+        { last_name: req.body.last_name }
+      );
+
+    }
+    if (req.body.country) {
+      const updatemail = await User.findByIdAndUpdate(userid,
+        { country: req.body.country, countryAbb: req.body.countryAbb }
+      );
+
+    }
+
+    res.status(200).json("success");
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+
+
+};
 
 module.exports = {
   addcomment,
@@ -563,4 +602,5 @@ module.exports = {
   requestrefund,
  getexam,
   viewmyreports,
+  updateTraineeInfo
 };

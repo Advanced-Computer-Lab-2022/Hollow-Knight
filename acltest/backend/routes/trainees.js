@@ -20,7 +20,8 @@ const {
   reportproblem,
   getexam,
   viewmyreports,
-  addcomment
+  addcomment,
+  updateTraineeInfo
 } = require("../controllers/traineescontroller");
 
 router.post("/", createTrainee);
@@ -43,6 +44,7 @@ router.patch("/getexam", getexam);
 
 router.post("/addcomment", addcomment);
 router.get("/viewmyreports", viewmyreports);
+router.post("/updateinfo", updateTraineeInfo);
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2022-08-01",
 });
