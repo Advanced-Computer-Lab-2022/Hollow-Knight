@@ -19,7 +19,7 @@ const CorprateTraineeNav = ()=>{
 
     
    
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState(8);
 
 
 
@@ -35,10 +35,16 @@ const CorprateTraineeNav = ()=>{
         <Box sx={{ bgcolor: 'background.paper' }}>
         
             <Tabs
-                
-                scrollButtons
-                allowScrollButtonsMobile
-                aria-label="scrollable force tabs example"
+                 value={value}
+                 variant="fullWidth"            
+                  textColor="secondary"
+                  indicatorColor="secondary"
+                  
+                  onChange={handleChange}
+                  
+                  scrollButtons
+                  allowScrollButtonsMobile
+                  aria-label="scrollable force tabs example"
             >
                 <Tab value={0}  label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >Profile</Typography>}  href={urlprofile}  />
                 <Tab value={1} label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >My Courses</Typography>} href={urlviewmycourses} />
