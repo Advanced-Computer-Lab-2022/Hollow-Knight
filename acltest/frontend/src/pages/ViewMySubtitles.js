@@ -6,7 +6,12 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
-
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import IconButton from '@mui/material/IconButton';
+import CardActions from '@mui/material/CardActions';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 
 const { useState } = require("react");
@@ -52,7 +57,27 @@ const ViewMySubtitles = () => {
 
   }, [user])
 
-  
+  const deletes = async (id) => {
+     console.log(id)
+     const response1 = await fetch(`/api/instructors/deletesub/` + id , {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${user.token}`
+      }
+    })
+if(response1.ok)
+{
+  console.log("deleted")
+  const newSub = subtitles.filter(subtitle=>subtitle._id!=id)
+  setSubtitles(newSub)
+}
+if(!response1.ok)
+{
+  console.log("couldn't delete")
+}
+
+  }
 
   return (
     <Container >
@@ -61,14 +86,25 @@ const ViewMySubtitles = () => {
       {subtitles && subtitles.map((subtitle) => (
         <div key={subtitle._id}>
           <Card  sx={{marginBottom:8,marginTop:8,marginLeft:10 ,borderRadius:8 ,width:900}}>
-          <Container  sx={{marginTop:5,marginBottom:5}}>
-          <Typography align="center" sx={{fontSize:35,marginBottom:6}}
+          <Container  sx={{marginTop:2}}>
+          <CardHeader
+          action={
+            <IconButton  onClick={()=>deletes(subtitle._id)} >
+              <DeleteOutlineOutlinedIcon sx={{fontSize:30}}/>
+            </IconButton>
+          }
+          title={<Typography align="center" sx={{fontSize:35,marginBottom:4}}
           ><strong>{subtitle.Title}</strong> &nbsp;&nbsp;
-          </Typography>
+          </Typography>}
+          />
+         
+          <CardContent >
+         
+     
           <Box  sx={{ width: '40%',marginLeft:30,marginBottom:10 }}>
           <Stack spacing={4}>
-          
-          <Button variant="contained"  
+        
+          <Button  variant="contained"  
              startIcon={<FileUploadOutlinedIcon />}
             onClick={() => window.location.href = `/uploadvideo?subtitleId=${subtitle._id}`} key={subtitle._id}
             margin="normal"
@@ -85,6 +121,12 @@ const ViewMySubtitles = () => {
        
           </Stack>
           </Box>
+          </CardContent>
+          <CardActions disableSpacing>
+          <IconButton sx={{marginLeft:98,marginTop:-40}}>
+          <ArrowForwardIcon sx={{fontSize:40,color:"black"}}/>
+        </IconButton>
+          </CardActions>
           </Container>
           </Card>
         </div>
