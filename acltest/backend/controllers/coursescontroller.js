@@ -24,7 +24,6 @@ const findCourses = async (req, res) => {
   console.log(userid);
 
   const courses = await Course.find({});
-
   res.status(200).json(courses);
 };
 
@@ -55,7 +54,8 @@ const selectdiscounts = async (req, res) => {
     console.log(courseid);
     const shit = await Course.findOneAndUpdate(
       { _id: courseid },
-      { discount: { percent: req.body.discount } }
+      { discount: { percent: req.body.discount, start_date: req.body.start_date,
+        end_date: req.body.end_date  } }
     );
   }
   res.status(200).json("success!");
@@ -63,7 +63,8 @@ const selectdiscounts = async (req, res) => {
 
 const alldiscounts = async (req,res) => {
   console.log(req.body.discount)
-  const shite = await Course.updateMany({}, {discount : {percent : req.body.discount}})
+  const shite = await Course.updateMany({}, {discount : {percent : req.body.discount,  start_date: req.body.start_date,
+    end_date: req.body.end_date,}})
   res.status(200).json("success!")
 }
 const GetUserType = async(req,res)=>{

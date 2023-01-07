@@ -1,5 +1,7 @@
 import AdminNav from "./AdminNav"
 import InstructorBar from "./InstructorBar";
+import GuestBar from "./GuestBar";
+
 import { useAuthContext } from "../hooks/useAuthContext";
 import { Container } from "@mui/material";
 
@@ -21,12 +23,12 @@ const MenuController=()=>{
       const json= await response.json();
       
       if (!response.ok) {
-         setType("not found")
       }
       if(response.ok){      //1.update the context with the new user 2. update the loading state 3. update login state the user is logged in
           //save the user to local storage
           setType(json)
       }
+      console.log(type)
     }
   }
   
@@ -43,6 +45,10 @@ return(
 {
     type=="admin"&&<AdminNav/>
 }
+{
+    !type&&<GuestBar/>
+}
+    
 
 
 
