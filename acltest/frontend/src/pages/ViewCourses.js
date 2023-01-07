@@ -13,6 +13,8 @@ import Select from '@mui/material/Select';
 import { Card, Grid,Typography } from "@mui/material";
 import Stack from '@mui/material/Stack';
 import { Container } from "@mui/system";
+import Embed2 from "../components/Embed2"
+import YoutubeEmbed from "../components/YoutubeEmbed";
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
