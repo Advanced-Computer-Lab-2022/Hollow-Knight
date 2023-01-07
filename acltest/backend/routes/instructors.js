@@ -24,7 +24,11 @@ const {
   getuserfrominsid,
   getinstructorfromuserid,
   addExam,
-  searchCourse,getuserfromuserid,uploadpreviewvideo
+  searchCourse,
+  getuserfromuserid,
+  uploadpreviewvideo,
+  publishcourse,
+  closecourse
 } = require("../controllers/instructorscontroller");
 
         
@@ -59,5 +63,6 @@ router.get('/getinst', getinstructorfromuserid)
 router.get('/getpay', getmonthlypay)
 router.get('/getuser', getuserfromuserid)
 router.post('/addpreviewvideo', uploadpreviewvideo)
-
+router.patch("/publishcourse", publishcourse);
+router.patch("/closecourse", closecourse);
 module.exports = router;

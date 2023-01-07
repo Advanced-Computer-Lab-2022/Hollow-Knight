@@ -44,6 +44,10 @@ const courseSchema = new Schema(
       type: String,
       required: true,
     },
+    published:{
+      type: String,
+      default:false
+    },
     total_hours: {
       type: Number,
       required: false,

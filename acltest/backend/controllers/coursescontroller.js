@@ -24,7 +24,7 @@ const findCourses = async (req, res) => {
   const userid=getUserIdFromToken(token);
   console.log(userid);
 
-  const courses = await Course.find({});
+  const courses = await Course.find({published:"true"});
 
   res.status(200).json(courses);
 };

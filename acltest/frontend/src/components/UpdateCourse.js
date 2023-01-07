@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { Button, TextField, Typography } from '@mui/material';
+import { Container, Stack } from '@mui/system';
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const UpdateCourse =({courses})=>{
 
@@ -9,7 +12,7 @@ const UpdateCourse =({courses})=>{
    const [summary,setSummary]=useState("")
    
    const [total_hours,setTotal_hours]=useState("")
-   
+   const { user } = useAuthContext();
   
 
    
@@ -18,14 +21,13 @@ const UpdateCourse =({courses})=>{
     e.preventDefault()
 
     const course = {title,price,subject,summary,total_hours}
-    //const params = new URLSearchParams(window.location.search);
-    //const userId = params.get('userId');
-    //console.log(userId);
-    const response = await fetch(`/api/instructors/updatecourse/`+courses._id+`?userId=${courses.author}`, {
+    
+    const response = await fetch(`/api/instructors/updatecourse/`+courses._id, {
       method: 'PATCH',
       body: JSON.stringify(course),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${user.token}`
       }
     })
     const json = await response.json()
@@ -41,61 +43,78 @@ const UpdateCourse =({courses})=>{
       setPrice('')
       setSubject('')
       setSummary('')
-     
       setTotal_hours('')
       console.log(' course updated:', json)
+      window.location.href = `/instructor/coursedetails/`+courses._id
     }
 }
 
  return(
-    <div className="update">
+    <Container className="update">
 
       
 
-        <h1>
+        <Typography sx={{marginTop:4,marginBottom:6}}variant="h4" align="center">
             Insert the data to updated
-        </h1>
-       <label>Course Title : </label>
-        <input
+        </Typography>
+   <Container
+   sx={{marginLeft:30}}>
+        <Stack spacing={3}>
+        <TextField
+        sx={{width:600}}
+        fullWidth
         type="text"
         onChange={(e)=> setTitle(e.target.value)}
         value={title}
+        label="Course Title"
         />
     
- 
-      <label>Price : </label>
-        <input
+
+
+<TextField
+       sx={{width:600}}
+        fullWidth
         type="number"
         onChange={(e)=> setPrice(e.target.value)}
         value={price}
+        label="Price"
         />
+  
 
-      <label>Subject :</label>
-        <input
+<TextField
+       sx={{width:600}}
+        fullWidth
         type="text"
         onChange={(e)=> setSubject(e.target.value)}
         value={subject}
-        />
-    
-
-
-         <label>Summary : </label>
-        <input
-        type="text"
-        onChange={(e)=> setSummary(e.target.value)}
-        value={summary}
+        label="Subject"
         />
 
 
-        <label>Total Hours : </label>
-        <input
-        type="Number"
+
+        
+<TextField
+       sx={{width:600}}
+       type="text"
+       onChange={(e)=> setSummary(e.target.value)}
+       value={summary}
+        label="Summary"
+        />
+
+ 
+<TextField
+       sx={{width:600}}
+       type="Number"
         onChange={(e)=> setTotal_hours(e.target.value)}
         value={total_hours}
+        label="Total Hours "
         />
+        </Stack>
 
-          <button onClick={updatecourseClick}> Update Course </button >
-   </div>
+          <Button
+          sx={{marginBottom:4,marginTop:4,marginLeft:60}} variant="contained" onClick={updatecourseClick}> Update Course </Button >
+          </Container>
+   </Container>
       )
 }
 

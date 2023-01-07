@@ -35,6 +35,35 @@ const GetCourseById = async (req, res) => {
   }
 };
 ///////////////
+
+const publishcourse=async(req,res)=>{
+
+const courseid =req.body.courseId;
+console.log(courseid)
+try{
+  const course = await Course.findByIdAndUpdate(courseid,{published :"true"})
+  return res.status(200).json(course);
+}catch(error)
+{
+  return res.status(400).json("couldn't publish Course");
+}
+
+}
+
+const closecourse=async(req,res)=>{
+
+  const courseid =req.body.courseId;
+  console.log(courseid)
+  try{
+    const course = await Course.findByIdAndUpdate(courseid,{published :"closed"})
+    return res.status(200).json(course);
+  }catch(error)
+  {
+    return res.status(400).json("couldn't close Course");
+  }
+  
+  }
+
 const UpdateContract = async (req, res) => {
   var token =getTokenFromHeader(req);
   const userid = getUserIdFromToken(token)
@@ -195,13 +224,12 @@ const CreateCourse = async (req, res) => {
 
 const DeleteCourse = async (req, res) => {
   const { id } = req.params;
-  var token =getTokenFromHeader(req);
-  const userid = getUserIdFromToken(token)
+
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "Course Doesn't Exist" });
   }
-  const course = await Course.findOneAndDelete({ _id: id, author: userId });
+  const course = await Course.findByIdAndDelete( id);
   if (!course) {
     return res.status(400).json({ error: "You Don't have such a Course" });
   }
@@ -210,30 +238,26 @@ const DeleteCourse = async (req, res) => {
 
 const UpdateCourse = async (req, res) => {
   const { id } = req.params;
-  var token =getTokenFromHeader(req);
-  const userid = getUserIdFromToken(token)
+
   const { title, price, subject, summary, total_hours } = req.body;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "Course Doesn't Exist" });
   }
 
   if (req.body.title) {
-    const course = await Course.findOneAndUpdate(
-      { _id: id, author: userId },
+    const course = await Course.findByIdAndUpdate(id,
       { title: title }
     );
   }
 
   if (req.body.price) {
-    const course = await Course.findOneAndUpdate(
-      { _id: id, author: userId },
+    const course = await Course.findByIdAndUpdate( id,
       { price: price }
     );
   }
 
   if (req.body.subject) {
-    const course = await Course.findOneAndUpdate(
-      { _id: id, author: userId },
+    const course = await Course.findByIdAndUpdate(id,
       { subject: subject }
     );
   }
@@ -241,16 +265,14 @@ const UpdateCourse = async (req, res) => {
 
 
   if (req.body.summary) {
-    const course = await Course.findOneAndUpdate(
-      { _id: id, author: userId },
+    const course = await Course.findByIdAndUpdate(id,
       { summary: summary }
     );
   }
   
   
   if (req.body.total_hours) {
-    const course = await Course.findOneAndUpdate(
-      { _id: id, author: userId },
+    const course = await Course.findByIdAndUpdate( id,
       { total_hours: total_hours }
     );
   }
@@ -700,5 +722,7 @@ module.exports = {
   getinstructorfromuserid,
   addExam,
   getuserfromuserid,
-  uploadpreviewvideo
+  uploadpreviewvideo,
+  publishcourse,
+  closecourse
 };

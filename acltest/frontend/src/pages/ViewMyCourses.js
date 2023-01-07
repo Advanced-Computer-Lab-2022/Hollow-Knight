@@ -1,10 +1,7 @@
 import { useAuthContext } from "../hooks/useAuthContext";
-
 import { useEffect } from "react";
 import { Button, Card, Typography } from "@mui/material";
 import { Container } from "@mui/system";
-
-
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
@@ -14,6 +11,11 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import AddTaskIcon from '@mui/icons-material/AddTask';
+import ReportProblemOutlinedIcon from '@mui/icons-material/ReportProblemOutlined';
+import WysiwygOutlinedIcon from '@mui/icons-material/WysiwygOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 const { useState } = require("react");
 
@@ -141,6 +143,49 @@ const handler=()=>{
     }
     setCourses(newcourses)
 }
+
+const publish=async(e)=>
+  {
+    const courseId = e.currentTarget.getAttribute("courseId")
+    const load={courseId}
+    console.log("courseid",load)
+    const response = await fetch(`/api/instructors/publishcourse`,
+    {
+      method: 'PATCH',
+      body: JSON.stringify(load),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${user.token}`
+
+
+      }
+  });
+    if(response.ok){
+      console.log("updated")
+    }
+  }
+  
+const close=async(e)=>
+{
+  const courseId = e.currentTarget.getAttribute("courseId")
+  const load={courseId}
+  console.log("courseid",load)
+  const response = await fetch(`/api/instructors/closecourse`,
+  {
+    method: 'PATCH',
+    body: JSON.stringify(load),
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${user.token}`
+
+
+    }
+});
+if(response.ok){
+  console.log("updated")
+}
+}
+
   return (
     <Container className="courses">
     <Typography variant="h3"align="center"sx={{marginBottom:12,marginTop:6}}>Your Courses</Typography>
@@ -222,17 +267,28 @@ onClick={handler}
               Price : {course.price} &nbsp;&nbsp;
               </Typography>
 
-              <Typography align="center"  sx={{fontSize:25,marginBottom:8}} >
+              <Typography align="center"  sx={{fontSize:25,marginBottom:3}} >
               Existing  Discounts : {course.discount.percent}  % &nbsp;&nbsp;
+            </Typography>
+
+{/*         unpublished Course         */}
+
+
+
+            {course.published =="false"&&<div>
+
+
+            <Typography align="center"  sx={{fontSize:25,marginBottom:8}} >
+              Status : Unpublished &nbsp;&nbsp;
             </Typography>
             <Button
             
-            sx={{marginRight:5,marginLeft:35}}
+            sx={{marginRight:5,marginLeft:8}}
               variant="contained"
               onClick={() =>
                 (window.location.href = `/applydiscount?courseId=${course._id}`)
               }
-            
+            startIcon={<AddCircleOutlineOutlinedIcon/>}
             >
               Apply Discount
             </Button>
@@ -242,21 +298,131 @@ onClick={handler}
               onClick={() =>
                 (window.location.href = `/viewsubtitles?courseId=${course._id}`)
               }
-           
+           startIcon={<WysiwygOutlinedIcon/>}
             >
               View Subtitles
             </Button>
 
             <Button variant="contained"
+              sx={{marginRight:5}}
               onClick={() =>
                 (window.location.href = `/report?courseId=${course._id}`)
               }
+              startIcon= {<ReportProblemOutlinedIcon/>}
             >
               Report
-            </Button></Container>
+            </Button>
+            
+            
+          <Button
+          variant="contained"
+           startIcon={<AddTaskIcon />}
+           onClick={publish} courseId={course._id}
+           sx={{marginRight:5}}
+         >
+         Publish Course
+          </Button>
+
+          <Button variant="contained"
+             
+              onClick={() =>
+                (window.location.href = `/instructor/coursedetails/`+course._id)
+              }
+              startIcon= {<InfoOutlinedIcon/>}
+            >
+              View Info
+            </Button>
+          </div>}
+
+
+{/*         published Course    */  }
+          {course.published =="true"&&<div>
+
+          <Typography align="center"  sx={{fontSize:25,marginBottom:8}} >
+              Status : Published &nbsp;&nbsp;
+            </Typography>
+
+            <Button
+            
+            sx={{marginRight:5,marginLeft:25}}
+              variant="contained"
+              onClick={() =>
+                (window.location.href = `/applydiscount?courseId=${course._id}`)
+              }
+            startIcon={<AddCircleOutlineOutlinedIcon/>}
+            >
+              Apply Discount
+            </Button>
+           
+
+            <Button variant="contained"
+              sx={{marginRight:5}}
+              onClick={() =>
+                (window.location.href = `/report?courseId=${course._id}`)
+              }
+              startIcon= {<ReportProblemOutlinedIcon/>}
+            >
+              Report
+            </Button>
+
+            <Button variant="contained"
+             sx={{marginRight:5}}
+              onClick={() =>
+                (window.location.href = `/instructor/coursedetails/`+course._id)
+              }
+              startIcon= {<InfoOutlinedIcon/>}
+            >
+              View Info
+            </Button>
+
+            <Button variant="contained"
+             
+             onClick={close} courseId={course._id}
+             startIcon= {<InfoOutlinedIcon/>}
+           >
+            Close Course 
+           </Button>
+            
+       
+          </div>}
+
+          {/*         closed Course    */  }
+          {course.published =="closed"&&<div>
+
+          <Typography align="center"  sx={{fontSize:25,marginBottom:8}} >
+              Status : closed &nbsp;&nbsp;
+            </Typography>
+           
+
+            <Button variant="contained"
+              sx={{marginRight:5,marginLeft:50}}
+              onClick={() =>
+                (window.location.href = `/report?courseId=${course._id}`)
+              }
+              startIcon= {<ReportProblemOutlinedIcon/>}
+            >
+              Report
+            </Button>
+
+            <Button variant="contained"
+             sx={{marginRight:5}}
+              onClick={() =>
+                (window.location.href = `/instructor/coursedetails/`+course._id)
+              }
+              startIcon= {<InfoOutlinedIcon/>}
+            >
+              View Info
+            </Button>
+
+         
+            
+       
+          </div>}
+            </Container>
             </Card >
           </div>
         ))}
+       
             
     </Container>
   );
