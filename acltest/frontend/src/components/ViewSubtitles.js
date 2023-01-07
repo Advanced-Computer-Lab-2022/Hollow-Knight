@@ -2,7 +2,7 @@ import { Container, Icon } from "@mui/material";
 import ViewVideo from "../components/ViewVideo";
 import { Button, Typography } from "@mui/material";
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
-import { useState ,useEffect} from "react";
+import { useState } from "react";
 
 const ViewSubtitles = ({ subtitle }) => {
   const [view, setView] = useState("false");

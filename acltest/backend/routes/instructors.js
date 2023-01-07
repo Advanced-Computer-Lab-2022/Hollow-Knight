@@ -30,6 +30,8 @@ const {
   publishcourse,
   closecourse,
   DeleteSub,
+  getsub,removexercise,
+  removevideo
 
 } = require("../controllers/instructorscontroller");
 
@@ -68,4 +70,8 @@ router.post('/addpreviewvideo', uploadpreviewvideo)
 router.patch("/publishcourse", publishcourse);
 router.patch("/closecourse", closecourse);
 router.delete("/deletesub/:id", DeleteSub);
+router.get("/getsubtitle", getsub);
+router.patch("/removex",removexercise)
+router.patch("/removevideo",removevideo)
+
 module.exports = router;
