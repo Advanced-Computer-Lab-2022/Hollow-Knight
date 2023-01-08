@@ -63,6 +63,7 @@ import DownloadCertificate from "./components/DownloadCertificate";
 import TraineeProfile from "./components/TraineeProfile";
 import GetType from "./components/GetType";
 import PreviewVideo from "./pages/PreviewVideo";
+import ViewSub from "./pages/ViewSub";
 function App() {
 const  {user} = useAuthContext();
   return (
@@ -240,6 +241,7 @@ const  {user} = useAuthContext();
             <Route path="/gettype" element={<GetType/>}/>
             
             <Route path="/addpreviewvideo" element={<PreviewVideo />} />
+            <Route path="/ViewSub"element={<ViewSub/>}/>
 
 
           </Routes>

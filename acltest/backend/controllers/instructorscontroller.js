@@ -63,7 +63,77 @@ const closecourse=async(req,res)=>{
   }
   
   }
+  const removexercise=async(req,res)=>{
+  
+    const subtitleId = req.query.subtitleId;
+     const exerciseid =req.body.exerciseid;
+     console.log("hi",subtitleId,JSON.stringify(exerciseid))
+     var subtitle
+     try{
+      subtitle= await Subtitle.findById(subtitleId)
+     }
+     catch(error)
+     {
+      return res.status(400).json({error:"Could n't get subtitle"})
+     }
+     var exercises = subtitle.exercises
+     var newex=[]
+     console.log(exercises)
+     for(var i =0;i<exercises.length;i++){
+     let current= exercises.pop()
+     console.log(JSON.stringify(current._id),JSON.stringify(exerciseid))
+      if(JSON.stringify(current._id)!=JSON.stringify(exerciseid)){
+        console.log("enter")
+        newex.push(current)
+      }
+      
+     }
+     console.log(newex)
+     try{
+      subtitle= await Subtitle.findByIdAndUpdate(subtitleId,{exercises:newex})
+     }
+     catch(error){
+      return res.status(400).json({error:"Delete Exercise"})
+     }
+     
 
+  }
+
+  const removevideo=async(req,res)=>{
+  
+    const subtitleId = req.query.subtitleId;
+     const videoid =req.body.videoid;
+    // console.log("hi",subtitleId,JSON.stringify(exerciseid))
+     var subtitle
+     try{
+      subtitle= await Subtitle.findById(subtitleId)
+     }
+     catch(error)
+     {
+      return res.status(400).json({error:"Could n't get subtitle"})
+     }
+     var videos = subtitle.video
+     var newvideo=[]
+     console.log(videos)
+     for(var i =0;i<videos.length;i++){
+     let current= videos.pop()
+     console.log(JSON.stringify(current._id),JSON.stringify(videoid))
+      if(JSON.stringify(current._id)!=JSON.stringify(videoid)){
+        console.log("enter")
+        newvideo.push(current)
+      }
+      
+     }
+     console.log(newvideo)
+     try{
+      subtitle= await Subtitle.findByIdAndUpdate(subtitleId,{video:newvideo})
+     }
+     catch(error){
+      return res.status(400).json({error:"Delete Video"})
+     }
+     
+
+  }
 const UpdateContract = async (req, res) => {
   var token =getTokenFromHeader(req);
   const userid = getUserIdFromToken(token)
@@ -516,6 +586,23 @@ const viewmysubtitles = async (req, res) => {
   return;
 };
 
+
+const getsub = async (req, res) => {
+
+
+  const subtitleId = req.query.subtitleId;
+  console.log(subtitleId)
+  try {
+    const subtitles = await Subtitles.findById(subtitleId);
+    res.status(200).json(subtitles);
+   
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+
+  return;
+};
+
 const applydiscount = async (req, res) => {
   var { percent, start_date, end_date  } = req.body;
   const instruct = "Instructor";
@@ -738,5 +825,9 @@ module.exports = {
   uploadpreviewvideo,
   publishcourse,
   closecourse,
-  DeleteSub
+  DeleteSub,
+  getsub,
+  removexercise,
+  removevideo
+  
 };
