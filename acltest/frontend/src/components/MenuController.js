@@ -1,6 +1,5 @@
 import AdminNav from "./AdminNav"
 import InstructorBar from "./InstructorBar";
-import GuestBar from "./GuestBar";
 
 import { useAuthContext } from "../hooks/useAuthContext";
 import { Container } from "@mui/material";
