@@ -6,6 +6,7 @@ const Wallet = () => {
   const [wallet, setWallet] = useState(null);
   const { user } = useAuthContext();
   useEffect(() => {
+    if(user){
     const getwallet = async () => {
       const params = new URLSearchParams(window.location.search);
       const userId = params.get("userId");
@@ -20,8 +21,9 @@ const Wallet = () => {
       const trainee = await response.json();
       setWallet(trainee.wallet);
     };
-
+  
     getwallet();
+  }
   },[user]);
 
   return (

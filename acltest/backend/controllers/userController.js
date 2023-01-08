@@ -166,7 +166,7 @@ const signupUser = async (req, res) => {
     const token = await createtoken(user._id);
     const userid = user._id;
     console.log(type)
-    if(type=="individual trainee"||type=="corporate trainee"){
+    if(type=="trainee"||type=="corporate trainee"){
     const trainee = await Trainee.create({ userid: userid });
     }
     if(type=="admin"){
