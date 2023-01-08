@@ -133,13 +133,13 @@ const handler=()=>{
     console.log(p[0],p[1])
     if(pricef)
     {
-        newcourses= courses.filter(course => course.price<p[1]&&course.price>p[0])
+        newcourses= courses.filter(course => course.price<=p[1]&&course.price>=p[0])
     }
     if(subjectf){
         newcourses= courses.filter(course => course.subject==subjectf)
     }
     if(pricef&&subjectf){
-        newcourses= courses.filter(course => course.price<p[1]&&course.price>p[0]&& course.subject==subjectf)
+        newcourses= courses.filter(course => course.price<=p[1]&&course.price>=p[0]&& course.subject==subjectf)
     }
     setCourses(newcourses)
 }

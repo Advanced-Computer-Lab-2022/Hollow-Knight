@@ -69,6 +69,8 @@ const ViewCourses = () => {
   const [searchb, setSearchb] = useState('')
   const { user } = useAuthContext();
   const URL = `/traineesearchcourse?courseId=`+courses._id;
+  const [other,setOther]=useState(false)
+  const [othervalue,setOthervalue]=useState("Insert a value")
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -138,13 +140,13 @@ const ViewCourses = () => {
     console.log(p[0],p[1])
     if(pricef)
     {
-        newcourses= courses.filter(course => course.price<p[1]&&course.price>p[0])
+        newcourses= courses.filter(course => course.price<=p[1]&&course.price>=p[0])
     }
     if(subjectf){
         newcourses= courses.filter(course => course.subject==subjectf)
     }
     if(pricef&&subjectf){
-        newcourses= courses.filter(course => course.price<p[1]&&course.price>p[0]&& course.subject==subjectf)
+        newcourses= courses.filter(course => course.price<=p[1]&&course.price>=p[0]&& course.subject==subjectf)
     }
     setCourses(newcourses)
 };
@@ -195,7 +197,14 @@ const ViewCourses = () => {
           <MenuItem value="100-500"> 100 - 500 </MenuItem>
           <MenuItem value="600-1000">600 - 1000</MenuItem>
           <MenuItem value="1000-3000">1000- 3000</MenuItem>
+          <MenuItem onClick={(e)=>(setOther(true))} value={othervalue}>{othervalue}</MenuItem>
         </Select>
+
+        {other &&
+        <TextField
+        type="text"
+        onChange={(e) =>{ setOthervalue(e.target.value) ; setPricef(e.target.value)}}
+        />}
       </FormControl>
       <Button sx={{marginLeft:10,fontSize:26}} variant="contained"
         onClick={handler}
