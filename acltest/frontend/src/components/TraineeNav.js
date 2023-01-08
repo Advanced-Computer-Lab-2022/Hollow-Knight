@@ -11,9 +11,9 @@ const { useState, useEffect, } = require("react");
 const TraineeNav = ()=>{
     const params = new URLSearchParams(window.location.search);
     const userId = params.get("userId");
-    const urlsearchcourse = `/SearchCoursePage?userId=${userId}`;
+
     const urlviewmycourses = `/getmycourses?userId=${userId}`;
-    const urlallcourses = `/viewallcoursesfortrainee`;
+    const urlallcourses = `/viewallcourses`;
     const urlWallet = `/getwallet?userId=${userId}`;
     const urlprofile = `/traineeprofile`;
     
@@ -45,11 +45,10 @@ const TraineeNav = ()=>{
                  allowScrollButtonsMobile
                  aria-label="scrollable force tabs example"
             >
-                <Tab value={0}  label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >Profile</Typography>}  href={urlprofile}  />
-                 <Tab value={1} label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >My Courses</Typography>} href={urlviewmycourses} />
-                <Tab  value={2}  label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >My Wallet</Typography>} href={urlWallet} />
-                <Tab value={3}  label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >Search Course</Typography>}  href={urlsearchcourse}  />
-                <Tab value={4}  label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >View All Courses</Typography>}  href={urlallcourses}  />
+                <Tab   label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >Profile</Typography>}  href={urlprofile}  />
+                 <Tab label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >My Courses</Typography>} href={urlviewmycourses} />
+                <Tab  label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >My Wallet</Typography>} href={urlWallet} />
+                <Tab   label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >View All Courses</Typography>}  href={urlallcourses}  />
             </Tabs>
 
 

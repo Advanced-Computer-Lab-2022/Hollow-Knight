@@ -71,7 +71,7 @@ const ViewMyCourses = () => {
             </Typography>
                &nbsp;&nbsp;
               <br></br>
-              <Button sx={{marginRight:5,marginLeft:15,marginBottom:5}}
+              <Button sx={{marginRight:5,marginLeft:5,marginBottom:5}}
               variant="contained"
                 onClick={() =>
                   (window.location.href = `coursecontent?courseId=${course._id}&&userId=${userId}`)
@@ -98,8 +98,23 @@ const ViewMyCourses = () => {
               >
                 Rate Course
               </Button>
+             
+              <Button sx={{marginRight:5,marginLeft:5,marginBottom:5}}
+                variant="contained" onClick={() => requestrefund(course)}>
+                Get A Refund
+              </Button>
+              <Button sx={{marginRight:5,marginLeft:5,marginBottom:5}}
+              variant="contained"
+                onClick={() =>
+                  (window.location.href = `/report?courseId=${course._id}&&userId=${userId}`)
+                }
+              >
+                Report Course
+              </Button>
+
+
               {course.traineeProgression == 100 && (
-                <Button sx={{marginRight:5,marginLeft:5}}
+                <Button sx={{marginLeft:60,marginTop:8}}
                 variant="contained"
                   onClick={() =>
                     (window.location.href = `coursecertificate?courseId=${course._id}&&userId=${userId}`)
@@ -108,18 +123,7 @@ const ViewMyCourses = () => {
                   Get Certificate
                 </Button>
               )}
-              <Button sx={{marginRight:5,marginLeft:5}}
-                variant="contained" onClick={() => requestrefund(course)}>
-                Get A Refund
-              </Button>
-              <Button sx={{marginRight:5,marginLeft:5}}
-              variant="contained"
-                onClick={() =>
-                  (window.location.href = `/report?courseId=${course._id}&&userId=${userId}`)
-                }
-              >
-                Report Course
-              </Button>
+
               </Container>
             </Card>
           </div>
