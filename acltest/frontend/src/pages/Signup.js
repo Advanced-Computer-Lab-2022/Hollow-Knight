@@ -92,6 +92,7 @@ const Signup = () => {
       />
       
 <br></br>
+      Gender
       <Select
         value={gender}
         label="Gender"
@@ -105,7 +106,7 @@ const Signup = () => {
         <MenuItem value={"female"}>Female</MenuItem>
       </Select>
 
-      
+      Country
       <Select value={value} 
       label="Country"
       onChange={changeHandler}>
