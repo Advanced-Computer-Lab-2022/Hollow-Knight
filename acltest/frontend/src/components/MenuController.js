@@ -45,9 +45,6 @@ return(
 {
     type=="admin"&&<AdminNav/>
 }
-{
-    !type&&<GuestBar/>
-}
     
 
 

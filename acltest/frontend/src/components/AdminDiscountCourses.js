@@ -26,6 +26,7 @@ const AdminDiscountCourses = () => {
   const [end_date, setEnd_date] =useState(null);
   const [checklist, setCheckList] = useState([])
   const [discount, setDiscount] = useState("");
+  const [discountError, setDiscountError] = useState(false);
   const [startError, setStartError] =useState(false);
   const [endError, setEndError] =useState(false);
   const { user } =  useAuthContext();
@@ -83,6 +84,19 @@ setEnd_date(date);
     argum = {discount, checklist, start_date,end_date}
     console.log(argum)
     if(user){
+
+    if(!start_date){
+        setStartError(true)
+        return
+    }
+    if(!end_date){
+      setEndError(true)
+      return
+    }
+    if(!discount){
+      setDiscountError(true)
+      return
+    }
     const response = await fetch("/api/courses/selectdiscounts", {
         method: "POST",
         body: JSON.stringify(argum),
@@ -101,6 +115,20 @@ setEnd_date(date);
       argum = {discount, start_date,end_date}
       console.log(argum)
       if(user){
+
+        if(!start_date){
+          setStartError(true)
+          return
+      }
+      if(!end_date){
+        setEndError(true)
+        return
+      }
+      if(!discount){
+        setDiscountError(true)
+        return
+      }
+      
       const response = await fetch("/api/courses/alldiscounts", {
           method: "POST",
           body: JSON.stringify(argum),
@@ -116,7 +144,7 @@ setEnd_date(date);
       }
   return (
     <div className="courses">
-    <Box sx = {{maxWidth:80}}>
+    <Box sx = {{maxWidth:500}}>
     <label>Discount:</label>
             <input
             type="number"
@@ -124,7 +152,21 @@ setEnd_date(date);
             value={discount}
             />
 
+{discountError&&< Typography variant="h7"
+marginLeft={3} 
+color="red"
+fontSize={20}>
+You Must Choose A Discount
+</Typography>
+
+}
+<br></br>
+<br></br>
+
+
+
 </Box>
+
     
     <LocalizationProvider dateAdapter={AdapterDayjs}  >
 

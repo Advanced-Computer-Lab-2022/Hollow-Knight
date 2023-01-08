@@ -18,10 +18,10 @@ function getUserIdFromToken(token) {
 }
 
 const findCourses = async (req, res) => {
-  const token = getTokenFromHeader(req);
-  console.log(token); 
-  const userid=getUserIdFromToken(token);
-  console.log(userid);
+ // const token = getTokenFromHeader(req);
+  //console.log(token); 
+  //const userid=getUserIdFromToken(token);
+  //console.log(userid);
 
   const courses = await Course.find({});
   res.status(200).json(courses);

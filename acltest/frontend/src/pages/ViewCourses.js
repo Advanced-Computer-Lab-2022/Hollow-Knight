@@ -96,17 +96,56 @@ const ViewCourses = () => {
     var newcourses2
     var newcourses3
     e.preventDefault()
-
+    console.log(searchb)
     const searching = { searchb}
     if(searchb){
      // newcourses= courses.filter(course => course.subject==searchb)
       newcourses2 = courses.filter(course => course.author==searchb)
       newcourses3 = courses.filter(course => course.title==searchb)
       setCourses([ ...newcourses2, ...newcourses3]);
-}
 
 
-  };
+    }
+    if(searchb.length === 0){
+      const response = await fetch("/api/courses",{
+        method: 'GET',
+        headers: {
+
+          'Content-Type': 'application/json',
+
+
+        }
+    });
+      const json = await response.json();
+      console.log(json);
+
+      if (response.ok) {
+        setCourses(json);
+        
+      }
+    }
+
+
+
+  }
+  
+  const handler=()=>{
+    var newcourses
+    console.log()
+    var p =pricef.split(/-/)
+    console.log(p[0],p[1])
+    if(pricef)
+    {
+        newcourses= courses.filter(course => course.price<p[1]&&course.price>p[0])
+    }
+    if(subjectf){
+        newcourses= courses.filter(course => course.subject==subjectf)
+    }
+    if(pricef&&subjectf){
+        newcourses= courses.filter(course => course.price<p[1]&&course.price>p[0]&& course.subject==subjectf)
+    }
+    setCourses(newcourses)
+};
 
   
   return (
@@ -157,7 +196,7 @@ const ViewCourses = () => {
         </Select>
       </FormControl>
       <Button sx={{marginLeft:10,fontSize:26}} variant="contained"
-        onClick={search}
+        onClick={handler}
         >Filter</Button>
     </Box>
     <div className="courses">
@@ -208,7 +247,7 @@ const ViewCourses = () => {
         <Typography  
         align="center" 
         sx={{fontSize:25,marginBottom:2,marginTop:-0.5}}>
-        Price : 
+        Price : {course.price}
         </Typography>
         <Typography    align="center"  sx={{fontSize:22,marginTop:9}}> 
         </Typography>

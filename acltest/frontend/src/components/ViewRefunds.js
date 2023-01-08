@@ -7,6 +7,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useAuthContext } from "../hooks/useAuthContext";
+import { Grid } from '@mui/material';
 
 const {useState} = require("react");
 
@@ -72,12 +73,13 @@ const ViewRefunds = () => {
 
 <h5> Available Refunds </h5> 
     
-<div className="ViewRefunds" style={{display: "flex"}}>
+<div className="ViewRefunds">
 
+<Grid>
 {refunds && refunds.map((refund)=>(
         
-<div  key={refund._id}>
-<Box sx={{maxWidth: 500, marginLeft:8,marginBottom:6 }}>
+<Grid item  key={refund._id} xs={6}>
+<Box sx={{maxWidth: 400, marginLeft:8,marginBottom:6 }}>
 <Card variant="outlined">                      
 <React.Fragment>
     <CardContent>
@@ -104,8 +106,9 @@ const ViewRefunds = () => {
   </React.Fragment> 
   </Card>
   </Box>                            
-</div>
+</Grid>
 ))}
+</Grid>
                  
 
 </div>
