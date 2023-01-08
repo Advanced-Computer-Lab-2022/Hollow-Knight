@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { useAuthContext } from "../hooks/useAuthContext";
+
+
 const RateInstructor = () => {
   const [review, setReview] = useState("");
   const [desc, setDesc] = useState("");
   const [username, setUsername] = useState("");
+  const { user } = useAuthContext();
   const params = new URLSearchParams(window.location.search);
   const courseId = params.get("courseId");
   const rateHandler = async (e) => {
@@ -15,6 +19,7 @@ const RateInstructor = () => {
       body: JSON.stringify(input),
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`
       },
     });
     console.log(response);

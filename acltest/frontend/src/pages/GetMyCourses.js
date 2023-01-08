@@ -40,6 +40,7 @@ const ViewMyCourses = () => {
       body: JSON.stringify(searching),
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`
       },
     });
     const res = await response.json();

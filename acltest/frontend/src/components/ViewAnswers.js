@@ -1,13 +1,16 @@
 import React, { useEffect } from "react";
 import ExQuestion from "./ExQuestion";
-
+import { useAuthContext } from "../hooks/useAuthContext";
 import { Button } from "@mui/material";
 
 const { useState } = require("react");
 
+
+
 const ViewAnswers = () => {
   const [problems, setProblems] = useState(null);
   const [solution,setSolution] = useState("false");
+  const { user } = useAuthContext();
 
 
   useEffect(() => {
@@ -19,13 +22,14 @@ const ViewAnswers = () => {
     const id = params.get("id");
     console.log(subid, " , ", id);
 
-
+    if(user){
     const getproblems = async () => {
+    
       const response = await fetch("/api/trainees/getanswers", {
         method: "PATCH",
         body: JSON.stringify({ subid, id }),
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json",Authorization: `Bearer ${user.token}`,
         },
       });
       const json = await response.json();
@@ -37,7 +41,8 @@ const ViewAnswers = () => {
     };
 
     getproblems();
-  }, []);
+  }
+  }, [user]);
 
   const handler= async()=>{
    // console.log(answer)

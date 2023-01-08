@@ -83,7 +83,7 @@ const updateCourseRating = async (req, res) => {
   const updatedArray = course.review;
   console.log(course.review);
   const searchedRating = updatedArray.find(
-    (element) => element.traineeId == id
+    (element) => element.userid == userid
   );
   if (searchedRating == null) {
     updatedArray.push({

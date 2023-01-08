@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
+
 const RateCourse = () => {
   const [rating, setRating] = useState("");
   const [title, setTitle] = useState("");
   const [review, setReview] = useState("");
   const [confirmation, setConfirmation] = useState("");
   const [courses, setCourses] = useState("");
+  const { user } = useAuthContext();
   const params = new URLSearchParams(window.location.search);
   const userId = params.get("userId");
   const courseId = params.get("courseId");
@@ -17,6 +20,7 @@ const RateCourse = () => {
         }),
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`
         },
       });
       const json = await response.json();
@@ -38,7 +42,8 @@ const RateCourse = () => {
         review: review,
       }),
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
+        ,Authorization: `Bearer ${user.token}`
       },
     });
     console.log(response);
