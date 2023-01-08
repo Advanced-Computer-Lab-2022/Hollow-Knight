@@ -20,7 +20,9 @@ const {
   reportproblem,
   getexam,
   viewmyreports,
-  addcomment
+  addcomment,
+  updateTraineeInfo,
+  isRegistered
 } = require("../controllers/traineescontroller");
 const  requireAuth  = require("../middleware/requireAuth");
 router.use(requireAuth);
@@ -46,6 +48,9 @@ router.patch("/getexam", getexam);
 
 router.post("/addcomment", addcomment);
 router.get("/viewmyreports", viewmyreports);
+router.post("/updateinfo", updateTraineeInfo);
+router.patch("/isregistered", isRegistered);
+
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2022-08-01",
 });
@@ -56,16 +61,16 @@ router.get("/config", (req, res) => {
   });
 });
 router.post("/create-payment-intent", async (req, res) => {
+  console.log(req.body)
   try {
-    console.log("backend")
     const paymentIntent = await stripe.paymentIntents.create({
-      currency: "US",
-      amount: req.body.price,
+      currency: "USD",
+      amount: 2000,
       automatic_payment_methods: { enabled: true },
     });
-
+    console.log(paymentIntent.client_secret);
     // Send publishable key and PaymentIntent details to client
-    res.send({
+    return res.send({
       clientSecret: paymentIntent.client_secret,
     });
   } catch (e) {

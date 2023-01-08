@@ -59,6 +59,11 @@ import MenuController from "./components/MenuController";
 import Exam from "./pages/Exam";
 
 import ViewMyReports from "./pages/ViewMyReports";
+import DownloadCertificate from "./components/DownloadCertificate";
+import TraineeProfile from "./components/TraineeProfile";
+import GetType from "./components/GetType";
+import PreviewVideo from "./pages/PreviewVideo";
+import ViewSub from "./pages/ViewSub";
 function App() {
 const  {user} = useAuthContext();
   return (
@@ -180,7 +185,7 @@ const  {user} = useAuthContext();
             <Route path="/adminapps" element={<AdminApps />} />
 
             <Route
-              path="/traineesearchcourse/:id"
+              path="/traineesearchcourse"
               element={<ViewDetailsTrainee />}
             />
             <Route path="/creditcardinfo" element={<CreditCardInfo />} />
@@ -231,6 +236,13 @@ const  {user} = useAuthContext();
             <Route path="/gotoexam" element={<Exam />} />
 
             <Route path="/viewmyreports" element={<ViewMyReports />} />
+            <Route path="/downloadcertificate" element={<DownloadCertificate/>}/>
+            <Route path="/traineeprofile" element={<TraineeProfile/>}/>
+            <Route path="/gettype" element={<GetType/>}/>
+            
+            <Route path="/addpreviewvideo" element={<PreviewVideo />} />
+            <Route path="/ViewSub"element={<ViewSub/>}/>
+
 
           </Routes>
         

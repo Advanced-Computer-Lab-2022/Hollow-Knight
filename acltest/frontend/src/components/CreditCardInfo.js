@@ -4,38 +4,59 @@ import CheckoutForm from "./CheckoutForm";
 import { Elements } from "@stripe/react-stripe-js";
 import { useAuthContext } from "../hooks/useAuthContext";
 const CreditCardInfo = () => {
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(0);
   const params = new URLSearchParams(window.location.search);
   const courseId = params.get("courseId");
   const [stripePromise, setStripePromise] = useState(null);
   const [clientSecret, setClientSecret] = useState(null);
-  const { user } = useAuthContext();
+  const { user } =  useAuthContext();
   useEffect(() => {
-    fetch(`/api/courses/coursedetails/` + courseId).then(async (r) => {
+    const fetchfromstripe= async() =>{
+    fetch(`/api/courses/coursedetails/` + courseId,{
+      method: "GET",
+      headers: {
+      "Content-Type": "application/json",
+      'Authorization': `Bearer ${user.token}`
+      },
+    }).then(async (r) => {
       const courses = await r.json();
-      setPrice(courses.price);
+      setPrice(courses.price); 
     });
-  }, []);
-  useEffect(() => {
-    fetch("/api/trainees/config").then(async (r) => {
-      const { publishableKey } = await r.json();
+    fetch("/api/trainees/config",{
+      method: "GET",
+      headers: {
+      "Content-Type": "application/json",
+      'Authorization': `Bearer ${user.token}`
+      },
+    }).then(async (s) => {
+      const { publishableKey } = await s.json();
       setStripePromise(loadStripe(publishableKey));
       });
-  }, []);
-  useEffect(() => {
-    fetch("/api/trainees/create-payment-intent", {
+
+  
+    fetch(`/api/trainees/create-payment-intent`, {
       method: "POST",
       body: JSON.stringify({}),
       headers: {
         "Content-Type": "application/json",
-      },}).then(async (r) => {
-      console.log(r)
-      var { clientSecret } = await r.json();
+        'Authorization': `Bearer ${user.token}`
+        },
+    
+    }).then(async (t) => {
+      var { clientSecret } = await t.json();
       setClientSecret(clientSecret);
       console.log(clientSecret) 
 
-    });  
-  }, []);
+    }); 
+
+  } 
+  fetchfromstripe();
+},[])
+
+ 
+
+
+ 
 
 
   return (

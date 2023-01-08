@@ -22,7 +22,7 @@ const Wallet = () => {
     };
 
     getwallet();
-  });
+  },[user]);
 
   return (
     <div className="wallet">

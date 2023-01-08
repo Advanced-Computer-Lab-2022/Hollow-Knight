@@ -4,7 +4,7 @@ const TraineeCoursesDetails = ({ Courses }) => {
   const params = new URLSearchParams(window.location.search);
             const userId = params.get('userId');
 
-  const URL = `/traineesearchcourse/`+Courses._id+`?userId=${userId}`;
+  const URL = `/traineesearchcourse?courseId=`+Courses._id+`&&userId=${userId}`;
 //console.log(URL)
 
   return (

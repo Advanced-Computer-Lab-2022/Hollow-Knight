@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 const TraineeHomePage = () => {
   const params = new URLSearchParams(window.location.search);
   const userId = params.get("userId");
@@ -7,6 +8,18 @@ const TraineeHomePage = () => {
   const urlviewmycourses = `/getmycourses?userId=${userId}`;
   const urlallcourses = `/viewallcoursesfortrainee`;
   const urlWallet = `/getwallet?userId=${userId}`;
+    
+  const [value, setValue] = useState(10);
+
+
+
+  
+  const handleChange = (event,newValue) => {
+    console.log(newValue,"wdewde")
+   
+      //setValue(newValue);
+
+  } 
 
   return (
     <div className="Apps">
@@ -22,6 +35,7 @@ const TraineeHomePage = () => {
       <br></br>
       <Link to={urlallcourses}> View All Available Courses </Link>
     </div>
+    
   );
 };
 

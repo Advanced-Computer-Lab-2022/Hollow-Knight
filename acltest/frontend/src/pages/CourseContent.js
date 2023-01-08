@@ -3,18 +3,25 @@ import YoutubeEmbed from "../components/YoutubeEmbed";
 import ViewVideo from "../components/ViewVideo";
 import { Typography,Button } from "@mui/material";
 import ViewSubtitles from "../components/ViewSubtitles";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const CourseContent = () => {
   const [subtitles, setSubtitles] = useState(null);
   const [maxProgress, setMaxProgress] = useState(null);
   const params = new URLSearchParams(window.location.search);
   const courseid = params.get("courseId");
- 
+  const { user } = useAuthContext();
 
     const getsubtitles = async () => {
+      
   
       const response = await fetch(
-        `/api/trainees/getsubtitles?courseid=${courseid}`
+        `/api/trainees/getsubtitles?courseid=${courseid}`,{
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
       );
       const json = await response.json();
       //console.log(json);

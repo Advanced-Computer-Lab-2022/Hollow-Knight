@@ -20,8 +20,8 @@ const InstructorBar = () => {
    
     const urlallcourses=`/viewallcourses`
     const urlviewmycourses=`/viewmycourses`
-    const urlviewrevenue=`/getpay?userId`
-
+    const urlviewrevenue=`/getpay`
+    const urlallreports='/viewmyreports'
 
 
    
@@ -57,14 +57,15 @@ const InstructorBar = () => {
                 aria-label="scrollable force tabs example"
             >
                 
-                 <Tab value={0} label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >Profile</Typography>} href={apps} />
-                <Tab  value={1}  label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >My Courses</Typography>} href={urlviewmycourses} />
-                <Tab value={2}  label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >Course Reviews</Typography>}  href={urlcoursereview}  />
+                 <Tab  label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >Profile</Typography>} href={apps} />
+                <Tab   label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >My Courses</Typography>} href={urlviewmycourses} />
+                <Tab  label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >Course Reviews</Typography>}  href={urlcoursereview}  />
                 <Tab  label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >My Reviews</Typography>} href={urlmyreview}   />
                 <Tab  label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >Add New Course</Typography>} href={urladdcourse}/>
                 <Tab  label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >Revenues</Typography>} href={urlviewrevenue}/>
                 <Tab  label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >Search</Typography>} href={urlsearchcourse}/>
                 <Tab  label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >View all courses</Typography>} href={urlallcourses} />
+                <Tab  label={<Typography sx={{fontFamily:"Sans-serif	",color:"Indigo",fontSize:14}} >My Reports</Typography>} href={urlallreports} />
             </Tabs>
 
 

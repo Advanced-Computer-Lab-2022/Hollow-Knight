@@ -24,6 +24,15 @@ const {
   getuserfrominsid,
   getinstructorfromuserid,
   addExam,
+  searchCourse,
+  getuserfromuserid,
+  uploadpreviewvideo,
+  publishcourse,
+  closecourse,
+  DeleteSub,
+  getsub,removexercise,
+  removevideo
+
 } = require("../controllers/instructorscontroller");
 
         
@@ -35,7 +44,7 @@ router.use(requireAuth);
 router.post("/", createInstructor);
 router.patch("/", updateInstructorCountry);
 
-router.post("/search2", searchCourse2);
+router.post("/search", searchCourse);
 
 router.post("/addcourse", CreateCourse);
 router.patch("/addexercise", addExercise);
@@ -56,6 +65,13 @@ router.get('/getname', getuserfrominsid)
 router.post('/uploadvideo', uploadvideo)
 router.get('/getinst', getinstructorfromuserid)
 router.get('/getpay', getmonthlypay)
-
+router.get('/getuser', getuserfromuserid)
+router.post('/addpreviewvideo', uploadpreviewvideo)
+router.patch("/publishcourse", publishcourse);
+router.patch("/closecourse", closecourse);
+router.delete("/deletesub/:id", DeleteSub);
+router.get("/getsubtitle", getsub);
+router.patch("/removex",removexercise)
+router.patch("/removevideo",removevideo)
 
 module.exports = router;

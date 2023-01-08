@@ -19,10 +19,7 @@ console.log("here1")
 
 
 function getUserIdFromToken(token) {
-  console.log("here2")
-  const decoded = jwt.verify(token, process.env.SECRET);
-  console.log("here3")
-
+  const decoded = jwt.verify(token, process.env.SECRET);  
   console.log(decoded);
   return decoded._id;
 }
@@ -38,6 +35,105 @@ const GetCourseById = async (req, res) => {
   }
 };
 ///////////////
+
+const publishcourse=async(req,res)=>{
+
+const courseid =req.body.courseId;
+console.log(courseid)
+try{
+  const course = await Course.findByIdAndUpdate(courseid,{published :"true"})
+  return res.status(200).json(course);
+}catch(error)
+{
+  return res.status(400).json("couldn't publish Course");
+}
+
+}
+
+const closecourse=async(req,res)=>{
+
+  const courseid =req.body.courseId;
+  console.log(courseid)
+  try{
+    const course = await Course.findByIdAndUpdate(courseid,{published :"closed"})
+    return res.status(200).json(course);
+  }catch(error)
+  {
+    return res.status(400).json("couldn't close Course");
+  }
+  
+  }
+  const removexercise=async(req,res)=>{
+  
+    const subtitleId = req.query.subtitleId;
+     const exerciseid =req.body.exerciseid;
+     console.log("hi",subtitleId,JSON.stringify(exerciseid))
+     var subtitle
+     try{
+      subtitle= await Subtitle.findById(subtitleId)
+     }
+     catch(error)
+     {
+      return res.status(400).json({error:"Could n't get subtitle"})
+     }
+     var exercises = subtitle.exercises
+     var newex=[]
+     console.log(exercises)
+     for(var i =0;i<exercises.length;i++){
+     let current= exercises.pop()
+     console.log(JSON.stringify(current._id),JSON.stringify(exerciseid))
+      if(JSON.stringify(current._id)!=JSON.stringify(exerciseid)){
+        console.log("enter")
+        newex.push(current)
+      }
+      
+     }
+     console.log(newex)
+     try{
+      subtitle= await Subtitle.findByIdAndUpdate(subtitleId,{exercises:newex})
+     }
+     catch(error){
+      return res.status(400).json({error:"Delete Exercise"})
+     }
+     
+
+  }
+
+  const removevideo=async(req,res)=>{
+  
+    const subtitleId = req.query.subtitleId;
+     const videoid =req.body.videoid;
+    // console.log("hi",subtitleId,JSON.stringify(exerciseid))
+     var subtitle
+     try{
+      subtitle= await Subtitle.findById(subtitleId)
+     }
+     catch(error)
+     {
+      return res.status(400).json({error:"Could n't get subtitle"})
+     }
+     var videos = subtitle.video
+     var newvideo=[]
+     console.log(videos)
+     for(var i =0;i<videos.length;i++){
+     let current= videos.pop()
+     console.log(JSON.stringify(current._id),JSON.stringify(videoid))
+      if(JSON.stringify(current._id)!=JSON.stringify(videoid)){
+        console.log("enter")
+        newvideo.push(current)
+      }
+      
+     }
+     console.log(newvideo)
+     try{
+      subtitle= await Subtitle.findByIdAndUpdate(subtitleId,{video:newvideo})
+     }
+     catch(error){
+      return res.status(400).json({error:"Delete Video"})
+     }
+     
+
+  }
 const UpdateContract = async (req, res) => {
   var token =getTokenFromHeader(req);
   const userid = getUserIdFromToken(token)
@@ -159,11 +255,27 @@ const searchCourse2 = async (req, res) => {
   }
 };
 
+
+const DeleteSub = async (req, res) => {
+  const { id } = req.params;
+
+
+ 
+  const sub = await Subtitle.findByIdAndDelete( id);
+  if (!sub) {
+    return res.status(400).json({ error: "You Don't have such a Course" });
+  }
+  res.status(200).json(sub);
+};
+
 const CreateCourse = async (req, res) => {
   var token =getTokenFromHeader(req);
   const userid = getUserIdFromToken(token)
 
   const instructor = await Instructor.findOne({ userid: userid });
+  const user = await User.findById(userid)
+  var name =user.first_name+""+user.last_name
+  console.log(name)
   console.log(instructor._id);
   if (
     instructor.contract.Status == "Pending" ||
@@ -183,6 +295,7 @@ const CreateCourse = async (req, res) => {
       price,
       subject,
       author,
+      name,
       summary,
       total_hours,
     });
@@ -194,13 +307,12 @@ const CreateCourse = async (req, res) => {
 
 const DeleteCourse = async (req, res) => {
   const { id } = req.params;
-  var token =getTokenFromHeader(req);
-  const userid = getUserIdFromToken(token)
+
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "Course Doesn't Exist" });
   }
-  const course = await Course.findOneAndDelete({ _id: id, author: userId });
+  const course = await Course.findByIdAndDelete( id);
   if (!course) {
     return res.status(400).json({ error: "You Don't have such a Course" });
   }
@@ -209,30 +321,26 @@ const DeleteCourse = async (req, res) => {
 
 const UpdateCourse = async (req, res) => {
   const { id } = req.params;
-  var token =getTokenFromHeader(req);
-  const userid = getUserIdFromToken(token)
+
   const { title, price, subject, summary, total_hours } = req.body;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "Course Doesn't Exist" });
   }
 
   if (req.body.title) {
-    const course = await Course.findOneAndUpdate(
-      { _id: id, author: userId },
+    const course = await Course.findByIdAndUpdate(id,
       { title: title }
     );
   }
 
   if (req.body.price) {
-    const course = await Course.findOneAndUpdate(
-      { _id: id, author: userId },
+    const course = await Course.findByIdAndUpdate( id,
       { price: price }
     );
   }
 
   if (req.body.subject) {
-    const course = await Course.findOneAndUpdate(
-      { _id: id, author: userId },
+    const course = await Course.findByIdAndUpdate(id,
       { subject: subject }
     );
   }
@@ -240,16 +348,14 @@ const UpdateCourse = async (req, res) => {
 
 
   if (req.body.summary) {
-    const course = await Course.findOneAndUpdate(
-      { _id: id, author: userId },
+    const course = await Course.findByIdAndUpdate(id,
       { summary: summary }
     );
   }
   
   
   if (req.body.total_hours) {
-    const course = await Course.findOneAndUpdate(
-      { _id: id, author: userId },
+    const course = await Course.findByIdAndUpdate( id,
       { total_hours: total_hours }
     );
   }
@@ -287,9 +393,9 @@ const ViewReviews = async (req, res) => {
 const getinstructorfromuserid = async (req, res) => {
   
   var token = await getTokenFromHeader(req);
-console.log(token,"here4")
+
   const userid =  getUserIdFromToken(token)
-console.log("here")
+
   try {
     const instructor = await Instructor.findOne({ userid: userid });
     return res.status(200).json(instructor);
@@ -480,6 +586,23 @@ const viewmysubtitles = async (req, res) => {
   return;
 };
 
+
+const getsub = async (req, res) => {
+
+
+  const subtitleId = req.query.subtitleId;
+  console.log(subtitleId)
+  try {
+    const subtitles = await Subtitles.findById(subtitleId);
+    res.status(200).json(subtitles);
+   
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+
+  return;
+};
+
 const applydiscount = async (req, res) => {
   var { percent, start_date, end_date  } = req.body;
   const instruct = "Instructor";
@@ -521,6 +644,22 @@ const CreateSchedule = async (req, res) => {
   }
 };
 
+const uploadpreviewvideo = async (req, res) => {
+  const link = req.body.link;
+  const courseid = req.query.courseId;
+  try {
+    const myArray = link.split("=");
+    console.log(myArray[1]);
+    console.log("hilli");
+    const updating = await Course.findByIdAndUpdate(courseid
+ ,{ video: myArray[1] }  );
+    
+    res.status(200).json(updating);
+    console.log("updated Course");
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
+};
 const uploadvideo = async (req, res) => {
   const link = req.body.link;
   const desc = req.body.desc;
@@ -580,6 +719,25 @@ const addExam = async (req, res) => {
     return res.status(400).json({error:"Could n't add exam"})
   }
 };
+
+const getuserfromuserid = async (req, res) => {
+  var token =getTokenFromHeader(req);
+  const userid = getUserIdFromToken(token)
+
+
+  var user ;
+  try{
+
+    user= await User.findById(userid)
+    console.log(user)
+    return res.status(200).json(user)
+  }catch(error)
+  {
+     return res.status(404).json({error:"Could n't get user  "})
+  }
+
+
+}
 
 const getuserfrominsid = async (req, res) => {
   const aid = req.query.authorid;
@@ -663,4 +821,13 @@ module.exports = {
   getuserfrominsid,
   getinstructorfromuserid,
   addExam,
+  getuserfromuserid,
+  uploadpreviewvideo,
+  publishcourse,
+  closecourse,
+  DeleteSub,
+  getsub,
+  removexercise,
+  removevideo
+  
 };

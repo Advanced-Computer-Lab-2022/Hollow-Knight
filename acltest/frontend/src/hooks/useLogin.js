@@ -1,11 +1,14 @@
 
 import { useState } from "react"
-import { useAuthContext } from "./useAuthContext";
+import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../hooks/useAuthContext";
+import GetType from "../components/GetType";
 export const useLogin = () => {
-    
+    const navigate = useNavigate();
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const { dispatch } = useAuthContext();
+    const[user,setUser]=useState(null);
     const login = async (email, password) => {
     setLoading(true);
     setError(null);
@@ -26,8 +29,11 @@ export const useLogin = () => {
         localStorage.setItem("user", JSON.stringify(json));//store the token
         dispatch({type: "LOGIN", payload: json});
         setLoading(false);
+        setUser(json);
+        navigate("/gettype")
         
     }
+
 
     }
     return { login, error, loading };

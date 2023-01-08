@@ -175,6 +175,7 @@ const getTraineeCourses = async (req, res) => {
 };
 const addCourseToTrainee = async (req, res) => {
   const userid = getUserIdFromToken(getTokenFromHeader(req));
+  console.log( "CourseID"+req.body.courseId);
   try {
     const trainee = await Trainee.findOne({ userid: userid });
     var date = new Date();
@@ -210,7 +211,7 @@ const addCourseToTrainee = async (req, res) => {
     trainee.courseProgression.push({ courseId: req.body.courseId });
     
     const updatedTrainee = await Trainee.findOneAndUpdate(
-      { userid: req.body.userId },
+      { userid: userid },
       {
         registeredcourses: trainee.registeredcourses,
         courseProgression: trainee.courseProgression,
@@ -273,8 +274,7 @@ const FindCourses = async (req, res) => {
 
             //const url = `http://localhost:5000/api/users/changepassword/` + token;
             const url2 =
-              `http://localhost:3000/coursecertificate?courseId=${obj.courseId}&&userId=${user._id}&&token=` +
-              getTokenFromHeader(req);
+              `http://localhost:3000//downloadcertificate?course=${obj.title}`
 
             nodeoutlook.sendEmail({
               auth: {
@@ -401,7 +401,7 @@ const giveAllVideosToTrainee = async (req, res) => {
     var videoArray = [];
     for (const subtitle of subtitles) {
       for (const video of subtitle.video) {
-        console.log(video._id);
+        //console.log(video._id);
         //videoArray.push({video._id});
         for (const obj of trainee.courseProgression) {
           if (obj.courseId == req.body.courseId)
@@ -415,6 +415,7 @@ const giveAllVideosToTrainee = async (req, res) => {
       { userid: userid },
       { courseProgression: trainee.courseProgression }
     );
+    console.log(updatedTrainee)
     return res.status(200).json(updatedTrainee);
   } catch (error) {}
 };
@@ -468,9 +469,9 @@ const getwallet = async (req, res) => {
 
 const registercorporate = async (req, res) => {
   const userId = getUserIdFromToken(getTokenFromHeader(req));
-  const { courses } = req.body;
-  const courseid = courses._id;
-  const coursetitle = courses.title;
+  const courseid = req.body.courseId;
+  const course = await Course.findOne({_id:courseid})
+  const coursetitle = course.title;
   var trainee;
   var user;
 
@@ -485,11 +486,7 @@ const registercorporate = async (req, res) => {
 
   const traineeid = trainee._id;
   const traineemail = user.email;
-  //var instructorid =courses.author
-  //var payment = courses.price
-  //var date = new Date()
 
-  //console.log(instructorid,payment,date)
   try {
     const request = await CourseRequests.create({
       courseid,
@@ -555,6 +552,64 @@ const addcomment = async (req, res) => {
   const myreps = await Reports.findOneAndUpdate({_id : req.query.reportId}, {comments: req.body.comment})
   return res.status(200).json(myreps);
 };
+const updateTraineeInfo= async (req, res) => {
+  //  const {username, password, biography,mail} = req.body
+  const instruct = "Instructor";
+  var token =getTokenFromHeader(req);
+  const userid = getUserIdFromToken(token)
+ 
+try{
+    if (req.body.email) {
+      const updatemail = await User.findByIdAndUpdate(userid,
+        { email: req.body.email }
+      );
+
+    }
+    if (req.body.first_name) {
+      const updatemail = await User.findByIdAndUpdate(userid,
+        { first_name: req.body.first_name }
+      );
+
+    }
+    if (req.body.last_name) {
+      const updatemail = await User.findByIdAndUpdate(userid,
+        { last_name: req.body.last_name }
+      );
+
+    }
+    if (req.body.country) {
+      const updatemail = await User.findByIdAndUpdate(userid,
+        { country: req.body.country, countryAbb: req.body.countryAbb }
+      );
+
+    }
+
+    res.status(200).json("success");
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+
+
+};
+const isRegistered = async(req,res)=>{
+  console.log(false)
+try{
+  const courseId = req.body.courseId;
+  var token =getTokenFromHeader(req);
+  const userid = getUserIdFromToken(token)
+  const trainee = await Trainee.findOne({userid:userid});
+  console.log(false)
+  for(const obj of trainee.registeredcourses){
+    console.log(JSON.stringify(obj) === JSON.stringify(courseId))
+    if(JSON.stringify(obj) === JSON.stringify(courseId))
+      return res.status(200).json(true);
+  }
+  return res.status(200).json(false);
+}catch(error){
+  return res.status(400).json(error);
+}
+
+}
 
 module.exports = {
   addcomment,
@@ -576,4 +631,6 @@ module.exports = {
   requestrefund,
  getexam,
   viewmyreports,
+  updateTraineeInfo,
+  isRegistered
 };
