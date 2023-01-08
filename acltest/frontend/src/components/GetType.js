@@ -31,7 +31,7 @@ const GetType=()=>{
     console.log(type+"sdf")
     if(type == "trainee") {navigate('/traineeprofile');}
     if(type == "corporate trainee") {navigate('/traineeprofile');}
-    if(type == "instructor") {navigate('/traineeprofile');}
+    if(type == "instructor") {navigate('/apps');}
     if(type == "admin") {navigate('/create');}
     
 
