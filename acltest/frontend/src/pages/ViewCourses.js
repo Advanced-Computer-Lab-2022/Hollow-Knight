@@ -68,6 +68,8 @@ const ViewCourses = () => {
   const [pricef,setPricef]=useState("")
   const [searchb, setSearchb] = useState('')
   const { user } = useAuthContext();
+  const URL = `/traineesearchcourse?courseId=`+courses._id;
+
   useEffect(() => {
     const fetchCourses = async () => {
       const response = await fetch("/api/courses",{
@@ -216,7 +218,7 @@ const ViewCourses = () => {
       <Card 
       
       sx={{marginBottom:2,marginTop:4 ,borderRadius:3, width:550,height:660}}>
-      <Container  sx={{marginTop:5,marginBottom:5}}>
+      <Container  sx={{marginTop:5,marginBottom:3}}>
       <Typography
       align="center"  
       sx={{fontSize:30,marginBottom:2}}>
@@ -256,6 +258,8 @@ const ViewCourses = () => {
         <Embed2 embedId={course.video} />
         }
         </Container>
+
+        <Button variant="contained" sx={{marginLeft:40,marginBottom:4}} onClick={() => window.location.href= `/traineesearchcourse?courseId=`+course._id} >View Details</Button>
         </Card>
         
      
