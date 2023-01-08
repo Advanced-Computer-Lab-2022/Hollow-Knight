@@ -21,7 +21,6 @@ const Createuser = () => {
     
     return(
         <div className="CreateUser">
-        <AdminNav state={0}/>
         <div>
             <h2>Create a user</h2>
         </div>

@@ -20,7 +20,6 @@ const RequestsView = () => {
 
     return(
         <div className="ViewRequests">
-        <AdminNav state={1}/>
         <div>
             <h2>Requests And Refunds</h2>
         </div>
