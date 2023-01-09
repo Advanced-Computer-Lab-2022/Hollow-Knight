@@ -170,7 +170,7 @@ const ViewCourses = () => {
 
   </form>
   <Box sx={{  }}>
-      <FormControl sx={{width:300,marginLeft:23}} >
+      <FormControl sx={{width:300,marginLeft:21}} >
         <InputLabel id="demo-simple-select-label">subject</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -199,14 +199,14 @@ const ViewCourses = () => {
           <MenuItem value="1000-3000">1000- 3000</MenuItem>
           <MenuItem onClick={(e)=>(setOther(true))} value={othervalue}>{othervalue}</MenuItem>
         </Select>
-
+        <br></br>
         {other &&
         <TextField
         type="text"
         onChange={(e) =>{ setOthervalue(e.target.value) ; setPricef(e.target.value)}}
         />}
       </FormControl>
-  <Button sx={{marginLeft:17,fontSize:26}} variant="contained"
+  <Button sx={{marginLeft:19,fontSize:26}} variant="contained"
         onClick={handler}
         >Filter</Button>
     </Box>
