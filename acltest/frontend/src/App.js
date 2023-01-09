@@ -51,6 +51,7 @@ import Revenue from "./pages/Revenue";
 import Report from "./pages/Report";
 import ReportsView from './pages/ReportsView';
 import AdminDiscounts from "./pages/AdminDiscounts";
+import MostPopular from "./pages/mostpopular";
 import { useAuthContext } from './hooks/useAuthContext'
 import { Navigate } from "react-router-dom";
 
@@ -74,7 +75,7 @@ const  {user} = useAuthContext();
         <MenuController/>
         <div className="pages">
           <Routes>
-            
+          <Route path="/mostpop" element={<MostPopular />} />
             <Route path="/InstructorHome" element={<GoInstructor />} />
             <Route path="/apps" element={<Apps />} />
             <Route path="/ViewReviews" element={<ViewReview />} />

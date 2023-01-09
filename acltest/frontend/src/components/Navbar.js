@@ -26,6 +26,10 @@ const Navbar = () => {
 
     navigate("/signup");
   }
+  const handleMost = async()=>{
+    navigate("/mostpop")
+  }
+
   return (
     <header>
       <div className="container">
@@ -36,14 +40,17 @@ const Navbar = () => {
           {user &&(<div>
            <span>{user.email}</span>{" "}
             <Button variant="outlined" onClick={handleClick}>Log out </Button>{"      "}
-            <Button variant="outlined" onClick={handleViewCourses}>View All Courses </Button>
+            
+            <Button variant="outlined" onClick={handleMost}>Most Popular Courses </Button>
           </div>
           )}
           {!user && (
           <div>
             <Button variant="outlined" onClick={handleLogin}>LogIn </Button>{"      "}
             <Button variant="outlined" onClick={handleSign}>Sign Up </Button>{"      "}
-            <Button variant="outlined" onClick={handleViewCourses}>View All Courses </Button>
+            <Button variant="outlined" onClick={handleViewCourses}>View All Courses </Button>{"      "}
+            <Button variant="outlined" onClick={handleMost}>Most Popular Courses </Button>
+            
           </div>
           )}
           
