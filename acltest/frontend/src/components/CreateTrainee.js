@@ -110,6 +110,7 @@ You Must Enter a password
       <br></br>
 
       <button>Add Trainee</button>
+      {error && <div className="error">{error}</div>}
     </form>
 
     
