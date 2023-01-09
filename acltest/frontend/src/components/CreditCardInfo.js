@@ -11,6 +11,7 @@ const CreditCardInfo = () => {
   const [clientSecret, setClientSecret] = useState(null);
   const { user } =  useAuthContext();
   useEffect(() => {
+    if(user){
     const fetchfromstripe= async() =>{
     fetch(`/api/courses/coursedetails/` + courseId,{
       method: "GET",
@@ -31,6 +32,7 @@ const CreditCardInfo = () => {
     }).then(async (s) => {
       const { publishableKey } = await s.json();
       setStripePromise(loadStripe(publishableKey));
+      console.log(publishableKey)
       });
 
   
@@ -51,7 +53,8 @@ const CreditCardInfo = () => {
 
   } 
   fetchfromstripe();
-},[])
+}
+},[user])
 
  
 
