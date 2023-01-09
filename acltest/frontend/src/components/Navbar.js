@@ -42,7 +42,8 @@ const Navbar = () => {
           {!user && (
           <div>
             <Button variant="outlined" onClick={handleLogin}>LogIn </Button>{"      "}
-            <Button variant="outlined" onClick={handleSign}>Sign Up </Button>
+            <Button variant="outlined" onClick={handleSign}>Sign Up </Button>{"      "}
+            <Button variant="outlined" onClick={handleViewCourses}>View All Courses </Button>
           </div>
           )}
           

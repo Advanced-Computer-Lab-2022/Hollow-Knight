@@ -7,6 +7,14 @@ import  Button from  '@mui/material/Button';
 import { useParams } from "react-router-dom";
 import GetAllDetails from '../components/GetAllDetails'
 import { useNavigate } from "react-router-dom";
+
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import IconButton from '@mui/material/IconButton';
+import Collapse from '@mui/material/Collapse';
+import CloseIcon from '@mui/icons-material/Close';
+import { Box, Container } from "@mui/system";
+
 const { useState } = require("react");
 const ViewDetailsTrainee = () => {
   const { user } = useAuthContext();
@@ -14,6 +22,8 @@ const ViewDetailsTrainee = () => {
   const param = useParams();
   const [courses, setCourses] = useState("")
   const [registered, setRegistered] = useState(false)
+  const [success, setSuccess] = useState(false)
+
 
   const params = new URLSearchParams(window.location.search);
             const courseId = params.get('courseId');
@@ -40,6 +50,7 @@ const ViewDetailsTrainee = () => {
           //save the user to local storage
           console.log(json)
           setType(json)
+          
       }
     }
   }
@@ -83,6 +94,7 @@ const ViewDetailsTrainee = () => {
     handler();
     gettype();
     isRegistered();
+  
 },[param])
 const register = async()=>
 {
@@ -96,7 +108,7 @@ const register = async()=>
   })
 const res = await response.json()
 if (response.ok) {
-
+  setSuccess(true)
 console.log('Request succesful')
 }
 }
@@ -109,6 +121,37 @@ console.log('Request succesful')
                 
                 sx={{ width: 1400,height:670 }}>
           <GetAllDetails courses={courses}/>
+
+          
+          <Box
+
+sx={{ width: 590,marginLeft:50 }}>
+
+
+<Collapse in={success}>
+  <Alert
+    severity="success"
+    action={
+      <IconButton
+        aria-label="close"
+        color="inherit"
+        size="large"
+        onClick={() => {
+          setSuccess(false);
+        }}
+      >
+
+        <CloseIcon fontSize="inherit" />
+      </IconButton>
+    }
+    sx={{ mb: 2 }}
+  >
+    <AlertTitle fontSize={20}>Success</AlertTitle>
+    <strong > Subtitle has been added to course   </strong>
+  </Alert>
+</Collapse>
+</Box>
+
        
           {type=="trainee"&&!registered&&<Button
           variant='contained'

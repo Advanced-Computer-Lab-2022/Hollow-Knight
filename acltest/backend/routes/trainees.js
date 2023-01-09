@@ -56,6 +56,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
 });
 
 router.get("/config", (req, res) => {
+  console.log("hreeee")
   res.send({
     publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
   });
