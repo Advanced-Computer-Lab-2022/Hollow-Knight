@@ -1,8 +1,9 @@
+import { Button } from "@mui/material";
 import { useState } from "react";
 
 const Forgotpassword = () => {
     const [email, setEmail] = useState('')
-    
+
     const handleClick = async () => {
         const Email = {email}
     
@@ -17,12 +18,15 @@ const Forgotpassword = () => {
       const json = await response.json() 
       if(response.ok){
         console.log(email,json);
+
           }
+
 
     }
     
   
     return (
+      <>
       <form className="Forgot pass" onSubmit={handleClick} >
             <h2>forgotPassword</h2>
            
@@ -34,8 +38,9 @@ const Forgotpassword = () => {
             />
              
 
-            <button>FORGET PASS</button>
+            <Button variant="contained">FORGET PASS</Button>
         </form>
+        </>
     )
   }
   

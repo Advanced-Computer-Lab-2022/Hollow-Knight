@@ -1,10 +1,12 @@
 import { useState } from "react"
 import { useAuthContext } from "../hooks/useAuthContext";
+import Button from '@mui/material/Button';
 const Resetpass = () => {
    
     const [email, setEmail] = useState('')
     const [newPassword, setNewPassword] = useState('')
     const [password, setPassword] = useState('')
+    const[error,setError] = useState(null);
      const { user } = useAuthContext();
     const passwordchanger = async (e) => {
         e.preventDefault()
@@ -23,6 +25,10 @@ const Resetpass = () => {
         const man = await response.json()
         if (response.ok) {
         console.log('pass changed', man)
+        setError("Password Changed")
+        }
+        if(!response.ok){
+            setError(man.error)
         }
 
     }
@@ -46,7 +52,8 @@ const Resetpass = () => {
             value={newPassword}
             />
 
-            <button>submit</button>
+            <Button variant="contained">submit</Button>
+            {error && <div className="error">{error}</div>}
         </form>
     )
 

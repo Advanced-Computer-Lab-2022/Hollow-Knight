@@ -52,7 +52,7 @@ const TraineeProfile = () => {
           //e.preventDefault()
           const response = await fetch(`/api/trainees/updateinfo`,
             {
-              method: 'POST',
+              method: 'PATCH',
               body:JSON.stringify({}),
               headers: {
                 'Content-Type': 'application/json',
