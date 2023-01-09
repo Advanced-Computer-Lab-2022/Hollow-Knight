@@ -1,24 +1,71 @@
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
-const userAgreement  = () => {
+import { Container, Paper, Typography } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import { List, ListItem, ListItemText } from "@mui/material";
+const useStyles = makeStyles(() => ({
+  root: {
+    padding: '2px 4px',
+    
+  },
+  //make the paper responsive
+  
+  title: {
+    fontFamily: 'Raleway, sans-serif',
+    color: '#0074D9',
+  },
+  text: {
+    fontFamily: 'Open Sans, sans-serif',
+  },
+  
+}));
+
+const UserAgreement  = () => {
+   const classes = useStyles();
     //userAgreement for payment and refund policy
    
   return (
-    <div className="userAgreement">
-        <h1>Payment and Refund Policy</h1>
-        <p>Payment for the course is due at the time of registration. If you are paying by check, please make it payable to “The University of Texas at Austin” and mail it to:</p>
-        <p>UT Austin Continuing Education</p>
-        <p>PO Box 8029</p>
-        <p>Austin, TX 78713-8029</p>
-
-
-        <p>Refunds will be issued for cancellations received in writing at least 10 business days prior to the start of the course. A $25 processing fee will be deducted from all refunds. No refunds will be issued for cancellations received less than 10 business days prior to the start of the course. If you are unable to attend a course, you may send a substitute in your place. If you have any questions, please contact us at 512-471-3515 or email us at
-        <a href="mailto:mostaf7583@gmail.com">mostaf7583</a>
-        </p>
-        {/* if accept redirct to change password page  */}
-    </div>
-
+    <Paper className={classes.root}>
+    <Typography className={classes.title} variant="h5" component="h3">
+      User Agreement
+    </Typography>
+    <Typography className={classes.text} component="p">
+      By using our service, you agree to the following terms and conditions:
+    </Typography>
+    <Typography className={classes.text} component="p">
+      Payment: All payments for our service must be made in advance. We accept major credit cards and PayPal.
+    </Typography>
+    <Typography className={classes.text} component="p">
+      Refund policy:
+    </Typography>
+    <List>
+      <ListItem>
+        <ListItemText
+          className={classes.text}
+          primary="If you are not satisfied with our service, you may request a full refund within 14 days of your purchase."
+        />
+      </ListItem>
+      <ListItem>
+        <ListItemText
+          className={classes.text}
+          primary="After 14 days, no refunds will be given."
+        />
+      </ListItem>
+    </List>
+    <img
+      className={classes.image}
+      src="	https://smallimg.pngkey.com/png/small/50-509635_cu…guarantee-100-customer-satisfaction-guarantee.png
+"
+      alt="Satisfaction guarantee"
+    />
+    <Typography className={classes.text} component="p">
+      Changes to terms: We reserve the right to change these terms and conditions at any time. Any changes will be posted on this page.
+    </Typography>
+    <Typography className={classes.text} component="p">
+      Contact us: If you have any questions or concerns, please contact us at support@ourservice.com.
+    </Typography>
+  </Paper>
 
   );
 };
-export default userAgreement;
+export default UserAgreement;
