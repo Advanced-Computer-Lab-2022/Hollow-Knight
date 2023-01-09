@@ -54,12 +54,12 @@ const CourseDetails = async (req,res) => {
 ```
 ## Badges
 
-[![MUI](https://img.shields.io/badge/Material%20UI-007FFF?style=for-the-badge&logo=mui&logoColor=white)](https://img.shields.io/badge/Material%20UI-007FFF?style=for-the-badge&logo=mui&logoColor=white)---------------------
-[![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white)]()---------------------
-[![MONGODB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)---------------------
-[![NODE.JS](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)---------------------
-[![REACT](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)---------------------
-[![EXPRESS.JS](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)---------------------
+[![MUI](https://img.shields.io/badge/Material%20UI-007FFF?style=for-the-badge&logo=mui&logoColor=white)](https://img.shields.io/badge/Material%20UI-007FFF?style=for-the-badge&logo=mui&logoColor=white)
+[![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white)]()
+[![MONGODB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+[![NODE.JS](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+[![REACT](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+[![EXPRESS.JS](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
 [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
 
 
@@ -85,39 +85,39 @@ const CourseDetails = async (req,res) => {
 
 ## Screenshots
 
-
+### Edit Profile Page for Instructor
 ![Profile Page Edit for Instructor](https://user-images.githubusercontent.com/101879923/211217965-196519a3-3822-4956-9209-df4094cd9695.png)
-### *Edit Profile Page for Instructor
 
+### Add a Course
 ![image3](https://user-images.githubusercontent.com/101879923/211219402-2daf3e0c-93cb-4774-ba04-ceaec231ca81.png)
-### *Add a Course
 
+### Discount For Course
 ![image2](https://user-images.githubusercontent.com/101879923/211218422-9bfab6f7-f1c2-4150-8bfd-6a110586ab7a.png)
-### *Discount For Course
 
+### Course Details
 ![Coursesdetails](https://user-images.githubusercontent.com/101879923/211218186-c54b7610-1028-4774-80d6-d088ed3ec08c.png)
-### *Course Details
 
+### Instructor_Reviews
 ![Instructor_Reviews](https://user-images.githubusercontent.com/101879923/211218556-c2947d4a-d2e6-4cda-ba62-fb2ab43ee831.png)
-### *Instructor_Reviews
 
 
-![image4](https://user-images.githubusercontent.com/101879923/211219449-32e64cfa-dfe2-48ee-8205-92ee018b228d.png)
 ### *Searching for Instructor
+![image4](https://user-images.githubusercontent.com/101879923/211219449-32e64cfa-dfe2-48ee-8205-92ee018b228d.png)
 
 
+### View all courses
 ![ViewAllcourses](https://user-images.githubusercontent.com/101879923/211218582-3c43d6b1-3cd6-42ba-b255-1e1110afdbb3.png)
-### *View all courses
 
-![ViewSubtitles](https://user-images.githubusercontent.com/101879923/211218614-2e2ad62b-7f66-4146-bc46-53956802dc0f.png)
 ### *View Course work page
+![ViewSubtitles](https://user-images.githubusercontent.com/101879923/211218614-2e2ad62b-7f66-4146-bc46-53956802dc0f.png)
 
+### View my courses
 ![ViewMyCourses](https://user-images.githubusercontent.com/101879923/211218634-f1097cd1-ee32-4cd6-ac62-4cb313e80686.png)
-### *View my courses
 
 
+### Reporting page info
 ![image](https://user-images.githubusercontent.com/101879923/211218230-08d6f991-d6c5-41ea-aad3-82d0c0c70bb7.png)
-### *Reporting page info
+
 ## Usage/Examples (Home Snippet)
 
 ```javascript
