@@ -74,7 +74,8 @@ const ViewMyCourses = () => {
             </Typography>
                &nbsp;&nbsp;
               <br></br>
-              <Button sx={{marginRight:5,marginLeft:0,marginBottom:5,width:200}}
+
+              <Button sx={{marginRight:0,marginLeft:0,marginBottom:5,width:190}}
               variant="contained"
                 onClick={() =>
                   (window.location.href = `coursecontent?courseId=${course._id}&&userId=${userId}`)
@@ -82,7 +83,7 @@ const ViewMyCourses = () => {
               >
                 Go to Course
               </Button>
-              <Button sx={{marginRight:5,marginLeft:5,marginBottom:5,width:200}}
+              <Button sx={{marginRight:0,marginLeft:5,marginBottom:5,width:190}}
               variant="contained"
                 onClick={() =>
                   (window.location.href = `rateinstructor?courseId=${course._id}&&userId=${userId}`)
@@ -90,7 +91,7 @@ const ViewMyCourses = () => {
               >
                 Rate Instructor
               </Button>
-              <Button sx={{marginRight:5,marginLeft:5,marginBottom:5,width:200}}
+              <Button sx={{marginRight:0,marginLeft:5,marginBottom:5,width:190}}
               variant="contained"
                 onClick={() =>
                   (window.location.href = `/ratecourse?courseId=${course._id}&&userId=${userId}`)
@@ -102,12 +103,12 @@ const ViewMyCourses = () => {
                 Rate Course
               </Button>
              
-              <Button sx={{marginRight:5,marginLeft:5,marginBottom:5,width:200}}
+              <Button sx={{marginRight:0,marginLeft:5,marginBottom:5,width:190}}
                 variant="contained" onClick={() => requestrefund(course)}>
                 {!requestSuccess&&<>Get A Refund</>}
                 {requestSuccess&&<>Requested</>}
               </Button>
-              <Button sx={{marginRight:5,marginLeft:5,marginBottom:5,width:200}}
+              <Button sx={{marginRight:0,marginLeft:5,marginBottom:5,width:190}}
               variant="contained"
                 onClick={() =>
                   (window.location.href = `/report?courseId=${course._id}&&userId=${userId}`)
@@ -118,7 +119,7 @@ const ViewMyCourses = () => {
 
 
               {course.traineeProgression == 100 && (
-                <Button sx={{marginLeft:5,marginBottom:5,width:200}}
+                <Button sx={{marginLeft:58,marginBottom:5,width:190}}
                 variant="contained"
                   onClick={() =>
                     (window.location.href = `coursecertificate?courseId=${course._id}&&userId=${userId}`)
