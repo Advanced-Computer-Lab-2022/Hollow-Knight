@@ -16,7 +16,15 @@ const Navbar = () => {
   }
   const handleViewCourses = async()=>{
 
-    navigate("viewallcourses");
+    navigate("/viewallcourses");
+  }
+  const handleLogin = async()=>{
+
+    navigate("/login");
+  }
+  const handleSign = async()=>{
+
+    navigate("/signup");
   }
   return (
     <header>
@@ -33,8 +41,8 @@ const Navbar = () => {
           )}
           {!user && (
           <div>
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Signup</Link>
+            <Button variant="outlined" onClick={handleLogin}>LogIn </Button>{"      "}
+            <Button variant="outlined" onClick={handleSign}>Sign Up </Button>
           </div>
           )}
           
