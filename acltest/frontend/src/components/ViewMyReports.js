@@ -151,7 +151,7 @@ const ViewMyReports = () => {
         value={comment}
 
         />
-         <button>Modify Comment</button>
+         <Button variant="contained">Modify Comment</Button>
         </form>}
                   
  </div>

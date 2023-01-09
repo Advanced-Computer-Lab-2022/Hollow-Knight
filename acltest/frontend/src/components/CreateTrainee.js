@@ -3,12 +3,16 @@ import React, {  useMemo } from "react";
 import { useSignup } from "../hooks/useSignup";
 import Select from "react-select";
 import countryList from "react-select-country-list";
+import Typography from '@mui/material/Typography';
+
 const CreateTrainee = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [country, setCountry] = useState("");
   const [countryAbb, setCountryAbb] = useState("");
   const [value, setValue] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
   const { signup, error, loading } = useSignup();
   const options = useMemo(() => countryList().getData(), []);
 const changeHandler = (value) => {
@@ -22,6 +26,16 @@ const changeHandler = (value) => {
     const first_name=""
     const last_name=""
     const gender=""
+    setEmailError(false)
+    if(!email){
+      setEmailError(true)
+      return
+    }
+    setPasswordError(false)
+    if(!password){
+      setPasswordError(true)
+      return
+    }
  
     await signup(
      email,
@@ -31,8 +45,7 @@ const changeHandler = (value) => {
      country,
      countryAbb,
      gender,
-     type
-       
+     type       
    );
 
 /*
@@ -66,12 +79,30 @@ const changeHandler = (value) => {
         value={email}
       />
 
+{emailError&&< Typography variant="h7"
+marginLeft={3} 
+color="red"
+fontSize={20}>
+You Must Enter An Email
+</Typography>
+
+}
+
       <label>password:</label>
       <input
         type="text"
         onChange={(e) => setPassword(e.target.value)}
         value={password}
       />
+
+{passwordError&&< Typography variant="h7"
+marginLeft={3} 
+color="red"
+fontSize={20}>
+You Must Enter a password
+</Typography>
+
+}
              <br></br>
              <label>Please Select A Country:</label>
       <br></br>
@@ -80,6 +111,8 @@ const changeHandler = (value) => {
 
       <button>Add Trainee</button>
     </form>
+
+    
   );
 };
 

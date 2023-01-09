@@ -72,7 +72,7 @@ const ViewMyCourses = () => {
             </Typography>
                &nbsp;&nbsp;
               <br></br>
-              <Button sx={{marginRight:5,marginLeft:26,marginBottom:5,width:200}}
+              <Button sx={{marginRight:5,marginLeft:0,marginBottom:5,width:200}}
               variant="contained"
                 onClick={() =>
                   (window.location.href = `coursecontent?courseId=${course._id}&&userId=${userId}`)
@@ -100,7 +100,7 @@ const ViewMyCourses = () => {
                 Rate Course
               </Button>
              
-              <Button sx={{marginRight:5,marginLeft:26,marginBottom:5,width:200}}
+              <Button sx={{marginRight:5,marginLeft:5,marginBottom:5,width:200}}
                 variant="contained" onClick={() => requestrefund(course)}>
                 {!requestSuccess&&<>Get A Refund</>}
                 {requestSuccess&&<>Requested</>}
