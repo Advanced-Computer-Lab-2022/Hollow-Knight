@@ -3,6 +3,9 @@ import{useLogin} from '../hooks/useLogin'
 import {Link} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 const Login=()=>{
   const navigate = useNavigate();
     const [email,setEmail] = useState('')
@@ -20,7 +23,9 @@ const handleSubmit =async (e)=>{
 }
 
     return(
-        <form className="login" onSubmit={handleSubmit}>
+      <Card sx={{ minWidth: 275 }}>
+        <CardContent>
+        <form className="login">
         <h3>Log In</h3>
         
         <label>Email address:</label>
@@ -37,15 +42,17 @@ const handleSubmit =async (e)=>{
         />
 
   
-        <button disabled={loading}>Log in</button>
+        <Button  variant="contained" disabled={loading} onClick={handleSubmit}>Log in</Button>
         
         <br></br>
-
+        <br></br>
         <Link to="/forgotpassword">Forgot Password</Link>
         
 
         {error && <div className="error">{error}</div>}
       </form>
+      </CardContent>
+      </Card>
     )    
 }
 export default Login

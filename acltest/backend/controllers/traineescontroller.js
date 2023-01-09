@@ -273,8 +273,9 @@ const FindCourses = async (req, res) => {
             //const token = await createtoken(user._id);
 
             //const url = `http://localhost:5000/api/users/changepassword/` + token;
+            const course = await Course.findOne({_id:currentcourse})
             const url2 =
-              `http://localhost:3000//downloadcertificate?course=${obj.title}`
+              `http://localhost:3000/downloadcertificate?course=${course.title}`
 
             nodeoutlook.sendEmail({
               auth: {
@@ -557,34 +558,39 @@ const updateTraineeInfo= async (req, res) => {
   const instruct = "Instructor";
   var token =getTokenFromHeader(req);
   const userid = getUserIdFromToken(token)
- 
-try{
+  const updatemail = await User.findById(userid)
+  console.log("hi")
+  try{
     if (req.body.email) {
-      const updatemail = await User.findByIdAndUpdate(userid,
+      updatemail = await User.findByIdAndUpdate(userid,
         { email: req.body.email }
       );
 
     }
+  }catch(error){
+    
+  }
+try{
     if (req.body.first_name) {
-      const updatemail = await User.findByIdAndUpdate(userid,
+       updatemail = await User.findByIdAndUpdate(userid,
         { first_name: req.body.first_name }
       );
 
     }
     if (req.body.last_name) {
-      const updatemail = await User.findByIdAndUpdate(userid,
+      updatemail = await User.findByIdAndUpdate(userid,
         { last_name: req.body.last_name }
       );
 
     }
     if (req.body.country) {
-      const updatemail = await User.findByIdAndUpdate(userid,
+      updatemail = await User.findByIdAndUpdate(userid,
         { country: req.body.country, countryAbb: req.body.countryAbb }
       );
 
     }
 
-    res.status(200).json("success");
+    return res.status(200).json(updatemail);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

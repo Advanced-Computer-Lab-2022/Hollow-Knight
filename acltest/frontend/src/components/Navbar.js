@@ -2,13 +2,21 @@ import { Link } from "react-router-dom";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
 const Navbar = () => {
   const { logout } = useLogout();
   const { user } = useAuthContext();
   const navigate = useNavigate();
-  const handleClick = () => {
+  const handleClick = async() => {
     logout()
+    window.location.reload();
     navigate("/login")
+    window.location.reload();
+
+  }
+  const handleViewCourses = async()=>{
+
+    navigate("viewallcourses");
   }
   return (
     <header>
@@ -18,8 +26,9 @@ const Navbar = () => {
         </Link>
         <nav>
           {user &&(<div>
-           <span>{user.email}</span>
-            <button onClick={handleClick}>Log out </button>
+           <span>{user.email}</span>{" "}
+            <Button variant="outlined" onClick={handleClick}>Log out </Button>{"      "}
+            <Button variant="outlined" onClick={handleViewCourses}>View All Courses </Button>
           </div>
           )}
           {!user && (
@@ -28,7 +37,7 @@ const Navbar = () => {
             <Link to="/signup">Signup</Link>
           </div>
           )}
-          <Link to="/viewallcourses">View all courses</Link>
+          
         </nav>
       </div>
     </header>

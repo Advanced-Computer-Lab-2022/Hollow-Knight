@@ -11,14 +11,17 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
-
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Grid from '@mui/material/Grid';
 
 
 const useStyles = makeStyles(() => ({
+  
   root: {
-    textAlign: 'center',  
+    textAlign: 'center', 
        //make background color blue
-    backgroundColor: '#e6f2ff',
+    backgroundColor: '#ffffff',
 
     display: 'flex',
     flexDirection: 'column',
@@ -67,13 +70,21 @@ const Signup = () => {
   };
   const classes = useStyles();
   return (
-    <Box
-      component="form"
-      className={classes.root}
-      onSubmit={handleSubmit}
-      //centered
-    
+    <Grid
+    container
+    spacing={0}
+    direction="column"
+    alignItems="center"
+    justify="center"
+    style={{ minHeight: '100vh' }}
+   >
+    <Grid item xs={3} sx={{ maxWidth: 1000 }}>
+    <Card
+    component="form"
+    className={classes.root}
+    sx={{ width: 500 }}
     >
+      <CardContent>
       <h3>Sign up</h3>
       <Input
         label="First Name"
@@ -82,7 +93,8 @@ const Signup = () => {
         value={first_name}
         onChange={(e) => setFirstName(e.target.value)}
       />
-      
+         <br></br>
+         <br></br>
       <Input
         label="Last Name"
         type="text"
@@ -90,9 +102,9 @@ const Signup = () => {
         value={last_name}
         onChange={(e) => setLastName(e.target.value)}
       />
-      
+               <br></br>
 <br></br>
-      Gender
+      Gender {"  "}
       <Select
         value={gender}
         label="Gender"
@@ -105,8 +117,9 @@ const Signup = () => {
 
         <MenuItem value={"female"}>Female</MenuItem>
       </Select>
-
-      Country
+      <br></br>
+      <br></br>
+      Country {"  "}
       <Select value={value} 
       label="Country"
       onChange={changeHandler}>
@@ -116,6 +129,7 @@ const Signup = () => {
           </MenuItem>
         ))}
       </Select>
+      <br></br>         <br></br>
       <Input
         label="Email"
         type="email"
@@ -123,7 +137,7 @@ const Signup = () => {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-    
+             <br></br>         <br></br>
       <Input
         label="Password"
         type="password"
@@ -131,12 +145,15 @@ const Signup = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-     
-      <Button disabled={loading} type="submit">
+              <br></br>         <br></br>
+      <Button variant="contained" disabled={loading} type="submit" onClick={handleSubmit}>
         Sign up
       </Button>
       {error && <div className="error">{error}</div>}
-    </Box>
+      </CardContent>
+    </Card>
+    </Grid>
+    </Grid>
   );
 };
 export default Signup;
