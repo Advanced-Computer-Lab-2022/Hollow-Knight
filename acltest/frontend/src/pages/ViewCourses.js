@@ -165,7 +165,7 @@ const ViewCourses = () => {
                 placeholder="Search…"
                 inputProps={{ 'aria-label': 'search' }}
             />
-        </Search>      <Button sx={{marginLeft:113,marginTop:-11,fontSize:28}}  type="submit"  variant="contained">Search</Button>
+        </Search>    <Button sx={{marginLeft:115,marginTop:-11,fontSize:28}}  type="submit"  variant="contained">Search</Button>
       </Box>
 
   </form>
@@ -206,7 +206,7 @@ const ViewCourses = () => {
         onChange={(e) =>{ setOthervalue(e.target.value) ; setPricef(e.target.value)}}
         />}
       </FormControl>
-      <Button sx={{marginLeft:10,fontSize:26}} variant="contained"
+  <Button sx={{marginLeft:17,fontSize:26}} variant="contained"
         onClick={handler}
         >Filter</Button>
     </Box>
