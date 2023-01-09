@@ -12,6 +12,7 @@ const ViewMyCourses = () => {
   const [requestSuccess,setRequest]=useState(false)
   console.log(user);
   useEffect(() => {
+    if(user){
     const fetchCourses = async () => {
       const response = await fetch(`/api/trainees/getmycourses`, {
         method: "GET",
@@ -29,8 +30,9 @@ const ViewMyCourses = () => {
     };
 
     fetchCourses();
+
     console.log("here");
-    console.log(courses);
+    console.log(courses);}
   }, [user]);
 
   const requestrefund = async (course) => {
