@@ -11,7 +11,8 @@ const Login=()=>{
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
     const { user } = useAuthContext();
-
+    if(user)
+      navigate("/gettype");
 const {login,error,loading} = useLogin()
 const handleSubmit =async (e)=>{
     e.preventDefault()

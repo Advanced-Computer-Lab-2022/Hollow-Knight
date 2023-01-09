@@ -83,7 +83,7 @@ const TraineeProfile = () => {
         const trainee = {first_name, last_name,email,country,countryAbb}
 
         const response = await fetch('/api/trainees/updateinfo', {
-            method: 'POST',
+            method: 'PATCH',
             body: JSON.stringify(trainee),
             headers: {
                 'Content-Type' : 'application/json',

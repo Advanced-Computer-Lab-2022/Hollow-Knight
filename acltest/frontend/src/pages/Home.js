@@ -10,7 +10,7 @@ const Home = () => {
     
     if(!user)
       navigate("/login");
-    else
+    if(user)
       navigate("/gettype");
     
 
@@ -18,7 +18,7 @@ const Home = () => {
 
 
 
-},[])
+},[user])
 
 }
 

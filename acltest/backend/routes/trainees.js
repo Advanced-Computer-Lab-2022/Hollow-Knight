@@ -48,7 +48,7 @@ router.patch("/getexam", getexam);
 
 router.post("/addcomment", addcomment);
 router.get("/viewmyreports", viewmyreports);
-router.post("/updateinfo", updateTraineeInfo);
+router.patch("/updateinfo", updateTraineeInfo);
 router.patch("/isregistered", isRegistered);
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {

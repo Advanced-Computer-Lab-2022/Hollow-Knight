@@ -558,19 +558,17 @@ const updateTraineeInfo= async (req, res) => {
   const instruct = "Instructor";
   var token =getTokenFromHeader(req);
   const userid = getUserIdFromToken(token)
-  const updatemail = await User.findById(userid)
+  var updatemail = await User.findById(userid)
   console.log("hi")
-  try{
-    if (req.body.email) {
-      updatemail = await User.findByIdAndUpdate(userid,
-        { email: req.body.email }
-      );
 
-    }
-  }catch(error){
-    
-  }
 try{
+  if (req.body.email!=null) {
+    console.log(0)
+    updatemail = await User.findByIdAndUpdate(userid,
+      { email: req.body.email }
+    );
+
+  }
     if (req.body.first_name) {
        updatemail = await User.findByIdAndUpdate(userid,
         { first_name: req.body.first_name }
@@ -584,15 +582,16 @@ try{
 
     }
     if (req.body.country) {
+
       updatemail = await User.findByIdAndUpdate(userid,
         { country: req.body.country, countryAbb: req.body.countryAbb }
       );
-
     }
-
     return res.status(200).json(updatemail);
+
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.log(error)
+    return res.status(400).json({ error: error.message });
   }
 
 
