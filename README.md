@@ -5,7 +5,7 @@ A web application for online learning in which anyone can submit and attend cour
 evaluations, quizzes, and exams to help students to become experts in their fields in no time with the help of many professional teachers and authors.  
 
 
-## Motivation
+## Motivation 💪
 
 The creation of the project came after the realization of the struggles met in terms
 of limitations of learning methods that students face in real life.
@@ -1335,10 +1335,10 @@ Bearer token of the instructor
 
 
 
-## Contributing
+## Contributing 😇
 
-Contributions are what make the open source community such an amazing place to inspire and create ❤️. 
-Any contributions you make are greatly appreciated 😇.
+Contributions are what make the open source community such an amazing place to inspire and create. 
+Any contributions you make are greatly appreciated ❤️.
 
 If you have a suggestion that would make this better, please fork the repo and create a pull request.
 You can also simply open an issue with the tag "enhancement". Don't forget to give the project a star! Thanks again! 
