@@ -162,6 +162,8 @@ const publish=async(e)=>
   });
     if(response.ok){
       console.log("updated")
+      window.location.reload()
+
     }
   }
   
@@ -183,6 +185,8 @@ const close=async(e)=>
 });
 if(response.ok){
   console.log("updated")
+  window.location.reload()
+
 }
 }
 
