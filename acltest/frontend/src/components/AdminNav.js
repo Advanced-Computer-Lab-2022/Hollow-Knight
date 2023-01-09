@@ -40,7 +40,6 @@ export default function AdminNav({state}) {
         <BottomNavigationAction label="View Requests" icon={<FavoriteIcon />} />
         <BottomNavigationAction label="View Reports" icon={<LocationOnIcon />} />
         <BottomNavigationAction label="Apply Discount" icon={<LocationOnIcon />} />
-        <BottomNavigationAction label="Issue Refund" icon={<LocationOnIcon />} />
       </BottomNavigation>
     </Box>
   );

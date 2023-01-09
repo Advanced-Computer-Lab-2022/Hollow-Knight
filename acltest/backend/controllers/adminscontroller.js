@@ -189,6 +189,7 @@ const addfunds = async (req, res) => {
     const refundadded = await Trainee.findOne({_id : cq.traineeid})
     const refundpart = refundadded.wallet
     const returnit = await Trainee.findOneAndUpdate({_id : cq.traineeid}, {wallet : (refundpart + refunding)})
+    const cq2 = await Refunds.findOneAndDelete({_id : req.query.refundId});
     res.status(200).json("success!");
 
 }
