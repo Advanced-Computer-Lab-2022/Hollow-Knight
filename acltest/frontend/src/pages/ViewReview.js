@@ -4,6 +4,9 @@ import { Container } from '@mui/system';
 import RatingCard from '../components/RatingCard';
 import Rating from '@mui/material/Rating';
 import { useAuthContext } from "../hooks/useAuthContext";
+import  Button  from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+
 const { useState } = require("react");
 const ViewReview = () => {
    
@@ -45,21 +48,31 @@ const ViewReview = () => {
     return(
         <div >
           
-          <h1> Course Reviews </h1> 
+          <Typography variant='h3' align='center' sx={{marginTop:3,marginBottom:3}}> Course Reviews </Typography> 
        
        <form className="view" onSubmit={getCourses} >
-       <label>Title:</label>
-            <input
-            type="text"
-            onChange={(e) => setTitle(e.target.value)}
-            value={title}
-            />
-            <button>Search</button>  
+     
+<TextField
+       sx={{width:600,marginLeft:50,marginTop:5}}
+        fullWidth
+        type="text"
+        onChange={(e) => setTitle(e.target.value)}
+        value={title}
+        label="Title"
+        />
+
+
+            <Button  type="submit" variant="contained" sx={{marginLeft:120,marginTop:4}}>Search</Button>  
             </form>
-<h5> Available Reviews </h5> 
+
     
 <Container>
    { courses&& <div>
+
+    <Typography
+sx={{marginLeft:50,marginTop:7,marginBottom:10}}
+variant="h3"
+> Available Reviews </Typography> 
       <Grid container>
 
         <Grid item xs={3} xl={3}>
