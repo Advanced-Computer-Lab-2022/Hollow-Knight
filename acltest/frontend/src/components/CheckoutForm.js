@@ -2,6 +2,7 @@ import { PaymentElement } from "@stripe/react-stripe-js";
 import { useState } from "react";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { Button, Card, CardContent } from "@mui/material";
 export default function CheckoutForm() {
   const params = new URLSearchParams(window.location.search);
   const courseId = params.get("courseId");
@@ -56,15 +57,20 @@ export default function CheckoutForm() {
   };
 
   return (
+    <Card>
+    <CardContent>
     <form id="payment-form" onSubmit={handleSubmit}>
       <PaymentElement id="payment-element" />
-      <button disabled={isProcessing || !stripe || !elements} id="submit">
+      <br></br>
+      <Button variant="contained" disabled={isProcessing || !stripe || !elements} id="submit">
         <span id="button-text">
           {isProcessing ? "Processing ... " : "Pay now"}
         </span>
-      </button>
+      </Button>
       {/* Show any error or success messages */}
       {message && <div id="payment-message">{message}</div>}
     </form>
+    </CardContent>
+    </Card>
   );
 }
