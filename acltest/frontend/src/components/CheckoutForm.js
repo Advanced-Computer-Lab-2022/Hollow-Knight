@@ -59,10 +59,10 @@ export default function CheckoutForm() {
   return (
     <Card>
     <CardContent>
-    <form id="payment-form" onSubmit={handleSubmit}>
+    <form id="payment-form">
       <PaymentElement id="payment-element" />
       <br></br>
-      <Button variant="contained" disabled={isProcessing || !stripe || !elements} id="submit">
+      <Button onClick={handleSubmit} variant="contained" disabled={isProcessing || !stripe || !elements} id="submit">
         <span id="button-text">
           {isProcessing ? "Processing ... " : "Pay now"}
         </span>
