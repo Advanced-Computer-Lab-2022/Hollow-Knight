@@ -772,13 +772,14 @@ const getmonthlypay = async (req, res) => {
     return res.status(400).json({ error: "couldn't find instructor" });
   }
 
-  var instructorid = instrcutor._id;
+  const instructorid = instrcutor._id;
   var pays;
   var totalamount = 0;
+  console.log("here",instructorid)
   try {
     pays = await Payments.find({ instructorid: instructorid });
 
-    console.log(pays);
+    console.log(pays,"-----");
   } catch (error) {
     return res.status(400).json({ error: "couldn't find payments" });
   }

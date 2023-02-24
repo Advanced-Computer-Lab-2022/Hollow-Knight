@@ -65,6 +65,7 @@ import TraineeProfile from "./components/TraineeProfile";
 import GetType from "./components/GetType";
 import PreviewVideo from "./pages/PreviewVideo";
 import ViewSub from "./pages/ViewSub";
+import viewuseragreement from "./pages/viewuseragrement"
 function App() {
 const  {user} = useAuthContext();
   return (
@@ -227,7 +228,7 @@ const  {user} = useAuthContext();
 
              <Route path = "/viewreports" element={<ReportsView/>}/>
 
-              <Route path="/userAggrement" element={<userAgreement/>} />
+              <Route path="/userAggrement" element={<viewuseragreement/>} />
              <Route path = "/selectdiscounts" element={<AdminDiscounts/>}/>
 
              <Route path="/getwallet" element={<Wallet />} />

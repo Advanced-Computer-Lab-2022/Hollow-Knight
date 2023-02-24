@@ -52,7 +52,7 @@ const Resetpass = () => {
             value={newPassword}
             />
 
-            <Button variant="contained">submit</Button>
+            <Button type="submit" variant="contained">submit</Button>
             {error && <div className="error">{error}</div>}
         </form>
     )

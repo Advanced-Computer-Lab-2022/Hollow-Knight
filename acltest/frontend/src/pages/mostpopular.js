@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 
-
 const MostPopular = () => {
 
 const [mostPopular, setMostPopular] = useState([]);

@@ -103,11 +103,11 @@ const ViewMyCourses = () => {
                 Rate Course
               </Button>
              
-              <Button sx={{marginRight:0,marginLeft:5,marginBottom:5,width:190}}
+              {course.traineeProgression<50&&<Button sx={{marginRight:0,marginLeft:5,marginBottom:5,width:190}}
                 variant="contained" onClick={() => requestrefund(course)}>
                 {!requestSuccess&&<>Get A Refund</>}
                 {requestSuccess&&<>Requested</>}
-              </Button>
+              </Button>}
               <Button sx={{marginRight:0,marginLeft:5,marginBottom:5,width:190}}
               variant="contained"
                 onClick={() =>

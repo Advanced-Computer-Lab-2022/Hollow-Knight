@@ -79,9 +79,12 @@ const updateCourseRating = async (req, res) => {
   const userid = getUserIdFromToken(getTokenFromHeader(req));
   const trainee = await Trainee.findOne({ userid: userid });
   const { courseId, rating, review } = req.body;
-  const course = await Courses.findOne({ id: courseId });
+  console.log(courseId,"---------------")
+  const course = await Courses.findById( courseId );
+
   const updatedArray = course.review;
-  console.log(course.review);
+  console.log(course._id,"here");
+  //console.log(rating,review,"here")
   const searchedRating = updatedArray.find(
     (element) => element.userid == userid
   );
@@ -109,13 +112,13 @@ const updateCourseRating = async (req, res) => {
   }
   overallRating = Math.round((overallRating / counter) * 10) / 10;
 
-  const updated = await Courses.findOneAndUpdate(
-    { id: courseId },
+  const updated = await Courses.findByIdAndUpdate(
+    courseId ,
     { review: updatedArray, overallRating: overallRating }
   );
-  console.log(overallRating);
-  console.log(updated.overallRating);
-  console.log(updated);
+  //console.log(overallRating);
+  //console.log(updated.overallRating);
+  //console.log(updated);
   return res.status(200).json(updated);
 };
 
@@ -184,7 +187,7 @@ const addCourseToTrainee = async (req, res) => {
     
 
       // ===================== mostafa adding this code
-    const course = await Course.findOne({ id: req.body.courseId });
+    const course = await Course.findById(req.body.courseId );
     course.numberOfTrainees++;
     const updatedCourse = await Course.findOneAndUpdate(
       { id

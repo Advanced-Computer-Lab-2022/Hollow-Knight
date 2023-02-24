@@ -38,7 +38,7 @@ const Forgotpassword = () => {
             />
              
 
-            <Button variant="contained">FORGET PASS</Button>
+            <Button type="submit" variant="contained">FORGET PASS</Button>
         </form>
         </>
     )
